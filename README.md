@@ -59,7 +59,28 @@ python -S tests\contrib\workbuddy\demo_stock_partner.py
 
 ## 本地 LLM 真调（Ollama）
 
-前置：Ollama 已安装且 `http://127.0.0.1:11434` 可访问，至少有一个聊天模型（推荐 `qwen2.5:1.5b`）。
+前置：Ollama 已安装且 `http://127.0.0.1:11434` 可访问。
+
+### 按需求匹配并下载
+
+| profile | 场景 | 推荐模型 | 约体积 |
+|---------|------|----------|--------|
+| `smoke` | CI / 2 人冒烟 | `qwen2.5:1.5b` | ~1 GB |
+| `team` | 中文 Team（2–4 人，默认） | `qwen2.5:3b` | ~2 GB |
+| `team-full` | 6 人专家团 | `qwen2.5:7b` | ~4.7 GB |
+| `strong` | 更高质量综合 | `qwen2.5:14b` | ~9 GB |
+
+```powershell
+$env:OLLAMA_MODELS = "$env:USERPROFILE\.ollama\models"
+# 只匹配
+python -S -m octop.contrib.workbuddy.team.match_cli --profile team --vram-gb 4
+# 匹配并拉取
+python -S -m octop.contrib.workbuddy.team.match_cli --profile team --vram-gb 4 --pull
+# 查看目录
+python -S -m octop.contrib.workbuddy.team.match_cli --list
+```
+
+已安装模型若档位低于需求（例如只要有 `1.5b` 但 profile=`team`），会推荐并拉取更高档，不会误用过弱模型。
 
 若 `OLLAMA_MODELS` 指向损坏的 junction（例如错误的 `C:\ollama_models`），服务会起不来。可临时：
 
@@ -68,9 +89,10 @@ $env:OLLAMA_MODELS = "$env:USERPROFILE\.ollama\models"
 & "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" serve
 ```
 
-跑 Team 真调（默认最多 2 名成员，适配小模型）：
+跑 Team 真调（默认最多 2 名成员；`team` 档用 3b）：
 
 ```powershell
+$env:WB_LLM_MODEL = "qwen2.5:3b"
 python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --max-members 2
 ```
 

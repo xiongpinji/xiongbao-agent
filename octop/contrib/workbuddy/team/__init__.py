@@ -15,15 +15,18 @@ from .models import (
     TeamRunResult,
 )
 from .llm import LocalLLMCaller, OpenAICompatCaller
+from .models_catalog import ModelSpec, MatchResult, match_model, pull_model
 from .parser import parse_team_soul, write_team_artifacts
 from .probe import ProbeResult, probe_local_llm
 from .runtime import MemberCaller, MockMemberCaller, TeamAgentRuntime
 
 __all__ = [
     "LocalLLMCaller",
+    "MatchResult",
     "MemberCaller",
     "MemberOutput",
     "MockMemberCaller",
+    "ModelSpec",
     "OpenAICompatCaller",
     "ProbeResult",
     "TeamAgentRuntime",
@@ -31,7 +34,9 @@ __all__ = [
     "TeamMember",
     "TeamPhase",
     "TeamRunResult",
+    "match_model",
     "parse_team_soul",
     "probe_local_llm",
+    "pull_model",
     "write_team_artifacts",
 ]

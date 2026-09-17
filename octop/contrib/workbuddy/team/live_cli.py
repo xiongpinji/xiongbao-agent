@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -57,8 +58,9 @@ def main(argv: list[str] | None = None) -> int:
         print("FAIL: no local LLM endpoint reachable", file=sys.stderr)
         return 2
 
-    model = args.model or probe.preferred_model
-    base = args.base_url or probe.base_url
+    # Priority: --model > WB_LLM_MODEL > probe preferred (often smallest)
+    model = args.model or os.environ.get("WB_LLM_MODEL") or probe.preferred_model
+    base = args.base_url or os.environ.get("WB_LLM_BASE_URL") or probe.base_url
     print(f"smoke chat → {base} model={model}")
     try:
         smoke = chat_smoke(base_url=base, model=model)
