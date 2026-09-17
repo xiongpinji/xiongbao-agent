@@ -1,8 +1,6 @@
-# V1 Deliverable Checklist
+# Deliverable Checklist
 
-**Status: READY** (verified locally, including Ollama live team)
-
-## Acceptance
+## V1 — READY
 
 ```powershell
 powershell -File scripts\ensure_ollama.ps1
@@ -23,15 +21,40 @@ python -S scripts\verify_v1.py
 | Match+pull `team` → `qwen2.5:3b` | OK |
 | Live Ollama Team (`qwen2.5:3b`, 2 members) | OK |
 
-## Artifacts
+Artifacts: `artifacts/bench/`, `artifacts/live_team/report.json`, `artifacts/live_team/match_team.json`.
 
-- `artifacts/bench/` — smoke sample / metrics / report
-- `artifacts/live_team/report.json` — local LLM team run
-- `artifacts/live_team/match_team.json` — profile match + pull result
+## V2 — READY (Teach → Routine MVP)
 
-## Local LLM
+```powershell
+python -S tests\contrib\workbuddy\test_teach_routine.py
+# → ALL TEACH/ROUTINE TESTS OK
 
-按需求匹配并下载：
+python -S -m octop.contrib.workbuddy.teach_cli demo
+# → TEACH/ROUTINE DEMO OK
+```
+
+| Check | Result |
+|---|---|
+| Record → draft → approve → dry run | OK |
+| Test mode requires confirm | OK |
+| Bot routine limit (max 50 default; test uses 2) | OK |
+| Demo Notion PR → Feishu (recorded path) | OK |
+
+Artifacts: `artifacts/teach_routine/demo_report.json`.
+
+### V2 CLI
+
+```powershell
+python -S -m octop.contrib.workbuddy.teach_cli demo
+python -S -m octop.contrib.workbuddy.teach_cli list
+python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry
+python -S -m octop.contrib.workbuddy.teach_cli approve --name <skill>
+python -S -m octop.contrib.workbuddy.teach_cli create-routine --skill <skill> --bot-id bot-1
+```
+
+Safety gates: human approve before create; dry/test/live modes; high-risk steps need approval; stale_data_policy 不复用昨日数据；每 bot 最多 50 routines，保留最近 20 次 run。
+
+## Local LLM（V1）
 
 ```powershell
 powershell -File scripts\ensure_ollama.ps1
@@ -42,9 +65,9 @@ python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --m
 
 Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `WB_LLM_API_KEY`.
 
-## Out of scope (V2 / enterprise)
+## Out of scope (later)
 
-- Teach recorder + Routine engine
+- CDP / 浏览器真录制；LLM 自动 drafter；APScheduler 常驻调度
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
-- Full 6-member live team on tiny local models (use `--max-members 0` when using a stronger model)
+- Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

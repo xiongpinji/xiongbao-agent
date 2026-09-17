@@ -1,6 +1,6 @@
-# xiongbao-agent — Octop × WorkBuddy V1
+# xiongbao-agent — Octop × WorkBuddy
 
-可商用的自托管多 Agent 工作台：**TencentCloud/Octop** + WorkBuddy 专家库 / Team 运行时。
+可商用的自托管多 Agent 工作台：**TencentCloud/Octop** + WorkBuddy 专家库 / Team / Teach·Routine。
 
 | 项 | 说明 |
 |---|---|
@@ -9,24 +9,31 @@
 | 评测框架 | `vendor/workbuddy-bench`（官方 Harbor 框架；题库需另下） |
 | 本仓库远程 | https://github.com/xiongpinji/xiongbao-agent.git |
 
-## V1 交付范围
+## 交付范围
 
-已完成：
+**V1（已完成）**
 
 1. **wb2octop 转换器** — 246 专家 → Octop `experts/library/`（245 OK / 1 skip）
 2. **Team 运行时** — Supervisor（lead + members），33 个 team 可 materialize
 3. **投研 Demo** — `StockPartnerTeam` / `TradingAgentTeam` mock 跑通
 4. **Smoke Bench 50 题** — 33 team + 17 agent，结构化 JSONL 指标
-5. **验收脚本** — `scripts/verify_v1.py`
+5. **本地 LLM** — Ollama OpenAI 兼容调用 + profile→模型匹配下载
+6. **验收脚本** — `scripts/verify_v1.py`
 
-延后到 V2：Teach 录制 / Routine 引擎（原计划阶段 3）。  
-延后到企业版：Casdoor RBAC / Milvus / systemd（原计划阶段 5 重型部分）。
+**V2（已完成 MVP）**
+
+1. **Teach recorder** — 录制 navigate/read/decision/message 步骤
+2. **SkillDraft** — 从录音生成草稿，人工 `approve` 后才能建 Routine
+3. **Routine 引擎** — dry / test / live；安全闸门与 bot 上限；run 持久化
+4. **CLI + 单测** — `teach_cli` + `test_teach_routine.py`
+
+延后：CDP 真录制 / LLM drafter / APScheduler；企业版 Casdoor / Milvus / systemd。
 
 ## 目录要点
 
 ```
 octop/
-  contrib/workbuddy/          # wb2octop + team + bench
+  contrib/workbuddy/          # wb2octop + team + bench + teach + routine
   src/octop/.../library/      # 转换后的专家包
 vendor/
   workbuddy-experts/
@@ -36,6 +43,7 @@ vendor/
 tests/contrib/workbuddy/
 scripts/verify_v1.py
 artifacts/bench/              # 评测输出（gitignore）
+artifacts/teach_routine/      # Teach/Routine demo 输出
 ```
 
 ## 快速验证（Windows / 无 pytest）
@@ -97,6 +105,26 @@ python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --m
 ```
 
 环境变量：`WB_LLM_BASE_URL`（默认 `http://127.0.0.1:11434/v1`）、`WB_LLM_MODEL`、`WB_LLM_API_KEY`。
+
+## V2 Teach → Routine
+
+```powershell
+# 单元测试
+python -S tests\contrib\workbuddy\test_teach_routine.py
+
+# 端到端 demo（Notion PR → 飞书，录制路径；dry run）
+python -S -m octop.contrib.workbuddy.teach_cli demo
+
+# 列表 / 审批 / 创建 / 执行
+python -S -m octop.contrib.workbuddy.teach_cli list
+python -S -m octop.contrib.workbuddy.teach_cli approve --name notion-pr-to-feishu
+python -S -m octop.contrib.workbuddy.teach_cli create-routine --skill notion-pr-to-feishu --bot-id bot-1
+python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry
+```
+
+模式：`dry`（不落地副作用）→ `test`（需确认）→ `live`。高风险步骤需审批；默认每 bot ≤50 条 Routine。
+
+详见 `DELIVERABLE.md`。
 
 ## 转换专家（如需重跑）
 
