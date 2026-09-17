@@ -34,6 +34,7 @@ def main() -> int:
         ("converter unit tests", [py, "-S", "tests/contrib/workbuddy/run_tests.py"]),
         ("team runtime tests", [py, "-S", "tests/contrib/workbuddy/test_team_runtime.py"]),
         ("bench unit tests", [py, "-S", "tests/contrib/workbuddy/test_bench.py"]),
+        ("local llm unit tests", [py, "-S", "tests/contrib/workbuddy/test_local_llm.py"]),
         (
             "smoke-50 bench",
             [
@@ -49,6 +50,23 @@ def main() -> int:
             ],
         ),
         ("stock partner demo", [py, "-S", "tests/contrib/workbuddy/demo_stock_partner.py"]),
+        (
+            "live local llm team",
+            [
+                py,
+                "-S",
+                "-m",
+                "octop.contrib.workbuddy.team.live_cli",
+                "--expert",
+                "StockPartnerTeam",
+                "--max-members",
+                "2",
+                "--max-tokens",
+                "384",
+                "--out",
+                "artifacts/live_team/report.json",
+            ],
+        ),
     ]
     failed: list[str] = []
     for label, argv in steps:

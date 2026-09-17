@@ -55,7 +55,26 @@ python -S -m octop.contrib.workbuddy.bench.cli --sample 50 --out-dir artifacts\b
 python -S tests\contrib\workbuddy\demo_stock_partner.py
 ```
 
-通过标准：单元测试全绿；smoke-50 **pass rate ≥ 90%**。
+通过标准：单元测试全绿；smoke-50 **pass rate ≥ 90%**；若本机 Ollama 可用则 live team 真调通过。
+
+## 本地 LLM 真调（Ollama）
+
+前置：Ollama 已安装且 `http://127.0.0.1:11434` 可访问，至少有一个聊天模型（推荐 `qwen2.5:1.5b`）。
+
+若 `OLLAMA_MODELS` 指向损坏的 junction（例如错误的 `C:\ollama_models`），服务会起不来。可临时：
+
+```powershell
+$env:OLLAMA_MODELS = "$env:USERPROFILE\.ollama\models"
+& "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" serve
+```
+
+跑 Team 真调（默认最多 2 名成员，适配小模型）：
+
+```powershell
+python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --max-members 2
+```
+
+环境变量：`WB_LLM_BASE_URL`（默认 `http://127.0.0.1:11434/v1`）、`WB_LLM_MODEL`、`WB_LLM_API_KEY`。
 
 ## 转换专家（如需重跑）
 
