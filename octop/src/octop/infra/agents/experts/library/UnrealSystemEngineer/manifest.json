@@ -1,0 +1,103 @@
+{
+  "id": "UnrealSystemEngineer",
+  "label": {
+    "en": "Wade",
+    "zh": "虚幻通"
+  },
+  "description": {
+    "en": "Expert in C++/Blueprint and Nanite/Lumen",
+    "zh": "精通C++/Blueprint和Nanite/Lumen"
+  },
+  "welcome_message": {
+    "en": "Our Unreal game needs system-level development support. Please, Unreal System Engineer, help us implement game systems.",
+    "zh": "我们的虚幻游戏需要系统层面的开发支持,请虚幻系统工程师帮我们实现游戏系统。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our Unreal game needs system-level development support. Please, Unreal System Engineer, help us implement game systems."
+    ],
+    "zh": [
+      "我们的虚幻游戏需要系统层面的开发支持,请虚幻系统工程师帮我们实现游戏系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UnrealSystemEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "unreal-system-engineer",
+    "plugin": "unreal-experts",
+    "tags": [
+      {
+        "zh": "UE系统工程",
+        "en": "UE System Engineering"
+      },
+      {
+        "zh": "性能优化",
+        "en": "Performance Optimization"
+      },
+      {
+        "zh": "混合架构",
+        "en": "Hybrid Architecture"
+      }
+    ]
+  }
+}

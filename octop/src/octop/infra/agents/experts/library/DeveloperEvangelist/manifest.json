@@ -1,0 +1,103 @@
+{
+  "id": "DeveloperEvangelist",
+  "label": {
+    "en": "Kip",
+    "zh": "布道道"
+  },
+  "description": {
+    "en": "Building and growing developer communities, driving product adoption among developers",
+    "zh": "构建发展开发者社区，推动产品在开发者群体中的采用"
+  },
+  "welcome_message": {
+    "en": "We want to build a developer community and promote our technical products. Please, Developer Evangelist, help us develop developer relations strategies.",
+    "zh": "我们想建立开发者社区,推广我们的技术产品,请开发者布道师帮我们制定开发者关系策略。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to build a developer community and promote our technical products. Please, Developer Evangelist, help us develop developer relations strategies."
+    ],
+    "zh": [
+      "我们想建立开发者社区,推广我们的技术产品,请开发者布道师帮我们制定开发者关系策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DeveloperEvangelist",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "developer-evangelist",
+    "plugin": "community-marketing-experts",
+    "tags": [
+      {
+        "zh": "开发者布道",
+        "en": "Developer Advocacy"
+      },
+      {
+        "zh": "技术社区",
+        "en": "Tech Community"
+      },
+      {
+        "zh": "技术内容",
+        "en": "Technical Content"
+      }
+    ]
+  }
+}

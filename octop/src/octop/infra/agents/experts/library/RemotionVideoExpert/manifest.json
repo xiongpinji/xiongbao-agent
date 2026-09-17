@@ -1,0 +1,103 @@
+{
+  "id": "RemotionVideoExpert",
+  "label": {
+    "en": "Motio",
+    "zh": "动画画"
+  },
+  "description": {
+    "en": "Remotion video generation: creates explainer videos, product demos, social media content, and presentations using React-based programmatic video",
+    "zh": "基于 Remotion 的视频生成专家，创建产品演示、解说视频、社交媒体内容和演示文稿"
+  },
+  "welcome_message": {
+    "en": "Help me create a product introduction video",
+    "zh": "帮我生成一个产品介绍视频"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me create a product introduction video"
+    ],
+    "zh": [
+      "帮我生成一个产品介绍视频"
+    ]
+  },
+  "_wb": {
+    "original_id": "RemotionVideoExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "plugin",
+    "agent_name": "remotion-video-expert",
+    "plugin": "remotion-video-generator",
+    "tags": [
+      {
+        "zh": "编程式视频",
+        "en": "Programmatic Video"
+      },
+      {
+        "zh": "视频生成",
+        "en": "Video Generation"
+      },
+      {
+        "zh": "React视频",
+        "en": "React Video"
+      }
+    ]
+  }
+}

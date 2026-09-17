@@ -1,0 +1,103 @@
+{
+  "id": "VocabCraftExpert",
+  "label": {
+    "en": "Lexi",
+    "zh": "词力"
+  },
+  "description": {
+    "en": "AI vocabulary coach combining spaced repetition science with typing practice for efficient English word memorization",
+    "zh": "融合间隔重复记忆科学与键盘输入训练的AI英语词汇教练，支持每日定时推送、错词强化、三种练习模式，让背单词更科学高效"
+  },
+  "welcome_message": {
+    "en": "I want to start memorizing CET-6 vocabulary, 20 words per day, remind me at 8am",
+    "zh": "我想开始背六级单词，每天20个，早上8点提醒我"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I want to start memorizing CET-6 vocabulary, 20 words per day, remind me at 8am"
+    ],
+    "zh": [
+      "我想开始背六级单词，每天20个，早上8点提醒我"
+    ]
+  },
+  "_wb": {
+    "original_id": "VocabCraftExpert",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "vocab-coach",
+    "plugin": "vocab-craft-expert",
+    "tags": [
+      {
+        "en": "Vocabulary Learning",
+        "zh": "词汇记忆"
+      },
+      {
+        "en": "Spaced Repetition",
+        "zh": "间隔重复"
+      },
+      {
+        "en": "Daily Practice",
+        "zh": "每日打卡"
+      }
+    ]
+  }
+}

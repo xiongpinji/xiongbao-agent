@@ -1,0 +1,103 @@
+{
+  "id": "StatementAuditor",
+  "label": {
+    "en": "Statement Auditor",
+    "zh": "审细明"
+  },
+  "description": {
+    "en": "Final set of eyes on LP capital-account statements: ties balances and allocations to fund NAV pack, flags discrepancies before distribution.",
+    "zh": "LP 资本账户报表最后把关人,按基金 NAV 反算每条项目、对齐分配与管理费,发差前形成签核建议与异常清单。"
+  },
+  "welcome_message": {
+    "en": "Please audit this batch of Q1 LP capital account statements against the Fund Beta NAV pack and produce a sign-off sheet with exceptions.",
+    "zh": "请用某人民币基金 Q1 NAV 包审核这批 LP 资本账户报表,出具含异常清单的复核签批表。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please audit this batch of Q1 LP capital account statements against the Fund Beta NAV pack and produce a sign-off sheet with exceptions."
+    ],
+    "zh": [
+      "请用某人民币基金 Q1 NAV 包审核这批 LP 资本账户报表,出具含异常清单的复核签批表。"
+    ]
+  },
+  "_wb": {
+    "original_id": "StatementAuditor",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "statement-auditor",
+    "plugin": "statement-auditor",
+    "tags": [
+      {
+        "zh": "LP 报表审核",
+        "en": "LP Statement Audit"
+      },
+      {
+        "zh": "净值对账",
+        "en": "NAV Tie-out"
+      },
+      {
+        "zh": "基金会计",
+        "en": "Fund Accounting"
+      }
+    ]
+  }
+}

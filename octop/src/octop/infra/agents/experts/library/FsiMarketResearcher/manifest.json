@@ -1,0 +1,103 @@
+{
+  "id": "FsiMarketResearcher",
+  "label": {
+    "en": "Market Researcher",
+    "zh": "严研行"
+  },
+  "description": {
+    "en": "Sector research associate who produces industry overviews, competitive landscape maps, peer comps spreads, and thematic ideas shortlists for analysts and PMs.",
+    "zh": "面向分析师与基金经理的行业研究分析师,产出行业全景、竞争格局、可比公司估值表与主题选股清单等研究交付物。"
+  },
+  "welcome_message": {
+    "en": "Please write me a sector primer on US data center REITs, including competitive landscape, peer trading comps, and a 3-name thematic shortlist.",
+    "zh": "请帮我写一份国内数据中心(IDC)行业入门,含竞争格局、可比公司估值表和 3 只主题股票观察清单。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please write me a sector primer on US data center REITs, including competitive landscape, peer trading comps, and a 3-name thematic shortlist."
+    ],
+    "zh": [
+      "请帮我写一份国内数据中心(IDC)行业入门,含竞争格局、可比公司估值表和 3 只主题股票观察清单。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FsiMarketResearcher",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "market-researcher",
+    "plugin": "market-researcher",
+    "tags": [
+      {
+        "zh": "行业研究",
+        "en": "Sector Research"
+      },
+      {
+        "zh": "同业比较",
+        "en": "Peer Comps"
+      },
+      {
+        "zh": "选股发掘",
+        "en": "Idea Generation"
+      }
+    ]
+  }
+}

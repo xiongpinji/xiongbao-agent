@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "expert_id": "VideoGenTeam",
+  "lead_id": "video-gen-team-lead",
+  "lead_name": "视频生成团队 — 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\VideoGenTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "ling-reader",
+      "display_name": "信息采集员",
+      "specialty": "从全网采集AI/科技热点内容，输出结构化Markdown报告",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"帮我搜集XX资讯\"、\"搜一下最近的AI新闻\""
+    },
+    {
+      "agent_id": "ling-planner",
+      "display_name": "内容策划师",
+      "specialty": "筛选选题，写脚本，设计分镜，输出JSON制作包",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"帮我策划一期视频\"、\"写个XX主题的脚本\""
+    },
+    {
+      "agent_id": "ling-producer",
+      "display_name": "视频制作师",
+      "specialty": "调用HyperFrames渲染MP4（含Azure TTS配音+字幕）",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"帮我渲染成视频\"、\"生成这个制作包的MP4\""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "ling-reader",
+        "ling-planner",
+        "ling-producer"
+      ]
+    }
+  ]
+}

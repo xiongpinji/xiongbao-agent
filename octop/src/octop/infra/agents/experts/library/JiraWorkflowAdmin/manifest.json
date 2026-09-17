@@ -1,0 +1,103 @@
+{
+  "id": "JiraWorkflowAdmin",
+  "label": {
+    "en": "Briar",
+    "zh": "看板达"
+  },
+  "description": {
+    "en": "Expert in Jira configuration and agile workflow design, making tools truly serve team efficiency",
+    "zh": "精通Jira配置和敏捷工作流设计，让工具真正服务于团队效率"
+  },
+  "welcome_message": {
+    "en": "Our Jira workflow is not optimized enough, affecting team collaboration efficiency. Please, Jira Workflow Admin, help us optimize our Jira configuration.",
+    "zh": "我们的Jira工作流程不够优化,影响团队协作效率,请Jira工作流管理员帮我们优化Jira配置。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our Jira workflow is not optimized enough, affecting team collaboration efficiency. Please, Jira Workflow Admin, help us optimize our Jira configuration."
+    ],
+    "zh": [
+      "我们的Jira工作流程不够优化,影响团队协作效率,请Jira工作流管理员帮我们优化Jira配置。"
+    ]
+  },
+  "_wb": {
+    "original_id": "JiraWorkflowAdmin",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "jira-workflow-admin",
+    "plugin": "project-management-experts",
+    "tags": [
+      {
+        "zh": "Jira管理",
+        "en": "Jira Admin"
+      },
+      {
+        "zh": "工作流配置",
+        "en": "Workflow Config"
+      },
+      {
+        "zh": "项目模板",
+        "en": "Project Templates"
+      }
+    ]
+  }
+}

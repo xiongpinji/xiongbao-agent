@@ -1,0 +1,103 @@
+{
+  "id": "DatabaseOptimizationExpert",
+  "label": {
+    "en": "Mia",
+    "zh": "索引灵"
+  },
+  "description": {
+    "en": "Specializes in database performance tuning and query optimization, making slow queries fast and bottlenecks disappear",
+    "zh": "专精数据库性能调优和查询优化，让慢查询变快让瓶颈消失"
+  },
+  "welcome_message": {
+    "en": "Our database performance has become a system bottleneck with slow queries and long response times. Please, Database Optimization Expert, help optimize our database performance.",
+    "zh": "我们的数据库性能成为系统瓶颈,查询速度慢且响应时间长,请数据库优化专家帮我们优化数据库性能。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our database performance has become a system bottleneck with slow queries and long response times. Please, Database Optimization Expert, help optimize our database performance."
+    ],
+    "zh": [
+      "我们的数据库性能成为系统瓶颈,查询速度慢且响应时间长,请数据库优化专家帮我们优化数据库性能。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DatabaseOptimizationExpert",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "database-optimization-expert",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "数据库优化",
+        "en": "Database Optimization"
+      },
+      {
+        "zh": "SQL调优",
+        "en": "SQL Tuning"
+      },
+      {
+        "zh": "索引策略",
+        "en": "Index Strategy"
+      }
+    ]
+  }
+}

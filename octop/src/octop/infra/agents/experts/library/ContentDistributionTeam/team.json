@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "ContentDistributionTeam",
+  "lead_id": "content-distribution-team-lead",
+  "lead_name": "全域内容分发专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\ContentDistributionTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "domestic-platform-expert",
+      "display_name": "晓红(Ruby)",
+      "specialty": "国内平台（抖音/小红书/快手/B站/微信公众号/微信视频号）发布规则与内容适配",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "international-platform-expert",
+      "display_name": "格罗(Glow)",
+      "specialty": "国际平台（TikTok/YouTube/Instagram/X/LinkedIn/Pinterest/Facebook/Threads）发布规则与优化",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "scheduling-specialist",
+      "display_name": "凯历(Calendar)",
+      "specialty": "日历排期管理、批量发布编排、最佳时间策略",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "distribution-analyst",
+      "display_name": "达维(Davis)",
+      "specialty": "多平台数据聚合分析、发布效果评估、优化建议",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "domestic-platform-expert",
+        "international-platform-expert",
+        "scheduling-specialist",
+        "distribution-analyst"
+      ]
+    }
+  ]
+}

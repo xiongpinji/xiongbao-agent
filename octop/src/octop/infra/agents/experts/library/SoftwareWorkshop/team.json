@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "expert_id": "SoftwareWorkshop",
+  "lead_id": "gstack-lead",
+  "lead_name": "GStack 工程团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\SoftwareWorkshop\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "gstack-product-reviewer",
+      "display_name": "产品评审员",
+      "specialty": "CEO/设计/工程/DX 评审、Office Hours、Autoplan / 产品评审、计划审查、头脑风暴",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "gstack-security-officer",
+      "display_name": "安全官",
+      "specialty": "CSO 安全审计（OWASP + STRIDE） / 安全审计、威胁建模、渗透测试",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "gstack-qa-lead",
+      "display_name": "QA与发布",
+      "specialty": "QA 测试、Ship 发布、Canary 监控、部署 / 测试、发布、部署、上线验证",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "gstack-designer",
+      "display_name": "设计顾问",
+      "specialty": "设计系统、视觉审查、设计变体 / 设计系统、视觉审查、UI 评审",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "gstack-investigator",
+      "display_name": "调查员",
+      "specialty": "调试、健康检查、回顾、学习管理 / 调试、代码质量、回顾复盘",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "review",
+      "display_name": "PR 代码审查（含 7 个专家子审查员）",
+      "specialty": "成员做代码审查时",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "design-html",
+      "display_name": "生产级 HTML/CSS 生成（Pretext 框架）",
+      "specialty": "成员实现设计时",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "gstack-product-reviewer",
+        "gstack-security-officer",
+        "gstack-qa-lead",
+        "gstack-designer",
+        "gstack-investigator",
+        "review",
+        "design-html"
+      ]
+    }
+  ]
+}

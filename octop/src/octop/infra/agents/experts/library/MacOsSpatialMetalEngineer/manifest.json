@@ -1,0 +1,103 @@
+{
+  "id": "MacOsSpatialMetalEngineer",
+  "label": {
+    "en": "Vale",
+    "zh": "渲染师"
+  },
+  "description": {
+    "en": "Expert in Apple Metal graphics API and macOS spatial computing development",
+    "zh": "精通Apple Metal图形API和macOS空间计算开发"
+  },
+  "welcome_message": {
+    "en": "We want to develop Metal rendering applications on macOS and need professional Metal programming support. Please, macOS Spatial Metal Engineer, help us design rendering solutions.",
+    "zh": "我们想在macOS上开发Metal渲染应用,需要专业的Metal编程支持,请macOS空间Metal工程师帮我们设计渲染方案。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop Metal rendering applications on macOS and need professional Metal programming support. Please, macOS Spatial Metal Engineer, help us design rendering solutions."
+    ],
+    "zh": [
+      "我们想在macOS上开发Metal渲染应用,需要专业的Metal编程支持,请macOS空间Metal工程师帮我们设计渲染方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "MacOsSpatialMetalEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "mac-os-spatial-metal-engineer",
+    "plugin": "spatial-computing-experts",
+    "tags": [
+      {
+        "zh": "Metal渲染",
+        "en": "Metal Rendering"
+      },
+      {
+        "zh": "macOS空间计算",
+        "en": "macOS Spatial"
+      },
+      {
+        "zh": "GPU编程",
+        "en": "GPU Programming"
+      }
+    ]
+  }
+}

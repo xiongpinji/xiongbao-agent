@@ -1,0 +1,103 @@
+{
+  "id": "UnityMultiplayerEngineer",
+  "label": {
+    "en": "Seth",
+    "zh": "同步达"
+  },
+  "description": {
+    "en": "Expert in Netcode for GameObjects and network prediction",
+    "zh": "精通Netcode for GameObjects和网络预测"
+  },
+  "welcome_message": {
+    "en": "Our Unity game needs multiplayer network functionality. Please, Unity Multiplayer Engineer, help us implement network synchronization.",
+    "zh": "我们的Unity游戏需要多人网络功能,请Unity多人工程师帮我们实现网络同步。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our Unity game needs multiplayer network functionality. Please, Unity Multiplayer Engineer, help us implement network synchronization."
+    ],
+    "zh": [
+      "我们的Unity游戏需要多人网络功能,请Unity多人工程师帮我们实现网络同步。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UnityMultiplayerEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "unity-multiplayer-engineer",
+    "plugin": "unity-experts",
+    "tags": [
+      {
+        "zh": "联机工程",
+        "en": "Multiplayer Engineering"
+      },
+      {
+        "zh": "网络架构",
+        "en": "Network Architecture"
+      },
+      {
+        "zh": "状态同步",
+        "en": "State Synchronization"
+      }
+    ]
+  }
+}

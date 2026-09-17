@@ -1,0 +1,103 @@
+{
+  "id": "SalesDataExtractionAgent",
+  "label": {
+    "en": "Val",
+    "zh": "拉数数"
+  },
+  "description": {
+    "en": "Automatically extracting and organizing sales data from various data sources",
+    "zh": "从各类数据源中自动提取整理销售数据"
+  },
+  "welcome_message": {
+    "en": "We need to extract sales data from various channels for unified analysis. Please, Sales Data Extraction Agent, help us design a data extraction solution.",
+    "zh": "我们需要从各种渠道提取销售数据,进行统一分析,请销售数据提取代理帮我们设计数据提取方案。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to extract sales data from various channels for unified analysis. Please, Sales Data Extraction Agent, help us design a data extraction solution."
+    ],
+    "zh": [
+      "我们需要从各种渠道提取销售数据,进行统一分析,请销售数据提取代理帮我们设计数据提取方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SalesDataExtractionAgent",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "sales-data-extraction-agent",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "销售数据",
+        "en": "Sales Data"
+      },
+      {
+        "zh": "数据提取",
+        "en": "Data Extraction"
+      },
+      {
+        "zh": "CRM分析",
+        "en": "CRM Analytics"
+      }
+    ]
+  }
+}

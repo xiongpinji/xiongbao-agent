@@ -1,0 +1,103 @@
+{
+  "id": "MigraQExpert",
+  "label": {
+    "en": "MigraQ",
+    "zh": "MigraQ"
+  },
+  "description": {
+    "en": "A Tencent Cloud migration expert for cross-cloud resource assessment, spec matching, TCO analysis, and migration planning.",
+    "zh": "腾讯云迁移服务专家，支持阿里云、AWS、华为云等多云资源扫描、规格对标、TCO成本分析与迁移方案规划"
+  },
+  "welcome_message": {
+    "en": "Assess my cloud migration plan to Tencent Cloud",
+    "zh": "帮我评估阿里云资源迁移到腾讯云的方案"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Assess my cloud migration plan to Tencent Cloud"
+    ],
+    "zh": [
+      "帮我评估阿里云资源迁移到腾讯云的方案"
+    ]
+  },
+  "_wb": {
+    "original_id": "MigraQExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "migraq",
+    "plugin": "migraq",
+    "tags": [
+      {
+        "en": "Cloud Migration",
+        "zh": "云迁移"
+      },
+      {
+        "en": "TCO Analysis",
+        "zh": "TCO分析"
+      },
+      {
+        "en": "Resource Assessment",
+        "zh": "资源评估"
+      }
+    ]
+  }
+}

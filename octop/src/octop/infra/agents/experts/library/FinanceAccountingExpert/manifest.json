@@ -1,0 +1,103 @@
+{
+  "id": "FinanceAccountingExpert",
+  "label": {
+    "en": "Finley",
+    "zh": "记账账"
+  },
+  "description": {
+    "en": "Finance and accounting toolkit: month-end close, journal entries, account reconciliation, financial statements, variance analysis, and SOX audit support",
+    "zh": "财务会计工具集：月末结账、日记账分录、账户核对、财务报表生成、差异分析和 SOX 审计支持"
+  },
+  "welcome_message": {
+    "en": "Help me prepare the month-end close checklist",
+    "zh": "帮我准备这个月的月末结账清单"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me prepare the month-end close checklist"
+    ],
+    "zh": [
+      "帮我准备这个月的月末结账清单"
+    ]
+  },
+  "_wb": {
+    "original_id": "FinanceAccountingExpert",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "plugin",
+    "agent_name": "finance-accounting-expert",
+    "plugin": "finance",
+    "tags": [
+      {
+        "zh": "财务会计",
+        "en": "Financial Accounting"
+      },
+      {
+        "zh": "账务处理",
+        "en": "Bookkeeping"
+      },
+      {
+        "zh": "报表编制",
+        "en": "Statement Preparation"
+      }
+    ]
+  }
+}

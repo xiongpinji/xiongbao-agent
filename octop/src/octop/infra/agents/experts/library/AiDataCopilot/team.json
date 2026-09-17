@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "AiDataCopilot",
+  "lead_id": "copilot-team-lead",
+  "lead_name": "智数分析专家团 - 主理人诺亚（Nova）",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\AiDataCopilot\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "dashboard-designer",
+      "display_name": "dashboard-designer",
+      "specialty": "",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "data-scientist",
+      "display_name": "data-scientist",
+      "specialty": "",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "knowledge-researcher",
+      "display_name": "knowledge-researcher",
+      "specialty": "",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "report-composer",
+      "display_name": "report-composer",
+      "specialty": "",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "sql-analyst",
+      "display_name": "sql-analyst",
+      "specialty": "",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "dashboard-designer",
+        "data-scientist",
+        "knowledge-researcher",
+        "report-composer",
+        "sql-analyst"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "id": "ModernWebappExpert",
+  "label": {
+    "en": "Vite",
+    "zh": "速构构"
+  },
+  "description": {
+    "en": "Modern web application development with React, TypeScript, Vite, Tailwind CSS, shadcn/ui, and browser automation capabilities",
+    "zh": "现代 Web 应用开发专家，基于 React + TypeScript + Vite + Tailwind CSS + shadcn/ui 技术栈，含浏览器自动化能力"
+  },
+  "welcome_message": {
+    "en": "Help me build a modern web application",
+    "zh": "帮我搭建一个现代化的Web应用"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me build a modern web application"
+    ],
+    "zh": [
+      "帮我搭建一个现代化的Web应用"
+    ]
+  },
+  "_wb": {
+    "original_id": "ModernWebappExpert",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "plugin",
+    "agent_name": "modern-webapp-expert",
+    "plugin": "modern-webapp",
+    "tags": [
+      {
+        "zh": "浏览器自动化",
+        "en": "Browser Automation"
+      },
+      {
+        "zh": "Web测试",
+        "en": "Web Testing"
+      },
+      {
+        "zh": "数据采集",
+        "en": "Data Extraction"
+      }
+    ]
+  }
+}

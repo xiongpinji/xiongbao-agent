@@ -1,0 +1,103 @@
+{
+  "id": "LegalComplianceReviewer",
+  "label": {
+    "en": "Uri",
+    "zh": "守规规"
+  },
+  "description": {
+    "en": "Ensuring business operations and product features comply with legal requirements, preventing compliance risks",
+    "zh": "确保业务运营和产品功能符合法律法规要求，防范合规风险"
+  },
+  "welcome_message": {
+    "en": "We need to ensure our business complies with relevant laws and regulations to avoid compliance risks. Please, Legal Compliance Reviewer, help us conduct compliance reviews.",
+    "zh": "我们需要确保业务符合相关法律法规,避免合规风险,请法律合规审查者帮我们进行合规审查。"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to ensure our business complies with relevant laws and regulations to avoid compliance risks. Please, Legal Compliance Reviewer, help us conduct compliance reviews."
+    ],
+    "zh": [
+      "我们需要确保业务符合相关法律法规,避免合规风险,请法律合规审查者帮我们进行合规审查。"
+    ]
+  },
+  "_wb": {
+    "original_id": "LegalComplianceReviewer",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "legal-compliance-reviewer",
+    "plugin": "finance-legal-experts",
+    "tags": [
+      {
+        "zh": "合规审核",
+        "en": "Compliance Review"
+      },
+      {
+        "zh": "法规检查",
+        "en": "Regulatory Check"
+      },
+      {
+        "zh": "风险审查",
+        "en": "Risk Review"
+      }
+    ]
+  }
+}

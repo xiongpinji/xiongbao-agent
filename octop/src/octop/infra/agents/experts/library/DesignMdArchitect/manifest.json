@@ -1,0 +1,103 @@
+{
+  "id": "DesignMdArchitect",
+  "label": {
+    "en": "Diana",
+    "zh": "规范范"
+  },
+  "description": {
+    "en": "Design system architect and UI designer with 58 brand references — generates DESIGN.md specs and delivers production-ready HTML/CSS pages and components.",
+    "zh": "基于58个品牌参考库，生成设计系统规范文档并直接输出高质量HTML/CSS页面与UI组件代码"
+  },
+  "welcome_message": {
+    "en": "Generate a DESIGN.md design system document for me",
+    "zh": "帮我生成一份 DESIGN.md 设计系统文档"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Generate a DESIGN.md design system document for me"
+    ],
+    "zh": [
+      "帮我生成一份 DESIGN.md 设计系统文档"
+    ]
+  },
+  "_wb": {
+    "original_id": "DesignMdArchitect",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "design-md-architect",
+    "plugin": "design-md-architect",
+    "tags": [
+      {
+        "zh": "设计系统",
+        "en": "Design System"
+      },
+      {
+        "zh": "UI设计",
+        "en": "UI Design"
+      },
+      {
+        "zh": "品牌参考",
+        "en": "Brand Reference"
+      }
+    ]
+  }
+}

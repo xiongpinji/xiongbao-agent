@@ -1,0 +1,103 @@
+{
+  "id": "AiImagePromptEngineer",
+  "label": {
+    "en": "Alex",
+    "zh": "画令令"
+  },
+  "description": {
+    "en": "Master of AI image generation language codes, transforming abstract visual concepts into precise prompts",
+    "zh": "精通AI图像生成的语言密码，将抽象视觉概念转化为精准提示词"
+  },
+  "welcome_message": {
+    "en": "I need to generate professional-grade photography images using AI, but I'm unsure how to write precise prompts. Please, AI Image Prompt Engineer, help me design detailed prompts that will produce stunning visual effects.",
+    "zh": "我需要用AI生成专业级的摄影图片,但不知道如何编写精确的提示词,请图像提示词工程师帮我设计能产生惊艳效果的详细提示词。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I need to generate professional-grade photography images using AI, but I'm unsure how to write precise prompts. Please, AI Image Prompt Engineer, help me design detailed prompts that will produce stunning visual effects."
+    ],
+    "zh": [
+      "我需要用AI生成专业级的摄影图片,但不知道如何编写精确的提示词,请图像提示词工程师帮我设计能产生惊艳效果的详细提示词。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AiImagePromptEngineer",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "ai-image-prompt-engineer",
+    "plugin": "ai-image-prompt-engineer",
+    "tags": [
+      {
+        "zh": "AI绘画",
+        "en": "AI Image Generation"
+      },
+      {
+        "zh": "提示词工程",
+        "en": "Prompt Engineering"
+      },
+      {
+        "zh": "视觉创作",
+        "en": "Visual Creation"
+      }
+    ]
+  }
+}

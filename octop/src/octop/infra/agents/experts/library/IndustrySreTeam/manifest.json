@@ -1,0 +1,103 @@
+{
+  "id": "IndustrySreTeam",
+  "label": {
+    "en": "Tencent Cloud Industry SRE",
+    "zh": "腾讯云行业 SRE"
+  },
+  "description": {
+    "en": "12 industry-vertical SRE experts covering gaming, retail, education, finance, mobility, internet, e-commerce, healthcare, manufacturing, live-streaming, social-IM, and SaaS. Unified five-dimensional inspection framework powered by CloudQ Smart Advisor.",
+    "zh": "懂你的行业，也懂你的云。12 位深耕一线的行业 SRE，覆盖游戏、零售、教育、金融、出行、互联网、电商、医疗、工业制造、直播、社交通信、SaaS 十二个行业。统一以安全·可靠性·性能·成本·服务限制五维做巡检，由 CloudQ 智能顾问驱动，输出可对照、可执行的治理建议。"
+  },
+  "welcome_message": {
+    "en": "We're launching a new server next week with an estimated 500K PCU. Run a pre-launch architecture check.",
+    "zh": "下周开新服预估 50 万 PCU，做一次开服前架构 Check。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We're launching a new server next week with an estimated 500K PCU. Run a pre-launch architecture check."
+    ],
+    "zh": [
+      "下周开新服预估 50 万 PCU，做一次开服前架构 Check。"
+    ]
+  },
+  "_wb": {
+    "original_id": "IndustrySreTeam",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "industry-sre-team-lead",
+    "plugin": "industry-sre-team",
+    "tags": [
+      {
+        "en": "SRE",
+        "zh": "SRE"
+      },
+      {
+        "en": "Cloud Inspection",
+        "zh": "云巡检"
+      },
+      {
+        "en": "Architecture Governance",
+        "zh": "架构治理"
+      }
+    ]
+  }
+}

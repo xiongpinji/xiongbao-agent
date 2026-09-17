@@ -1,0 +1,103 @@
+{
+  "id": "OutboundStrategist",
+  "label": {
+    "en": "Raven",
+    "zh": "拨必通"
+  },
+  "description": {
+    "en": "Expert in outbound and cold start sales strategies, getting strangers to listen within 30 seconds",
+    "zh": "精通外呼和冷启动销售策略，让陌生人30秒内愿意继续倾听"
+  },
+  "welcome_message": {
+    "en": "Our outbound sales conversion rate is low, and we need to improve call scripts and processes. Please, Outbound Strategist, help us optimize outbound sales strategies.",
+    "zh": "我们的主动外联销售转化率低,需要改进外呼话术和流程,请外呼战略家帮我们优化外呼销售策略。"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our outbound sales conversion rate is low, and we need to improve call scripts and processes. Please, Outbound Strategist, help us optimize outbound sales strategies."
+    ],
+    "zh": [
+      "我们的主动外联销售转化率低,需要改进外呼话术和流程,请外呼战略家帮我们优化外呼销售策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "OutboundStrategist",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "agent",
+    "agent_name": "outbound-strategist",
+    "plugin": "sales-experts",
+    "tags": [
+      {
+        "zh": "外联策略",
+        "en": "Outbound Strategy"
+      },
+      {
+        "zh": "冷启动",
+        "en": "Cold Outreach"
+      },
+      {
+        "zh": "线索开发",
+        "en": "Lead Development"
+      }
+    ]
+  }
+}

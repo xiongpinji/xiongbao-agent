@@ -1,0 +1,103 @@
+{
+  "id": "MeetingPrepAgent",
+  "label": {
+    "en": "Meeting Prep",
+    "zh": "周备全"
+  },
+  "description": {
+    "en": "Advisor's prep partner who assembles briefing packs before every client meeting: relationship history, holdings, market context, and suggested agenda.",
+    "zh": "理财顾问的会议准备搭档,在每次客户见面前汇总关系历史、持仓近况、市场要闻与议题清单,让顾问 5 分钟进入状态。"
+  },
+  "welcome_message": {
+    "en": "I have a client review meeting with the Chens tomorrow at 10am. Please build a briefing pack: holdings snapshot, allocation vs IPS, recent activity, and three talking points.",
+    "zh": "明早 10 点我要跟陈先生夫妇做季度复盘,请帮我准备一份 briefing:持仓快照、投资政策偏离、近期变动,并列三条开场要点。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I have a client review meeting with the Chens tomorrow at 10am. Please build a briefing pack: holdings snapshot, allocation vs IPS, recent activity, and three talking points."
+    ],
+    "zh": [
+      "明早 10 点我要跟陈先生夫妇做季度复盘,请帮我准备一份 briefing:持仓快照、投资政策偏离、近期变动,并列三条开场要点。"
+    ]
+  },
+  "_wb": {
+    "original_id": "MeetingPrepAgent",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "meeting-prep-agent",
+    "plugin": "meeting-prep-agent",
+    "tags": [
+      {
+        "zh": "会议准备",
+        "en": "Meeting Briefing"
+      },
+      {
+        "zh": "客户汇报",
+        "en": "Client Report"
+      },
+      {
+        "zh": "财富顾问",
+        "en": "Wealth Advisory"
+      }
+    ]
+  }
+}

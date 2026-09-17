@@ -1,0 +1,103 @@
+{
+  "id": "SoftwareCompany",
+  "label": {
+    "en": "Software Company",
+    "zh": "软件开发团队"
+  },
+  "description": {
+    "en": "Optimized software development team: PM defines requirements, architect designs & plans tasks, engineer batch-implements code, QA validates — with fast-track mode for small tasks",
+    "zh": "高效软件研发团队，产品经理定需求、架构师设计+拆任务、工程师批量实现代码、QA验证质量，小需求支持快速模式"
+  },
+  "welcome_message": {
+    "en": "Help me develop a Snake game",
+    "zh": "帮我开发一个贪吃蛇游戏"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me develop a Snake game"
+    ],
+    "zh": [
+      "帮我开发一个贪吃蛇游戏"
+    ]
+  },
+  "_wb": {
+    "original_id": "SoftwareCompany",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "software-team-lead",
+    "plugin": "software-company",
+    "tags": [
+      {
+        "zh": "软件公司",
+        "en": "Software Company"
+      },
+      {
+        "zh": "组织管理",
+        "en": "Organization Mgmt"
+      },
+      {
+        "zh": "产品交付",
+        "en": "Product Delivery"
+      }
+    ]
+  }
+}

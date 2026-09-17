@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "PromoCreatorTeam",
+  "lead_id": "promo-team-lead",
+  "lead_name": "宣传片创作团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\PromoCreatorTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "brief-strategist",
+      "display_name": "Bella",
+      "specialty": "创意策略师：产品研究、卖点提炼、视觉风格推荐、叙事结构设计",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "storyboard-artist",
+      "display_name": "Sean",
+      "specialty": "分镜师：逐镜头 7 维画面描述、动效设计、素材标注",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "asset-producer",
+      "display_name": "Ada",
+      "specialty": "素材制作人：Pack A（AI 生成）+ Pack B（网络搜索）两包素材生产",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "video-editor",
+      "display_name": "Ethan",
+      "specialty": "剪辑师兼动效师：HyperFrames HTML 编写、GSAP 动画、视频渲染",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "music-director",
+      "display_name": "Melody",
+      "specialty": "音乐总监：BGM 风格设计、卡点表、Mureka Prompt 生成",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "brief-strategist",
+        "storyboard-artist",
+        "asset-producer",
+        "video-editor",
+        "music-director"
+      ]
+    }
+  ]
+}

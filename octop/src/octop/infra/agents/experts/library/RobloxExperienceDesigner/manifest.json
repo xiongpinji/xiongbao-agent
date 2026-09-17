@@ -1,0 +1,103 @@
+{
+  "id": "RobloxExperienceDesigner",
+  "label": {
+    "en": "Mary",
+    "zh": "乐体验"
+  },
+  "description": {
+    "en": "Expert in Roblox platform UX and monetization design",
+    "zh": "精通Roblox平台UX和商业化设计"
+  },
+  "welcome_message": {
+    "en": "We want to design experiences and gameplay on Roblox. Please, Roblox Experience Designer, help us design Roblox games.",
+    "zh": "我们想在Roblox上设计体验和玩法,请Roblox体验设计师帮我们设计Roblox游戏。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to design experiences and gameplay on Roblox. Please, Roblox Experience Designer, help us design Roblox games."
+    ],
+    "zh": [
+      "我们想在Roblox上设计体验和玩法,请Roblox体验设计师帮我们设计Roblox游戏。"
+    ]
+  },
+  "_wb": {
+    "original_id": "RobloxExperienceDesigner",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "roblox-experience-designer",
+    "plugin": "godot-roblox-experts",
+    "tags": [
+      {
+        "zh": "体验设计",
+        "en": "Experience Design"
+      },
+      {
+        "zh": "交互玩法",
+        "en": "Interactive Gameplay"
+      },
+      {
+        "zh": "世界构建",
+        "en": "World Building"
+      }
+    ]
+  }
+}

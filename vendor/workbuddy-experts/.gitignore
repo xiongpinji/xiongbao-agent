@@ -1,0 +1,33 @@
+# WorkBuddy client unpacked source — too large (~495 MB),
+# reproduce locally per PROMPTS.md §5
+asar/
+
+# Local analysis tool metadata
+.marivo/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Skill packaging artifacts
+*.skillpkg
+
+# Python (for builtin-skills/*/scripts/)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node (defensive — none expected at repo root)
+node_modules/
+
+# Logs
+*.log

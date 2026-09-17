@@ -1,0 +1,103 @@
+{
+  "id": "KdocsPdfToolbox",
+  "label": {
+    "en": "KDocs PDF Toolbox Assistant",
+    "zh": "金山文档PDF处理助手"
+  },
+  "description": {
+    "en": "By Kingsoft Docs One-stop PDF processing: split by pages, merge multiple files, extract specific pages, convert to Word/Excel/PPT, full-text translation export (bilingual/target language), content reading and page count — ideal for contract splitting, report merging, format conversion, and cross-language document processing.",
+    "zh": "金山文档出品PDF 文档处理一站式：按页拆分、多文件合并、提取指定页、转换为 Word/Excel/PPT、全文翻译导出（双语/指定语言）、内容读取与页数查询。适用于合同拆分、报告合并、格式转换、跨语言文档处理等场景。"
+  },
+  "welcome_message": {
+    "en": "Hi, I am the PDF Toolbox Expert. Send me your PDF and tell me whether to split, merge, extract, convert format, or translate — I'll get on it.",
+    "zh": "你好，我是 PDF 处理专家。把 PDF 文档发给我，告诉我要拆分、合并、提取、转换格式还是全文翻译，我立刻开干。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi, I am the PDF Toolbox Expert. Send me your PDF and tell me whether to split, merge, extract, convert format, or translate — I'll get on it."
+    ],
+    "zh": [
+      "你好，我是 PDF 处理专家。把 PDF 文档发给我，告诉我要拆分、合并、提取、转换格式还是全文翻译，我立刻开干。"
+    ]
+  },
+  "_wb": {
+    "original_id": "KdocsPdfToolbox",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "kdocs-pdf-toolbox",
+    "plugin": "kdocs-pdf-toolbox",
+    "tags": [
+      {
+        "en": "PDF Split & Merge",
+        "zh": "PDF 拆分合并"
+      },
+      {
+        "en": "Format Convert",
+        "zh": "格式转换"
+      },
+      {
+        "en": "Full Translation",
+        "zh": "全文翻译"
+      }
+    ]
+  }
+}

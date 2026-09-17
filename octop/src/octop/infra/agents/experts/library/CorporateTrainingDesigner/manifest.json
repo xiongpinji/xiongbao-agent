@@ -1,0 +1,103 @@
+{
+  "id": "CorporateTrainingDesigner",
+  "label": {
+    "en": "Gwen",
+    "zh": "育才才"
+  },
+  "description": {
+    "en": "Designing systematic corporate training courses and learning paths, rapidly upskilling employees",
+    "zh": "设计系统化企业培训课程和学习路径，让员工技能快速提升"
+  },
+  "welcome_message": {
+    "en": "We want to establish a corporate training system to improve employee capabilities. Please, Corporate Training Designer, help us design training courses and systems.",
+    "zh": "我们想建立企业培训体系,提升员工能力,请企业培训设计师帮我们设计培训课程和体系。"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to establish a corporate training system to improve employee capabilities. Please, Corporate Training Designer, help us design training courses and systems."
+    ],
+    "zh": [
+      "我们想建立企业培训体系,提升员工能力,请企业培训设计师帮我们设计培训课程和体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CorporateTrainingDesigner",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "agent",
+    "agent_name": "corporate-training-designer",
+    "plugin": "education-training-experts",
+    "tags": [
+      {
+        "zh": "企业培训",
+        "en": "Corporate Training"
+      },
+      {
+        "zh": "课程体系",
+        "en": "Curriculum Design"
+      },
+      {
+        "zh": "教学设计",
+        "en": "Instructional Design"
+      }
+    ]
+  }
+}

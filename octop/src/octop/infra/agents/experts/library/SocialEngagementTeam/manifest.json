@@ -1,0 +1,103 @@
+{
+  "id": "SocialEngagementTeam",
+  "label": {
+    "en": "Social Engagement Growth Team",
+    "zh": "社媒互动增长专家团"
+  },
+  "description": {
+    "en": "Safe and efficient social media engagement growth through interaction automation, AI comment operations, signal mining, and brand monitoring across 14+ platforms.",
+    "zh": "通过智能化互动自动化、AI评论运营、高转化信号挖掘和品牌舆情监控，安全高效提升社交媒体互动效果，覆盖14+全球主流平台"
+  },
+  "welcome_message": {
+    "en": "Help me create a safe and effective social media engagement growth strategy",
+    "zh": "帮我制定一套安全高效的社媒互动增长策略"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me create a safe and effective social media engagement growth strategy"
+    ],
+    "zh": [
+      "帮我制定一套安全高效的社媒互动增长策略"
+    ]
+  },
+  "_wb": {
+    "original_id": "SocialEngagementTeam",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "team",
+    "agent_name": "social-engagement-team-lead",
+    "plugin": "social-engagement-team",
+    "tags": [
+      {
+        "en": "Interaction Automation",
+        "zh": "互动自动化"
+      },
+      {
+        "en": "AI Comment Operations",
+        "zh": "AI评论运营"
+      },
+      {
+        "en": "Brand Monitoring",
+        "zh": "品牌舆情监控"
+      }
+    ]
+  }
+}

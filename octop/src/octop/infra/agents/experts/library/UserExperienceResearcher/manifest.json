@@ -1,0 +1,103 @@
+{
+  "id": "UserExperienceResearcher",
+  "label": {
+    "en": "Zoe",
+    "zh": "探真真"
+  },
+  "description": {
+    "en": "Validating design decisions with real data instead of assumptions, specializing in user behavior analysis and usability testing",
+    "zh": "用真实数据而非假设验证设计决策，专精用户行为分析和可用性测试"
+  },
+  "welcome_message": {
+    "en": "We want to deeply understand user needs and pain points, and we need scientific user research methods. Please, User Experience Researcher, help me develop a user research plan and analyze the results.",
+    "zh": "我们想深入了解用户需求和痛点,需要科学的用户研究方法,请用户体验研究员帮我制定用户研究计划并分析研究结果。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to deeply understand user needs and pain points, and we need scientific user research methods. Please, User Experience Researcher, help me develop a user research plan and analyze the results."
+    ],
+    "zh": [
+      "我们想深入了解用户需求和痛点,需要科学的用户研究方法,请用户体验研究员帮我制定用户研究计划并分析研究结果。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UserExperienceResearcher",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "user-experience-researcher",
+    "plugin": "user-experience-researcher",
+    "tags": [
+      {
+        "zh": "用户研究",
+        "en": "User Research"
+      },
+      {
+        "zh": "可用性测试",
+        "en": "Usability Testing"
+      },
+      {
+        "zh": "数据洞察",
+        "en": "Data Insight"
+      }
+    ]
+  }
+}

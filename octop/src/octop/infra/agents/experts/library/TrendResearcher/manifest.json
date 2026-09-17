@@ -1,0 +1,103 @@
+{
+  "id": "TrendResearcher",
+  "label": {
+    "en": "Zara",
+    "zh": "风向标"
+  },
+  "description": {
+    "en": "Continuously tracking industry and technology trends, providing forward-looking insights for product strategy",
+    "zh": "持续追踪行业和技术趋势，为产品战略提供前瞻性洞察"
+  },
+  "welcome_message": {
+    "en": "We want to understand industry trends and competitive dynamics to provide data support for product decisions. Please, Trend Researcher, help us conduct market trend analysis.",
+    "zh": "我们想了解行业趋势和竞争态势,为产品决策提供数据支持,请趋势研究员帮我们进行市场趋势分析。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to understand industry trends and competitive dynamics to provide data support for product decisions. Please, Trend Researcher, help us conduct market trend analysis."
+    ],
+    "zh": [
+      "我们想了解行业趋势和竞争态势,为产品决策提供数据支持,请趋势研究员帮我们进行市场趋势分析。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TrendResearcher",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "trend-researcher",
+    "plugin": "product-experts",
+    "tags": [
+      {
+        "zh": "趋势研究",
+        "en": "Trend Research"
+      },
+      {
+        "zh": "市场情报",
+        "en": "Market Intelligence"
+      },
+      {
+        "zh": "机会识别",
+        "en": "Opportunity ID"
+      }
+    ]
+  }
+}

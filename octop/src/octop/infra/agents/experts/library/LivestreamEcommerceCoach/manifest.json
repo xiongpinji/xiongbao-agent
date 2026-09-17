@@ -1,0 +1,103 @@
+{
+  "id": "LivestreamEcommerceCoach",
+  "label": {
+    "en": "Ria",
+    "zh": "播旺旺"
+  },
+  "description": {
+    "en": "Expert in full-chain livestream e-commerce operations, from scripts to traffic investment, helping achieve GMV breakthroughs",
+    "zh": "精通直播带货全链路运营，从话术到投流帮助实现GMV突破"
+  },
+  "welcome_message": {
+    "en": "We want to try live streaming e-commerce but lack live streaming planning and sales skills. Please, Livestream E-commerce Coach, help us design a live streaming sales solution.",
+    "zh": "我们想尝试直播电商,但缺乏直播策划和销售技巧,请直播电商教练帮我们设计直播带货方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to try live streaming e-commerce but lack live streaming planning and sales skills. Please, Livestream E-commerce Coach, help us design a live streaming sales solution."
+    ],
+    "zh": [
+      "我们想尝试直播电商,但缺乏直播策划和销售技巧,请直播电商教练帮我们设计直播带货方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "LivestreamEcommerceCoach",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "livestream-ecommerce-coach",
+    "plugin": "ecommerce-experts",
+    "tags": [
+      {
+        "zh": "直播带货",
+        "en": "Livestream Sales"
+      },
+      {
+        "zh": "话术设计",
+        "en": "Script Design"
+      },
+      {
+        "zh": "主播培训",
+        "en": "Host Training"
+      }
+    ]
+  }
+}

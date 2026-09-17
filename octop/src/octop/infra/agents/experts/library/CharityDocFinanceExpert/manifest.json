@@ -1,0 +1,103 @@
+{
+  "id": "CharityDocFinanceExpert",
+  "label": {
+    "en": "Xiaowen",
+    "zh": "小文"
+  },
+  "description": {
+    "en": "An all-in-one expert for charity document writing and financial management, covering project applications, final reports, receipt management, audit preparation, and compliance consulting.",
+    "zh": "公益机构文书与财务一站式专家，覆盖项目申请书、结项报告、票据管理、审计准备与合规咨询，帮助公益人从繁琐行政中解放。"
+  },
+  "welcome_message": {
+    "en": "Help me write a project final report for Tencent Charity platform.",
+    "zh": "帮我写一份腾讯公益平台的项目结项报告"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me write a project final report for Tencent Charity platform."
+    ],
+    "zh": [
+      "帮我写一份腾讯公益平台的项目结项报告"
+    ]
+  },
+  "_wb": {
+    "original_id": "CharityDocFinanceExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "charity-doc-finance-expert",
+    "plugin": "charity-doc-finance-expert",
+    "tags": [
+      {
+        "zh": "公益文书",
+        "en": "Charity Documents"
+      },
+      {
+        "zh": "公益财务",
+        "en": "NPO Finance"
+      },
+      {
+        "zh": "合规咨询",
+        "en": "Compliance Consulting"
+      }
+    ]
+  }
+}

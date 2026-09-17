@@ -1,0 +1,103 @@
+{
+  "id": "GlReconciler",
+  "label": {
+    "en": "GL Reconciler",
+    "zh": "钱对齐"
+  },
+  "description": {
+    "en": "Daily and period-end GL reconciliation specialist who finds breaks between GL and subledgers, traces root cause, and stages sign-off packages for controllers.",
+    "zh": "基金后台日终与月末对账专员,在总账与子账之间找出差异、追溯到源交易、归类 timing/reclass/FX 等原因并出具可签核清单。"
+  },
+  "welcome_message": {
+    "en": "Please run today's GL vs custodian subledger recon for Fund Alpha and flag any breaks above $1,000 with suspected root cause.",
+    "zh": "请帮某私募基金跑一遍今日总账与托管行子账对账,标记所有金额大于 1 万元的差异并给出疑似原因。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please run today's GL vs custodian subledger recon for Fund Alpha and flag any breaks above $1,000 with suspected root cause."
+    ],
+    "zh": [
+      "请帮某私募基金跑一遍今日总账与托管行子账对账,标记所有金额大于 1 万元的差异并给出疑似原因。"
+    ]
+  },
+  "_wb": {
+    "original_id": "GlReconciler",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "gl-reconciler",
+    "plugin": "gl-reconciler",
+    "tags": [
+      {
+        "zh": "总账对账",
+        "en": "GL Reconciliation"
+      },
+      {
+        "zh": "差异追溯",
+        "en": "Break Tracing"
+      },
+      {
+        "zh": "基金会计",
+        "en": "Fund Accounting"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "SoftwareWorkshop",
+  "label": {
+    "en": "Software Workshop",
+    "zh": "软件工坊"
+  },
+  "description": {
+    "en": "6 specialist roles for engineering workflows: product review, code review, security audit, QA testing, design system, and debugging — covering the full software lifecycle from idea to production",
+    "zh": "6位工程专业角色：产品评审、代码审查、安全审计、QA测试、设计系统、调试运维，覆盖从想法到生产的完整软件生命周期"
+  },
+  "welcome_message": {
+    "en": "Run a full pre-launch check: code review, security audit, and QA testing",
+    "zh": "做一次上线前全检：代码审查、安全审计、QA测试"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Run a full pre-launch check: code review, security audit, and QA testing"
+    ],
+    "zh": [
+      "做一次上线前全检：代码审查、安全审计、QA测试"
+    ]
+  },
+  "_wb": {
+    "original_id": "SoftwareWorkshop",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "gstack-lead",
+    "plugin": "gstack",
+    "tags": [
+      {
+        "en": "Code Review",
+        "zh": "代码审查"
+      },
+      {
+        "en": "Security Audit",
+        "zh": "安全审计"
+      },
+      {
+        "en": "QA Testing",
+        "zh": "质量测试"
+      }
+    ]
+  }
+}

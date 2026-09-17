@@ -1,0 +1,103 @@
+{
+  "id": "IdentityGraphOperator",
+  "label": {
+    "en": "Opal",
+    "zh": "识图图"
+  },
+  "description": {
+    "en": "Building and maintaining user identity graph systems, enabling cross-platform identity recognition",
+    "zh": "构建维护用户身份图谱系统，实现跨平台身份识别"
+  },
+  "welcome_message": {
+    "en": "We want to build a user identity graph to achieve precise user identification. Please, Identity Graph Operator, help us design an identity graph system.",
+    "zh": "我们想构建用户身份图谱,实现精准的用户识别,请身份图谱运营者帮我们设计身份图谱系统。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to build a user identity graph to achieve precise user identification. Please, Identity Graph Operator, help us design an identity graph system."
+    ],
+    "zh": [
+      "我们想构建用户身份图谱,实现精准的用户识别,请身份图谱运营者帮我们设计身份图谱系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "IdentityGraphOperator",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "identity-graph-operator",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "身份图谱",
+        "en": "Identity Graph"
+      },
+      {
+        "zh": "实体解析",
+        "en": "Entity Resolution"
+      },
+      {
+        "zh": "数据关联",
+        "en": "Data Linkage"
+      }
+    ]
+  }
+}

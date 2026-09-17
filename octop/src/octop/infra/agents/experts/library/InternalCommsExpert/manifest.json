@@ -1,0 +1,103 @@
+{
+  "id": "InternalCommsExpert",
+  "label": {
+    "en": "Herald",
+    "zh": "传令令"
+  },
+  "description": {
+    "en": "Internal communications templates: status reports, leadership updates, company newsletters, FAQs, incident reports, and project updates",
+    "zh": "内部沟通模板专家：状态报告、领导汇报、公司简报、FAQ、事故报告和项目更新"
+  },
+  "welcome_message": {
+    "en": "Help me write a weekly project status report",
+    "zh": "帮我写一份本周的项目状态报告"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me write a weekly project status report"
+    ],
+    "zh": [
+      "帮我写一份本周的项目状态报告"
+    ]
+  },
+  "_wb": {
+    "original_id": "InternalCommsExpert",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "plugin",
+    "agent_name": "internal-comms-expert",
+    "plugin": "internal-comms",
+    "tags": [
+      {
+        "zh": "内部沟通",
+        "en": "Internal Communications"
+      },
+      {
+        "zh": "企业传播",
+        "en": "Corporate Comms"
+      },
+      {
+        "zh": "员工沟通",
+        "en": "Employee Comms"
+      }
+    ]
+  }
+}

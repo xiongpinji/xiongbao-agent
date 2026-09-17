@@ -1,0 +1,103 @@
+{
+  "id": "DataIntegrationAgent",
+  "label": {
+    "en": "Jett",
+    "zh": "聚数数"
+  },
+  "description": {
+    "en": "Cleaning and unifying scattered data, building an enterprise unified data view",
+    "zh": "将分散数据清洗整合统一，构建企业统一数据视图"
+  },
+  "welcome_message": {
+    "en": "Our data is scattered across multiple systems and needs integration and synchronization. Please, Data Integration Agent, help us design a data integration solution.",
+    "zh": "我们的数据分散在多个系统,需要集成和同步,请数据集成代理帮我们设计数据集成方案。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our data is scattered across multiple systems and needs integration and synchronization. Please, Data Integration Agent, help us design a data integration solution."
+    ],
+    "zh": [
+      "我们的数据分散在多个系统,需要集成和同步,请数据集成代理帮我们设计数据集成方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DataIntegrationAgent",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "data-integration-agent",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "数据集成",
+        "en": "Data Integration"
+      },
+      {
+        "zh": "API对接",
+        "en": "API Integration"
+      },
+      {
+        "zh": "数据同步",
+        "en": "Data Sync"
+      }
+    ]
+  }
+}

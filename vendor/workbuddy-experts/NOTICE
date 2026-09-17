@@ -1,0 +1,89 @@
+================================================================================
+NOTICE — Third-Party Content and Copyright Boundaries
+================================================================================
+
+This repository aggregates materials with multiple distinct copyright holders.
+The MIT license in LICENSE applies ONLY to the curation work (README files,
+PROMPTS.md, INDEX.md, .gitignore, LICENSE, NOTICE). The substantive content
+under experts/, templates/, and builtin-skills/ is governed by the terms
+described below.
+
+
+1. Upstream expert prompts (most of experts/prompts/**)
+--------------------------------------------------------------------------------
+   Source : https://github.com/msitarzewski/agency-agents
+   License: MIT
+   Author : "AI Expert Center" (self-described in experts/manifest.json)
+   Notes  : The bulk of the 246 expert prompts is derived from this MIT
+            project. The upstream MIT license terms apply unchanged. Retain
+            attribution when redistributing individual prompt files.
+
+
+2. Tencent additions and localizations
+--------------------------------------------------------------------------------
+   Holder : Tencent (深圳市腾讯计算机系统有限公司 and affiliates)
+   Scope  : - "Tencent Zone" experts (17 entries under category 13-TencentZone)
+            - Localized Chinese names, category names, and descriptions in
+              experts/manifest.json
+            - Tencent-specific quickPrompts and defaultInitPrompt fields
+            - All Tencent-customized portions of the templates under
+              templates/ (e.g., China-mainland content safety clauses,
+              ~/.workbuddy/ paths, MCP integration sections)
+   Notes  : These materials are believed to be Tencent's proprietary work.
+            They are included in this repository for reverse-engineering
+            study and academic-style reference only. No license to
+            redistribute or modify these portions is granted by this
+            repository. Contact Tencent for any other use.
+
+
+3. WorkBuddy templates (templates/*.tpl)
+--------------------------------------------------------------------------------
+   Source : Extracted verbatim from the WorkBuddy desktop client
+            (app.asar, version 4.22.16, Bundle ID com.workbuddy.workbuddy)
+   Holder : Tencent
+   Notes  : Files are unmodified copies. Included for the sole purpose of
+            documenting the prompt composition mechanism described in
+            PROMPTS.md §1–§2.
+
+
+4. Built-in skills (builtin-skills/**)
+--------------------------------------------------------------------------------
+   Holder : Tencent (and any sub-component upstream authors as referenced
+            inside each SKILL.md)
+   Notes  : skill-creator/LICENSE.txt is preserved in place. Files are
+            unmodified copies from the WorkBuddy client.
+
+
+5. Trademarks
+--------------------------------------------------------------------------------
+   "WorkBuddy" is a trademark of Tencent. This repository is not affiliated
+   with, endorsed by, or sponsored by Tencent or the WorkBuddy team.
+
+
+6. How content was obtained
+--------------------------------------------------------------------------------
+   - templates/, builtin-skills/, asar/ (excluded from git): static analysis
+     of an already-installed copy of the WorkBuddy macOS application
+     (/Applications/WorkBuddy.app). No DRM was bypassed; no application
+     files were modified.
+   - experts/prompts/**: anonymous public GET from the WorkBuddy expert
+     marketplace COS bucket at
+     https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/expert-marketplace/
+     This bucket is publicly readable; no authentication was bypassed.
+   - experts/manifest.json: same public COS path
+     (/expert_center.json).
+   - No usage statistics ("ranking" data, the "X 万次使用" numbers) are
+     included; that endpoint requires WorkBuddy login state and is out of
+     scope for this archive.
+
+
+7. If you are a rights holder and have concerns
+--------------------------------------------------------------------------------
+   Please open an issue on the repository or contact the maintainer. We will
+   act in good faith to address legitimate takedown requests for content
+   you own.
+
+
+================================================================================
+End of NOTICE
+================================================================================

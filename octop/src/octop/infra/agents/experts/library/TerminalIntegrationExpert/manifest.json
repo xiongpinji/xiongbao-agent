@@ -1,0 +1,103 @@
+{
+  "id": "TerminalIntegrationExpert",
+  "label": {
+    "en": "Willa",
+    "zh": "终端通"
+  },
+  "description": {
+    "en": "Expert in integrating terminal applications with spatial computing environments",
+    "zh": "精通终端应用与空间计算环境的集成"
+  },
+  "welcome_message": {
+    "en": "We want to develop terminal integration applications and need professional terminal interaction and development experience. Please, Terminal Integration Expert, help us design terminal applications.",
+    "zh": "我们想开发终端集成应用,需要专业的终端交互和开发经验,请终端集成专家帮我们设计终端应用。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop terminal integration applications and need professional terminal interaction and development experience. Please, Terminal Integration Expert, help us design terminal applications."
+    ],
+    "zh": [
+      "我们想开发终端集成应用,需要专业的终端交互和开发经验,请终端集成专家帮我们设计终端应用。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TerminalIntegrationExpert",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "terminal-integration-expert",
+    "plugin": "spatial-computing-experts",
+    "tags": [
+      {
+        "zh": "终端集成",
+        "en": "Terminal Integration"
+      },
+      {
+        "zh": "CLI工具",
+        "en": "CLI Tools"
+      },
+      {
+        "zh": "命令行开发",
+        "en": "Command Line Dev"
+      }
+    ]
+  }
+}

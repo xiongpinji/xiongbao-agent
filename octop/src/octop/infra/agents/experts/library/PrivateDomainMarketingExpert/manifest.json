@@ -1,0 +1,103 @@
+{
+  "id": "PrivateDomainMarketingExpert",
+  "label": {
+    "en": "Magic",
+    "zh": "司玉琦"
+  },
+  "description": {
+    "en": "Proficient in driving growth through private domain operations, revitalizing existing data assets, identifying marketing opportunities, and achieving business growth.",
+    "zh": "深谙私域运营增长，盘活现有数据资源、洞察营销机会、实现业绩增长"
+  },
+  "welcome_message": {
+    "en": "I want to implement private domain operations and need a professional private domain growth expert. Could a marketing expert please diagnose my existing customer base/assets?",
+    "zh": "我想做私域运营,需要专业的私域增长专家,请营销专家帮我诊断现有存量盘子。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I want to implement private domain operations and need a professional private domain growth expert. Could a marketing expert please diagnose my existing customer base/assets?"
+    ],
+    "zh": [
+      "我想做私域运营,需要专业的私域增长专家,请营销专家帮我诊断现有存量盘子。"
+    ]
+  },
+  "_wb": {
+    "original_id": "PrivateDomainMarketingExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "private-domain-marketing-expert",
+    "plugin": "private-domain-marketing-expert",
+    "tags": [
+      {
+        "zh": "私域运营",
+        "en": "Private Domain Operations"
+      },
+      {
+        "zh": "营销自动化",
+        "en": "Marketing Automation"
+      },
+      {
+        "zh": "会员体系",
+        "en": "Membership System"
+      }
+    ]
+  }
+}

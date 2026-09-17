@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "TaxComplianceTeam",
+  "lead_id": "tax-compliance-team-lead",
+  "lead_name": "财税合规专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\TaxComplianceTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "invoice-processor",
+      "display_name": "李票务",
+      "specialty": "发票OCR识别、验真校验、进销项分类、查重检测、数电票处理 / \"识别这张发票\"\"这批发票有没有异常\"\"帮我分类归档这些发票\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "voucher-accountant",
+      "display_name": "张记账",
+      "specialty": "复式记账、科目表管理、凭证生成、账簿登记、期末结账 / \"帮我做这笔分录\"\"这个月的账怎么结\"\"建一套科目表\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "financial-reporter",
+      "display_name": "王报表",
+      "specialty": "三表编制、财务比率分析、预算对比、趋势分析、报表勾稽 / \"编制本月利润表\"\"分析财务健康状况\"\"做一份资产负债表\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "tax-filing-specialist",
+      "display_name": "孙申报",
+      "specialty": "增值税/企业所得税/个税计算、优惠政策匹配、申报表生成、附加税费 / \"算一下本月增值税\"\"企业所得税怎么预缴\"\"年终奖怎么算个税\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "compliance-auditor",
+      "display_name": "赵审计",
+      "specialty": "会计合规检查、税务风险评估、发票合规审计、整改建议、风险量化 / \"检查账务有没有风险\"\"这个处理合规吗\"\"做一次税务风险评估\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "invoice-processor",
+        "voucher-accountant",
+        "financial-reporter",
+        "tax-filing-specialist",
+        "compliance-auditor"
+      ]
+    }
+  ]
+}

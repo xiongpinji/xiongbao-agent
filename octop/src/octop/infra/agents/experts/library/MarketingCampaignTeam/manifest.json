@@ -1,0 +1,103 @@
+{
+  "id": "MarketingCampaignTeam",
+  "label": {
+    "en": "Marketing Campaign Team",
+    "zh": "营销战役团队"
+  },
+  "description": {
+    "en": "A team of 4 marketing specialists led by a Marketing Director: Content Creator (blog posts/email/social media/brand voice), Campaign Planner (campaign strategy/audience/channels/budget), SEO Expert (technical audit/content optimization/performance analytics), and Brand Analyst (competitive positioning/brand review). Covers the full marketing lifecycle.",
+    "zh": "由营销总监领导的 4 人营销专家团队：内容创作者（博客/邮件/社媒/品牌声音）、活动策划师（战役策略/受众/渠道/预算）、SEO 专家（技术审计/内容优化/效果分析）和品牌分析师（竞品定位/品牌审核）。覆盖完整营销生命周期。"
+  },
+  "welcome_message": {
+    "en": "Plan a marketing campaign / Draft content for our product launch / Audit our SEO",
+    "zh": "策划一场营销战役 / 为产品发布起草内容 / 审计我们的 SEO"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Plan a marketing campaign / Draft content for our product launch / Audit our SEO"
+    ],
+    "zh": [
+      "策划一场营销战役 / 为产品发布起草内容 / 审计我们的 SEO"
+    ]
+  },
+  "_wb": {
+    "original_id": "MarketingCampaignTeam",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "team",
+    "agent_name": "marketing-director",
+    "plugin": "marketing-campaign-team",
+    "tags": [
+      {
+        "zh": "营销策划",
+        "en": "Campaign Planning"
+      },
+      {
+        "zh": "品牌分析",
+        "en": "Brand Analysis"
+      },
+      {
+        "zh": "内容创作",
+        "en": "Content Creation"
+      }
+    ]
+  }
+}

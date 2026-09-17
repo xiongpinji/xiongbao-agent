@@ -1,0 +1,103 @@
+{
+  "id": "AShareAnalysis",
+  "label": {
+    "en": "A-Share Research Team",
+    "zh": "A股研究团队"
+  },
+  "description": {
+    "en": "8 research specialists with 6 preset workflows — covering macro strategy, market reading, stock deep-dive, valuation pricing, industry chain mapping, smart money tracking, and risk diagnosis",
+    "zh": "8位研究专家支持6个预设工作流编排，覆盖宏观策略、盘面解读、个股深度、估值定价、产业链映射、资金追踪、风险诊断"
+  },
+  "welcome_message": {
+    "en": "Help me review CATL's fundamentals and valuation.",
+    "zh": "帮我梳理下宁德时代的基本面和估值情况"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me review CATL's fundamentals and valuation."
+    ],
+    "zh": [
+      "帮我梳理下宁德时代的基本面和估值情况"
+    ]
+  },
+  "_wb": {
+    "original_id": "AShareAnalysis",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "team",
+    "agent_name": "a-share-advisor",
+    "plugin": "a-share-analysis",
+    "tags": [
+      {
+        "en": "A-Share Research",
+        "zh": "A股研究"
+      },
+      {
+        "en": "Full-Chain Analysis",
+        "zh": "全链路分析"
+      },
+      {
+        "en": "Smart Money",
+        "zh": "聪明钱"
+      }
+    ]
+  }
+}

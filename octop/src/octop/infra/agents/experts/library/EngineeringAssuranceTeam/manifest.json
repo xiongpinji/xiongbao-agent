@@ -1,0 +1,103 @@
+{
+  "id": "EngineeringAssuranceTeam",
+  "label": {
+    "en": "Engineering Assurance Team",
+    "zh": "工程保障团队"
+  },
+  "description": {
+    "en": "A team of 5 engineering specialists led by an Engineering Director: Code Reviewer (security/performance/correctness), Architect (system design/ADR), SRE Engineer (incident response/deploy), Testing Expert (test strategy/coverage), and Tech Writer (documentation/runbooks). Handles complex engineering workflows from code review to incident response.",
+    "zh": "由工程总监领导的 5 人工程专家团队：代码审查师（安全/性能/正确性）、架构师（系统设计/ADR）、SRE 工程师（事故响应/部署）、测试专家（测试策略/覆盖率）和技术文档师（文档/Runbook）。处理从代码审查到事故响应的复杂工程工作流。"
+  },
+  "welcome_message": {
+    "en": "Help me do a comprehensive engineering review of our system / Run a full incident response workflow",
+    "zh": "帮我对系统进行全面工程审查 / 运行完整的事故响应流程"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me do a comprehensive engineering review of our system / Run a full incident response workflow"
+    ],
+    "zh": [
+      "帮我对系统进行全面工程审查 / 运行完整的事故响应流程"
+    ]
+  },
+  "_wb": {
+    "original_id": "EngineeringAssuranceTeam",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "engineering-director",
+    "plugin": "engineering-assurance-team",
+    "tags": [
+      {
+        "zh": "工程保障",
+        "en": "Engineering Assurance"
+      },
+      {
+        "zh": "代码审查",
+        "en": "Code Review"
+      },
+      {
+        "zh": "架构评审",
+        "en": "Architecture Review"
+      }
+    ]
+  }
+}

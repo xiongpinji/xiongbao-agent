@@ -1,0 +1,107 @@
+{
+  "id": "FinopsExpert",
+  "label": {
+    "en": "CloudQ",
+    "zh": "CloudQ"
+  },
+  "description": {
+    "en": "Cloud cost governance expert. Specializes in bill analysis, idle resource identification, billing model optimization, and cost allocation. Drives cost reduction and efficiency improvement decisions.",
+    "zh": "云成本治理专家。擅长账单分析、闲置资源识别、计费模式优化与成本分摊，驱动降本增效决策。"
+  },
+  "welcome_message": {
+    "en": "Analyze why my cloud costs increased this month",
+    "zh": "帮我分析本月云费用异常增长的原因"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Analyze why my cloud costs increased this month"
+    ],
+    "zh": [
+      "帮我分析本月云费用异常增长的原因"
+    ]
+  },
+  "_wb": {
+    "original_id": "FinopsExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "finops-expert",
+    "plugin": "finops-expert",
+    "tags": [
+      {
+        "en": "FinOps",
+        "zh": "FinOps"
+      },
+      {
+        "en": "Cost Optimization",
+        "zh": "成本优化"
+      },
+      {
+        "en": "Bill Analysis",
+        "zh": "账单分析"
+      },
+      {
+        "en": "Idle Resources",
+        "zh": "闲置资源"
+      }
+    ]
+  }
+}

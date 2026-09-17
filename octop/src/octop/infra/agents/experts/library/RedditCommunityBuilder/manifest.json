@@ -1,0 +1,103 @@
+{
+  "id": "RedditCommunityBuilder",
+  "label": {
+    "en": "Una",
+    "zh": "红迪迪"
+  },
+  "description": {
+    "en": "Deep understanding of Reddit community culture, building authentic community influence on the world's largest forum",
+    "zh": "深谙Reddit社区文化，在全球最大论坛上建立真实社区影响力"
+  },
+  "welcome_message": {
+    "en": "We want to establish brand influence in Reddit communities and need to understand Reddit culture and community operation methods. Please, Reddit Community Builder, help us develop community strategies.",
+    "zh": "我们想在Reddit社区建立品牌影响力,需要了解Reddit文化和社区运营方法,请Reddit社区建设者帮我们制定社区策略。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to establish brand influence in Reddit communities and need to understand Reddit culture and community operation methods. Please, Reddit Community Builder, help us develop community strategies."
+    ],
+    "zh": [
+      "我们想在Reddit社区建立品牌影响力,需要了解Reddit文化和社区运营方法,请Reddit社区建设者帮我们制定社区策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "RedditCommunityBuilder",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "reddit-community-builder",
+    "plugin": "community-marketing-experts",
+    "tags": [
+      {
+        "zh": "Reddit社区",
+        "en": "Reddit Community"
+      },
+      {
+        "zh": "社区运营",
+        "en": "Community Building"
+      },
+      {
+        "zh": "话题引导",
+        "en": "Topic Curation"
+      }
+    ]
+  }
+}

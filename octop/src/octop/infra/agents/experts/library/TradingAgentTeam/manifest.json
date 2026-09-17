@@ -1,0 +1,103 @@
+{
+  "id": "TradingAgentTeam",
+  "label": {
+    "en": "Trading Analysis Team",
+    "zh": "交易分析团队"
+  },
+  "description": {
+    "en": "13 specialized roles collaborate across 5 phases: technical, fundamental, news & sentiment analysis → bull-bear debate → trading decision → 3-way risk assessment → final report, delivering BUY/SELL/HOLD recommendations with actionable plans",
+    "zh": "13位专业角色分5阶段协作完成投资分析：技术面、基本面、新闻面、情绪面数据采集 → 多空辩论 → 交易决策 → 三方风险评估 → 最终报告，输出 BUY/SELL/HOLD 建议及完整操作方案"
+  },
+  "welcome_message": {
+    "en": "Should I buy Maotai? Please analyze.",
+    "zh": "帮我分析下茅台该不该买"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Should I buy Maotai? Please analyze."
+    ],
+    "zh": [
+      "帮我分析下茅台该不该买"
+    ]
+  },
+  "_wb": {
+    "original_id": "TradingAgentTeam",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "team",
+    "agent_name": "trading-team-lead",
+    "plugin": "trading-agent",
+    "tags": [
+      {
+        "zh": "交易策略",
+        "en": "Trading Strategy"
+      },
+      {
+        "zh": "风险管理",
+        "en": "Risk Management"
+      },
+      {
+        "zh": "市场分析",
+        "en": "Market Analysis"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "EnterpriseAccountStrategist",
+  "label": {
+    "en": "Quincy",
+    "zh": "拓客客"
+  },
+  "description": {
+    "en": "Expert in enterprise account management and expansion strategies, developing customers into long-term strategic partners",
+    "zh": "精通大客户经营和账户扩展策略，将客户发展为长期战略伙伴"
+  },
+  "welcome_message": {
+    "en": "We want to expand enterprise-level major accounts and need systematic major account development and management strategies. Please, Enterprise Account Strategist, help us design major account sales solutions.",
+    "zh": "我们想拓展企业级大客户,需要制定系统的大客户开发和管理策略,请企业账户策略师帮我们设计大客户销售方案。"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to expand enterprise-level major accounts and need systematic major account development and management strategies. Please, Enterprise Account Strategist, help us design major account sales solutions."
+    ],
+    "zh": [
+      "我们想拓展企业级大客户,需要制定系统的大客户开发和管理策略,请企业账户策略师帮我们设计大客户销售方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "EnterpriseAccountStrategist",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "agent",
+    "agent_name": "enterprise-account-strategist",
+    "plugin": "sales-experts",
+    "tags": [
+      {
+        "zh": "大客户战略",
+        "en": "Enterprise Account Strategy"
+      },
+      {
+        "zh": "客户规划",
+        "en": "Account Planning"
+      },
+      {
+        "zh": "关系管理",
+        "en": "Relationship Management"
+      }
+    ]
+  }
+}

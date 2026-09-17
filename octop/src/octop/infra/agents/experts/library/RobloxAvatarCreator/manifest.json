@@ -1,0 +1,103 @@
+{
+  "id": "RobloxAvatarCreator",
+  "label": {
+    "en": "Luke",
+    "zh": "捏脸达"
+  },
+  "description": {
+    "en": "Expert in Roblox UGC and avatar pipeline",
+    "zh": "精通Roblox UGC和虚拟形象管线"
+  },
+  "welcome_message": {
+    "en": "We want to create avatars on Roblox and need professional Avatar creation. Please, Roblox Avatar Creator, help us design a character system.",
+    "zh": "我们想在Roblox上创建角色,需要专业的Avatar制作,请Roblox角色创建者帮我们设计角色系统。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to create avatars on Roblox and need professional Avatar creation. Please, Roblox Avatar Creator, help us design a character system."
+    ],
+    "zh": [
+      "我们想在Roblox上创建角色,需要专业的Avatar制作,请Roblox角色创建者帮我们设计角色系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "RobloxAvatarCreator",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "roblox-avatar-creator",
+    "plugin": "godot-roblox-experts",
+    "tags": [
+      {
+        "zh": "虚拟形象",
+        "en": "Avatar Creation"
+      },
+      {
+        "zh": "角色定制",
+        "en": "Character Customization"
+      },
+      {
+        "zh": "3D建模",
+        "en": "3D Modeling"
+      }
+    ]
+  }
+}

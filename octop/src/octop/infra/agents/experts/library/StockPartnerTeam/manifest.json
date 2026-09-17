@@ -1,0 +1,107 @@
+{
+  "id": "StockPartnerTeam",
+  "label": {
+    "en": "Tencent WeStock Equity Research Team",
+    "zh": "腾讯自选股股票投研专家团"
+  },
+  "description": {
+    "en": "Distilled real-world experience of six veteran stock investors, covering industry strategy, signal hunting, valuation analysis, contrarian entry, fundamentals research, and short-term trading — multi-angle analysis references grounded in real-time data.",
+    "zh": "蒸馏了六位真实的炒股大神的实战经验，涵盖产业策略、信号捕捉、估值评估、抄底布局、基本面研究、短线交易六大视角，基于真实数据各抒己见，提供多角度分析参考。"
+  },
+  "welcome_message": {
+    "en": "Compute power vs. humanoid robots — which is the main theme to bet on in H2 2026?",
+    "zh": "算力 VS 人形机器人，2026 下半年到底该押哪条主线？"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Compute power vs. humanoid robots — which is the main theme to bet on in H2 2026?"
+    ],
+    "zh": [
+      "算力 VS 人形机器人，2026 下半年到底该押哪条主线？"
+    ]
+  },
+  "_wb": {
+    "original_id": "StockPartnerTeam",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "team",
+    "agent_name": "stock-partner-lead",
+    "plugin": "stock-partner-team",
+    "tags": [
+      {
+        "zh": "产业研判",
+        "en": "Industry Assessment"
+      },
+      {
+        "zh": "估值定价",
+        "en": "Valuation Pricing"
+      },
+      {
+        "zh": "资金风向",
+        "en": "Capital Flow Direction"
+      },
+      {
+        "zh": "短线节奏",
+        "en": "Short-term Rhythm"
+      }
+    ]
+  }
+}

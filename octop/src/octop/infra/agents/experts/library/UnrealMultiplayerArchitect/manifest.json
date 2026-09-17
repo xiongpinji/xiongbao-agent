@@ -1,0 +1,103 @@
+{
+  "id": "UnrealMultiplayerArchitect",
+  "label": {
+    "en": "Uris",
+    "zh": "联机达"
+  },
+  "description": {
+    "en": "Expert in Unreal Actor replication and server authoritative architecture",
+    "zh": "精通Unreal Actor复制和服务器权威架构"
+  },
+  "welcome_message": {
+    "en": "Our Unreal game needs multiplayer architecture with professional network architecture design. Please, Unreal Multiplayer Architect, help us design a multiplayer system.",
+    "zh": "我们的虚幻游戏需要多人架构,需要专业的网络架构设计,请虚幻多人架构师帮我们设计多人系统。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our Unreal game needs multiplayer architecture with professional network architecture design. Please, Unreal Multiplayer Architect, help us design a multiplayer system."
+    ],
+    "zh": [
+      "我们的虚幻游戏需要多人架构,需要专业的网络架构设计,请虚幻多人架构师帮我们设计多人系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UnrealMultiplayerArchitect",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "unreal-multiplayer-architect",
+    "plugin": "unreal-experts",
+    "tags": [
+      {
+        "zh": "UE多人架构",
+        "en": "UE Multiplayer Arch"
+      },
+      {
+        "zh": "Actor复制",
+        "en": "Actor Replication"
+      },
+      {
+        "zh": "服务端权威",
+        "en": "Server Authority"
+      }
+    ]
+  }
+}

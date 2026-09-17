@@ -1,0 +1,103 @@
+{
+  "id": "ComplianceAuditor",
+  "label": {
+    "en": "Fox",
+    "zh": "合规规"
+  },
+  "description": {
+    "en": "Comprehensively auditing enterprise operations compliance, ensuring adherence to industry standards",
+    "zh": "全面审计企业运营合规性，确保符合行业标准"
+  },
+  "welcome_message": {
+    "en": "Our business needs to meet complex compliance requirements and requires systematic compliance reviews. Please, Compliance Auditor, help us develop compliance check processes.",
+    "zh": "我们的业务需要满足复杂的合规要求,需要系统的合规审查,请合规审计师帮我们制定合规检查流程。"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our business needs to meet complex compliance requirements and requires systematic compliance reviews. Please, Compliance Auditor, help us develop compliance check processes."
+    ],
+    "zh": [
+      "我们的业务需要满足复杂的合规要求,需要系统的合规审查,请合规审计师帮我们制定合规检查流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ComplianceAuditor",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "compliance-auditor",
+    "plugin": "finance-legal-experts",
+    "tags": [
+      {
+        "zh": "合规审计",
+        "en": "Compliance Audit"
+      },
+      {
+        "zh": "标准认证",
+        "en": "Standard Certification"
+      },
+      {
+        "zh": "审计报告",
+        "en": "Audit Report"
+      }
+    ]
+  }
+}

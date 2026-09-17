@@ -1,0 +1,103 @@
+{
+  "id": "BackendArchitect",
+  "label": {
+    "en": "Joy",
+    "zh": "磐石石"
+  },
+  "description": {
+    "en": "Deep expertise in distributed systems and high-concurrency architecture, excelling at transforming complex business into elegant technical solutions",
+    "zh": "深耕分布式系统和高并发架构，擅长将复杂业务转化为优雅技术方案"
+  },
+  "welcome_message": {
+    "en": "Our backend system architecture needs refactoring for better scalability and stability. Please, Backend Architect, help us design a reliable backend architecture solution.",
+    "zh": "我们的后端系统架构需要重构,需要更好的扩展性和稳定性,请后端架构师帮我们设计可靠的后端架构方案。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our backend system architecture needs refactoring for better scalability and stability. Please, Backend Architect, help us design a reliable backend architecture solution."
+    ],
+    "zh": [
+      "我们的后端系统架构需要重构,需要更好的扩展性和稳定性,请后端架构师帮我们设计可靠的后端架构方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "BackendArchitect",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "backend-architect",
+    "plugin": "frontend-backend-experts",
+    "tags": [
+      {
+        "zh": "后端架构",
+        "en": "Backend Architecture"
+      },
+      {
+        "zh": "微服务",
+        "en": "Microservices"
+      },
+      {
+        "zh": "高可用设计",
+        "en": "High Availability"
+      }
+    ]
+  }
+}

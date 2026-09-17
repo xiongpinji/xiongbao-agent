@@ -1,0 +1,111 @@
+{
+  "id": "VideoDissection",
+  "label": {
+    "en": "Video Dissection",
+    "zh": "苍何视频解剖"
+  },
+  "description": {
+    "en": "A professional team that deconstructs viral Douyin videos' filming techniques. We extract videos, transcribe scripts, analyze shot types, camera movements, editing rhythm, color grading, and provide actionable tips for replicating successful videos.",
+    "zh": "专业拆解火爆抖音视频拍摄手法的专家团。输入抖音链接，自动提取视频、转录文案、分析景别运镜、剪辑节奏、色调风格，生成完整拍摄脚本拆解文档，并提供可落地的仿拍建议。"
+  },
+  "welcome_message": {
+    "en": "Hello! I'm the lead of the Video Dissection team. Give me a Douyin link and I'll break down its filming techniques in detail!",
+    "zh": "你好！我是视频解剖的主理人阿爆。给我一个抖音链接，我来帮你把它的拍摄手法拆得明明白白！"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hello! I'm the lead of the Video Dissection team. Give me a Douyin link and I'll break down its filming techniques in detail!"
+    ],
+    "zh": [
+      "你好！我是视频解剖的主理人阿爆。给我一个抖音链接，我来帮你把它的拍摄手法拆得明明白白！"
+    ]
+  },
+  "_wb": {
+    "original_id": "VideoDissection",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "team",
+    "agent_name": "video-dissection-team-lead",
+    "plugin": "video-dissection",
+    "tags": [
+      {
+        "en": "Video Analysis",
+        "zh": "视频分析"
+      },
+      {
+        "en": "Filming Techniques",
+        "zh": "拍摄手法"
+      },
+      {
+        "en": "Script Deconstruction",
+        "zh": "脚本拆解"
+      },
+      {
+        "en": "Douyin",
+        "zh": "抖音"
+      },
+      {
+        "en": "Content Creation",
+        "zh": "内容创作"
+      }
+    ]
+  }
+}

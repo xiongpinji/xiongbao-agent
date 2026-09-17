@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "expert_id": "StockPartnerTeam",
+  "lead_id": "stock-partner-lead",
+  "lead_name": "腾讯自选股股票投研专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\StockPartnerTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "industry-strategist",
+      "display_name": "产业策略师",
+      "specialty": "产业趋势、产业链拆解、景气度排序、牛熊判断",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "星望远",
+      "emoji": "🌊",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "signal-chief",
+      "display_name": "信号派首席",
+      "specialty": "系统性风险预警、卖出时机、操作纪律",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "洲四方",
+      "emoji": "📡",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "valuation-analyst",
+      "display_name": "估值分析师",
+      "specialty": "估值定价（PE Bands/PEG）、核心+卫星仓位、宏观配置",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "文衡价",
+      "emoji": "🧮",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "contrarian-investor",
+      "display_name": "逆向投资人",
+      "specialty": "逆向抄底、分批建仓、深套心态安抚、极简框架",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "坤候底",
+      "emoji": "🏔️",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "fundamental-researcher",
+      "display_name": "财报研究员",
+      "specialty": "个股基本面深挖、季度跟踪、管理层与生活体感",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "钊审财",
+      "emoji": "🔬",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "shortterm-surfer",
+      "display_name": "短线冲浪手",
+      "specialty": "短线主线判断、集合竞价、龙头识别、技术止损",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "磊追浪",
+      "emoji": "⚡",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "industry-strategist",
+        "signal-chief",
+        "valuation-analyst",
+        "contrarian-investor",
+        "fundamental-researcher",
+        "shortterm-surfer"
+      ]
+    }
+  ]
+}

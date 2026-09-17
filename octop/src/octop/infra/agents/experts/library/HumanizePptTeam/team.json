@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "HumanizePptTeam",
+  "lead_id": "humanize-ppt-team-lead",
+  "lead_name": "人感PPT专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\HumanizePptTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "outline-director",
+      "display_name": "O1",
+      "specialty": "humanize-ppt",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "deck_brief.md`、`ast_outline.md`、`slide_plan.json`、`speaker_intent.md`、`asset_manifest.md`、`video_slots.json"
+    },
+    {
+      "agent_id": "guizang-renderer",
+      "display_name": "P1",
+      "specialty": "guizang-ppt-skill",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "中文稳定版单文件 HTML PPT"
+    },
+    {
+      "agent_id": "frontend-slides-renderer",
+      "display_name": "P2",
+      "specialty": "frontend-slides",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "风格探索版 HTML PPT、部署/导出路线"
+    },
+    {
+      "agent_id": "video-motion-agent",
+      "display_name": "C1",
+      "specialty": "remotion-video-toolkit",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "视频/动效片段方案、可渲染 Remotion brief 或项目骨架"
+    },
+    {
+      "agent_id": "html-ppt-presenter",
+      "display_name": "C2",
+      "specialty": "html-ppt",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "演讲者模式、speaker notes、当前页/下一页、计时器"
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "outline-director",
+        "guizang-renderer",
+        "frontend-slides-renderer",
+        "video-motion-agent",
+        "html-ppt-presenter"
+      ]
+    }
+  ]
+}

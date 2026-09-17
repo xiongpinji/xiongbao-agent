@@ -1,0 +1,103 @@
+{
+  "id": "DeepResearchExpert",
+  "label": {
+    "en": "Iris",
+    "zh": "深研研"
+  },
+  "description": {
+    "en": "Comprehensive web research, information synthesis, and knowledge evidence exchange with multi-source research, fact verification, and structured report generation",
+    "zh": "综合性深度研究专家，支持多源信息检索、事实验证、知识发现和结构化报告生成，含微信公众号文章搜索能力"
+  },
+  "welcome_message": {
+    "en": "Help me do deep research on AI Agent development trends",
+    "zh": "帮我深度研究一下AI Agent的发展趋势"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me do deep research on AI Agent development trends"
+    ],
+    "zh": [
+      "帮我深度研究一下AI Agent的发展趋势"
+    ]
+  },
+  "_wb": {
+    "original_id": "DeepResearchExpert",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "deep-research-expert",
+    "plugin": "deep-research",
+    "tags": [
+      {
+        "zh": "深度调研",
+        "en": "Deep Research"
+      },
+      {
+        "zh": "行业分析",
+        "en": "Industry Analysis"
+      },
+      {
+        "zh": "学术报告",
+        "en": "Academic Report"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "XiaohongshuOperationsExpert",
+  "label": {
+    "en": "Fay",
+    "zh": "种草草"
+  },
+  "description": {
+    "en": "Deep understanding of Xiaohongshu seeding ecosystem and recommendation mechanism, creating high-engagement seeding content",
+    "zh": "深谙小红书种草生态和推荐机制，打造高互动率种草内容"
+  },
+  "welcome_message": {
+    "en": "I want to do Xiaohongshu content operations and need professional operation strategies and user growth solutions. Please, Xiaohongshu Operations Expert, help me analyze account positioning, content planning, and methods for creating viral hits.",
+    "zh": "我想做小红书内容运营,需要专业的运营策略和用户增长方案,请小红书运营专家帮我分析账号定位、内容规划和爆款打造方法。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I want to do Xiaohongshu content operations and need professional operation strategies and user growth solutions. Please, Xiaohongshu Operations Expert, help me analyze account positioning, content planning, and methods for creating viral hits."
+    ],
+    "zh": [
+      "我想做小红书内容运营,需要专业的运营策略和用户增长方案,请小红书运营专家帮我分析账号定位、内容规划和爆款打造方法。"
+    ]
+  },
+  "_wb": {
+    "original_id": "XiaohongshuOperationsExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "xiaohongshu-operations-expert",
+    "plugin": "operations-customer-experts",
+    "tags": [
+      {
+        "zh": "小红书运营",
+        "en": "Xiaohongshu Ops"
+      },
+      {
+        "zh": "种草营销",
+        "en": "Seeding Marketing"
+      },
+      {
+        "zh": "笔记创作",
+        "en": "Note Creation"
+      }
+    ]
+  }
+}

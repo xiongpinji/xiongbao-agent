@@ -1,0 +1,103 @@
+{
+  "id": "LspIndexEngineer",
+  "label": {
+    "en": "Priya",
+    "zh": "索引引"
+  },
+  "description": {
+    "en": "Expert in Language Server Protocol and code indexing technologies",
+    "zh": "精通语言服务器协议和代码索引技术"
+  },
+  "welcome_message": {
+    "en": "We need to build a Language Service Provider indexing system. Please, LSP Index Engineer, help us design the indexing architecture.",
+    "zh": "我们需要构建语言服务提供商的索引系统,请LSP索引工程师帮我们设计索引架构。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to build a Language Service Provider indexing system. Please, LSP Index Engineer, help us design the indexing architecture."
+    ],
+    "zh": [
+      "我们需要构建语言服务提供商的索引系统,请LSP索引工程师帮我们设计索引架构。"
+    ]
+  },
+  "_wb": {
+    "original_id": "LspIndexEngineer",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "lsp-index-engineer",
+    "plugin": "engineering-tools-experts",
+    "tags": [
+      {
+        "zh": "语言服务",
+        "en": "Language Server"
+      },
+      {
+        "zh": "代码索引",
+        "en": "Code Indexing"
+      },
+      {
+        "zh": "智能补全",
+        "en": "Intelligent Completion"
+      }
+    ]
+  }
+}

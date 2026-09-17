@@ -1,0 +1,103 @@
+{
+  "id": "ContentCreator",
+  "label": {
+    "en": "Kai",
+    "zh": "文爆爆"
+  },
+  "description": {
+    "en": "Skilled at creating engaging multi-platform content, delivering brand stories to target audiences",
+    "zh": "擅长创作引人入胜的多平台内容，让品牌故事触达目标受众"
+  },
+  "welcome_message": {
+    "en": "We need to consistently create high-quality content to attract our target audience, but we lack systematic content planning. Please, Content Creator, help us develop a content strategy.",
+    "zh": "我们需要持续创作优质内容来吸引目标用户,但缺乏系统的内容规划,请内容创作专家帮我们制定内容策略。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to consistently create high-quality content to attract our target audience, but we lack systematic content planning. Please, Content Creator, help us develop a content strategy."
+    ],
+    "zh": [
+      "我们需要持续创作优质内容来吸引目标用户,但缺乏系统的内容规划,请内容创作专家帮我们制定内容策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ContentCreator",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "content-creator",
+    "plugin": "content-creation-experts",
+    "tags": [
+      {
+        "zh": "内容策略",
+        "en": "Content Strategy"
+      },
+      {
+        "zh": "多平台创作",
+        "en": "Multi-Platform Creation"
+      },
+      {
+        "zh": "品牌叙事",
+        "en": "Brand Storytelling"
+      }
+    ]
+  }
+}

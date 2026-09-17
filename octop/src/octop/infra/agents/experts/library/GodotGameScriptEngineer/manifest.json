@@ -1,0 +1,103 @@
+{
+  "id": "GodotGameScriptEngineer",
+  "label": {
+    "en": "Earl",
+    "zh": "节点通"
+  },
+  "description": {
+    "en": "Expert in GDScript 2.0 and Godot 4 node architecture",
+    "zh": "精通GDScript 2.0和Godot 4节点架构"
+  },
+  "welcome_message": {
+    "en": "We use the Godot engine for game development and need professional GDScript and engine usage support. Please, Godot Game Script Engineer, help us implement game features.",
+    "zh": "我们使用Godot引擎开发游戏,需要专业的GDScript和引擎使用支持,请Godot游戏脚本工程师帮我们实现游戏功能。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We use the Godot engine for game development and need professional GDScript and engine usage support. Please, Godot Game Script Engineer, help us implement game features."
+    ],
+    "zh": [
+      "我们使用Godot引擎开发游戏,需要专业的GDScript和引擎使用支持,请Godot游戏脚本工程师帮我们实现游戏功能。"
+    ]
+  },
+  "_wb": {
+    "original_id": "GodotGameScriptEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "godot-game-script-engineer",
+    "plugin": "godot-roblox-experts",
+    "tags": [
+      {
+        "zh": "脚本工程",
+        "en": "Script Engineering"
+      },
+      {
+        "zh": "游戏逻辑",
+        "en": "Game Logic"
+      },
+      {
+        "zh": "GDScript",
+        "en": "GDScript"
+      }
+    ]
+  }
+}

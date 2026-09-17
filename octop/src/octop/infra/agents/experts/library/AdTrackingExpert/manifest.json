@@ -1,0 +1,103 @@
+{
+  "id": "AdTrackingExpert",
+  "label": {
+    "en": "Ivy",
+    "zh": "追踪踪"
+  },
+  "description": {
+    "en": "Expert in ad tracking code and conversion attribution technology, ensuring trackable campaign performance",
+    "zh": "精通广告追踪代码和转化归因技术，确保投放效果可追踪"
+  },
+  "welcome_message": {
+    "en": "Our advertising data is difficult to track accurately, and we cannot measure ROI. Please, Ad Tracking Expert, help us establish an accurate ad tracking system.",
+    "zh": "我们的广告投放数据难以准确追踪,无法衡量ROI,请广告追踪专家帮我们建立精准的广告追踪体系。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our advertising data is difficult to track accurately, and we cannot measure ROI. Please, Ad Tracking Expert, help us establish an accurate ad tracking system."
+    ],
+    "zh": [
+      "我们的广告投放数据难以准确追踪,无法衡量ROI,请广告追踪专家帮我们建立精准的广告追踪体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AdTrackingExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "ad-tracking-expert",
+    "plugin": "paid-media-experts",
+    "tags": [
+      {
+        "zh": "广告追踪",
+        "en": "Ad Tracking"
+      },
+      {
+        "zh": "归因建模",
+        "en": "Attribution Modeling"
+      },
+      {
+        "zh": "标签管理",
+        "en": "Tag Management"
+      }
+    ]
+  }
+}

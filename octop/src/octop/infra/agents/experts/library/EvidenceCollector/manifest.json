@@ -1,0 +1,103 @@
+{
+  "id": "EvidenceCollector",
+  "label": {
+    "en": "Indigo",
+    "zh": "截图图"
+  },
+  "description": {
+    "en": "Never letting any issue without screenshot evidence slip by, using visual proof to ensure defects have nowhere to hide",
+    "zh": "不放过任何没有截图证据的问题，用视觉证据确保缺陷无处遁形"
+  },
+  "welcome_message": {
+    "en": "Our product releases need quality evidence collection to ensure release quality. Please, Evidence Collector, help us establish a quality evidence collection system.",
+    "zh": "我们的产品发布需要收集质量证据,保证发布质量,请证据收集者帮我们建立质量证据收集体系。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our product releases need quality evidence collection to ensure release quality. Please, Evidence Collector, help us establish a quality evidence collection system."
+    ],
+    "zh": [
+      "我们的产品发布需要收集质量证据,保证发布质量,请证据收集者帮我们建立质量证据收集体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "EvidenceCollector",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "evidence-collector",
+    "plugin": "quality-testing-experts",
+    "tags": [
+      {
+        "zh": "证据收集",
+        "en": "Evidence Collection"
+      },
+      {
+        "zh": "截图取证",
+        "en": "Screenshot Evidence"
+      },
+      {
+        "zh": "缺陷定位",
+        "en": "Defect Localization"
+      }
+    ]
+  }
+}

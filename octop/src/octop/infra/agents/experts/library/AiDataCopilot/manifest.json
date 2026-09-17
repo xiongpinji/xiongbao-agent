@@ -1,0 +1,103 @@
+{
+  "id": "AiDataCopilot",
+  "label": {
+    "en": "AI Data Copilot",
+    "zh": "智数分析专家团"
+  },
+  "description": {
+    "en": "A 6-member AI-native data analysis team with natural language to SQL, Python data science, RAG knowledge QA, interactive dashboards, and professional report generation.",
+    "zh": "6人AI数据分析团队，擅长自然语言转SQL、Python建模、RAG知识问答、仪表盘可视化与报告生成"
+  },
+  "welcome_message": {
+    "en": "Analyze this CSV file and generate a profiling report with key metrics and visualizations",
+    "zh": "分析这个CSV文件，生成一份包含关键指标和可视化图表的数据画像报告"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Analyze this CSV file and generate a profiling report with key metrics and visualizations"
+    ],
+    "zh": [
+      "分析这个CSV文件，生成一份包含关键指标和可视化图表的数据画像报告"
+    ]
+  },
+  "_wb": {
+    "original_id": "AiDataCopilot",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "team",
+    "agent_name": "copilot-team-lead",
+    "plugin": "ai-data-copilot",
+    "tags": [
+      {
+        "en": "Data Analysis",
+        "zh": "数据分析"
+      },
+      {
+        "en": "SQL Generation",
+        "zh": "SQL生成"
+      },
+      {
+        "en": "Report Generation",
+        "zh": "报告生成"
+      }
+    ]
+  }
+}

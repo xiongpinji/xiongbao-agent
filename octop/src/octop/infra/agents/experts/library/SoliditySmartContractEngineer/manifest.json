@@ -1,0 +1,103 @@
+{
+  "id": "SoliditySmartContractEngineer",
+  "label": {
+    "en": "Zane",
+    "zh": "链合约"
+  },
+  "description": {
+    "en": "Expert in Solidity and EVM ecosystem, writing secure and efficient smart contracts",
+    "zh": "精通Solidity和EVM生态，编写安全高效的智能合约"
+  },
+  "welcome_message": {
+    "en": "We want to develop smart contracts for blockchain applications and need professional Solidity development support. Please, Solidity Smart Contract Engineer, help us write secure contract code.",
+    "zh": "我们想开发区块链应用的智能合约,需要专业的Solidity开发支持,请Solidity智能合约工程师帮我们编写安全的合约代码。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop smart contracts for blockchain applications and need professional Solidity development support. Please, Solidity Smart Contract Engineer, help us write secure contract code."
+    ],
+    "zh": [
+      "我们想开发区块链应用的智能合约,需要专业的Solidity开发支持,请Solidity智能合约工程师帮我们编写安全的合约代码。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SoliditySmartContractEngineer",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "solidity-smart-contract-engineer",
+    "plugin": "devops-security-experts",
+    "tags": [
+      {
+        "zh": "智能合约",
+        "en": "Smart Contract"
+      },
+      {
+        "zh": "Solidity",
+        "en": "Solidity"
+      },
+      {
+        "zh": "DeFi开发",
+        "en": "DeFi Development"
+      }
+    ]
+  }
+}

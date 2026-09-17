@@ -1,0 +1,103 @@
+{
+  "id": "ValuationReviewer",
+  "label": {
+    "en": "Valuation Reviewer",
+    "zh": "顾估衡"
+  },
+  "description": {
+    "en": "Fund-accounting lead who reviews portfolio-company valuation packages, runs fund's valuation template, and stages LP reporting for IR sign-off.",
+    "zh": "PE/VC 基金组合估值主管,收 GP 估值包、跑标准估值模板、算基金 NAV 与 LP 分配、出 LP 报告草稿交投资者关系签核。"
+  },
+  "welcome_message": {
+    "en": "Please review this GP valuation package for our Q1 close: run each portco through our template, compute fund NAV and LP allocations, and stage the LP reporting pack.",
+    "zh": "请审核这份 Q1 关账的 GP 估值包:每家被投按我们模板重估一遍,计算基金 NAV 与 LP 份额分配,并整理 LP 报告草稿。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please review this GP valuation package for our Q1 close: run each portco through our template, compute fund NAV and LP allocations, and stage the LP reporting pack."
+    ],
+    "zh": [
+      "请审核这份 Q1 关账的 GP 估值包:每家被投按我们模板重估一遍,计算基金 NAV 与 LP 份额分配,并整理 LP 报告草稿。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ValuationReviewer",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "valuation-reviewer",
+    "plugin": "valuation-reviewer",
+    "tags": [
+      {
+        "zh": "组合估值",
+        "en": "Portfolio Valuation"
+      },
+      {
+        "zh": "净值计算",
+        "en": "NAV Computation"
+      },
+      {
+        "zh": "LP 报告",
+        "en": "LP Reporting"
+      }
+    ]
+  }
+}

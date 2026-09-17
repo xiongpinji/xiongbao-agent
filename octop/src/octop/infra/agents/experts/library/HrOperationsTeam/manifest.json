@@ -1,0 +1,103 @@
+{
+  "id": "HrOperationsTeam",
+  "label": {
+    "en": "HR Operations Team",
+    "zh": "HR 运营团队"
+  },
+  "description": {
+    "en": "HR management workflow: recruitment screening, compensation system design, organizational development, and HR operations to support talent strategy",
+    "zh": "人力资源管理流程化，招聘筛选、薪酬体系设计、组织发展与HR运营流程化管理，助力企业人才战略落地"
+  },
+  "welcome_message": {
+    "en": "Help me design an interview plan / Draft an offer letter / Plan our org structure",
+    "zh": "帮我设计面试方案 / 起草 Offer / 规划组织架构"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me design an interview plan / Draft an offer letter / Plan our org structure"
+    ],
+    "zh": [
+      "帮我设计面试方案 / 起草 Offer / 规划组织架构"
+    ]
+  },
+  "_wb": {
+    "original_id": "HrOperationsTeam",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "team",
+    "agent_name": "hr-director",
+    "plugin": "hr-operations-team",
+    "tags": [
+      {
+        "zh": "HR运营",
+        "en": "HR Operations"
+      },
+      {
+        "zh": "薪酬分析",
+        "en": "Compensation Analysis"
+      },
+      {
+        "zh": "组织发展",
+        "en": "Org Development"
+      }
+    ]
+  }
+}

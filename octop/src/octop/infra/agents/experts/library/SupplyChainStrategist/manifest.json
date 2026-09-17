@@ -1,0 +1,103 @@
+{
+  "id": "SupplyChainStrategist",
+  "label": {
+    "en": "Abel",
+    "zh": "链优优"
+  },
+  "description": {
+    "en": "Optimizing every link in the supply chain, achieving the best balance of cost, efficiency, and resilience",
+    "zh": "优化供应链每个环节，实现成本效率韧性的最佳平衡"
+  },
+  "welcome_message": {
+    "en": "Our supply chain needs optimization to improve efficiency and reduce costs. Please, Supply Chain Strategist, help us design a supply chain optimization solution.",
+    "zh": "我们的供应链需要优化,提升效率和降低成本,请供应链战略家帮我们设计供应链优化方案。"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our supply chain needs optimization to improve efficiency and reduce costs. Please, Supply Chain Strategist, help us design a supply chain optimization solution."
+    ],
+    "zh": [
+      "我们的供应链需要优化,提升效率和降低成本,请供应链战略家帮我们设计供应链优化方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SupplyChainStrategist",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "agent",
+    "agent_name": "supply-chain-strategist",
+    "plugin": "industry-service-experts",
+    "tags": [
+      {
+        "zh": "供应链战略",
+        "en": "Supply Chain Strategy"
+      },
+      {
+        "zh": "采购规划",
+        "en": "Procurement Planning"
+      },
+      {
+        "zh": "库存优化",
+        "en": "Inventory Optimization"
+      }
+    ]
+  }
+}

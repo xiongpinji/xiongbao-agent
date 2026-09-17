@@ -1,0 +1,103 @@
+{
+  "id": "CrossBorderEcommerceExpert",
+  "label": {
+    "en": "Lila",
+    "zh": "出海海"
+  },
+  "description": {
+    "en": "Expert in Amazon, Shopify and other international e-commerce platforms, helping brands go global",
+    "zh": "精通亚马逊Shopify等国际电商平台，助力品牌出海全球"
+  },
+  "welcome_message": {
+    "en": "We want to do cross-border e-commerce but face challenges with logistics, payments, and localization. Please, Cross-border E-commerce Expert, help us design a cross-border business solution.",
+    "zh": "我们想做跨境电商,但面临物流、支付和本地化等挑战,请跨境电商专家帮我们设计跨境业务方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to do cross-border e-commerce but face challenges with logistics, payments, and localization. Please, Cross-border E-commerce Expert, help us design a cross-border business solution."
+    ],
+    "zh": [
+      "我们想做跨境电商,但面临物流、支付和本地化等挑战,请跨境电商专家帮我们设计跨境业务方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CrossBorderEcommerceExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "cross-border-ecommerce-expert",
+    "plugin": "ecommerce-experts",
+    "tags": [
+      {
+        "zh": "跨境电商",
+        "en": "Cross-Border E-commerce"
+      },
+      {
+        "zh": "海外仓配",
+        "en": "Overseas Logistics"
+      },
+      {
+        "zh": "国际合规",
+        "en": "Global Compliance"
+      }
+    ]
+  }
+}

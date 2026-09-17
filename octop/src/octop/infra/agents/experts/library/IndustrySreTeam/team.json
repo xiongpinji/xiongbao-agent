@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "expert_id": "IndustrySreTeam",
+  "lead_id": "industry-sre-team-lead",
+  "lead_name": "腾讯云行业 SRE · 主理人 — 腾讯云首席 SRE",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\IndustrySreTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "game-sre",
+      "display_name": "游戏行业 SRE",
+      "specialty": "游戏 / 可靠性·性能·服务限制",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "retail-sre",
+      "display_name": "零售行业 SRE",
+      "specialty": "零售 / 成本·服务限制",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "education-sre",
+      "display_name": "教育行业 SRE",
+      "specialty": "教育 / 可靠性·性能",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "finance-sre",
+      "display_name": "金融行业 SRE",
+      "specialty": "金融 / 安全·可靠性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "mobility-sre",
+      "display_name": "出行行业 SRE",
+      "specialty": "出行 / 可靠性·性能",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "internet-sre",
+      "display_name": "互联网行业 SRE",
+      "specialty": "泛互联网 / 性能·成本",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "ecommerce-sre",
+      "display_name": "电商行业 SRE",
+      "specialty": "电商 / 可靠性·性能·服务限制",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "healthcare-sre",
+      "display_name": "医疗行业 SRE",
+      "specialty": "医疗 / 安全·可靠性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "manufacturing-sre",
+      "display_name": "工业制造行业 SRE",
+      "specialty": "工业制造 / 安全·可靠性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "live-sre",
+      "display_name": "直播行业 SRE",
+      "specialty": "直播 / 性能·成本",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "social-im-sre",
+      "display_name": "社交通信行业 SRE",
+      "specialty": "社交通信 / 可靠性·性能·服务限制",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "saas-sre",
+      "display_name": "SaaS 行业 SRE",
+      "specialty": "SaaS / 安全·可靠性·成本·服务限制",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "game-sre",
+        "retail-sre",
+        "education-sre",
+        "finance-sre",
+        "mobility-sre",
+        "internet-sre",
+        "ecommerce-sre",
+        "healthcare-sre",
+        "manufacturing-sre",
+        "live-sre",
+        "social-im-sre",
+        "saas-sre"
+      ]
+    }
+  ]
+}

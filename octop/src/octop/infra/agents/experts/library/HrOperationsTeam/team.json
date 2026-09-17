@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "HrOperationsTeam",
+  "lead_id": "hr-director",
+  "lead_name": "HR 运营团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\HrOperationsTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "recruiter",
+      "display_name": "猎达（Hunter） · 招聘专家（Recruiter）",
+      "specialty": "招聘漏斗管理、面试设计、Offer 起草",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "comp-analyst",
+      "display_name": "薪析（Payla） · 薪酬分析师（Compensation Analyst）",
+      "specialty": "薪酬对标、薪酬带分析、股权建模",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "org-developer",
+      "display_name": "组织（Orga） · 组织发展专家（Organization Developer）",
+      "specialty": "组织规划、绩效评估、人员分析",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "hr-ops",
+      "display_name": "入职（Onboard） · HR 运营专员（HR Operations）",
+      "specialty": "入职引导、政策查询、合规管理",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "recruiter",
+        "comp-analyst",
+        "org-developer",
+        "hr-ops"
+      ]
+    }
+  ]
+}

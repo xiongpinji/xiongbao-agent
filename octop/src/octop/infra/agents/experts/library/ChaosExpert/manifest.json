@@ -1,0 +1,107 @@
+{
+  "id": "ChaosExpert",
+  "label": {
+    "en": "CloudQ",
+    "zh": "CloudQ"
+  },
+  "description": {
+    "en": "Chaos engineering expert. Specializes in fault injection drill design, resilience verification and scoring, circuit breaker strategy evaluation, and system anti-fragility improvement.",
+    "zh": "混沌演练专家。擅长故障注入演练、韧性验证与熔断策略评估，提升系统抗脆弱能力。"
+  },
+  "welcome_message": {
+    "en": "Query the results of the latest chaos drill",
+    "zh": "查询最近一次混沌演练的结果"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Query the results of the latest chaos drill"
+    ],
+    "zh": [
+      "查询最近一次混沌演练的结果"
+    ]
+  },
+  "_wb": {
+    "original_id": "ChaosExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "chaos-expert",
+    "plugin": "chaos-expert",
+    "tags": [
+      {
+        "en": "Chaos Engineering",
+        "zh": "混沌工程"
+      },
+      {
+        "en": "Fault Injection",
+        "zh": "故障注入"
+      },
+      {
+        "en": "Resilience",
+        "zh": "韧性验证"
+      },
+      {
+        "en": "Circuit Breaker",
+        "zh": "熔断策略"
+      }
+    ]
+  }
+}

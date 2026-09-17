@@ -1,0 +1,103 @@
+{
+  "id": "BlockchainSecurityAuditor",
+  "label": {
+    "en": "Elio",
+    "zh": "链审审"
+  },
+  "description": {
+    "en": "Specializing in blockchain smart contract and DeFi protocol security audits",
+    "zh": "专精区块链智能合约和DeFi协议安全审计"
+  },
+  "welcome_message": {
+    "en": "Our blockchain project needs security auditing to ensure smart contract and system security. Please, Blockchain Security Auditor, help us conduct a security audit.",
+    "zh": "我们的区块链项目需要安全审计,确保智能合约和系统安全,请区块链安全审计师帮我们进行安全审计。"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our blockchain project needs security auditing to ensure smart contract and system security. Please, Blockchain Security Auditor, help us conduct a security audit."
+    ],
+    "zh": [
+      "我们的区块链项目需要安全审计,确保智能合约和系统安全,请区块链安全审计师帮我们进行安全审计。"
+    ]
+  },
+  "_wb": {
+    "original_id": "BlockchainSecurityAuditor",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "blockchain-security-auditor",
+    "plugin": "finance-legal-experts",
+    "tags": [
+      {
+        "zh": "合约审计",
+        "en": "Smart Contract Audit"
+      },
+      {
+        "zh": "漏洞检测",
+        "en": "Vulnerability Detection"
+      },
+      {
+        "zh": "链上安全",
+        "en": "On-chain Security"
+      }
+    ]
+  }
+}

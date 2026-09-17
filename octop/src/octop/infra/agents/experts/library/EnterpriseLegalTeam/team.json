@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "expert_id": "EnterpriseLegalTeam",
+  "lead_id": "enterprise-legal-lead",
+  "lead_name": "enterprise-legal-lead",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\EnterpriseLegalTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "commercial-contracts-counsel",
+      "display_name": "commercial-contracts-counsel",
+      "specialty": "vendor agreement review; NDA triage; SaaS MSA review; China contract risk scanning and clause redraft; renewal and cancellation deadline review; playbook escalation flags. Typical questions: Review th",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "corporate-ma-counsel",
+      "display_name": "corporate-ma-counsel",
+      "specialty": "M&A diligence issue extraction; tabular review with citations; closing checklist preparation; board minutes and written consent drafting; entity compliance and integration handoff. Typical questions: ",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "employment-law-counsel",
+      "display_name": "employment-law-counsel",
+      "specialty": "hiring and termination review; China employment relationship review; working-time and compensation risk triage; labor dispute amount estimation; internal investigation workflow; leave and handbook upd",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "privacy-data-counsel",
+      "display_name": "privacy-data-counsel",
+      "specialty": "privacy issue triage; PIA generation; DPA review; PIPL compliance checks; personal information rights request planning; privacy policy drift and gap analysis. Typical questions: Does this processing a",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "product-legal-counsel",
+      "display_name": "product-legal-counsel",
+      "specialty": "product launch review; marketing claims review; feature risk assessment; fast issue triage; tracker-based legal review. Typical questions: Is this product launch a legal problem?; Check these marketin",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "regulatory-compliance-counsel",
+      "display_name": "regulatory-compliance-counsel",
+      "specialty": "regulatory feed monitoring; China legal research via configured database API; policy diffing; gap surfacing; regulatory deadline tracking; policy redraft proposals. Typical questions: What changed in ",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "ai-governance-counsel",
+      "display_name": "ai-governance-counsel",
+      "specialty": "AI use-case triage; AI impact assessment; vendor AI clause review; AI inventory hygiene; AI policy starter and gap analysis. Typical questions: Classify this AI use case; Draft an AI impact assessment",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "ip-portfolio-counsel",
+      "display_name": "ip-portfolio-counsel",
+      "specialty": "trademark clearance; FTO triage; infringement and takedown triage; IP clause review; OSS compliance review. Typical questions: Run a first-pass trademark clearance; Triage FTO risk; Review OSS or IP c",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "commercial-contracts-counsel",
+        "corporate-ma-counsel",
+        "employment-law-counsel",
+        "privacy-data-counsel",
+        "product-legal-counsel",
+        "regulatory-compliance-counsel",
+        "ai-governance-counsel",
+        "ip-portfolio-counsel"
+      ]
+    }
+  ]
+}

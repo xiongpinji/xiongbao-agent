@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "SalesBattleTeam",
+  "lead_id": "sales-director",
+  "lead_name": "销售作战团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\SalesBattleTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "account-researcher",
+      "display_name": "探客（Scout） · 客户研究员（Account Researcher）",
+      "specialty": "公司/人物研究、销售情报、web 调研",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "outreach-strategist",
+      "display_name": "联达（Reach） · 外联策略师（Outreach Strategist）",
+      "specialty": "外联邮件起草、通话准备、跟进策略",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "competitive-intel",
+      "display_name": "竞情（Intel） · 竞品情报分析师（Competitive Intel Analyst）",
+      "specialty": "竞品情报、赢单/丢单分析、Battle Card",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "sales-forecaster",
+      "display_name": "预析（Forecast） · 销售预测分析师（Sales Forecaster）",
+      "specialty": "Pipeline 评审、销售预测、漏斗分析",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "account-researcher",
+        "outreach-strategist",
+        "competitive-intel",
+        "sales-forecaster"
+      ]
+    }
+  ]
+}

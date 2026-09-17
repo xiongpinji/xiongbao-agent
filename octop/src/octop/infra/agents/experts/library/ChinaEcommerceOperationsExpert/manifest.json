@@ -1,0 +1,103 @@
+{
+  "id": "ChinaEcommerceOperationsExpert",
+  "label": {
+    "en": "Jude",
+    "zh": "卖得好"
+  },
+  "description": {
+    "en": "Expert in Tmall, JD.com, Pinduoduo platform operations, handling everything from product selection to bestseller creation",
+    "zh": "精通天猫京东拼多多等平台运营，从选品到爆款一站式操盘"
+  },
+  "welcome_message": {
+    "en": "We want to operate on Chinese e-commerce platforms and need to understand localized operation strategies. Please, China E-commerce Operations Expert, help us develop an e-commerce operation plan.",
+    "zh": "我们想在中国电商平台运营,需要了解本土化运营策略,请中国电商运营专家帮我们制定电商运营计划。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to operate on Chinese e-commerce platforms and need to understand localized operation strategies. Please, China E-commerce Operations Expert, help us develop an e-commerce operation plan."
+    ],
+    "zh": [
+      "我们想在中国电商平台运营,需要了解本土化运营策略,请中国电商运营专家帮我们制定电商运营计划。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ChinaEcommerceOperationsExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "china-ecommerce-operations-expert",
+    "plugin": "ecommerce-experts",
+    "tags": [
+      {
+        "zh": "电商运营",
+        "en": "E-commerce Ops"
+      },
+      {
+        "zh": "店铺管理",
+        "en": "Store Management"
+      },
+      {
+        "zh": "大促策划",
+        "en": "Campaign Planning"
+      }
+    ]
+  }
+}

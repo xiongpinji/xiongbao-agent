@@ -1,0 +1,103 @@
+{
+  "id": "EarningsReviewer",
+  "label": {
+    "en": "Earnings Reviewer",
+    "zh": "季明辨"
+  },
+  "description": {
+    "en": "Post-earnings specialist reading transcripts and filings, updating coverage models, and drafting earnings notes for equity research desks.",
+    "zh": "资深季报复核分析师,读财报电话会和公告更新覆盖模型,产出季报后记、方差表与估值调整,供研究部门沿用。"
+  },
+  "welcome_message": {
+    "en": "NVDA just reported. Please read the transcript and 10-Q, drop actuals into my coverage model, and draft a post-earnings note.",
+    "zh": "贵州茅台刚发完季报,请帮我读业绩说明会纪要和季报全文,把实际数更新进覆盖模型,并起草一份季报点评初稿。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "NVDA just reported. Please read the transcript and 10-Q, drop actuals into my coverage model, and draft a post-earnings note."
+    ],
+    "zh": [
+      "贵州茅台刚发完季报,请帮我读业绩说明会纪要和季报全文,把实际数更新进覆盖模型,并起草一份季报点评初稿。"
+    ]
+  },
+  "_wb": {
+    "original_id": "EarningsReviewer",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "earnings-reviewer",
+    "plugin": "earnings-reviewer",
+    "tags": [
+      {
+        "zh": "季报复核",
+        "en": "Earnings Review"
+      },
+      {
+        "zh": "模型更新",
+        "en": "Model Update"
+      },
+      {
+        "zh": "股票研究",
+        "en": "Equity Research"
+      }
+    ]
+  }
+}

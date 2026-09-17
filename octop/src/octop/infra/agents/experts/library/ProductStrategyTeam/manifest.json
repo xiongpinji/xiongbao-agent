@@ -1,0 +1,103 @@
+{
+  "id": "ProductStrategyTeam",
+  "label": {
+    "en": "Product Strategy Team",
+    "zh": "产品战略团队"
+  },
+  "description": {
+    "en": "A team of 5 product specialists led by a Product Director: Requirement Analyst (PRD/feature spec writing), User Researcher (research synthesis), Competitive Analyst (competitive intelligence), Data Analyst (metrics tracking), and Roadmap Planner (roadmap management/sprint planning). Covers the full product lifecycle from ideation to launch.",
+    "zh": "由产品总监领导的 5 人产品专家团队：需求分析师（PRD/功能规格书）、用户研究员（调研综合分析）、竞品分析师（竞争情报）、数据分析师（指标追踪）和路线图规划师（路线图管理/迭代规划）。覆盖从构思到上线的完整产品生命周期。"
+  },
+  "welcome_message": {
+    "en": "Help me write a feature spec / Do a competitive analysis / Plan our product roadmap",
+    "zh": "帮我写一份功能规格书 / 做一次竞品分析 / 规划产品路线图"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me write a feature spec / Do a competitive analysis / Plan our product roadmap"
+    ],
+    "zh": [
+      "帮我写一份功能规格书 / 做一次竞品分析 / 规划产品路线图"
+    ]
+  },
+  "_wb": {
+    "original_id": "ProductStrategyTeam",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "team",
+    "agent_name": "product-director",
+    "plugin": "product-strategy-team",
+    "tags": [
+      {
+        "zh": "产品战略",
+        "en": "Product Strategy"
+      },
+      {
+        "zh": "竞品分析",
+        "en": "Competitive Analysis"
+      },
+      {
+        "zh": "路线图规划",
+        "en": "Roadmap Planning"
+      }
+    ]
+  }
+}

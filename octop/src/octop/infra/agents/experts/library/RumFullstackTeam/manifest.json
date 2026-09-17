@@ -1,0 +1,103 @@
+{
+  "id": "RumFullstackTeam",
+  "label": {
+    "en": "Tencent Cloud RUM Full-Lifecycle Team",
+    "zh": "腾讯云 RUM 全链路专家团"
+  },
+  "description": {
+    "en": "End-to-end Tencent Cloud RUM service: 10-platform aegis SDK integration + WebVitals/error/API/resource analytics with RUM-APM correlation",
+    "zh": "腾讯云 RUM 全链路服务：10 大平台 aegis SDK 接入 + WebVitals/异常/接口/资源分析，支持 RUM-APM 联动"
+  },
+  "welcome_message": {
+    "en": "Help me integrate Tencent Cloud RUM into my Vue 3 project",
+    "zh": "帮我在这个 Vue 3 项目里接入腾讯云 RUM"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me integrate Tencent Cloud RUM into my Vue 3 project"
+    ],
+    "zh": [
+      "帮我在这个 Vue 3 项目里接入腾讯云 RUM"
+    ]
+  },
+  "_wb": {
+    "original_id": "RumFullstackTeam",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "rum-team-lead",
+    "plugin": "rum-fullstack-team",
+    "tags": [
+      {
+        "zh": "前端监控",
+        "en": "Frontend Monitoring"
+      },
+      {
+        "zh": "RUM 接入",
+        "en": "RUM Integration"
+      },
+      {
+        "zh": "性能分析",
+        "en": "Performance Analysis"
+      }
+    ]
+  }
+}

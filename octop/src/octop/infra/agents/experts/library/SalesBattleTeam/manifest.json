@@ -1,0 +1,103 @@
+{
+  "id": "SalesBattleTeam",
+  "label": {
+    "en": "Sales Battle Team",
+    "zh": "销售作战团队"
+  },
+  "description": {
+    "en": "Sales effectiveness system: account research identifies targets, outreach strategy improves reach, competitive intel warns risks, pipeline forecasting optimizes resource allocation",
+    "zh": "销售攻坚体系，客户研究锁定目标、外联策略提升触达、竞品情报预警风险、销售预测优化资源分配"
+  },
+  "welcome_message": {
+    "en": "Research a prospect account / Prepare for my sales call / Review my pipeline forecast",
+    "zh": "研究一个潜在客户 / 为我的销售电话做准备 / 评审我的销售漏斗预测"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Research a prospect account / Prepare for my sales call / Review my pipeline forecast"
+    ],
+    "zh": [
+      "研究一个潜在客户 / 为我的销售电话做准备 / 评审我的销售漏斗预测"
+    ]
+  },
+  "_wb": {
+    "original_id": "SalesBattleTeam",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "team",
+    "agent_name": "sales-director",
+    "plugin": "sales-battle-team",
+    "tags": [
+      {
+        "zh": "销售作战",
+        "en": "Sales Battle"
+      },
+      {
+        "zh": "客户调研",
+        "en": "Account Research"
+      },
+      {
+        "zh": "竞情分析",
+        "en": "Competitive Intel"
+      }
+    ]
+  }
+}

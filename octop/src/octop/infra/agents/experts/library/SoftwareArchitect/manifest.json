@@ -1,0 +1,103 @@
+{
+  "id": "SoftwareArchitect",
+  "label": {
+    "en": "Yara",
+    "zh": "架构通"
+  },
+  "description": {
+    "en": "Designs scalable and highly available software architectures from a holistic perspective, guiding the technical team's direction",
+    "zh": "站在全局高度设计可扩展高可用的软件架构，为技术团队指明方向"
+  },
+  "welcome_message": {
+    "en": "We are developing a large-scale software system and need overall architecture design and long-term development planning. Please, Software Architect, help us design a scalable system architecture.",
+    "zh": "我们正在开发大型软件系统,需要整体架构设计和长期发展规划,请软件架构师帮我们设计可扩展的系统架构。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We are developing a large-scale software system and need overall architecture design and long-term development planning. Please, Software Architect, help us design a scalable system architecture."
+    ],
+    "zh": [
+      "我们正在开发大型软件系统,需要整体架构设计和长期发展规划,请软件架构师帮我们设计可扩展的系统架构。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SoftwareArchitect",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "software-architect",
+    "plugin": "frontend-backend-experts",
+    "tags": [
+      {
+        "zh": "软件架构",
+        "en": "Software Architecture"
+      },
+      {
+        "zh": "系统设计",
+        "en": "System Design"
+      },
+      {
+        "zh": "技术决策",
+        "en": "Tech Decisions"
+      }
+    ]
+  }
+}

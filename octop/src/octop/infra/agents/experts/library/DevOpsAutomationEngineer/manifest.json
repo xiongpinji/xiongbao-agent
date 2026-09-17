@@ -1,0 +1,103 @@
+{
+  "id": "DevOpsAutomationEngineer",
+  "label": {
+    "en": "Noah",
+    "zh": "一键达"
+  },
+  "description": {
+    "en": "Automates all manual operations from CI/CD to Infrastructure as Code, making deployments one-click simple",
+    "zh": "将一切手动运维自动化，从CI/CD到基础设施即代码，部署一键搞定"
+  },
+  "welcome_message": {
+    "en": "Our deployment process relies on manual operations, making it inefficient and error-prone. Please, DevOps Automation Engineer, help us establish an automated CI/CD pipeline.",
+    "zh": "我们的部署流程依赖手工操作,效率低且容易出错,请DevOps自动化工程师帮我们建立自动化的CI/CD流程。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our deployment process relies on manual operations, making it inefficient and error-prone. Please, DevOps Automation Engineer, help us establish an automated CI/CD pipeline."
+    ],
+    "zh": [
+      "我们的部署流程依赖手工操作,效率低且容易出错,请DevOps自动化工程师帮我们建立自动化的CI/CD流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DevOpsAutomationEngineer",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "dev-ops-automation-engineer",
+    "plugin": "devops-security-experts",
+    "tags": [
+      {
+        "zh": "DevOps自动化",
+        "en": "DevOps Automation"
+      },
+      {
+        "zh": "基础设施",
+        "en": "Infrastructure"
+      },
+      {
+        "zh": "流水线开发",
+        "en": "Pipeline Dev"
+      }
+    ]
+  }
+}

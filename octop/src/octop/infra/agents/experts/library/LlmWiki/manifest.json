@@ -1,0 +1,103 @@
+{
+  "id": "LlmWiki",
+  "label": {
+    "en": "LLM Wiki",
+    "zh": "知库库"
+  },
+  "description": {
+    "en": "Based on Andrej Karpathy's LLM Wiki pattern, helps users build, maintain, and query persistent personal knowledge bases. Specializes in compiling raw materials (papers, articles, notes, etc.) into structured Markdown Wikis, with automatic cross-referencing, contradiction flagging, and index maintenance.",
+    "zh": "基于 Andrej Karpathy 的 LLM Wiki 模式，帮助用户构建、维护和查询持久化的个人知识库。擅长将原始资料（论文、文章、笔记等）编译为结构化 Markdown Wiki，自动建立交叉引用、标注矛盾、维护索引。"
+  },
+  "welcome_message": {
+    "en": "Can you help me manage my knowledge base?",
+    "zh": "帮我管理下我的知识库？"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Can you help me manage my knowledge base?"
+    ],
+    "zh": [
+      "帮我管理下我的知识库？"
+    ]
+  },
+  "_wb": {
+    "original_id": "LlmWiki",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "llm-wiki",
+    "plugin": "llm-wiki",
+    "tags": [
+      {
+        "zh": "LLM知识库",
+        "en": "LLM Knowledge Base"
+      },
+      {
+        "zh": "模型文档",
+        "en": "Model Documentation"
+      },
+      {
+        "zh": "技术百科",
+        "en": "Tech Encyclopedia"
+      }
+    ]
+  }
+}

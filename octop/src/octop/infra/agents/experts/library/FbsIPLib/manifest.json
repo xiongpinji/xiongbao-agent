@@ -1,0 +1,111 @@
+{
+  "id": "FbsIPLib",
+  "label": {
+    "en": "FBS",
+    "zh": "福帮手"
+  },
+  "description": {
+    "en": "Your AI partner starts with one thing: identify your current state, deliver one take-away result card, and show the single next action that moves you forward.",
+    "zh": "福帮手先做一件事：判断你当前最该推进的状态，交付一张可带走的结果卡，并给出一个最值得继续的下一步。"
+  },
+  "welcome_message": {
+    "en": "We already have trial access or a lebao reward. Please tell me directly whether I should claim, activate, or continue first.",
+    "zh": "我已经拿到试用权益或乐包，先直接告诉我现在该领取、激活，还是继续。"
+  },
+  "icon_name": "briefcase",
+  "color": "#14b8a6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We already have trial access or a lebao reward. Please tell me directly whether I should claim, activate, or continue first."
+    ],
+    "zh": [
+      "我已经拿到试用权益或乐包，先直接告诉我现在该领取、激活，还是继续。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FbsIPLib",
+    "category_id": "12-IndustryConsultant",
+    "category_label": {
+      "en": "Industry Consultant",
+      "zh": "行业顾问"
+    },
+    "expert_type": "team",
+    "agent_name": "fbs-iplib-lead",
+    "plugin": "fbs-iplib",
+    "tags": [
+      {
+        "en": "Intelligent Transformation",
+        "zh": "智能转型"
+      },
+      {
+        "en": "Startup IP",
+        "zh": "创业IP"
+      },
+      {
+        "en": "Family Development",
+        "zh": "家族发展"
+      },
+      {
+        "en": "Claim And Activate",
+        "zh": "领取与激活"
+      },
+      {
+        "en": "Continued Use",
+        "zh": "继续推进"
+      }
+    ]
+  }
+}

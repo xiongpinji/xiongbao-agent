@@ -1,0 +1,103 @@
+{
+  "id": "OpcTeam",
+  "label": {
+    "en": "One-Person Company Team",
+    "zh": "一人公司专家团"
+  },
+  "description": {
+    "en": "Based on «The One-Person Company Methodology» by Easy, 9 experts guide you through the full journey from resource audit, niche positioning to MVP, conversion, and operations review.",
+    "zh": "基于由Easy创作的《一人企业方法论》，9位专家陪你走完从资源盘点、利基定位到MVP、转化、复盘的一人公司全流程共创"
+  },
+  "welcome_message": {
+    "en": "I want to start a one-person company from scratch; kick off the resource audit.",
+    "zh": "我想从零开始规划一个一人公司，帮我启动资源盘点。"
+  },
+  "icon_name": "briefcase",
+  "color": "#14b8a6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I want to start a one-person company from scratch; kick off the resource audit."
+    ],
+    "zh": [
+      "我想从零开始规划一个一人公司，帮我启动资源盘点。"
+    ]
+  },
+  "_wb": {
+    "original_id": "OpcTeam",
+    "category_id": "12-IndustryConsultant",
+    "category_label": {
+      "en": "Industry Consultant",
+      "zh": "行业顾问"
+    },
+    "expert_type": "team",
+    "agent_name": "opc-team-lead",
+    "plugin": "opc-team",
+    "tags": [
+      {
+        "zh": "一人公司",
+        "en": "One-Person Company"
+      },
+      {
+        "zh": "商业模式",
+        "en": "Business Model"
+      },
+      {
+        "zh": "经营复盘",
+        "en": "Operations Review"
+      }
+    ]
+  }
+}

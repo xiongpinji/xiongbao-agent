@@ -1,0 +1,103 @@
+{
+  "id": "PromoCreatorTeam",
+  "label": {
+    "en": "Promo Creator Team",
+    "zh": "袋鼠帝宣传片创作团队"
+  },
+  "description": {
+    "en": "6 specialized roles collaborate across 6 phases: brief, storyboard, assets, HyperFrames editing, BGM design and delivery, producing publish-ready 60-90s product promo videos from URLs or descriptions",
+    "zh": "6位专业角色分6阶段协作完成产品宣传片全流程制作：创意简报、逐镜头分镜、素材生产、HyperFrames剪辑合成、BGM设计与交付，从产品URL到可发布的60-90秒宣传片MP4"
+  },
+  "welcome_message": {
+    "en": "Create a product promo video for me",
+    "zh": "帮我做一支产品宣传片"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Create a product promo video for me"
+    ],
+    "zh": [
+      "帮我做一支产品宣传片"
+    ]
+  },
+  "_wb": {
+    "original_id": "PromoCreatorTeam",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "team",
+    "agent_name": "promo-team-lead",
+    "plugin": "promo-creator-team",
+    "tags": [
+      {
+        "en": "Promo Video",
+        "zh": "宣传片"
+      },
+      {
+        "en": "Video Production",
+        "zh": "视频制作"
+      },
+      {
+        "en": "Product Launch",
+        "zh": "产品发布"
+      }
+    ]
+  }
+}

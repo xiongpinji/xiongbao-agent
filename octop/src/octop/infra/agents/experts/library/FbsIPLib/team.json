@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "expert_id": "FbsIPLib",
+  "lead_id": "fbs-iplib-lead",
+  "lead_name": "用户可见稿洁净度（P0 · 防口吃与错号）",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\FbsIPLib\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "success",
+      "display_name": "\"spawn_status\": \"not_needed",
+      "specialty": "failed",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "unavailable\","
+    },
+    {
+      "agent_id": "intelligent-transformation",
+      "display_name": "智能转型",
+      "specialty": "general / intelligent-transformation-card / 智能转型卡 + 数据/流程边界 + 7 天试点",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "startup-ip-card",
+      "display_name": "创业IP",
+      "specialty": "personal-brand / startup-ip-asset-card / 创业IP资产卡 + 可合作边界",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "family-development-map",
+      "display_name": "家族发展",
+      "specialty": "family-business / family-development-card / 家族发展卡 + 关键边界",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "programmer-ip-card",
+      "display_name": "程序人生",
+      "specialty": "knowledge-ip / programmer-life-asset-card / 程序人生IP资产卡 + 判断力证据",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "brand-youth-roadmap",
+      "display_name": "老品牌年轻化",
+      "specialty": "personal-brand / brand-youth-action-card / 品牌年轻化行动卡 + 内容栏目试跑",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "success",
+        "intelligent-transformation",
+        "startup-ip-card",
+        "family-development-map",
+        "programmer-ip-card",
+        "brand-youth-roadmap"
+      ]
+    }
+  ]
+}

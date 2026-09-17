@@ -1,0 +1,103 @@
+{
+  "id": "HealthcareMarketingComplianceExpert",
+  "label": {
+    "en": "Nico",
+    "zh": "医合合"
+  },
+  "description": {
+    "en": "Ensuring healthcare marketing content complies with regulatory requirements, safeguarding information accuracy",
+    "zh": "确保医疗营销内容符合法规要求，守护信息准确性"
+  },
+  "welcome_message": {
+    "en": "Our healthcare marketing needs to meet strict compliance requirements. Please, Healthcare Marketing Compliance Expert, help us conduct compliance reviews.",
+    "zh": "我们的医疗营销需要符合严格的合规要求,请医疗营销合规专家帮我们进行合规审查。"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our healthcare marketing needs to meet strict compliance requirements. Please, Healthcare Marketing Compliance Expert, help us conduct compliance reviews."
+    ],
+    "zh": [
+      "我们的医疗营销需要符合严格的合规要求,请医疗营销合规专家帮我们进行合规审查。"
+    ]
+  },
+  "_wb": {
+    "original_id": "HealthcareMarketingComplianceExpert",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "healthcare-marketing-compliance-expert",
+    "plugin": "industry-service-experts",
+    "tags": [
+      {
+        "zh": "医疗合规",
+        "en": "Healthcare Compliance"
+      },
+      {
+        "zh": "医疗营销",
+        "en": "Healthcare Marketing"
+      },
+      {
+        "zh": "法规审核",
+        "en": "Regulatory Review"
+      }
+    ]
+  }
+}

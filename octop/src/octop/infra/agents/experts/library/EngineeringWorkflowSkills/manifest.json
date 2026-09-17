@@ -1,0 +1,103 @@
+{
+  "id": "EngineeringWorkflowSkills",
+  "label": {
+    "en": "Rex",
+    "zh": "工序达"
+  },
+  "description": {
+    "en": "Senior engineering workflow coach based on Google engineer's «Agent Skills»: spec → plan → build → verify → review → ship",
+    "zh": "基于Google 工程师的《Agent Skills》打造的资深工程全流程教练：规约驱动、测试驱动、代码评审、CI/CD发布"
+  },
+  "welcome_message": {
+    "en": "I have a new feature to develop, help me plan from spec to task breakdown",
+    "zh": "我有个新功能要开发，帮我从 spec 到任务拆解做完整规划"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I have a new feature to develop, help me plan from spec to task breakdown"
+    ],
+    "zh": [
+      "我有个新功能要开发，帮我从 spec 到任务拆解做完整规划"
+    ]
+  },
+  "_wb": {
+    "original_id": "EngineeringWorkflowSkills",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "engineering-workflow-coach",
+    "plugin": "engineering-workflow-skills",
+    "tags": [
+      {
+        "en": "Spec-Driven Development",
+        "zh": "规约驱动开发"
+      },
+      {
+        "en": "Code Review & Security",
+        "zh": "代码评审与安全"
+      },
+      {
+        "en": "CI/CD & Shipping",
+        "zh": "CI/CD发布"
+      }
+    ]
+  }
+}

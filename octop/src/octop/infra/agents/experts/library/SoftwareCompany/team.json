@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "SoftwareCompany",
+  "lead_id": "software-team-lead",
+  "lead_name": "软件开发团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\SoftwareCompany\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "software-product-manager",
+      "display_name": "产品经理",
+      "specialty": "许清楚（Xu） · 产品经理（Product Manager）",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "software-architect",
+      "display_name": "架构师",
+      "specialty": "高见远（Gao） · 架构师（Architect）",
+      "phase": "roundtable",
+      "mode": "sequential",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "software-engineer",
+      "display_name": "工程师",
+      "specialty": "寇豆码（Kou） · 工程师（Software Engineer）",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "software-qa-engineer",
+      "display_name": "QA工程师",
+      "specialty": "严过关（Yan） · QA 工程师（QA Engineer）",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "software-product-manager",
+        "software-architect",
+        "software-engineer",
+        "software-qa-engineer"
+      ]
+    }
+  ]
+}

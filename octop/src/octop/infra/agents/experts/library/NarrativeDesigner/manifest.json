@@ -1,0 +1,103 @@
+{
+  "id": "NarrativeDesigner",
+  "label": {
+    "en": "Kent",
+    "zh": "剧本本"
+  },
+  "description": {
+    "en": "Seamlessly blending narrative and gameplay, making story and interaction inseparable",
+    "zh": "将叙事和游戏玩法无缝融合，让故事与互动不可分割"
+  },
+  "welcome_message": {
+    "en": "Our game needs compelling storylines and dialogue. Please, Narrative Designer, help us write game stories.",
+    "zh": "我们的游戏需要引人入胜的剧情和对话,请叙事设计师帮我们编写游戏剧情。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our game needs compelling storylines and dialogue. Please, Narrative Designer, help us write game stories."
+    ],
+    "zh": [
+      "我们的游戏需要引人入胜的剧情和对话,请叙事设计师帮我们编写游戏剧情。"
+    ]
+  },
+  "_wb": {
+    "original_id": "NarrativeDesigner",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "narrative-designer",
+    "plugin": "game-design-experts",
+    "tags": [
+      {
+        "zh": "叙事设计",
+        "en": "Narrative Design"
+      },
+      {
+        "zh": "剧情架构",
+        "en": "Story Architecture"
+      },
+      {
+        "zh": "角色塑造",
+        "en": "Character Design"
+      }
+    ]
+  }
+}

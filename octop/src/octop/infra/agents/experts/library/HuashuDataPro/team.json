@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "expert_id": "HuashuDataPro",
+  "lead_id": "huashu-data-pro-team-lead",
+  "lead_name": "花叔数据分析专家团 · 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\HuashuDataPro\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "trend-analyst",
+      "display_name": "趋势分析师",
+      "specialty": "看时间序列变化，识别拐点、季节性、增长曲线",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "structure-analyst",
+      "display_name": "结构分析师",
+      "specialty": "多表交叉、占比拆解、因子贡献度排名",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "anomaly-analyst",
+      "display_name": "异常侦察员",
+      "specialty": "扫描 3σ 离群点、突变值、可疑数据",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "trend-analyst",
+        "structure-analyst",
+        "anomaly-analyst"
+      ]
+    }
+  ]
+}

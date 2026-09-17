@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "expert_id": "RumFullstackTeam",
+  "lead_id": "rum-team-lead",
+  "lead_name": "腾讯云 RUM 全链路专家团 - 主理人（Lyra）",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\RumFullstackTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "rum-integration-specialist",
+      "display_name": "Aiden（艾登）",
+      "specialty": "RUM SDK 接入官：① 10 大平台首次接入与回滚；② 自定义上报埋点（reportEvent/reportTime/error/info 等 8 个 API）；③ 接入侧排障（无数据、403、错误漏报、SPA PV、首屏异常、构建/类型问题）",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "rum-performance-analyst",
+      "display_name": "Nova（诺瓦）",
+      "specialty": "RUM 性能分析师：基于 RUM v2.1 工具查询指标与日志，做异常诊断、接口/资源分析、RUM-APM 联动",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "rum-integration-specialist",
+        "rum-performance-analyst"
+      ]
+    }
+  ]
+}

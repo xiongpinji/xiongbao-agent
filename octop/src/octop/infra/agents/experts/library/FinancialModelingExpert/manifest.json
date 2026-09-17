@@ -1,0 +1,103 @@
+{
+  "id": "FinancialModelingExpert",
+  "label": {
+    "en": "Morgan",
+    "zh": "建模模"
+  },
+  "description": {
+    "en": "Core financial modeling: DCF valuation, comparable company analysis, LBO model, 3-statement model, competitive analysis, and presentation quality check",
+    "zh": "核心金融建模工具：DCF 估值、可比公司分析、LBO 模型、三张表模型、竞争格局分析和 PPT 质检"
+  },
+  "welcome_message": {
+    "en": "Help me build a DCF valuation model",
+    "zh": "帮我搭建一个DCF估值模型"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me build a DCF valuation model"
+    ],
+    "zh": [
+      "帮我搭建一个DCF估值模型"
+    ]
+  },
+  "_wb": {
+    "original_id": "FinancialModelingExpert",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "plugin",
+    "agent_name": "financial-modeling-expert",
+    "plugin": "financial-analysis",
+    "tags": [
+      {
+        "zh": "财务建模",
+        "en": "Financial Modeling"
+      },
+      {
+        "zh": "估值分析",
+        "en": "Valuation Analysis"
+      },
+      {
+        "zh": "三表联动",
+        "en": "3-Statement Model"
+      }
+    ]
+  }
+}

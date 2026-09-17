@@ -1,0 +1,103 @@
+{
+  "id": "DataAnalyticsReporter",
+  "label": {
+    "en": "Phoebe",
+    "zh": "数妙妙"
+  },
+  "description": {
+    "en": "Transforming complex data into clear actionable business reports, enabling data-driven decisions",
+    "zh": "将复杂数据转化为清晰可执行的业务报告，让数据驱动决策"
+  },
+  "welcome_message": {
+    "en": "Our data analysis reports lack depth and struggle to support business decisions. Please, Data Analytics Reporter, help us design a data analysis reporting system.",
+    "zh": "我们的数据分析报告不够深入,难以支持业务决策,请数据分析报告者帮我们设计数据分析报告体系。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our data analysis reports lack depth and struggle to support business decisions. Please, Data Analytics Reporter, help us design a data analysis reporting system."
+    ],
+    "zh": [
+      "我们的数据分析报告不够深入,难以支持业务决策,请数据分析报告者帮我们设计数据分析报告体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DataAnalyticsReporter",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "data-analytics-reporter",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "数据分析",
+        "en": "Data Analysis"
+      },
+      {
+        "zh": "数据可视化",
+        "en": "Data Visualization"
+      },
+      {
+        "zh": "KPI报告",
+        "en": "KPI Reporting"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "ModelBuilder",
+  "label": {
+    "en": "Model Builder",
+    "zh": "莫百炼"
+  },
+  "description": {
+    "en": "Financial modeling specialist who builds institutional-quality DCF, LBO, three-statement, and trading-comps models in Excel, fully audited and linked.",
+    "zh": "专业财务建模师,在 Excel 中从零搭建 DCF、LBO、三张表模型与可比公司估值,公式全链接、可追溯、机构级品控。"
+  },
+  "welcome_message": {
+    "en": "Please build a clean DCF model for AAPL with 5-year projection, terminal value, WACC, and a sensitivity table on exit multiple vs. WACC.",
+    "zh": "请帮宁德时代搭一套干净的 DCF 模型:5 年明晰期、终值、WACC,再附退出倍数 vs WACC 的敏感性表。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please build a clean DCF model for AAPL with 5-year projection, terminal value, WACC, and a sensitivity table on exit multiple vs. WACC."
+    ],
+    "zh": [
+      "请帮宁德时代搭一套干净的 DCF 模型:5 年明晰期、终值、WACC,再附退出倍数 vs WACC 的敏感性表。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ModelBuilder",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "model-builder",
+    "plugin": "model-builder",
+    "tags": [
+      {
+        "zh": "DCF 估值",
+        "en": "DCF Model"
+      },
+      {
+        "zh": "杠杆收购模型",
+        "en": "LBO Model"
+      },
+      {
+        "zh": "三张表模型",
+        "en": "Three-Statement Model"
+      }
+    ]
+  }
+}

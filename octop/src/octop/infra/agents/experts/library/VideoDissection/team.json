@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "expert_id": "VideoDissection",
+  "lead_id": "video-dissection-team-lead",
+  "lead_name": "视频解剖 - 主理人·阿爆",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\VideoDissection\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "video-extractor",
+      "display_name": "小凯",
+      "specialty": "抖音视频提取与文案转录，负责三层降级解析下载视频、音频提取、语音识别获取口播文案",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "script-analyst",
+      "display_name": "小淼",
+      "specialty": "拍摄脚本深度分析，负责景别/运镜/剪辑节奏/色调/仿拍建议的完整拆解报告",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "video-extractor",
+        "script-analyst"
+      ]
+    }
+  ]
+}

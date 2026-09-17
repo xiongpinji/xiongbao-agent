@@ -1,0 +1,103 @@
+{
+  "id": "ZhihuStrategist",
+  "label": {
+    "en": "Gia",
+    "zh": "答有道"
+  },
+  "description": {
+    "en": "Expert in Zhihu recommendation mechanism and knowledge marketing strategy, building authority through high-quality answers",
+    "zh": "精通知乎推荐机制和知识营销策略，通过高质量回答建立权威"
+  },
+  "welcome_message": {
+    "en": "We want to establish a professional and authoritative image on Zhihu and attract target users with high-quality answers. Please, Zhihu Strategist, help us develop Zhihu content strategies.",
+    "zh": "我们想在知乎建立专业权威形象,通过优质回答吸引目标用户,请知乎战略家帮我们制定知乎内容策略。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to establish a professional and authoritative image on Zhihu and attract target users with high-quality answers. Please, Zhihu Strategist, help us develop Zhihu content strategies."
+    ],
+    "zh": [
+      "我们想在知乎建立专业权威形象,通过优质回答吸引目标用户,请知乎战略家帮我们制定知乎内容策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ZhihuStrategist",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "zhihu-strategist",
+    "plugin": "content-platform-experts",
+    "tags": [
+      {
+        "zh": "知乎策略",
+        "en": "Zhihu Strategy"
+      },
+      {
+        "zh": "知识领导力",
+        "en": "Thought Leadership"
+      },
+      {
+        "zh": "专业问答",
+        "en": "Expert Q&A"
+      }
+    ]
+  }
+}

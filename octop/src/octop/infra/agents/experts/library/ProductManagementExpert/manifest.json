@@ -1,0 +1,103 @@
+{
+  "id": "ProductManagementExpert",
+  "label": {
+    "en": "Vera",
+    "zh": "产品通"
+  },
+  "description": {
+    "en": "Product management toolkit: feature specs, roadmap planning, stakeholder communication, user research synthesis, competitive analysis, and metrics tracking",
+    "zh": "产品管理工具集：功能规格编写、路线图规划、利益相关者沟通、用户研究综合、竞品分析和指标追踪"
+  },
+  "welcome_message": {
+    "en": "Help me write a product spec for a new feature",
+    "zh": "帮我写一份新功能的产品规格文档"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me write a product spec for a new feature"
+    ],
+    "zh": [
+      "帮我写一份新功能的产品规格文档"
+    ]
+  },
+  "_wb": {
+    "original_id": "ProductManagementExpert",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "plugin",
+    "agent_name": "product-management-expert",
+    "plugin": "product-management",
+    "tags": [
+      {
+        "zh": "产品管理",
+        "en": "Product Management"
+      },
+      {
+        "zh": "需求规划",
+        "en": "Requirement Planning"
+      },
+      {
+        "zh": "迭代管理",
+        "en": "Iteration Management"
+      }
+    ]
+  }
+}

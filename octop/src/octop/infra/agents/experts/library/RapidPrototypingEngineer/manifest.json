@@ -1,0 +1,103 @@
+{
+  "id": "RapidPrototypingEngineer",
+  "label": {
+    "en": "Uma",
+    "zh": "闪造造"
+  },
+  "description": {
+    "en": "Transforms ideas into working prototypes at lightning speed, enabling teams to quickly validate concepts",
+    "zh": "以极快速度将创意转化为可工作的原型，让团队快速验证想法"
+  },
+  "welcome_message": {
+    "en": "We need to quickly validate product ideas and want to create interactive prototypes in a short time. Please, Rapid Prototyping Engineer, help us quickly build product prototypes.",
+    "zh": "我们需要快速验证产品想法,想在短时间内制作可交互的原型,请快速原型工程师帮我们快速搭建产品原型。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to quickly validate product ideas and want to create interactive prototypes in a short time. Please, Rapid Prototyping Engineer, help us quickly build product prototypes."
+    ],
+    "zh": [
+      "我们需要快速验证产品想法,想在短时间内制作可交互的原型,请快速原型工程师帮我们快速搭建产品原型。"
+    ]
+  },
+  "_wb": {
+    "original_id": "RapidPrototypingEngineer",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "rapid-prototyping-engineer",
+    "plugin": "frontend-backend-experts",
+    "tags": [
+      {
+        "zh": "快速原型",
+        "en": "Rapid Prototyping"
+      },
+      {
+        "zh": "MVP开发",
+        "en": "MVP Development"
+      },
+      {
+        "zh": "概念验证",
+        "en": "Proof of Concept"
+      }
+    ]
+  }
+}

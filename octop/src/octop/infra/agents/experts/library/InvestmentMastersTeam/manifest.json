@@ -1,0 +1,103 @@
+{
+  "id": "InvestmentMastersTeam",
+  "label": {
+    "en": "Investment Masters Team",
+    "zh": "投资大师专家团"
+  },
+  "description": {
+    "en": "19 investment analysts (13 legendary investors + 6 professional analysts) analyze in parallel, followed by risk management and portfolio decision, delivering multi-perspective investment analysis via voting-based signal aggregation",
+    "zh": "13位传奇投资哲学家 + 6位专业分析师并行分析，风险管理师评估约束，投资组合经理信号聚合投票，多角度投资分析参考"
+  },
+  "welcome_message": {
+    "en": "Help me analyze Tencent's fundamentals and valuation from multiple investment masters' perspectives",
+    "zh": "帮我从多位投资大师的视角分析下腾讯的基本面和估值"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me analyze Tencent's fundamentals and valuation from multiple investment masters' perspectives"
+    ],
+    "zh": [
+      "帮我从多位投资大师的视角分析下腾讯的基本面和估值"
+    ]
+  },
+  "_wb": {
+    "original_id": "InvestmentMastersTeam",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "team",
+    "agent_name": "hedge-fund-lead",
+    "plugin": "investment-masters-team",
+    "tags": [
+      {
+        "zh": "投资分析",
+        "en": "Investment Analysis"
+      },
+      {
+        "zh": "投资组合",
+        "en": "Portfolio Management"
+      },
+      {
+        "zh": "多大师分析",
+        "en": "Multi-Master Analysis"
+      }
+    ]
+  }
+}

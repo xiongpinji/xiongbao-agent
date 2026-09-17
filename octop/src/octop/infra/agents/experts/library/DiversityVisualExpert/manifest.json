@@ -1,0 +1,103 @@
+{
+  "id": "DiversityVisualExpert",
+  "label": {
+    "en": "Max",
+    "zh": "多元元"
+  },
+  "description": {
+    "en": "Dedicated to eliminating systemic bias in AI imagery, ensuring cultural accuracy and inclusivity in visual content",
+    "zh": "致力于消除AI图像中的系统性偏见，确保视觉内容文化准确和包容"
+  },
+  "welcome_message": {
+    "en": "Our visual content needs improvement in diversity and inclusivity, and we hope to showcase richer diversity. Please, Diversity Visual Expert, help me evaluate and optimize our visual design.",
+    "zh": "我们的视觉内容在多元化和包容性方面需要改进,希望展现更丰富的多样性,请多样性视觉专家帮我评估和优化视觉设计。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our visual content needs improvement in diversity and inclusivity, and we hope to showcase richer diversity. Please, Diversity Visual Expert, help me evaluate and optimize our visual design."
+    ],
+    "zh": [
+      "我们的视觉内容在多元化和包容性方面需要改进,希望展现更丰富的多样性,请多样性视觉专家帮我评估和优化视觉设计。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DiversityVisualExpert",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "diversity-visual-expert",
+    "plugin": "diversity-visual-expert",
+    "tags": [
+      {
+        "zh": "多元视觉",
+        "en": "Diverse Visuals"
+      },
+      {
+        "zh": "包容性设计",
+        "en": "Inclusive Design"
+      },
+      {
+        "zh": "文化适配",
+        "en": "Cultural Adaptation"
+      }
+    ]
+  }
+}

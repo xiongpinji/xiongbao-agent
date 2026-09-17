@@ -1,0 +1,103 @@
+{
+  "id": "AgentIdentityTrustExpert",
+  "label": {
+    "en": "Cash",
+    "zh": "信链链"
+  },
+  "description": {
+    "en": "Building identity authentication and trust mechanisms between AI agents",
+    "zh": "构建AI智能体间的身份认证和信任机制"
+  },
+  "welcome_message": {
+    "en": "We need to establish AI agent credibility and identity authentication systems. Please, Agent Identity Trust Expert, help us design an agent trust mechanism.",
+    "zh": "我们需要建立AI代理的可信度和身份认证体系,请代理身份信任专家帮我们设计代理信任机制。"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to establish AI agent credibility and identity authentication systems. Please, Agent Identity Trust Expert, help us design an agent trust mechanism."
+    ],
+    "zh": [
+      "我们需要建立AI代理的可信度和身份认证体系,请代理身份信任专家帮我们设计代理信任机制。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AgentIdentityTrustExpert",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "agent-identity-trust-expert",
+    "plugin": "project-management-experts",
+    "tags": [
+      {
+        "zh": "智能体身份",
+        "en": "Agent Identity"
+      },
+      {
+        "zh": "信任验证",
+        "en": "Trust Verification"
+      },
+      {
+        "zh": "多智能体安全",
+        "en": "Multi-Agent Security"
+      }
+    ]
+  }
+}

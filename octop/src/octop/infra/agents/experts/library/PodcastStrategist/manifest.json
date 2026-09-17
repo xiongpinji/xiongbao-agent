@@ -1,0 +1,103 @@
+{
+  "id": "PodcastStrategist",
+  "label": {
+    "en": "Sia",
+    "zh": "声浪浪"
+  },
+  "description": {
+    "en": "Expert in podcast content planning and growth strategy, building deep user connections through audio",
+    "zh": "精通播客内容策划和增长策略，通过音频建立深度用户连接"
+  },
+  "welcome_message": {
+    "en": "We want to build brand influence through podcasts and need professional podcast operation guidance. Please, Podcast Strategist, help us plan podcast content and promotion.",
+    "zh": "我们想通过播客建立品牌影响力,需要专业的播客运营指导,请播客战略家帮我们规划播客内容和推广。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to build brand influence through podcasts and need professional podcast operation guidance. Please, Podcast Strategist, help us plan podcast content and promotion."
+    ],
+    "zh": [
+      "我们想通过播客建立品牌影响力,需要专业的播客运营指导,请播客战略家帮我们规划播客内容和推广。"
+    ]
+  },
+  "_wb": {
+    "original_id": "PodcastStrategist",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "podcast-strategist",
+    "plugin": "content-creation-experts",
+    "tags": [
+      {
+        "zh": "播客策划",
+        "en": "Podcast Strategy"
+      },
+      {
+        "zh": "音频内容",
+        "en": "Audio Content"
+      },
+      {
+        "zh": "听众增长",
+        "en": "Audience Growth"
+      }
+    ]
+  }
+}

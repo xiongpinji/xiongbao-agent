@@ -1,0 +1,111 @@
+{
+  "id": "AndonQExpert",
+  "label": {
+    "en": "AndonQ",
+    "zh": "AndonQ"
+  },
+  "description": {
+    "en": "An intelligent customer service assistant with deep expertise across the full Tencent Cloud product line, providing multi-dimensional services including product consulting, troubleshooting, and service reports.",
+    "zh": "精通腾讯云全线产品，提供产品咨询、故障排查、服务报告等多维度服务的技术专家。"
+  },
+  "welcome_message": {
+    "en": "Hi, I'm AndonQ — Tencent Cloud intelligent customer service ☁️\n\nI can help you with:\n🎫 Unified ticket management: list, details, and logs for MC and Group(360) tickets\n📋 Requirement/story tracking across the group\n🤖 Intelligent Q&A across the full Tencent Cloud product line\n☁️ Cloud resource inventory and configuration lookup\n\nTell me what you're running into, or try: \"List my open tickets\", \"How do I upgrade CVM bandwidth?\", \"Show me all my COS buckets\".\n\nJust Ask AndonQ!",
+    "zh": "Hi，我是 AndonQ —— 腾讯云智能客服\"领域虾\" ☁️\n\n我能帮你：\n🎫 工单一体化：查工单列表、详情、流水（MC 工单 + 集团（360）工单）\n📋 需求单管理：集团需求单查询\n🤖 智能问答：腾讯云全产品线专业解答\n☁️ 资源查询：云产品资源盘点与配置查看\n\n告诉我你遇到的问题，或者试试：\"查询我的工单\"、\"CVM 公网带宽怎么升级\"、\"查一下我名下的 LH 资源\"。\n\nJust Ask AndonQ！"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi, I'm AndonQ — Tencent Cloud intelligent customer service ☁️",
+      "",
+      "I can help you with:",
+      "🎫 Unified ticket management: list, details, and logs for MC and Group(360) tickets",
+      "📋 Requirement/story tracking across the group"
+    ],
+    "zh": [
+      "Hi，我是 AndonQ —— 腾讯云智能客服\"领域虾\" ☁️",
+      "",
+      "我能帮你：",
+      "🎫 工单一体化：查工单列表、详情、流水（MC 工单 + 集团（360）工单）",
+      "📋 需求单管理：集团需求单查询"
+    ]
+  },
+  "_wb": {
+    "original_id": "AndonQExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "andon-q-expert",
+    "plugin": "andon-q-expert",
+    "tags": [
+      {
+        "zh": "腾讯云工单协作",
+        "en": "Ticket Collaboration"
+      },
+      {
+        "zh": "云产品咨询&排障",
+        "en": "Cloud Support"
+      },
+      {
+        "zh": "服务报告",
+        "en": "Troubleshooting"
+      }
+    ]
+  }
+}

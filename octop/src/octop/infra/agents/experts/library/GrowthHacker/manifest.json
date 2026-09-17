@@ -1,0 +1,103 @@
+{
+  "id": "GrowthHacker",
+  "label": {
+    "en": "Nia",
+    "zh": "裂变变"
+  },
+  "description": {
+    "en": "Using data-driven experimental methodology to find untapped growth channels, achieving exponential growth",
+    "zh": "用数据驱动的实验方法论找到未开发的增长渠道，实现指数级增长"
+  },
+  "welcome_message": {
+    "en": "Our user growth is slow, and we need innovative growth hacking methods to quickly increase user numbers. Please, Growth Hacker, help us design growth experiments and viral referral solutions.",
+    "zh": "我们的用户增长缓慢,需要创新的增长黑客方法来快速提升用户量,请增长黑客帮我们设计增长实验和裂变方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our user growth is slow, and we need innovative growth hacking methods to quickly increase user numbers. Please, Growth Hacker, help us design growth experiments and viral referral solutions."
+    ],
+    "zh": [
+      "我们的用户增长缓慢,需要创新的增长黑客方法来快速提升用户量,请增长黑客帮我们设计增长实验和裂变方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "GrowthHacker",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "growth-hacker",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "增长黑客",
+        "en": "Growth Hacking"
+      },
+      {
+        "zh": "裂变实验",
+        "en": "Viral Experiment"
+      },
+      {
+        "zh": "转化优化",
+        "en": "Conversion Optimization"
+      }
+    ]
+  }
+}

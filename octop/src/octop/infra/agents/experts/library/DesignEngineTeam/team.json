@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "DesignEngineTeam",
+  "lead_id": "design-engine-team-lead",
+  "lead_name": "设计原型专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\DesignEngineTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "discovery-analyst",
+      "display_name": "引导用户明确设计场景、目标受众、品牌调性、内容规模",
+      "specialty": "\"我想做一个落地页\"\"用什么风格好\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "许明需",
+      "emoji": "需求发现分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "design-system-expert",
+      "display_name": "从 71 套品牌级设计系统中匹配最佳方案，定制色彩/排版/组件",
+      "specialty": "\"用 Stripe 风格\"\"有没有适合的设计系统\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "彩格调",
+      "emoji": "设计系统专家",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "prototype-builder",
+      "display_name": "基于设计系统和模板生成 HTML/CSS 原型代码",
+      "specialty": "\"开始生成原型\"\"做一个定价页\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "筑原型",
+      "emoji": "原型构建师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "critique-reviewer",
+      "display_name": "5 维评审（哲学/层次/执行/特异性/克制），Anti-Slop 门控",
+      "specialty": "\"检查一下质量\"\"这个设计合格吗\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "严过审",
+      "emoji": "质量审查官",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "export-specialist",
+      "display_name": "将审查通过的原型导出为 HTML/PDF/PPTX 等格式",
+      "specialty": "\"导出 PDF\"\"打包下载\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "交付达",
+      "emoji": "导出交付专家",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "discovery-analyst",
+        "design-system-expert",
+        "prototype-builder",
+        "critique-reviewer",
+        "export-specialist"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "id": "TechnicalArtist",
+  "label": {
+    "en": "Otis",
+    "zh": "技美美"
+  },
+  "description": {
+    "en": "Bridging art vision and engine implementation, expert in shaders and VFX",
+    "zh": "在美术愿景与引擎实现之间架起桥梁，精通着色器和VFX"
+  },
+  "welcome_message": {
+    "en": "Our game needs technical art support to bridge art and development. Please, Technical Artist, help us optimize game art effects.",
+    "zh": "我们的游戏需要技术美术支持,连接美术和开发的桥梁,请技术美术帮我们优化游戏美术效果。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our game needs technical art support to bridge art and development. Please, Technical Artist, help us optimize game art effects."
+    ],
+    "zh": [
+      "我们的游戏需要技术美术支持,连接美术和开发的桥梁,请技术美术帮我们优化游戏美术效果。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TechnicalArtist",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "technical-artist",
+    "plugin": "game-design-experts",
+    "tags": [
+      {
+        "zh": "技术美术",
+        "en": "Technical Art"
+      },
+      {
+        "zh": "美术管线",
+        "en": "Art Pipeline"
+      },
+      {
+        "zh": "着色器编写",
+        "en": "Shader Writing"
+      }
+    ]
+  }
+}

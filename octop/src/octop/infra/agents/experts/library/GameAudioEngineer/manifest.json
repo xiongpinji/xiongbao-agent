@@ -1,0 +1,103 @@
+{
+  "id": "GameAudioEngineer",
+  "label": {
+    "en": "Carl",
+    "zh": "音效效"
+  },
+  "description": {
+    "en": "Expert in FMOD/Wwise integration and spatial audio, bringing game sounds to life",
+    "zh": "精通FMOD/Wwise集成和空间音频，让游戏声音栩栩如生"
+  },
+  "welcome_message": {
+    "en": "Our game needs professional audio design and sound effects production. Please, Game Audio Engineer, help us design a game audio system.",
+    "zh": "我们的游戏需要专业的音频设计和音效制作,请游戏音频工程师帮我们设计游戏音频系统。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our game needs professional audio design and sound effects production. Please, Game Audio Engineer, help us design a game audio system."
+    ],
+    "zh": [
+      "我们的游戏需要专业的音频设计和音效制作,请游戏音频工程师帮我们设计游戏音频系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "GameAudioEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "game-audio-engineer",
+    "plugin": "game-design-experts",
+    "tags": [
+      {
+        "zh": "游戏音频",
+        "en": "Game Audio"
+      },
+      {
+        "zh": "音效设计",
+        "en": "Sound Design"
+      },
+      {
+        "zh": "空间音频",
+        "en": "Spatial Audio"
+      }
+    ]
+  }
+}

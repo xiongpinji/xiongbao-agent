@@ -1,0 +1,103 @@
+{
+  "id": "TaxComplianceTeam",
+  "label": {
+    "en": "Tax Compliance Team",
+    "zh": "财税合规专家团"
+  },
+  "description": {
+    "en": "Full lifecycle enterprise financial and tax compliance management covering invoicing, bookkeeping, reporting, filing, and audit for Chinese businesses.",
+    "zh": "覆盖票据处理、记账核算、报表编制、税务申报、合规审计五大环节的企业财税合规全链路管理专家团"
+  },
+  "welcome_message": {
+    "en": "Help me perform a monthly tax compliance check for my company",
+    "zh": "帮我执行本月的企业财税合规检查"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me perform a monthly tax compliance check for my company"
+    ],
+    "zh": [
+      "帮我执行本月的企业财税合规检查"
+    ]
+  },
+  "_wb": {
+    "original_id": "TaxComplianceTeam",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "team",
+    "agent_name": "tax-compliance-team-lead",
+    "plugin": "tax-compliance-team",
+    "tags": [
+      {
+        "en": "Tax Compliance",
+        "zh": "税务合规"
+      },
+      {
+        "en": "Financial Accounting",
+        "zh": "财务核算"
+      },
+      {
+        "en": "Compliance Audit",
+        "zh": "合规审计"
+      }
+    ]
+  }
+}

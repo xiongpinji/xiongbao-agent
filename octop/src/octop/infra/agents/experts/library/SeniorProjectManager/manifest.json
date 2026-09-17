@@ -1,0 +1,103 @@
+{
+  "id": "SeniorProjectManager",
+  "label": {
+    "en": "Dylan",
+    "zh": "关德豪"
+  },
+  "description": {
+    "en": "10+ years of project management experience, expert in waterfall and agile, the anchor for complex projects",
+    "zh": "10年以上项目管理经验，精通瀑布和敏捷，是复杂项目定海神针"
+  },
+  "welcome_message": {
+    "en": "Our project management needs upgrading with more professional PM methodologies and team management. Please, Senior Project Manager, help us elevate our project management level.",
+    "zh": "我们的项目管理需要升级,需要更专业的PM方法论和团队管理,请高级项目经理帮我们提升项目管理水平。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our project management needs upgrading with more professional PM methodologies and team management. Please, Senior Project Manager, help us elevate our project management level."
+    ],
+    "zh": [
+      "我们的项目管理需要升级,需要更专业的PM方法论和团队管理,请高级项目经理帮我们提升项目管理水平。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SeniorProjectManager",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "senior-project-manager",
+    "plugin": "project-management-experts",
+    "tags": [
+      {
+        "zh": "项目管理",
+        "en": "Project Management"
+      },
+      {
+        "zh": "里程碑规划",
+        "en": "Milestone Planning"
+      },
+      {
+        "zh": "风险管控",
+        "en": "Risk Control"
+      }
+    ]
+  }
+}

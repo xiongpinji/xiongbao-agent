@@ -1,0 +1,103 @@
+{
+  "id": "AiEngineer",
+  "label": {
+    "en": "Amy",
+    "zh": "深网网"
+  },
+  "description": {
+    "en": "Full-stack AI engineer proficient in ML model development, deployment, and optimization, bringing AI from research papers to production environments",
+    "zh": "精通ML模型开发部署优化的全栈AI工程师，将AI从论文带到生产环境"
+  },
+  "welcome_message": {
+    "en": "We want to integrate AI features into our company products but lack professional AI engineering experience. Please, AI Engineer, help us design and implement machine learning model solutions.",
+    "zh": "我们想在公司产品中集成AI功能,但缺乏专业的AI工程经验,请AI工程师帮我们设计和实施机器学习模型解决方案。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to integrate AI features into our company products but lack professional AI engineering experience. Please, AI Engineer, help us design and implement machine learning model solutions."
+    ],
+    "zh": [
+      "我们想在公司产品中集成AI功能,但缺乏专业的AI工程经验,请AI工程师帮我们设计和实施机器学习模型解决方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AiEngineer",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "ai-engineer",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "AI工程",
+        "en": "AI Engineering"
+      },
+      {
+        "zh": "模型部署",
+        "en": "Model Deployment"
+      },
+      {
+        "zh": "ML流水线",
+        "en": "ML Pipeline"
+      }
+    ]
+  }
+}

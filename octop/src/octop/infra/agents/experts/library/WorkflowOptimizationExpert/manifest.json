@@ -1,0 +1,103 @@
+{
+  "id": "WorkflowOptimizationExpert",
+  "label": {
+    "en": "Nova",
+    "zh": "流畅畅"
+  },
+  "description": {
+    "en": "Finding bottlenecks, fixing processes, automating everything, maximizing team efficiency",
+    "zh": "找到瓶颈修复流程自动化一切，让团队效率最大化"
+  },
+  "welcome_message": {
+    "en": "Our QA workflow efficiency is not high, and we need to optimize processes to improve quality. Please, Workflow Optimization Expert, help us design an efficient QA workflow.",
+    "zh": "我们的QA工作流程效率不高,需要优化流程提升质量,请工作流优化专家帮我们设计高效的QA流程。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our QA workflow efficiency is not high, and we need to optimize processes to improve quality. Please, Workflow Optimization Expert, help us design an efficient QA workflow."
+    ],
+    "zh": [
+      "我们的QA工作流程效率不高,需要优化流程提升质量,请工作流优化专家帮我们设计高效的QA流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "WorkflowOptimizationExpert",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "workflow-optimization-expert",
+    "plugin": "quality-testing-experts",
+    "tags": [
+      {
+        "zh": "流程优化",
+        "en": "Workflow Optimization"
+      },
+      {
+        "zh": "效率提升",
+        "en": "Efficiency Improvement"
+      },
+      {
+        "zh": "自动化设计",
+        "en": "Automation Design"
+      }
+    ]
+  }
+}

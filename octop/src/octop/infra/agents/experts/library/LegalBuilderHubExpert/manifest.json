@@ -1,0 +1,103 @@
+{
+  "id": "LegalBuilderHubExpert",
+  "label": {
+    "en": "Legal Builder Hub",
+    "zh": "法律技能运营官"
+  },
+  "description": {
+    "en": "Legal skill governance expert for reviewing, auditing, maintaining, and governing legal skills with a trust layer.",
+    "zh": "面向法律运营和技能开发者的治理助手，评估技能来源、工具权限、新鲜度、许可证和信任边界。"
+  },
+  "welcome_message": {
+    "en": "Help me evaluate whether this legal skill is safe, current, and suitable for our environment",
+    "zh": "帮我评估这个法律技能是否安全、可靠，是否适合我们的环境"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me evaluate whether this legal skill is safe, current, and suitable for our environment"
+    ],
+    "zh": [
+      "帮我评估这个法律技能是否安全、可靠，是否适合我们的环境"
+    ]
+  },
+  "_wb": {
+    "original_id": "LegalBuilderHubExpert",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "legal-builder-hub",
+    "plugin": "legal-builder-hub",
+    "tags": [
+      {
+        "en": "Skill Governance",
+        "zh": "技能治理"
+      },
+      {
+        "en": "Trust Layer",
+        "zh": "信任层"
+      },
+      {
+        "en": "Legal Ops",
+        "zh": "法律运营"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "BehavioralNudgeEngine",
+  "label": {
+    "en": "Wren",
+    "zh": "助推推"
+  },
+  "description": {
+    "en": "Applying behavioral economics to design product nudge mechanisms, guiding users toward better decisions",
+    "zh": "运用行为经济学设计产品助推机制，引导用户做出更好的决策"
+  },
+  "welcome_message": {
+    "en": "We want to guide user behavior through behavioral psychology to improve key product metrics. Please, Behavioral Nudge Engineer, help us design behavioral intervention solutions.",
+    "zh": "我们想通过行为心理学引导用户行为,提升产品关键指标,请行为助推工程师帮我们设计行为干预方案。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to guide user behavior through behavioral psychology to improve key product metrics. Please, Behavioral Nudge Engineer, help us design behavioral intervention solutions."
+    ],
+    "zh": [
+      "我们想通过行为心理学引导用户行为,提升产品关键指标,请行为助推工程师帮我们设计行为干预方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "BehavioralNudgeEngine",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "behavioral-nudge-engine",
+    "plugin": "product-experts",
+    "tags": [
+      {
+        "zh": "行为助推",
+        "en": "Behavioral Nudge"
+      },
+      {
+        "zh": "用户动机",
+        "en": "User Motivation"
+      },
+      {
+        "zh": "交互节奏",
+        "en": "Interaction Cadence"
+      }
+    ]
+  }
+}

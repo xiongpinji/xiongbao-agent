@@ -1,0 +1,103 @@
+{
+  "id": "VisionOsSpatialEngineer",
+  "label": {
+    "en": "Xerxes",
+    "zh": "空间通"
+  },
+  "description": {
+    "en": "Expert in visionOS platform development, building Apple Vision Pro spatial applications",
+    "zh": "精通visionOS平台开发，打造Apple Vision Pro空间应用"
+  },
+  "welcome_message": {
+    "en": "We want to develop spatial computing applications for visionOS and need native spatial interface design. Please, visionOS Spatial Engineer, help us design spatial applications.",
+    "zh": "我们想为visionOS开发空间计算应用,需要原生空间界面设计,请visionOS空间工程师帮我们设计空间应用。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop spatial computing applications for visionOS and need native spatial interface design. Please, visionOS Spatial Engineer, help us design spatial applications."
+    ],
+    "zh": [
+      "我们想为visionOS开发空间计算应用,需要原生空间界面设计,请visionOS空间工程师帮我们设计空间应用。"
+    ]
+  },
+  "_wb": {
+    "original_id": "VisionOsSpatialEngineer",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "vision-os-spatial-engineer",
+    "plugin": "spatial-computing-experts",
+    "tags": [
+      {
+        "zh": "visionOS开发",
+        "en": "visionOS Development"
+      },
+      {
+        "zh": "空间界面",
+        "en": "Spatial Interface"
+      },
+      {
+        "zh": "SwiftUI",
+        "en": "SwiftUI"
+      }
+    ]
+  }
+}

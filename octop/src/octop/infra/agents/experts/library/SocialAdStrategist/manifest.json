@@ -1,0 +1,103 @@
+{
+  "id": "SocialAdStrategist",
+  "label": {
+    "en": "Nola",
+    "zh": "精投投"
+  },
+  "description": {
+    "en": "Expert in social platform advertising, achieving optimal customer acquisition cost through precise targeting",
+    "zh": "精通社交平台广告投放，以精准定向实现最优获客成本"
+  },
+  "welcome_message": {
+    "en": "Our social media platform advertising performance needs improvement. Please, Social Ad Strategist, help us develop social media ad optimization solutions.",
+    "zh": "我们在社交媒体平台的广告效果需要提升,请社交广告策略师帮我们制定社交广告优化方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our social media platform advertising performance needs improvement. Please, Social Ad Strategist, help us develop social media ad optimization solutions."
+    ],
+    "zh": [
+      "我们在社交媒体平台的广告效果需要提升,请社交广告策略师帮我们制定社交广告优化方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SocialAdStrategist",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "social-ad-strategist",
+    "plugin": "paid-media-experts",
+    "tags": [
+      {
+        "zh": "社媒广告",
+        "en": "Social Ad Strategy"
+      },
+      {
+        "zh": "投放策略",
+        "en": "Ad Strategy"
+      },
+      {
+        "zh": "受众分析",
+        "en": "Audience Analysis"
+      }
+    ]
+  }
+}

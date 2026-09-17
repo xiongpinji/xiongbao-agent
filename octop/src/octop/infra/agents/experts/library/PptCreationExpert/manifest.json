@@ -1,0 +1,103 @@
+{
+  "id": "PptCreationExpert",
+  "label": {
+    "en": "Slide",
+    "zh": "幻灯灯"
+  },
+  "description": {
+    "en": "Intelligent PPT generation assistant, converts ideas into professional presentations with one click",
+    "zh": "智能 PPT 生成助手，一键将想法转化为精美演示文稿"
+  },
+  "welcome_message": {
+    "en": "Help me create a project report presentation",
+    "zh": "帮我制作一份项目汇报PPT"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me create a project report presentation"
+    ],
+    "zh": [
+      "帮我制作一份项目汇报PPT"
+    ]
+  },
+  "_wb": {
+    "original_id": "PptCreationExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "plugin",
+    "agent_name": "ppt-creation-expert",
+    "plugin": "ppt-implement",
+    "tags": [
+      {
+        "zh": "PPT制作",
+        "en": "PPT Creation"
+      },
+      {
+        "zh": "演示设计",
+        "en": "Presentation Design"
+      },
+      {
+        "zh": "幻灯片生成",
+        "en": "Slide Generation"
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "expert_id": "OpcTeam",
+  "lead_id": "opc-team-lead",
+  "lead_name": "OPC一人公司专家团 - 主理人 易牧",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\OpcTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "opc-resource-auditor",
+      "display_name": "战略 01",
+      "specialty": "资源盘点师 顾盘",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "按 8 大类盘点创始人现有资源"
+    },
+    {
+      "agent_id": "opc-niche-strategist",
+      "display_name": "战略 02",
+      "specialty": "利基定位师 林利基",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "三环合一框架 + 六维评分确定利基"
+    },
+    {
+      "agent_id": "opc-value-designer",
+      "display_name": "战略 03",
+      "specialty": "价值主张设计师 言之",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "Jobs / Pains / Gains 拆解，输出价值主张"
+    },
+    {
+      "agent_id": "opc-model-architect",
+      "display_name": "战略 04",
+      "specialty": "商业模式架构师 墨方",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "Lean Canvas 核心模块 + 高风险假设"
+    },
+    {
+      "agent_id": "opc-mvp-designer",
+      "display_name": "验证 06",
+      "specialty": "MVP实验设计师 验真",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "最小验证假设和验证形式"
+    },
+    {
+      "agent_id": "opc-conversion-designer",
+      "display_name": "验证 07",
+      "specialty": "转化路径设计师 闭环",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "触达 → 承接 → 成交 路径结构"
+    },
+    {
+      "agent_id": "opc-asset-strategist",
+      "display_name": "运营 08",
+      "specialty": "资产沉淀师 沉墨",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "识别可复用成果、规划资产优先级"
+    },
+    {
+      "agent_id": "opc-dashboard-reviewer",
+      "display_name": "运营 09",
+      "specialty": "经营复盘师 复明",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "瓶颈识别、下周期重点"
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "opc-resource-auditor",
+        "opc-niche-strategist",
+        "opc-value-designer",
+        "opc-model-architect",
+        "opc-mvp-designer",
+        "opc-conversion-designer",
+        "opc-asset-strategist",
+        "opc-dashboard-reviewer"
+      ]
+    }
+  ]
+}

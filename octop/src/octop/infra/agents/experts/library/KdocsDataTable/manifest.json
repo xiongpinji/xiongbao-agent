@@ -1,0 +1,103 @@
+{
+  "id": "KdocsDataTable",
+  "label": {
+    "en": "KDocs Smart Table Assistant",
+    "zh": "金山文档智能建表助手"
+  },
+  "description": {
+    "en": "By Kingsoft Docs Turn group-chat jielong into structured tables, generate shareable info-collection forms, and beautify spreadsheets with rule enforcement (conditional formatting, data validation dropdowns, and range protection). Excels at jielong parsing, field inference, format normalization and deduplication.",
+    "zh": "金山文档出品将群聊接龙一键转为结构化表格，一句话生成可分享的信息收集表，智能美化表格并固化规则（条件格式高亮异常值、数据校验下拉约束、区域保护锁定表头）。擅长接龙识别、字段推断、格式规范与数据去重。"
+  },
+  "welcome_message": {
+    "en": "Hi, I am the Data Table Expert. Paste your jielong text, tell me what info to collect, or share a sheet that needs cleaning up — I'll handle it.",
+    "zh": "你好，我是数据建表专家。把接龙文本贴给我、告诉我要收集什么信息、或者把待美化的表格发给我，我来帮你整理。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi, I am the Data Table Expert. Paste your jielong text, tell me what info to collect, or share a sheet that needs cleaning up — I'll handle it."
+    ],
+    "zh": [
+      "你好，我是数据建表专家。把接龙文本贴给我、告诉我要收集什么信息、或者把待美化的表格发给我，我来帮你整理。"
+    ]
+  },
+  "_wb": {
+    "original_id": "KdocsDataTable",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "kdocs-data-table",
+    "plugin": "kdocs-data-table",
+    "tags": [
+      {
+        "en": "Jielong to Table",
+        "zh": "接龙转表格"
+      },
+      {
+        "en": "Info Collection Form",
+        "zh": "信息收集表"
+      },
+      {
+        "en": "Smart Sheet",
+        "zh": "智能表格"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "AskLiuxiaopai",
+  "label": {
+    "en": "AI Liu Xiaopai",
+    "zh": "AI 刘小排"
+  },
+  "description": {
+    "en": "A digital persona of Raphael AI founder Liu Xiaopai. Diagnoses your product idea in office-hours style: pin down a real person, real pain, real money, real distribution — and one thing you can do tonight.",
+    "zh": "Raphael AI 创始人刘小排的数字分身，office-hours 风格陪你拆 idea：钉死具体的人、真痛点、第一笔钱、第一批用户在哪，再给一件今晚就能做的事。"
+  },
+  "welcome_message": {
+    "en": "I have an idea — is it worth doing? Walk me through it.",
+    "zh": "我有个 idea 想找你聊聊——值不值得做？"
+  },
+  "icon_name": "briefcase",
+  "color": "#14b8a6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I have an idea — is it worth doing? Walk me through it."
+    ],
+    "zh": [
+      "我有个 idea 想找你聊聊——值不值得做？"
+    ]
+  },
+  "_wb": {
+    "original_id": "AskLiuxiaopai",
+    "category_id": "12-IndustryConsultant",
+    "category_label": {
+      "en": "Industry Consultant",
+      "zh": "行业顾问"
+    },
+    "expert_type": "agent",
+    "agent_name": "ask-liuxiaopai",
+    "plugin": "ask-liuxiaopai",
+    "tags": [
+      {
+        "en": "Idea Diagnosis",
+        "zh": "Idea 诊断"
+      },
+      {
+        "en": "Solo Founder",
+        "zh": "超级个体"
+      },
+      {
+        "en": "Idea to Business",
+        "zh": "Idea to Business"
+      }
+    ]
+  }
+}

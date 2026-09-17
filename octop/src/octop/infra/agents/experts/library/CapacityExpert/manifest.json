@@ -1,0 +1,107 @@
+{
+  "id": "CapacityExpert",
+  "label": {
+    "en": "CloudQ",
+    "zh": "CloudQ"
+  },
+  "description": {
+    "en": "Resource capacity planning expert. Specializes in resource water level monitoring, capacity forecasting, elastic scaling strategy design, and preventing resource bottlenecks and waste.",
+    "zh": "容量规划专家。擅长水位监控、容量预测与弹性伸缩策略制定，防止资源瓶颈与浪费。"
+  },
+  "welcome_message": {
+    "en": "Are the resource water levels of each cluster normal?",
+    "zh": "当前各集群资源水位是否正常？"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Are the resource water levels of each cluster normal?"
+    ],
+    "zh": [
+      "当前各集群资源水位是否正常？"
+    ]
+  },
+  "_wb": {
+    "original_id": "CapacityExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "capacity-expert",
+    "plugin": "capacity-expert",
+    "tags": [
+      {
+        "en": "Capacity Planning",
+        "zh": "容量规划"
+      },
+      {
+        "en": "Elastic Scaling",
+        "zh": "弹性伸缩"
+      },
+      {
+        "en": "Water Level",
+        "zh": "水位监控"
+      },
+      {
+        "en": "Resource Optimization",
+        "zh": "资源优化"
+      }
+    ]
+  }
+}

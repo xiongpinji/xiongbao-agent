@@ -1,0 +1,107 @@
+{
+  "id": "MultiCloudExpert",
+  "label": {
+    "en": "CloudQ",
+    "zh": "CloudQ"
+  },
+  "description": {
+    "en": "Multi-cloud governance expert. Combines Omni-Channel ChatOps, 24/7 AIOps, and All-Round CloudOps for unified management across Tencent Cloud, Alibaba Cloud, AWS, Azure, GCP and more. Architecture visualization, intelligent inspection, risk assessment, and cloud resource Q&A — one lobster to manage all clouds.",
+    "zh": "多云管理专家，统一管理腾讯云、阿里云、AWS、Azure、GCP 等多云平台，一只龙虾管所有云。"
+  },
+  "welcome_message": {
+    "en": "Which cloud platforms can you manage?",
+    "zh": "你能管理哪些云平台？"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Which cloud platforms can you manage?"
+    ],
+    "zh": [
+      "你能管理哪些云平台？"
+    ]
+  },
+  "_wb": {
+    "original_id": "MultiCloudExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "multi-cloud-expert",
+    "plugin": "multi-cloud-expert",
+    "tags": [
+      {
+        "en": "Multi-Cloud",
+        "zh": "多云管理"
+      },
+      {
+        "en": "ChatOps",
+        "zh": "ChatOps"
+      },
+      {
+        "en": "AIOps",
+        "zh": "AIOps"
+      },
+      {
+        "en": "CloudOps",
+        "zh": "CloudOps"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "PitchAgent",
+  "label": {
+    "en": "Pitch Agent",
+    "zh": "白必得"
+  },
+  "description": {
+    "en": "Senior IB associate who builds first-draft pitches end-to-end: trading comps, precedent transactions, football-field valuation in Excel, and branded pitch deck.",
+    "zh": "资深投行关联人,从零搭建 pitch 初稿——可比公司、先例交易、DCF、足球场估值图,并生成绑在模型上的品牌化 PPT。"
+  },
+  "welcome_message": {
+    "en": "Build a first-draft pitch on Arista Networks exploring strategic alternatives: trading comps, precedents, football field in Excel, then a branded pitch deck.",
+    "zh": "给中际旭创(探索战略选项场景)起草一版 pitch:可比公司、先例交易、足球场估值,并在我们模板上生成品牌化 PPT。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Build a first-draft pitch on Arista Networks exploring strategic alternatives: trading comps, precedents, football field in Excel, then a branded pitch deck."
+    ],
+    "zh": [
+      "给中际旭创(探索战略选项场景)起草一版 pitch:可比公司、先例交易、足球场估值,并在我们模板上生成品牌化 PPT。"
+    ]
+  },
+  "_wb": {
+    "original_id": "PitchAgent",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "pitch-agent",
+    "plugin": "pitch-agent",
+    "tags": [
+      {
+        "zh": "投行路演",
+        "en": "Pitch Book"
+      },
+      {
+        "zh": "足球场估值",
+        "en": "Football Field"
+      },
+      {
+        "zh": "并购顾问",
+        "en": "M&A Advisory"
+      }
+    ]
+  }
+}

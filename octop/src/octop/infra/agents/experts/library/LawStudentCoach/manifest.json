@@ -1,0 +1,103 @@
+{
+  "id": "LawStudentCoach",
+  "label": {
+    "en": "Law Student Coach",
+    "zh": "法学生陪练"
+  },
+  "description": {
+    "en": "Study coach for law students: Socratic drills, case briefs, outlines, IRAC practice, flashcards, cold-call prep, legal writing, and exam review.",
+    "zh": "面向法学生的学习陪练，训练苏格拉底问答、案例摘要、IRAC、课程大纲和律考复习。"
+  },
+  "welcome_message": {
+    "en": "Quiz me Socratically on this case without giving away the answer",
+    "zh": "用苏格拉底方式考我这个案例，不要直接给答案"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Quiz me Socratically on this case without giving away the answer"
+    ],
+    "zh": [
+      "用苏格拉底方式考我这个案例，不要直接给答案"
+    ]
+  },
+  "_wb": {
+    "original_id": "LawStudentCoach",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "law-student-coach",
+    "plugin": "law-student-coach",
+    "tags": [
+      {
+        "en": "Socratic Drill",
+        "zh": "苏格拉底训练"
+      },
+      {
+        "en": "IRAC Practice",
+        "zh": "IRAC练习"
+      },
+      {
+        "en": "Exam Prep",
+        "zh": "考试备考"
+      }
+    ]
+  }
+}

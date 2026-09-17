@@ -1,0 +1,103 @@
+{
+  "id": "VisualStorytellingExpert",
+  "label": {
+    "en": "Eva",
+    "zh": "图说说"
+  },
+  "description": {
+    "en": "Expert at transforming complex information into compelling visual stories",
+    "zh": "擅长将复杂信息转化为引人入胜的视觉故事"
+  },
+  "welcome_message": {
+    "en": "Our content lacks the appeal of visual storytelling, and we want to better tell our brand story through visual elements. Please, Visual Storytelling Expert, help me design a visual storytelling strategy.",
+    "zh": "我们的内容缺乏视觉叙事的吸引力,想通过视觉元素更好地讲述品牌故事,请视觉叙事专家帮我设计视觉叙事方案。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our content lacks the appeal of visual storytelling, and we want to better tell our brand story through visual elements. Please, Visual Storytelling Expert, help me design a visual storytelling strategy."
+    ],
+    "zh": [
+      "我们的内容缺乏视觉叙事的吸引力,想通过视觉元素更好地讲述品牌故事,请视觉叙事专家帮我设计视觉叙事方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "VisualStorytellingExpert",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "visual-storytelling-expert",
+    "plugin": "visual-storytelling-expert",
+    "tags": [
+      {
+        "zh": "视觉叙事",
+        "en": "Visual Storytelling"
+      },
+      {
+        "zh": "数据可视化",
+        "en": "Data Visualization"
+      },
+      {
+        "zh": "信息图表",
+        "en": "Infographics"
+      }
+    ]
+  }
+}

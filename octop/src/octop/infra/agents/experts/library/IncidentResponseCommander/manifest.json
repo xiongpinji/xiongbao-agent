@@ -1,0 +1,103 @@
+{
+  "id": "IncidentResponseCommander",
+  "label": {
+    "en": "Sara",
+    "zh": "救火队"
+  },
+  "description": {
+    "en": "Calmly commands teams to quickly locate, handle, and recover during system failures, the ultimate firefighting captain",
+    "zh": "系统故障时冷静指挥团队快速定位处理和恢复，是终极救火队长"
+  },
+  "welcome_message": {
+    "en": "We frequently encounter production incidents and need to establish a standardized emergency response mechanism. Please, Incident Response Commander, help us develop an incident handling process.",
+    "zh": "我们经常遇到生产事故,需要建立标准化的应急响应机制,请事故响应指挥官帮我们制定事故处理流程。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We frequently encounter production incidents and need to establish a standardized emergency response mechanism. Please, Incident Response Commander, help us develop an incident handling process."
+    ],
+    "zh": [
+      "我们经常遇到生产事故,需要建立标准化的应急响应机制,请事故响应指挥官帮我们制定事故处理流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "IncidentResponseCommander",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "incident-response-commander",
+    "plugin": "devops-security-experts",
+    "tags": [
+      {
+        "zh": "应急指挥",
+        "en": "Incident Command"
+      },
+      {
+        "zh": "安全响应",
+        "en": "Security Response"
+      },
+      {
+        "zh": "事件协调",
+        "en": "Event Coordination"
+      }
+    ]
+  }
+}

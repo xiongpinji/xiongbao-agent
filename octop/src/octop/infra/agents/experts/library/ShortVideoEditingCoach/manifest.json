@@ -1,0 +1,103 @@
+{
+  "id": "ShortVideoEditingCoach",
+  "label": {
+    "en": "Wyatt",
+    "zh": "剪神神"
+  },
+  "description": {
+    "en": "Expert in short video editing techniques and rhythm control, giving every video professional impact",
+    "zh": "精通短视频剪辑技巧和节奏把控，让每条视频具有专业冲击力"
+  },
+  "welcome_message": {
+    "en": "We want to create short video content, but our editing skills and creativity need improvement. Please, Short Video Editing Coach, help us improve our short video production quality.",
+    "zh": "我们想创作短视频内容,但剪辑技术和创意需要提升,请短视频剪辑教练帮我们提升短视频制作水平。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to create short video content, but our editing skills and creativity need improvement. Please, Short Video Editing Coach, help us improve our short video production quality."
+    ],
+    "zh": [
+      "我们想创作短视频内容,但剪辑技术和创意需要提升,请短视频剪辑教练帮我们提升短视频制作水平。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ShortVideoEditingCoach",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "short-video-editing-coach",
+    "plugin": "content-creation-experts",
+    "tags": [
+      {
+        "zh": "短视频剪辑",
+        "en": "Short Video Editing"
+      },
+      {
+        "zh": "后期制作",
+        "en": "Post Production"
+      },
+      {
+        "zh": "剪辑教学",
+        "en": "Editing Coaching"
+      }
+    ]
+  }
+}

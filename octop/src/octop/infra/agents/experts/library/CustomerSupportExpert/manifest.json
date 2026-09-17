@@ -1,0 +1,103 @@
+{
+  "id": "CustomerSupportExpert",
+  "label": {
+    "en": "Olin",
+    "zh": "暖心心"
+  },
+  "description": {
+    "en": "Transforming every frustrated user interaction into loyal advocacy, creating reputation through excellent service",
+    "zh": "将每次沮丧的用户互动转化为忠实拥护者，用卓越服务创口碑"
+  },
+  "welcome_message": {
+    "en": "Our customer service quality varies and we need to establish a standardized customer service system. Please, Customer Support Expert, help us develop customer service standards.",
+    "zh": "我们的客户服务质量参差不齐,需要建立标准化的客户服务体系,请客户支持专家帮我们制定客户服务标准。"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our customer service quality varies and we need to establish a standardized customer service system. Please, Customer Support Expert, help us develop customer service standards."
+    ],
+    "zh": [
+      "我们的客户服务质量参差不齐,需要建立标准化的客户服务体系,请客户支持专家帮我们制定客户服务标准。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CustomerSupportExpert",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "agent",
+    "agent_name": "customer-support-expert",
+    "plugin": "operations-customer-experts",
+    "tags": [
+      {
+        "zh": "客户服务",
+        "en": "Customer Support"
+      },
+      {
+        "zh": "工单处理",
+        "en": "Ticket Handling"
+      },
+      {
+        "zh": "服务质量",
+        "en": "Service Quality"
+      }
+    ]
+  }
+}

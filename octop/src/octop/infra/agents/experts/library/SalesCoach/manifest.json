@@ -1,0 +1,103 @@
+{
+  "id": "SalesCoach",
+  "label": {
+    "en": "Ula",
+    "zh": "单必成"
+  },
+  "description": {
+    "en": "Training sales teams through Socratic questioning, from 60% quota attainment to President's Club",
+    "zh": "用苏格拉底式提问训练销售团队，从60%达标到总统俱乐部"
+  },
+  "welcome_message": {
+    "en": "Our sales team's overall performance needs improvement, and we need systematic training and guidance. Please, Sales Coach, help us develop a sales capability improvement plan.",
+    "zh": "我们的销售团队整体业绩需要提升,需要系统的培训和指导,请销售教练帮我们制定销售能力提升计划。"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our sales team's overall performance needs improvement, and we need systematic training and guidance. Please, Sales Coach, help us develop a sales capability improvement plan."
+    ],
+    "zh": [
+      "我们的销售团队整体业绩需要提升,需要系统的培训和指导,请销售教练帮我们制定销售能力提升计划。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SalesCoach",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "agent",
+    "agent_name": "sales-coach",
+    "plugin": "sales-experts",
+    "tags": [
+      {
+        "zh": "销售培训",
+        "en": "Sales Coaching"
+      },
+      {
+        "zh": "话术指导",
+        "en": "Script Guidance"
+      },
+      {
+        "zh": "赢单策略",
+        "en": "Win Strategy"
+      }
+    ]
+  }
+}

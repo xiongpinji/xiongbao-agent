@@ -1,0 +1,103 @@
+{
+  "id": "EnterpriseLegalTeam",
+  "label": {
+    "en": "Enterprise Legal Team",
+    "zh": "企业法务专家团"
+  },
+  "description": {
+    "en": "Multi-role legal team for in-house counsel: contracts, M&A, employment, privacy, product, regulatory, AI governance, and IP triage.",
+    "zh": "面向企业法务的多角色专家团，覆盖合同、交易、隐私、产品、监管、AI 治理、雇佣与知识产权分诊。"
+  },
+  "welcome_message": {
+    "en": "Help me triage this cross-functional legal issue and route it to the right legal experts",
+    "zh": "帮我分诊这个跨职能法律问题，并交给合适的法务专家分析"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me triage this cross-functional legal issue and route it to the right legal experts"
+    ],
+    "zh": [
+      "帮我分诊这个跨职能法律问题，并交给合适的法务专家分析"
+    ]
+  },
+  "_wb": {
+    "original_id": "EnterpriseLegalTeam",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "team",
+    "agent_name": "enterprise-legal-lead",
+    "plugin": "enterprise-legal-team",
+    "tags": [
+      {
+        "en": "In-House Legal",
+        "zh": "企业法务"
+      },
+      {
+        "en": "Contracts & Transactions",
+        "zh": "合同与交易"
+      },
+      {
+        "en": "Compliance Triage",
+        "zh": "合规分诊"
+      }
+    ]
+  }
+}

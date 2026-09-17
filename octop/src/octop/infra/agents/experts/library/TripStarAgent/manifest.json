@@ -1,0 +1,103 @@
+{
+  "id": "TripStarAgent",
+  "label": {
+    "en": "Leo",
+    "zh": "路小鲜"
+  },
+  "description": {
+    "en": "A life service concierge that plans trips, books hotels, recommends attractions/restaurants, tracks weather & budget, and grabs Meituan coupons — all in one go",
+    "zh": "生活服务管家，一站式搞定行程规划、景点/酒店/天气/预算与美团红包领取"
+  },
+  "welcome_message": {
+    "en": "Plan a 3-day trip to [city]",
+    "zh": "帮我规划3天XXX城市行程"
+  },
+  "icon_name": "briefcase",
+  "color": "#14b8a6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Plan a 3-day trip to [city]"
+    ],
+    "zh": [
+      "帮我规划3天XXX城市行程"
+    ]
+  },
+  "_wb": {
+    "original_id": "TripStarAgent",
+    "category_id": "12-IndustryConsultant",
+    "category_label": {
+      "en": "Industry Consultant",
+      "zh": "行业顾问"
+    },
+    "expert_type": "agent",
+    "agent_name": "trip-planner",
+    "plugin": "tripstar-agent",
+    "tags": [
+      {
+        "en": "Itinerary Planning",
+        "zh": "行程规划"
+      },
+      {
+        "en": "Travel Concierge",
+        "zh": "旅行管家"
+      },
+      {
+        "en": "Meituan Coupons",
+        "zh": "美团优惠券"
+      }
+    ]
+  }
+}

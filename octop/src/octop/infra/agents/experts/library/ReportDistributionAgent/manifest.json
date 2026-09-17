@@ -1,0 +1,103 @@
+{
+  "id": "ReportDistributionAgent",
+  "label": {
+    "en": "Urban",
+    "zh": "送报报"
+  },
+  "description": {
+    "en": "Automating report generation and distribution processes",
+    "zh": "自动化管理报告生成和分发流程"
+  },
+  "welcome_message": {
+    "en": "Our report distribution needs automation to ensure timely delivery. Please, Report Distribution Agent, help us design an automated distribution system.",
+    "zh": "我们的报告分发需要自动化,确保及时送达,请报告分发代理帮我们设计自动化分发系统。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our report distribution needs automation to ensure timely delivery. Please, Report Distribution Agent, help us design an automated distribution system."
+    ],
+    "zh": [
+      "我们的报告分发需要自动化,确保及时送达,请报告分发代理帮我们设计自动化分发系统。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ReportDistributionAgent",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "report-distribution-agent",
+    "plugin": "industry-service-experts",
+    "tags": [
+      {
+        "zh": "报告分发",
+        "en": "Report Distribution"
+      },
+      {
+        "zh": "自动投递",
+        "en": "Auto Delivery"
+      },
+      {
+        "zh": "格式转换",
+        "en": "Format Conversion"
+      }
+    ]
+  }
+}

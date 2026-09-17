@@ -1,0 +1,103 @@
+{
+  "id": "TencentCharityExpert",
+  "label": {
+    "en": "XiaoYi",
+    "zh": "小益"
+  },
+  "description": {
+    "en": "A Tencent Technical Philanthropy and AI Specialist with deep expertise in products and technical solutions for the non-profit sector.",
+    "zh": "精通公益行业产品和技术解决方案的腾讯技术公益智能化专家"
+  },
+  "welcome_message": {
+    "en": "I would like to utilize Tencent's Tech for Good AI experts to help me resolve the issues I am facing and recommend some suitable products.",
+    "zh": "我想用腾讯技术公益智能化专家帮我解决一下遇到的问题，并推荐一些合适的产品"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I would like to utilize Tencent's Tech for Good AI experts to help me resolve the issues I am facing and recommend some suitable products."
+    ],
+    "zh": [
+      "我想用腾讯技术公益智能化专家帮我解决一下遇到的问题，并推荐一些合适的产品"
+    ]
+  },
+  "_wb": {
+    "original_id": "TencentCharityExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "tencent-charity-expert",
+    "plugin": "tencent-charity-expert",
+    "tags": [
+      {
+        "zh": "公益项目",
+        "en": "Charity Programs"
+      },
+      {
+        "zh": "社会影响",
+        "en": "Social Impact"
+      },
+      {
+        "zh": "志愿服务",
+        "en": "Volunteer Service"
+      }
+    ]
+  }
+}

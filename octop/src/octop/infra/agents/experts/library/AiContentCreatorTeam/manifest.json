@@ -1,0 +1,103 @@
+{
+  "id": "AiContentCreatorTeam",
+  "label": {
+    "en": "Content Creator Team",
+    "zh": "内容创作专家团"
+  },
+  "description": {
+    "en": "AI-driven multimodal content production team providing end-to-end creative solutions across video generation, image creation, smart editing, and cross-language content adaptation.",
+    "zh": "AI驱动的多模态内容生产团队，覆盖视频生成、图文创作、智能剪辑和跨语言素材改编，提供端到端创意解决方案。"
+  },
+  "welcome_message": {
+    "en": "Help me generate a 15-second product promotional short video with AI",
+    "zh": "帮我用 AI 生成一段 15 秒的产品宣传短视频"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me generate a 15-second product promotional short video with AI"
+    ],
+    "zh": [
+      "帮我用 AI 生成一段 15 秒的产品宣传短视频"
+    ]
+  },
+  "_wb": {
+    "original_id": "AiContentCreatorTeam",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "team",
+    "agent_name": "ai-content-creator-team-lead",
+    "plugin": "ai-content-creator-team",
+    "tags": [
+      {
+        "en": "AI Video Generation",
+        "zh": "AI视频生成"
+      },
+      {
+        "en": "Image Creation",
+        "zh": "图文创作"
+      },
+      {
+        "en": "Smart Editing",
+        "zh": "智能剪辑"
+      }
+    ]
+  }
+}

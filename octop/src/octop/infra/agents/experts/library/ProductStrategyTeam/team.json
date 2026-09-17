@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "ProductStrategyTeam",
+  "lead_id": "product-director",
+  "lead_name": "产品战略团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\ProductStrategyTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "requirement-analyst",
+      "display_name": "析客（Specky） · 需求分析师（Requirement Analyst）",
+      "specialty": "PRD/功能规格书撰写、需求分析、范围管理",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "user-researcher",
+      "display_name": "瑞思（Reese） · 用户研究员（User Researcher）",
+      "specialty": "用户调研综合分析、洞察提炼",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "competitive-analyst",
+      "display_name": "竞析（Compa） · 竞品分析师（Competitive Analyst）",
+      "specialty": "竞品分析、市场定位、Battle Card",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "data-analyst",
+      "display_name": "数析（Metric） · 数据分析师（Data Analyst）",
+      "specialty": "产品指标追踪、数据分析、指标评审",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "roadmap-planner",
+      "display_name": "路径（Roadie） · 路线图规划师（Roadmap Planner）",
+      "specialty": "路线图管理、迭代规划、利益相关者沟通",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "requirement-analyst",
+        "user-researcher",
+        "competitive-analyst",
+        "data-analyst",
+        "roadmap-planner"
+      ]
+    }
+  ]
+}

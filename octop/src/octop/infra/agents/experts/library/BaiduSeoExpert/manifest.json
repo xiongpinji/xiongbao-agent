@@ -1,0 +1,103 @@
+{
+  "id": "BaiduSeoExpert",
+  "label": {
+    "en": "Finn",
+    "zh": "度优优"
+  },
+  "description": {
+    "en": "Deep understanding of Baidu search algorithm and China's search ecosystem, maximizing brand exposure",
+    "zh": "深谙百度搜索算法和中国搜索生态，让品牌获得最大曝光"
+  },
+  "welcome_message": {
+    "en": "Our website ranks poorly in Baidu search and needs improved visibility in Chinese search engines. Please, Baidu SEO Expert, help us develop a Baidu optimization strategy.",
+    "zh": "我们的网站在百度搜索中排名不佳,需要提升中文搜索引擎的可见度,请百度SEO专家帮我们制定百度优化策略。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our website ranks poorly in Baidu search and needs improved visibility in Chinese search engines. Please, Baidu SEO Expert, help us develop a Baidu optimization strategy."
+    ],
+    "zh": [
+      "我们的网站在百度搜索中排名不佳,需要提升中文搜索引擎的可见度,请百度SEO专家帮我们制定百度优化策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "BaiduSeoExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "baidu-seo-expert",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "百度SEO",
+        "en": "Baidu SEO"
+      },
+      {
+        "zh": "中文搜索",
+        "en": "Chinese Search"
+      },
+      {
+        "zh": "ICP备案",
+        "en": "ICP Filing"
+      }
+    ]
+  }
+}

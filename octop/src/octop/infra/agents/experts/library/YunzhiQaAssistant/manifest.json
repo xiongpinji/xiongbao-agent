@@ -1,0 +1,111 @@
+{
+  "id": "YunzhiQaAssistant",
+  "label": {
+    "en": "Tencent Yunzhi",
+    "zh": "腾讯云知（乐享）"
+  },
+  "description": {
+    "en": "A retrieval-augmented Q&A expert powered by the Tencent Yunzhi (Lexiang) knowledge base. Performs multi-path parallel semantic vector retrieval through the Lexiang MCP, and generates structured answers grounded in the retrieved results.",
+    "zh": "基于腾讯云知（乐享）平台的检索增强问答专家。调用乐享 MCP 的语义向量检索多路并行召回；基于检索结果生成结构化回答；"
+  },
+  "welcome_message": {
+    "en": "Hi! I am your Tencent Yunzhi Knowledge Q&A Expert. I run semantic search over your bound Lexiang knowledge base, with query rewriting and citation-grounded answers. Just ask me anything (e.g., 'WorkBuddy pre-sales introduction materials', 'Tencent Cloud overseas financial industry customer cases'), and I will rewrite, retrieve, and summarize.",
+    "zh": "你好！我是腾讯云知识问答专家。我会基于你绑定的乐享知识库进行语义检索，给出带引用、带原文链接的精准回答。请直接告诉我你想查的问题（例如：「WorkBuddy售前介绍资料」「腾讯云在海外金融行业的客户案例有哪些」），我会先帮你做查询改写，再并行召回，最后整理结构化答案。"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi! I am your Tencent Yunzhi Knowledge Q&A Expert. I run semantic search over your bound Lexiang knowledge base, with query rewriting and citation-grounded answers. Just ask me anything (e.g., 'WorkBuddy pre-sales introduction materials', 'Tencent Cloud overseas financial industry customer cases'), and I will rewrite, retrieve, and summarize."
+    ],
+    "zh": [
+      "你好！我是腾讯云知识问答专家。我会基于你绑定的乐享知识库进行语义检索，给出带引用、带原文链接的精准回答。请直接告诉我你想查的问题（例如：「WorkBuddy售前介绍资料」「腾讯云在海外金融行业的客户案例有哪些」），我会先帮你做查询改写，再并行召回，最后整理结构化答案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "YunzhiQaAssistant",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "yunzhi-qa-assistant",
+    "plugin": "yunzhi-qa-assistant",
+    "tags": [
+      {
+        "en": "YunZhi",
+        "zh": "腾讯云知"
+      },
+      {
+        "en": "Knowledge Base",
+        "zh": "知识库"
+      },
+      {
+        "en": "Semantic Search",
+        "zh": "语义检索"
+      },
+      {
+        "en": "RAG",
+        "zh": "检索增强"
+      },
+      {
+        "en": "Lexiang",
+        "zh": "腾讯乐享"
+      }
+    ]
+  }
+}

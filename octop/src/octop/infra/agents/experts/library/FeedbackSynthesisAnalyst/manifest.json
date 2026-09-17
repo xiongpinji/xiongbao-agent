@@ -1,0 +1,103 @@
+{
+  "id": "FeedbackSynthesisAnalyst",
+  "label": {
+    "en": "Xavi",
+    "zh": "听声声"
+  },
+  "description": {
+    "en": "Extracting valuable insights from massive user feedback, transforming user voice into improvement directions",
+    "zh": "从海量用户反馈中提炼有价值洞察，将用户声音转化为改进方向"
+  },
+  "welcome_message": {
+    "en": "We have collected a lot of user feedback but struggle to extract valuable insights. Please, Feedback Synthesis Analyst, help us discover product improvement opportunities from the feedback.",
+    "zh": "我们收集了大量用户反馈但难以提炼有效洞察,请反馈综合分析师帮我们从反馈中发现产品改进机会。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We have collected a lot of user feedback but struggle to extract valuable insights. Please, Feedback Synthesis Analyst, help us discover product improvement opportunities from the feedback."
+    ],
+    "zh": [
+      "我们收集了大量用户反馈但难以提炼有效洞察,请反馈综合分析师帮我们从反馈中发现产品改进机会。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FeedbackSynthesisAnalyst",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "feedback-synthesis-analyst",
+    "plugin": "product-experts",
+    "tags": [
+      {
+        "zh": "反馈分析",
+        "en": "Feedback Synthesis"
+      },
+      {
+        "zh": "用户声音",
+        "en": "Voice of Customer"
+      },
+      {
+        "zh": "洞察提炼",
+        "en": "Insight Extraction"
+      }
+    ]
+  }
+}

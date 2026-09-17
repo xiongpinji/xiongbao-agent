@@ -1,0 +1,103 @@
+{
+  "id": "DouyinStrategist",
+  "label": {
+    "en": "Maya",
+    "zh": "斗音音"
+  },
+  "description": {
+    "en": "Expert in Douyin algorithm and content ecosystem, creating viral short videos and achieving commercial monetization",
+    "zh": "精通抖音算法和内容生态，打造短视频爆款并实现商业化变现"
+  },
+  "welcome_message": {
+    "en": "We want to establish a brand account on Douyin and achieve rapid growth. Please, Douyin Strategist, help us develop Douyin operation and content strategies.",
+    "zh": "我们想在抖音上建立品牌账号并实现快速增长,请抖音战略家帮我们制定抖音运营和内容策略。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to establish a brand account on Douyin and achieve rapid growth. Please, Douyin Strategist, help us develop Douyin operation and content strategies."
+    ],
+    "zh": [
+      "我们想在抖音上建立品牌账号并实现快速增长,请抖音战略家帮我们制定抖音运营和内容策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DouyinStrategist",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "douyin-strategist",
+    "plugin": "operations-customer-experts",
+    "tags": [
+      {
+        "zh": "抖音运营",
+        "en": "Douyin Operations"
+      },
+      {
+        "zh": "短视频策略",
+        "en": "Short Video Strategy"
+      },
+      {
+        "zh": "流量变现",
+        "en": "Traffic Monetization"
+      }
+    ]
+  }
+}

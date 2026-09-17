@@ -1,0 +1,103 @@
+{
+  "id": "XrImmersiveDeveloper",
+  "label": {
+    "en": "Zion",
+    "zh": "沉浸达"
+  },
+  "description": {
+    "en": "Expert in XR immersive experience development, creating immersive VR/MR applications",
+    "zh": "精通XR沉浸式体验开发，创造身临其境的VR/MR应用"
+  },
+  "welcome_message": {
+    "en": "We want to develop immersive XR experiences and need professional XR development skills. Please, XR Immersive Developer, help us implement immersive applications.",
+    "zh": "我们想开发沉浸式XR体验,需要专业的XR开发技能,请XR沉浸式开发者帮我们实现沉浸式应用。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop immersive XR experiences and need professional XR development skills. Please, XR Immersive Developer, help us implement immersive applications."
+    ],
+    "zh": [
+      "我们想开发沉浸式XR体验,需要专业的XR开发技能,请XR沉浸式开发者帮我们实现沉浸式应用。"
+    ]
+  },
+  "_wb": {
+    "original_id": "XrImmersiveDeveloper",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "xr-immersive-developer",
+    "plugin": "spatial-computing-experts",
+    "tags": [
+      {
+        "zh": "XR开发",
+        "en": "XR Development"
+      },
+      {
+        "zh": "WebXR",
+        "en": "WebXR"
+      },
+      {
+        "zh": "浏览器XR",
+        "en": "Browser XR"
+      }
+    ]
+  }
+}

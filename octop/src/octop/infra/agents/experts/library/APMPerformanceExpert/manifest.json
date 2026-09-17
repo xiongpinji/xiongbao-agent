@@ -1,0 +1,103 @@
+{
+  "id": "APMPerformanceExpert",
+  "label": {
+    "en": "Andy",
+    "zh": "安迪"
+  },
+  "description": {
+    "en": "Expert in Tencent Cloud APM diagnostics and tuning, quickly pinpointing app bottlenecks with optimization solutions",
+    "zh": "精通腾讯云 APM 性能诊断与调优，快速定位应用瓶颈并给出优化方案"
+  },
+  "welcome_message": {
+    "en": "My online service is experiencing slow response times. I need professional performance analysis and diagnostics. Please help me check the business system status, analyze trace latency, and identify performance bottlenecks.",
+    "zh": "我的线上服务响应变慢了，需要专业的性能分析和诊断，请应用性能专家帮我查看业务系统状态、分析调用链耗时和定位性能瓶颈。"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "My online service is experiencing slow response times. I need professional performance analysis and diagnostics. Please help me check the business system status, analyze trace latency, and identify performance bottlenecks."
+    ],
+    "zh": [
+      "我的线上服务响应变慢了，需要专业的性能分析和诊断，请应用性能专家帮我查看业务系统状态、分析调用链耗时和定位性能瓶颈。"
+    ]
+  },
+  "_wb": {
+    "original_id": "APMPerformanceExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "apm-performance-expert",
+    "plugin": "apm-performance-expert",
+    "tags": [
+      {
+        "zh": "性能诊断",
+        "en": "Performance Diagnostics"
+      },
+      {
+        "zh": "调用链追踪",
+        "en": "Distributed Tracing"
+      },
+      {
+        "zh": "火焰图分析",
+        "en": "Flame Graph Analysis"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+# Local / generated
+artifacts/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+.venv/
+venv/
+.env
+*.sqlite
+
+# Large optional datasets (download via workbuddy-bench scripts)
+vendor/workbuddy-bench/datasets/*.tar.gz
+vendor/workbuddy-bench/datasets/wb-bench-*/
+
+# Too large for git (~1.3GB) — clone locally: https://github.com/infometa/workbuddyskills
+vendor/workbuddyskills/
+
+# OS
+.DS_Store
+Thumbs.db

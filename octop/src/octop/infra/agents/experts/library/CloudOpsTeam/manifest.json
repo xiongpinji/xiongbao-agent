@@ -1,0 +1,103 @@
+{
+  "id": "CloudOpsTeam",
+  "label": {
+    "en": "Cloud Ops Team",
+    "zh": "腾讯云技术支持"
+  },
+  "description": {
+    "en": "An expert team of three specialists — CloudQ for multi-cloud unified governance and architecture visualization, AndonQ for ITSM ticket management and smart Q&A, and MigraQ for cross-cloud migration planning and TCO analysis. Together they deliver end-to-end Tencent Cloud operations services from migration to daily management.",
+    "zh": "三位专家组成的运维团队 — CloudQ 负责多云统一治理与架构可视化，AndonQ 负责工单管理与智能问答，MigraQ 负责跨云迁移规划与 TCO 分析。从迁移上云到日常运维，提供端到端的腾讯云运维服务。"
+  },
+  "welcome_message": {
+    "en": "What risks do our cloud resources have?",
+    "zh": "我们的云资源有哪些风险"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "What risks do our cloud resources have?"
+    ],
+    "zh": [
+      "我们的云资源有哪些风险"
+    ]
+  },
+  "_wb": {
+    "original_id": "CloudOpsTeam",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "team",
+    "agent_name": "cloud-ops-team-lead",
+    "plugin": "cloud-ops-team",
+    "tags": [
+      {
+        "zh": "云运维",
+        "en": "Cloud Operations"
+      },
+      {
+        "zh": "多云治理",
+        "en": "Multi-Cloud Governance"
+      },
+      {
+        "zh": "云迁移",
+        "en": "Cloud Migration"
+      }
+    ]
+  }
+}

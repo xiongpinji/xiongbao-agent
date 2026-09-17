@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "ChatLawTeam",
+  "lead_id": "chatlaw-team-lead",
+  "lead_name": "中文法律咨询团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\ChatLawTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "info-intake",
+      "display_name": "方助理（Iris） · 信息采集助理（Information Intake Assistant）",
+      "specialty": "通过结构化提问采集案情关键事实、当事人信息、诉求、证据状况",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "legal-research",
+      "display_name": "周法官（Rex） · 法条研究员（Legal Researcher）",
+      "specialty": "检索适用的法律条文（民法典、劳动法等），标注层级与生效日期",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "case-precedent",
+      "display_name": "沈判官（Cara） · 判例研究员（Case Precedent Researcher）",
+      "specialty": "分析同类型判例与裁判规则，提取可参考的裁判观点",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "advice-writer",
+      "display_name": "钱顾问（Adam） · 法律建议撰写人（Legal Advisor & Writer）",
+      "specialty": "综合法条与判例，撰写面向当事人的法律建议正文",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "report-finalizer",
+      "display_name": "苏文书（Fiona） · 咨询报告终稿人（Consultation Report Finalizer）",
+      "specialty": "整合各组输出，按咨询报告模板最终成稿，含风险提示与后续行动建议",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "info-intake",
+        "legal-research",
+        "case-precedent",
+        "advice-writer",
+        "report-finalizer"
+      ]
+    }
+  ]
+}

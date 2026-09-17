@@ -1,0 +1,103 @@
+{
+  "id": "XrCockpitInteractionExpert",
+  "label": {
+    "en": "Yvaine",
+    "zh": "座舱师"
+  },
+  "description": {
+    "en": "Specializing in cockpit-style interaction design in XR environments",
+    "zh": "专精XR环境下的座舱式交互设计"
+  },
+  "welcome_message": {
+    "en": "We want to develop cockpit interaction interfaces for XR devices and need professional interaction design experience. Please, XR Cockpit Interaction Expert, help us design interaction solutions.",
+    "zh": "我们想为XR设备开发驾驶舱交互界面,需要专业的交互设计经验,请XR驾驶舱交互专家帮我们设计交互方案。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to develop cockpit interaction interfaces for XR devices and need professional interaction design experience. Please, XR Cockpit Interaction Expert, help us design interaction solutions."
+    ],
+    "zh": [
+      "我们想为XR设备开发驾驶舱交互界面,需要专业的交互设计经验,请XR驾驶舱交互专家帮我们设计交互方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "XrCockpitInteractionExpert",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "xr-cockpit-interaction-expert",
+    "plugin": "spatial-computing-experts",
+    "tags": [
+      {
+        "zh": "座舱交互",
+        "en": "Cockpit Interaction"
+      },
+      {
+        "zh": "XR控制",
+        "en": "XR Controls"
+      },
+      {
+        "zh": "沉浸操控",
+        "en": "Immersive Control"
+      }
+    ]
+  }
+}

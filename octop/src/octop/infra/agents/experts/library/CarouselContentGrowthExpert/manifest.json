@@ -1,0 +1,103 @@
+{
+  "id": "CarouselContentGrowthExpert",
+  "label": {
+    "en": "Ian",
+    "zh": "翻页页"
+  },
+  "description": {
+    "en": "Specialized in designing high-engagement carousel content, driving social platform user engagement and growth",
+    "zh": "专精设计高互动率轮播图内容，驱动社交平台用户参与和增长"
+  },
+  "welcome_message": {
+    "en": "We want to do carousel content marketing on social media and need professional carousel content strategies. Please, Carousel Content Growth Expert, help us design carousel content solutions.",
+    "zh": "我们想在社交媒体做图文内容营销,需要专业的轮播内容策略,请轮播内容增长专家帮我们设计图文内容方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to do carousel content marketing on social media and need professional carousel content strategies. Please, Carousel Content Growth Expert, help us design carousel content solutions."
+    ],
+    "zh": [
+      "我们想在社交媒体做图文内容营销,需要专业的轮播内容策略,请轮播内容增长专家帮我们设计图文内容方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CarouselContentGrowthExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "carousel-content-growth-expert",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "轮播内容",
+        "en": "Carousel Content"
+      },
+      {
+        "zh": "社媒增长",
+        "en": "Social Growth"
+      },
+      {
+        "zh": "爆款图文",
+        "en": "Viral Visuals"
+      }
+    ]
+  }
+}

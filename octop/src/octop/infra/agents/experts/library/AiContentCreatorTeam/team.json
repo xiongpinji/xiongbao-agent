@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "AiContentCreatorTeam",
+  "lead_id": "ai-content-creator-team-lead",
+  "lead_name": "AI 内容创作专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\AiContentCreatorTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "video-generator",
+      "display_name": "维欧(Veo)",
+      "specialty": "① 文生视频（HY-Video-1.5）② 图生视频（YT-Video-2.0 / HY-Video-1.5）③ 人物视频（YT-Video-HumanActor）④ 特效视频（YT-Video-FX）⑤ 视频 Prompt 工程 / \"帮我生成一段产品宣传视频\" / \"把这张图变成动态视频\" / \"用这张照片生成人物说话的视频\" / \"给这张图加飘雪特效\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "image-creator",
+      "display_name": "珀西(Percy)",
+      "specialty": "① 文生图（HY-Image-V3.0 / HY-Image-Lite / ImageGen）② 图生图/图片编辑（ImageEdit）③ 7种场景创作策略 ④ 批量生成 ⑤ 平台尺寸适配 / \"画一张赛博朋克风城市\" / \"生成一组小红书种草图\" / \"把这张图改成水彩风\" / \"批量生成5张产品图\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "video-editor",
+      "display_name": "柯立(Clip)",
+      "specialty": "① Track 结构视频编辑 ② 视频裁剪/拼接/转场 ③ 文字叠加/字幕/水印 ④ 颜色滤镜/动画效果 ⑤ 去水印/横竖屏转换 / \"把这几段视频拼接起来加转场\" / \"给视频加字幕和水印\" / \"把横屏视频转成竖屏\" / \"给视频加复古滤镜\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "content-adapter",
+      "display_name": "艾达(Ada)",
+      "specialty": "① 视频内容分析（YT-VITA）② 精彩片段提取 ③ 视频翻译（声纹克隆+唇型同步）④ 多媒体合成 ⑤ 跨语言本地化 ⑥ 本地视频预处理（ffmpeg+whisper：音频提取、语音转文字） / \"分析这段视频的内容\" / \"从长视频中提取精彩片段\" / \"把这段中文视频翻译成英文\" / \"把这些图片和视频合成一段宣传片\" / \"把这个视频的对话转成文字\"",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "video-generator",
+        "image-creator",
+        "video-editor",
+        "content-adapter"
+      ]
+    }
+  ]
+}

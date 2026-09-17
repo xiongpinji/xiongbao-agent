@@ -1,0 +1,103 @@
+{
+  "id": "DealStrategist",
+  "label": {
+    "en": "Orion",
+    "zh": "赢单单"
+  },
+  "description": {
+    "en": "Expert in complex deal strategy formulation and execution, helping sales teams win major deals",
+    "zh": "精通复杂交易策略制定和推进，帮助销售团队赢得大单"
+  },
+  "welcome_message": {
+    "en": "We have an important major deal nearing completion, but negotiations have reached an impasse. Please, Deal Strategist, help us develop a closing strategy.",
+    "zh": "我们有一笔重要的大单即将成交,但谈判进入僵局,请交易策略师帮我们制定成交策略。"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We have an important major deal nearing completion, but negotiations have reached an impasse. Please, Deal Strategist, help us develop a closing strategy."
+    ],
+    "zh": [
+      "我们有一笔重要的大单即将成交,但谈判进入僵局,请交易策略师帮我们制定成交策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DealStrategist",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "agent",
+    "agent_name": "deal-strategist",
+    "plugin": "sales-experts",
+    "tags": [
+      {
+        "zh": "成交策略",
+        "en": "Deal Strategy"
+      },
+      {
+        "zh": "商务谈判",
+        "en": "Negotiation"
+      },
+      {
+        "zh": "赢单分析",
+        "en": "Win Analysis"
+      }
+    ]
+  }
+}

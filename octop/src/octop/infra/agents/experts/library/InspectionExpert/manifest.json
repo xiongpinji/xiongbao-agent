@@ -1,0 +1,107 @@
+{
+  "id": "InspectionExpert",
+  "label": {
+    "en": "CloudQ",
+    "zh": "CloudQ"
+  },
+  "description": {
+    "en": "Cloud resource inspection expert. Covers five-dimension inspection (security, performance, reliability, cost, compliance), high-risk scanning and prioritized remediation, inspection trend analysis, and visual report generation. Proactively discovers hidden risks before they become incidents.",
+    "zh": "云资源巡检专家。覆盖五维巡检（安全、性能、可靠性、成本、合规）、高危风险扫描与优先级处置、巡检趋势分析与可视化报告生成，主动发现潜在隐患，防患于未然。"
+  },
+  "welcome_message": {
+    "en": "Run a full inspection on my cloud resources",
+    "zh": "对我的云资源发起一次全量巡检"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Run a full inspection on my cloud resources"
+    ],
+    "zh": [
+      "对我的云资源发起一次全量巡检"
+    ]
+  },
+  "_wb": {
+    "original_id": "InspectionExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "inspection-expert",
+    "plugin": "inspection-expert",
+    "tags": [
+      {
+        "en": "Cloud Inspection",
+        "zh": "云巡检"
+      },
+      {
+        "en": "Risk Scanning",
+        "zh": "风险扫描"
+      },
+      {
+        "en": "Security Compliance",
+        "zh": "安全合规"
+      },
+      {
+        "en": "Proactive Ops",
+        "zh": "主动运维"
+      }
+    ]
+  }
+}

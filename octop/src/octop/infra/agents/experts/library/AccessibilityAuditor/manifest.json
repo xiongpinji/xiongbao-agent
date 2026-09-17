@@ -1,0 +1,103 @@
+{
+  "id": "AccessibilityAuditor",
+  "label": {
+    "en": "Geneva",
+    "zh": "无碍碍"
+  },
+  "description": {
+    "en": "Auditing interface accessibility by WCAG standards, ensuring every user can use the product",
+    "zh": "按WCAG标准审计界面可访问性，确保每个用户都能使用产品"
+  },
+  "welcome_message": {
+    "en": "Our product needs to meet accessibility standards to be usable by more users. Please, Accessibility Auditor, help us conduct WCAG standard audits.",
+    "zh": "我们的产品需要符合无障碍标准,让更多用户能够使用,请无障碍审计师帮我们进行WCAG标准审计。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our product needs to meet accessibility standards to be usable by more users. Please, Accessibility Auditor, help us conduct WCAG standard audits."
+    ],
+    "zh": [
+      "我们的产品需要符合无障碍标准,让更多用户能够使用,请无障碍审计师帮我们进行WCAG标准审计。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AccessibilityAuditor",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "accessibility-auditor",
+    "plugin": "quality-testing-experts",
+    "tags": [
+      {
+        "zh": "无障碍审计",
+        "en": "Accessibility Audit"
+      },
+      {
+        "zh": "WCAG合规",
+        "en": "WCAG Compliance"
+      },
+      {
+        "zh": "辅助技术",
+        "en": "Assistive Tech"
+      }
+    ]
+  }
+}

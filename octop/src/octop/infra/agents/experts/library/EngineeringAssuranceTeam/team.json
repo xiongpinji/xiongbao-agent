@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "expert_id": "EngineeringAssuranceTeam",
+  "lead_id": "engineering-director",
+  "lead_name": "工程保障团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\EngineeringAssuranceTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "code-reviewer",
+      "display_name": "科迪（Cody） · 代码审查师（Code Reviewer）",
+      "specialty": "代码审查：安全、性能、正确性、可维护性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "architect",
+      "display_name": "阿奇（Archi） · 系统架构师（System Architect）",
+      "specialty": "系统设计、架构决策记录（ADR）、API 设计",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "sre-engineer",
+      "display_name": "雷克斯（Rex） · SRE 工程师（SRE Engineer）",
+      "specialty": "事故响应、部署检查清单、站会生成",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "testing-expert",
+      "display_name": "泰莎（Tessa） · 测试专家（Testing Expert）",
+      "specialty": "测试策略、覆盖率分析、测试计划",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "tech-writer",
+      "display_name": "多库（Docu） · 技术文档师（Technical Writer）",
+      "specialty": "技术文档、README、API 文档、Runbook",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "code-reviewer",
+        "architect",
+        "sre-engineer",
+        "testing-expert",
+        "tech-writer"
+      ]
+    }
+  ]
+}

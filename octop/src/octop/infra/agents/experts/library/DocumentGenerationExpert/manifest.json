@@ -1,0 +1,103 @@
+{
+  "id": "DocumentGenerationExpert",
+  "label": {
+    "en": "Lark",
+    "zh": "文档达"
+  },
+  "description": {
+    "en": "Automating generation of various business documents, greatly improving document creation efficiency",
+    "zh": "自动化生成各类业务文档，大幅提升文档创建效率"
+  },
+  "welcome_message": {
+    "en": "We need to automate the generation of various documents to improve efficiency. Please, Document Generation Expert, help us design a document automation solution.",
+    "zh": "我们需要自动化生成各类文档,提升效率,请文档生成专家帮我们设计文档自动化方案。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to automate the generation of various documents to improve efficiency. Please, Document Generation Expert, help us design a document automation solution."
+    ],
+    "zh": [
+      "我们需要自动化生成各类文档,提升效率,请文档生成专家帮我们设计文档自动化方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DocumentGenerationExpert",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "document-generation-expert",
+    "plugin": "education-training-experts",
+    "tags": [
+      {
+        "zh": "文档生成",
+        "en": "Document Generation"
+      },
+      {
+        "zh": "模板定制",
+        "en": "Template Customization"
+      },
+      {
+        "zh": "批量输出",
+        "en": "Batch Output"
+      }
+    ]
+  }
+}

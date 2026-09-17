@@ -1,0 +1,151 @@
+{
+  "id": "FortuneConsultant",
+  "label": {
+    "en": "Fortune Analyst",
+    "zh": "运势分析师"
+  },
+  "description": {
+    "en": "Traditional Chinese metaphysics reference — BaZi/ZiWei charting, Tarot and Plum Blossom hexagrams, lunar calendar and almanac. Multi-system cross-reference for self-exploration. For entertainment purposes only.",
+    "zh": "传统命理参考工具——八字紫微排盘、塔罗梅花起卦、农历黄历查询，多体系交叉参考，仅供娱乐。"
+  },
+  "welcome_message": {
+    "en": "Born 1987-10-16 at 2pm, female. Help me explore my BaZi chart and what it reflects about recent patterns.",
+    "zh": "1987年10月16日，下午2点，女。帮我梳理一下近期的八字命盘信息。"
+  },
+  "icon_name": "briefcase",
+  "color": "#14b8a6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Born 1987-10-16 at 2pm, female. Help me explore my BaZi chart and what it reflects about recent patterns."
+    ],
+    "zh": [
+      "1987年10月16日，下午2点，女。帮我梳理一下近期的八字命盘信息。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FortuneConsultant",
+    "category_id": "12-IndustryConsultant",
+    "category_label": {
+      "en": "Industry Consultant",
+      "zh": "行业顾问"
+    },
+    "expert_type": "agent",
+    "agent_name": "fortune-consultant",
+    "plugin": "fortune-consultant",
+    "tags": [
+      {
+        "en": "BaZi & ZiWei",
+        "zh": "八字紫微"
+      },
+      {
+        "en": "Tarot & I Ching",
+        "zh": "塔罗易卦"
+      },
+      {
+        "en": "Lunar Calendar",
+        "zh": "农历黄历"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "UnityShaderGraphArtist",
+  "label": {
+    "en": "Troy",
+    "zh": "着色师"
+  },
+  "description": {
+    "en": "Expert in Unity Shader Graph and HLSL",
+    "zh": "精通Unity Shader Graph和HLSL"
+  },
+  "welcome_message": {
+    "en": "We need to create shader effects for Unity. Please, Unity Shader Graph Artist, help us design Shader effects.",
+    "zh": "我们需要为Unity创建着色器效果,请Unity着色器图艺术家帮我们设计Shader效果。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to create shader effects for Unity. Please, Unity Shader Graph Artist, help us design Shader effects."
+    ],
+    "zh": [
+      "我们需要为Unity创建着色器效果,请Unity着色器图艺术家帮我们设计Shader效果。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UnityShaderGraphArtist",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "unity-shader-graph-artist",
+    "plugin": "unity-experts",
+    "tags": [
+      {
+        "zh": "着色器图表",
+        "en": "Shader Graph"
+      },
+      {
+        "zh": "材质效果",
+        "en": "Material Effects"
+      },
+      {
+        "zh": "渲染管线",
+        "en": "Render Pipeline"
+      }
+    ]
+  }
+}

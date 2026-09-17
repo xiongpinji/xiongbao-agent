@@ -1,0 +1,103 @@
+{
+  "id": "PresalesTechnicalConsultant",
+  "label": {
+    "en": "Sage",
+    "zh": "方案通"
+  },
+  "description": {
+    "en": "Bridging technology and business, helping clients understand the value of solutions",
+    "zh": "架起技术与商业的桥梁，帮助客户理解解决方案的价值"
+  },
+  "welcome_message": {
+    "en": "We need to improve our presales technical solution presentation and want to better demonstrate technical value. Please, Presales Technical Consultant, help us optimize our technical demonstration solution.",
+    "zh": "我们在售前技术方案呈现方面需要提升,想更好地展示技术价值,请售前技术顾问帮我们优化技术演示方案。"
+  },
+  "icon_name": "shopping-cart",
+  "color": "#6366f1",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to improve our presales technical solution presentation and want to better demonstrate technical value. Please, Presales Technical Consultant, help us optimize our technical demonstration solution."
+    ],
+    "zh": [
+      "我们在售前技术方案呈现方面需要提升,想更好地展示技术价值,请售前技术顾问帮我们优化技术演示方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "PresalesTechnicalConsultant",
+    "category_id": "07-SalesCommerce",
+    "category_label": {
+      "en": "Sales Commerce",
+      "zh": "销售商务"
+    },
+    "expert_type": "agent",
+    "agent_name": "presales-technical-consultant",
+    "plugin": "sales-experts",
+    "tags": [
+      {
+        "zh": "售前咨询",
+        "en": "Presales Consulting"
+      },
+      {
+        "zh": "方案设计",
+        "en": "Solution Design"
+      },
+      {
+        "zh": "技术演示",
+        "en": "Technical Demo"
+      }
+    ]
+  }
+}

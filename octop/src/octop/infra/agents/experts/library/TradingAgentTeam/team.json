@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "expert_id": "TradingAgentTeam",
+  "lead_id": "trading-team-lead",
+  "lead_name": "交易分析团队 - 主理人",
+  "orchestration": "phased",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\TradingAgentTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "market-analyst",
+      "display_name": "\"茅台的K线怎么看\"\"这票技术面健康吗\"",
+      "specialty": "Phase 1 并行",
+      "phase": "phase-1",
+      "mode": "parallel",
+      "alias": "价格走势、均线、MACD/RSI/KDJ、支撑阻力、趋势与动量",
+      "emoji": "技术分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "fundamentals-analyst",
+      "display_name": "\"这家公司财报好不好\"\"基本面支撑多少估值\"",
+      "specialty": "Phase 1 并行",
+      "phase": "phase-1",
+      "mode": "parallel",
+      "alias": "财报解读、ROE/毛利率/负债率、成长性、估值分位",
+      "emoji": "基本面分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "news-analyst",
+      "display_name": "\"最近有什么利好/利空消息\"\"行业政策影响\"",
+      "specialty": "Phase 1 并行",
+      "phase": "phase-1",
+      "mode": "parallel",
+      "alias": "公司公告、行业政策、宏观事件、产业链信号",
+      "emoji": "新闻分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "sentiment-analyst",
+      "display_name": "\"资金态度怎么样\"\"机构在买还是卖\"",
+      "specialty": "Phase 1 并行",
+      "phase": "phase-1",
+      "mode": "parallel",
+      "alias": "主力资金、机构评级、龙虎榜、融资融券、北向资金",
+      "emoji": "情绪分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "bull-researcher",
+      "display_name": "\"为什么值得买\"\"有什么看多理由\"",
+      "specialty": "Phase 2 顺序",
+      "phase": "phase-2",
+      "mode": "sequential",
+      "alias": "构建买入论证、上行驱动、看多逻辑闭环",
+      "emoji": "多头研究员",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "bear-researcher",
+      "display_name": "\"有什么风险\"\"为什么不该买\"",
+      "specialty": "Phase 2 顺序",
+      "phase": "phase-2",
+      "mode": "sequential",
+      "alias": "构建卖出/风险论证、下行风险、看空逻辑闭环",
+      "emoji": "空头研究员",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "research-manager",
+      "display_name": "\"综合来看到底该不该买\"\"给个明确结论\"",
+      "specialty": "Phase 2 顺序",
+      "phase": "phase-2",
+      "mode": "sequential",
+      "alias": "裁判多空辩论，果断输出投资计划（不和稀泥）",
+      "emoji": "研究主管",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "trader",
+      "display_name": "\"怎么做\"\"什么价位进\"\"仓位多少\"",
+      "specialty": "Phase 3",
+      "phase": "phase-3",
+      "mode": "parallel",
+      "alias": "基于投资计划给出交易提案（入场价/目标价/止损）",
+      "emoji": "交易员",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "aggressive-risk-analyst",
+      "display_name": "\"是不是太保守\"\"再不上车就晚了\"",
+      "specialty": "Phase 4 并行",
+      "phase": "phase-4",
+      "mode": "parallel",
+      "alias": "强调上行空间与错失成本，挑战保守观点",
+      "emoji": "激进风险分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "conservative-risk-analyst",
+      "display_name": "\"下跌空间多大\"\"最坏情况\"",
+      "specialty": "Phase 4 并行",
+      "phase": "phase-4",
+      "mode": "parallel",
+      "alias": "揭示下行风险与尾部事件，挑战乐观假设",
+      "emoji": "保守风险分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "neutral-risk-analyst",
+      "display_name": "\"有没有稳健点的方案\"",
+      "specialty": "Phase 4 并行",
+      "phase": "phase-4",
+      "mode": "parallel",
+      "alias": "平衡视角，推荐温和分批/对冲策略",
+      "emoji": "中性风险分析师",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "risk-manager",
+      "display_name": "\"风险综合评估\"\"最终买不买\"",
+      "specialty": "Phase 4 顺序",
+      "phase": "phase-4",
+      "mode": "sequential",
+      "alias": "裁判三方风险辩论，输出最终交易决策",
+      "emoji": "风险主管",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Phase 1 并行",
+      "mode": "parallel",
+      "member_ids": [
+        "market-analyst",
+        "fundamentals-analyst",
+        "news-analyst",
+        "sentiment-analyst"
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Phase 2 顺序",
+      "mode": "sequential",
+      "member_ids": [
+        "bull-researcher",
+        "bear-researcher",
+        "research-manager"
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Phase 3 并行",
+      "mode": "parallel",
+      "member_ids": [
+        "trader"
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Phase 4 顺序",
+      "mode": "sequential",
+      "member_ids": [
+        "aggressive-risk-analyst",
+        "conservative-risk-analyst",
+        "neutral-risk-analyst",
+        "risk-manager"
+      ]
+    }
+  ]
+}

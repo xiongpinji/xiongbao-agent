@@ -1,0 +1,103 @@
+{
+  "id": "StrategyBacktestExpert",
+  "label": {
+    "en": "Strategy Backtest Expert",
+    "zh": "回测明算"
+  },
+  "description": {
+    "en": "Turns natural-language trading strategies into runnable Python+pandas backtests, then delivers metrics, charts, an HTML dashboard, and an honest read of the result with limitations.",
+    "zh": "把自然语言描述的交易策略转成可运行的 Python 回测脚本，输出标准指标、可视化图表、HTML 仪表盘，并给出实现细节、已知偏差和结果解读。"
+  },
+  "welcome_message": {
+    "en": "Default to a fully invested TQQQ offense. Switch the whole book to SPY defense whenever at least 2 of these 4 macro risk signals fire: SPY below its 200-day MA, VIX above 25, rising realized volatility, or a yield-curve inversion combined with SPY weakness. Wait until the risk signals stay clean for 15 trading days before rotating back into TQQQ. Backtest from 2014-01-01 through today.",
+    "zh": "平时满仓 TQQQ 进攻，当 SPY 跌破 200 日均线、VIX 飙过 25、波动率上行、或者收益率曲线倒挂叠加 SPY 走弱这 4 项宏观风险至少触发 2 项时，全仓切到 SPY 防守，等风险信号干净 15 个交易日再切回 TQQQ；回测窗口 2014-01-01 至今。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Default to a fully invested TQQQ offense. Switch the whole book to SPY defense whenever at least 2 of these 4 macro risk signals fire: SPY below its 200-day MA, VIX above 25, rising realized volatility, or a yield-curve inversion combined with SPY weakness. Wait until the risk signals stay clean for 15 trading days before rotating back into TQQQ. Backtest from 2014-01-01 through today."
+    ],
+    "zh": [
+      "平时满仓 TQQQ 进攻，当 SPY 跌破 200 日均线、VIX 飙过 25、波动率上行、或者收益率曲线倒挂叠加 SPY 走弱这 4 项宏观风险至少触发 2 项时，全仓切到 SPY 防守，等风险信号干净 15 个交易日再切回 TQQQ；回测窗口 2014-01-01 至今。"
+    ]
+  },
+  "_wb": {
+    "original_id": "StrategyBacktestExpert",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "strategy-backtest-expert",
+    "plugin": "strategy-backtest-expert",
+    "tags": [
+      {
+        "en": "Strategy Backtest",
+        "zh": "策略回测"
+      },
+      {
+        "en": "Event Study",
+        "zh": "事件研究"
+      },
+      {
+        "en": "Quant Analysis",
+        "zh": "量化分析"
+      }
+    ]
+  }
+}

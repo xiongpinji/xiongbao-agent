@@ -1,0 +1,103 @@
+{
+  "id": "TencentSecurityExpert",
+  "label": {
+    "en": "YunDing",
+    "zh": "云鼎"
+  },
+  "description": {
+    "en": "With years of deep expertise in Tencent security, providing services including threat modeling, vulnerability assessment, secure code review, architecture design, incident response, and security consulting",
+    "zh": "深耕安全领域多年，提供威胁建模、漏洞评估、安全代码审查、架构设计、事件响应、安全咨询等服务"
+  },
+  "welcome_message": {
+    "en": "Our project still has security risks. We need the Tencent Cloud Security Expert to conduct a comprehensive security assessment, audit, and hardening",
+    "zh": "我们的项目还存在安全风险，请腾讯安全专家帮我们进行全面的安全评估、审计和加固"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our project still has security risks. We need the Tencent Cloud Security Expert to conduct a comprehensive security assessment, audit, and hardening"
+    ],
+    "zh": [
+      "我们的项目还存在安全风险，请腾讯安全专家帮我们进行全面的安全评估、审计和加固"
+    ]
+  },
+  "_wb": {
+    "original_id": "TencentSecurityExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "tencent-security-expert",
+    "plugin": "tencent-security-expert",
+    "tags": [
+      {
+        "zh": "安全防护",
+        "en": "Security Protection"
+      },
+      {
+        "zh": "威胁检测",
+        "en": "Threat Detection"
+      },
+      {
+        "zh": "安全运营",
+        "en": "Security Operations"
+      }
+    ]
+  }
+}

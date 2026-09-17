@@ -1,0 +1,103 @@
+{
+  "id": "ToolEvaluationExpert",
+  "label": {
+    "en": "Morgan",
+    "zh": "选品品"
+  },
+  "description": {
+    "en": "Systematically evaluating and recommending the best tools for teams, avoiding wasted time on wrong tools",
+    "zh": "系统化评估推荐最适合团队的工具，避免浪费时间在错误工具上"
+  },
+  "welcome_message": {
+    "en": "We want to introduce new testing tools and need professional selection and evaluation. Please, Tool Evaluation Expert, help us conduct tool selection and evaluation.",
+    "zh": "我们想引入新的测试工具,需要专业的选型评估,请工具评估专家帮我们进行工具选型和评估。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to introduce new testing tools and need professional selection and evaluation. Please, Tool Evaluation Expert, help us conduct tool selection and evaluation."
+    ],
+    "zh": [
+      "我们想引入新的测试工具,需要专业的选型评估,请工具评估专家帮我们进行工具选型和评估。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ToolEvaluationExpert",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "tool-evaluation-expert",
+    "plugin": "quality-testing-experts",
+    "tags": [
+      {
+        "zh": "工具评估",
+        "en": "Tool Evaluation"
+      },
+      {
+        "zh": "选型对比",
+        "en": "Tool Comparison"
+      },
+      {
+        "zh": "技术选型",
+        "en": "Tech Selection"
+      }
+    ]
+  }
+}

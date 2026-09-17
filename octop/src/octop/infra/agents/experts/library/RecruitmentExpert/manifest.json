@@ -1,0 +1,103 @@
+{
+  "id": "RecruitmentExpert",
+  "label": {
+    "en": "Tess",
+    "zh": "伯乐乐"
+  },
+  "description": {
+    "en": "Expert in the full recruitment process, finding the best talent for teams",
+    "zh": "精通人才招聘全流程，为团队找到最佳人才"
+  },
+  "welcome_message": {
+    "en": "Our recruitment process needs optimization to attract and screen top talent. Please, Recruitment Expert, help us design recruitment strategies and processes.",
+    "zh": "我们的招聘流程需要优化,吸引和筛选优秀人才,请招聘专家帮我们设计招聘策略和流程。"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our recruitment process needs optimization to attract and screen top talent. Please, Recruitment Expert, help us design recruitment strategies and processes."
+    ],
+    "zh": [
+      "我们的招聘流程需要优化,吸引和筛选优秀人才,请招聘专家帮我们设计招聘策略和流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "RecruitmentExpert",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "agent",
+    "agent_name": "recruitment-expert",
+    "plugin": "hr-organization-experts",
+    "tags": [
+      {
+        "zh": "招聘管理",
+        "en": "Recruitment Management"
+      },
+      {
+        "zh": "人才筛选",
+        "en": "Talent Screening"
+      },
+      {
+        "zh": "面试评估",
+        "en": "Interview Assessment"
+      }
+    ]
+  }
+}

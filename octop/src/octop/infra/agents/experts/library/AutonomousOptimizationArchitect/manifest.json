@@ -1,0 +1,103 @@
+{
+  "id": "AutonomousOptimizationArchitect",
+  "label": {
+    "en": "Dan",
+    "zh": "自进化"
+  },
+  "description": {
+    "en": "Specializes in designing intelligent system architectures that can autonomously optimize and evolve, making systems smarter over time",
+    "zh": "专精于设计能自主优化和进化的智能系统架构，让系统越用越聪明"
+  },
+  "welcome_message": {
+    "en": "Our system has performance bottlenecks and requires automated optimization solutions to improve system efficiency. Please, Autonomous Optimization Architect, help us design an automated system optimization solution.",
+    "zh": "我们系统存在性能瓶颈,需要自动化优化方案提升系统效率,请自主优化架构师帮我们设计自动化系统优化方案。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our system has performance bottlenecks and requires automated optimization solutions to improve system efficiency. Please, Autonomous Optimization Architect, help us design an automated system optimization solution."
+    ],
+    "zh": [
+      "我们系统存在性能瓶颈,需要自动化优化方案提升系统效率,请自主优化架构师帮我们设计自动化系统优化方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AutonomousOptimizationArchitect",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "autonomous-optimization-architect",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "自动优化",
+        "en": "Auto Optimization"
+      },
+      {
+        "zh": "系统调优",
+        "en": "System Tuning"
+      },
+      {
+        "zh": "智能运维",
+        "en": "AIOps"
+      }
+    ]
+  }
+}

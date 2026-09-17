@@ -1,0 +1,103 @@
+{
+  "id": "GitWorkflowExpert",
+  "label": {
+    "en": "Ruby",
+    "zh": "分支通"
+  },
+  "description": {
+    "en": "Expert in advanced Git workflows and branching strategies, making team collaboration flow like a smooth stream",
+    "zh": "精通Git高级工作流和分支策略，让团队协作像行云流水般顺畅"
+  },
+  "welcome_message": {
+    "en": "Our team's Git workflow is chaotic, and code management efficiency is low. Please, Git Workflow Expert, help us optimize team collaboration and code management processes.",
+    "zh": "我们的团队Git工作流程混乱,代码管理效率低,请Git工作流专家帮我们优化团队协作和代码管理流程。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our team's Git workflow is chaotic, and code management efficiency is low. Please, Git Workflow Expert, help us optimize team collaboration and code management processes."
+    ],
+    "zh": [
+      "我们的团队Git工作流程混乱,代码管理效率低,请Git工作流专家帮我们优化团队协作和代码管理流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "GitWorkflowExpert",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "git-workflow-expert",
+    "plugin": "engineering-tools-experts",
+    "tags": [
+      {
+        "zh": "Git工作流",
+        "en": "Git Workflow"
+      },
+      {
+        "zh": "分支策略",
+        "en": "Branch Strategy"
+      },
+      {
+        "zh": "代码管理",
+        "en": "Code Management"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "UnrealWorldBuilder",
+  "label": {
+    "en": "Zack",
+    "zh": "造世界"
+  },
+  "description": {
+    "en": "Expert in UE5 World Partition and large world streaming",
+    "zh": "精通UE5 World Partition和大世界流式加载"
+  },
+  "welcome_message": {
+    "en": "Our Unreal game needs world and level construction. Please, Unreal World Builder, help us design the game world.",
+    "zh": "我们的虚幻游戏需要构建世界和关卡,请虚幻世界构建者帮我们设计游戏世界。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our Unreal game needs world and level construction. Please, Unreal World Builder, help us design the game world."
+    ],
+    "zh": [
+      "我们的虚幻游戏需要构建世界和关卡,请虚幻世界构建者帮我们设计游戏世界。"
+    ]
+  },
+  "_wb": {
+    "original_id": "UnrealWorldBuilder",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "unreal-world-builder",
+    "plugin": "unreal-experts",
+    "tags": [
+      {
+        "zh": "世界构建",
+        "en": "World Building"
+      },
+      {
+        "zh": "大地图管理",
+        "en": "Large Map Management"
+      },
+      {
+        "zh": "环境设计",
+        "en": "Environment Design"
+      }
+    ]
+  }
+}

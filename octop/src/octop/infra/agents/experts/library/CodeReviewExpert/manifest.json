@@ -1,0 +1,103 @@
+{
+  "id": "CodeReviewExpert",
+  "label": {
+    "en": "Kim",
+    "zh": "火眼眼"
+  },
+  "description": {
+    "en": "Examines every line of code with eagle-eye standards, intercepting defects before they reach production",
+    "zh": "以鹰眼标准检查每行代码，在缺陷到达生产环境之前将其拦截"
+  },
+  "welcome_message": {
+    "en": "Our code quality is inconsistent, and we need to establish a systematic code review mechanism. Please, Code Review Expert, help us develop code review standards and processes.",
+    "zh": "我们的代码质量参差不齐,需要建立系统的代码审查机制,请代码审查专家帮我们制定代码审查标准和流程。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our code quality is inconsistent, and we need to establish a systematic code review mechanism. Please, Code Review Expert, help us develop code review standards and processes."
+    ],
+    "zh": [
+      "我们的代码质量参差不齐,需要建立系统的代码审查机制,请代码审查专家帮我们制定代码审查标准和流程。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CodeReviewExpert",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "code-review-expert",
+    "plugin": "engineering-tools-experts",
+    "tags": [
+      {
+        "zh": "代码审查",
+        "en": "Code Review"
+      },
+      {
+        "zh": "质量把关",
+        "en": "Quality Gate"
+      },
+      {
+        "zh": "最佳实践",
+        "en": "Best Practices"
+      }
+    ]
+  }
+}

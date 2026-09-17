@@ -1,0 +1,103 @@
+{
+  "id": "ChatLawTeam",
+  "label": {
+    "en": "ChatLaw Team",
+    "zh": "中文法律咨询团"
+  },
+  "description": {
+    "en": "Case intake, statute research, precedent analysis, and advice drafting—delivering professional legal consultation reports for civil, marriage, contract, and labor cases.",
+    "zh": "案情采集、法条研究、判例分析、建议撰写，为民事、婚姻、合同、劳动等高频场景出具专业法律咨询报告。"
+  },
+  "welcome_message": {
+    "en": "My friend and I are starting a business partnership. Please help me review the key legal risks in our partnership agreement.",
+    "zh": "我和朋友合伙开公司，请帮我梳理合伙协议中需要注意的法律风险"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "My friend and I are starting a business partnership. Please help me review the key legal risks in our partnership agreement."
+    ],
+    "zh": [
+      "我和朋友合伙开公司，请帮我梳理合伙协议中需要注意的法律风险"
+    ]
+  },
+  "_wb": {
+    "original_id": "ChatLawTeam",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "team",
+    "agent_name": "chatlaw-team-lead",
+    "plugin": "chatlaw-team",
+    "tags": [
+      {
+        "zh": "法律咨询",
+        "en": "Legal Consultation"
+      },
+      {
+        "zh": "法条研究",
+        "en": "Statute Research"
+      },
+      {
+        "zh": "判例分析",
+        "en": "Case Precedent Analysis"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "AIShifuExpert",
+  "label": {
+    "en": "AI-Shifu",
+    "zh": "AI师傅"
+  },
+  "description": {
+    "en": "Based on your teaching needs and source materials (PPT, Word, PDF, txt, etc.), helps you quickly build a one-on-one interactive AI course.",
+    "zh": "基于你的教学需求和原始内容(PPT、Word、PDF、txt等)，帮你快速做门AI一对一互动课"
+  },
+  "welcome_message": {
+    "en": "Build an AI-Shifu course on the topic of \"Why should I learn AI\". Keep it within 4 sections, and personalize the teaching for users from different backgrounds. The teaching should combine PPT slides with text. Once it's ready, deploy it directly to the AI-Shifu platform.",
+    "zh": "以「为什么要学习AI」为主题做一个AI师傅课程。整体不超过4个小节，需要针对不同背景的用户来进行个性化授课。希望通过PPT结合文字的方式进行授课，制作完成后直接部署到AI师傅平台"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Build an AI-Shifu course on the topic of \"Why should I learn AI\". Keep it within 4 sections, and personalize the teaching for users from different backgrounds. The teaching should combine PPT slides with text. Once it's ready, deploy it directly to the AI-Shifu platform."
+    ],
+    "zh": [
+      "以「为什么要学习AI」为主题做一个AI师傅课程。整体不超过4个小节，需要针对不同背景的用户来进行个性化授课。希望通过PPT结合文字的方式进行授课，制作完成后直接部署到AI师傅平台"
+    ]
+  },
+  "_wb": {
+    "original_id": "AIShifuExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "ai-shifu",
+    "plugin": "ai-shifu-expert",
+    "tags": [
+      {
+        "en": "AI Course",
+        "zh": "AI课程"
+      },
+      {
+        "en": "Course Production",
+        "zh": "课程制作"
+      },
+      {
+        "en": "Instructional Design",
+        "zh": "教学设计"
+      }
+    ]
+  }
+}

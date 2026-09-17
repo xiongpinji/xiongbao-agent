@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "expert_id": "GPTResearcherTeam",
+  "lead_id": "research-chief-editor",
+  "lead_name": "深度研究团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\GPTResearcherTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "research-planner",
+      "display_name": "季要纲（Ji） · 研究编辑",
+      "specialty": "分析研究摘要提取核心观点，确定报告标题，规划章节大纲（3-5 章），管理章节不重叠、逻辑递进",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"先出一份大纲\"、\"规划一下这份研究报告的章节结构\"、\"根据这些资料编一份目录\""
+    },
+    {
+      "agent_id": "topic-researcher",
+      "display_name": "谭溯源（Tan） · 课题研究员",
+      "specialty": "对课题进行广泛初调 / 对子主题深度调研，多源聚合（≥5 来源），撰写带引用的研究草稿，覆盖学术/权威机构/行业/媒体多级来源",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"帮我简要调研一下XX\"、\"基于这个子主题写一段研究草稿\"、\"查查XX领域的最新数据和研究\""
+    },
+    {
+      "agent_id": "draft-reviewer",
+      "display_name": "明鉴秋（Ming） · 草稿审稿人",
+      "specialty": "按 6 维标准审查草稿（来源充分性/事实准确性/观点均衡性/内容深度/结构清晰度/格式规范性），输出 PASS 或 REVISE 具体意见",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"帮我审一下这篇研究草稿\"、\"检查这段内容的引用是否规范\"、\"这个章节的论证够不够扎实\""
+    },
+    {
+      "agent_id": "draft-reviser",
+      "display_name": "任润泽（Ren） · 内容修订员",
+      "specialty": "根据审稿意见逐条回应修改草稿，补充来源、纠正事实、补充反方观点、深化分析，保持未受批评部分不变",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"根据这些审稿意见帮我改一下\"、\"补一下反方观点\"、\"补充引用让这段更扎实\""
+    },
+    {
+      "agent_id": "report-writer",
+      "display_name": "程文成（Cheng） · 报告撰写人",
+      "specialty": "汇总全部章节数据撰写引言（带引用）、结论（带引用）、目录、APA 格式参考文献列表",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"给这份研究报告写个引言和结论\"、\"整理参考文献列表\"、\"生成目录\""
+    },
+    {
+      "agent_id": "report-publisher",
+      "display_name": "傅梓铭（Fu） · 报告发布员",
+      "specialty": "最终整合与终校：格式统一、章节编号连续、分隔线、链接检查、表格对齐、参考文献去重",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": "\"把各章和引言结论整合成完整报告\"、\"做最终格式检查和交付\""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "research-planner",
+        "topic-researcher",
+        "draft-reviewer",
+        "draft-reviser",
+        "report-writer",
+        "report-publisher"
+      ]
+    }
+  ]
+}

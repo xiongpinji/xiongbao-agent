@@ -1,0 +1,103 @@
+{
+  "id": "DesignToCodeExpert",
+  "label": {
+    "en": "Pixel",
+    "zh": "图变码"
+  },
+  "description": {
+    "en": "Converts Figma designs and screenshots into production-ready code components with built-in accessibility support",
+    "zh": "将 Figma 设计稿和截图转换为可直接使用的代码组件，内置无障碍性支持"
+  },
+  "welcome_message": {
+    "en": "Help me convert this design into frontend code",
+    "zh": "帮我把这个设计稿转成前端代码"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me convert this design into frontend code"
+    ],
+    "zh": [
+      "帮我把这个设计稿转成前端代码"
+    ]
+  },
+  "_wb": {
+    "original_id": "DesignToCodeExpert",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "plugin",
+    "agent_name": "design-to-code-expert",
+    "plugin": "design-to-code",
+    "tags": [
+      {
+        "zh": "设计转代码",
+        "en": "Design to Code"
+      },
+      {
+        "zh": "UI还原",
+        "en": "UI Implementation"
+      },
+      {
+        "zh": "前端生成",
+        "en": "Frontend Generation"
+      }
+    ]
+  }
+}

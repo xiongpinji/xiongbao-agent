@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "expert_id": "InvestmentMastersTeam",
+  "lead_id": "hedge-fund-lead",
+  "lead_name": "AI 对冲基金投资大师专家团 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\InvestmentMastersTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "oracle-of-omaha",
+      "display_name": "奥马哈先知",
+      "specialty": "价值投资 / 护城河、安全边际、ROE、Owner Earnings DCF",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "charlie-munger",
+      "display_name": "芒格",
+      "specialty": "理性思维 / ROIC一致性、管理层质量、可预测性、FCF倍数",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "magellan-captain",
+      "display_name": "麦哲伦舵手",
+      "specialty": "GARP成长 / PEG比率、十倍股潜力、营收增长加速",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "the-big-short",
+      "display_name": "大空头",
+      "specialty": "深度价值逆向 / FCF收益率、EV/EBIT、资产负债表安全性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "black-swan-prophet",
+      "display_name": "黑天鹅之父",
+      "specialty": "反脆弱 / 尾部风险、凸性、脆弱性检测、切身利害",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "mama-wood",
+      "display_name": "木头姐",
+      "specialty": "颠覆性创新 / 指数级增长、大TAM、研发强度、营收加速",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "ben-graham",
+      "display_name": "格雷厄姆",
+      "specialty": "经典价值 / 格雷厄姆数字、净净值NCAV、盈利稳定性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "wall-street-activist",
+      "display_name": "华尔街斗牛士",
+      "specialty": "激进主义 / 品牌护城河、FCF、资本纪律、激进主义催化剂",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "macro-king",
+      "display_name": "宏观之王",
+      "specialty": "宏观动量 / 非对称风险收益、增长动量、价格动量",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "dhandho-master",
+      "display_name": "Dhandho掌门",
+      "specialty": "Dhandho / 下行保护、FCF收益率、翻倍潜力",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "phil-fisher",
+      "display_name": "费雪",
+      "specialty": "成长品质 / 研发创新、管理层质量、利润率一致性",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "dean-of-valuation",
+      "display_name": "估值教父",
+      "specialty": "严谨估值 / FCFF DCF、WACC、相对估值、情景分析",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "rakesh-jhunjhunwala",
+      "display_name": "金君瓦拉",
+      "specialty": "新兴市场成长 / 成长+安全边际>30%、ROE>15%",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "fundamentals-analyst",
+      "display_name": "基本面分析师",
+      "specialty": "ROE、净利率、营业利润率、P/E、P/B",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "technicals-analyst",
+      "display_name": "技术面分析师",
+      "specialty": "趋势(EMA)、动量(RSI)、均值回归、波动率",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "valuation-analyst",
+      "display_name": "估值分析师",
+      "specialty": "DCF、EV/EBITDA、剩余收益模型、安全边际",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "sentiment-analyst",
+      "display_name": "情绪分析师",
+      "specialty": "内部人交易、新闻情绪、机构评级",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "growth-analyst",
+      "display_name": "成长分析师",
+      "specialty": "营收/EPS/FCF增长率、PEG、利润率扩张",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "news-sentiment-analyst",
+      "display_name": "新闻情绪分析师",
+      "specialty": "近期新闻正负面分布、行业动态、宏观环境",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "risk-manager",
+      "display_name": "风险管理师",
+      "specialty": "19份分析信号 / 波动率、仓位限制、风险等级",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "portfolio-manager",
+      "display_name": "投资组合经理",
+      "specialty": "19份信号 + 风险报告 / 最终 BUY/SELL/HOLD 决策",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "oracle-of-omaha",
+        "charlie-munger",
+        "magellan-captain",
+        "the-big-short",
+        "black-swan-prophet",
+        "mama-wood",
+        "ben-graham",
+        "wall-street-activist",
+        "macro-king",
+        "dhandho-master",
+        "phil-fisher",
+        "dean-of-valuation",
+        "rakesh-jhunjhunwala",
+        "fundamentals-analyst",
+        "technicals-analyst",
+        "valuation-analyst",
+        "sentiment-analyst",
+        "growth-analyst",
+        "news-sentiment-analyst",
+        "risk-manager",
+        "portfolio-manager"
+      ]
+    }
+  ]
+}

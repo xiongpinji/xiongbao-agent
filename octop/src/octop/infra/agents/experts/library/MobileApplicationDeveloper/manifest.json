@@ -1,0 +1,103 @@
+{
+  "id": "MobileApplicationDeveloper",
+  "label": {
+    "en": "Tina",
+    "zh": "掌中灵"
+  },
+  "description": {
+    "en": "Expert in iOS and Android native and cross-platform development, creating smooth and beautiful mobile applications",
+    "zh": "精通iOS和Android原生及跨平台开发，打造流畅美观的移动应用"
+  },
+  "welcome_message": {
+    "en": "We need to develop a mobile application supporting both iOS and Android platforms. Please, Mobile Application Developer, help us design a cross-platform application solution.",
+    "zh": "我们需要开发移动应用,支持iOS和Android平台,请移动应用开发工程师帮我们设计跨平台应用方案。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We need to develop a mobile application supporting both iOS and Android platforms. Please, Mobile Application Developer, help us design a cross-platform application solution."
+    ],
+    "zh": [
+      "我们需要开发移动应用,支持iOS和Android平台,请移动应用开发工程师帮我们设计跨平台应用方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "MobileApplicationDeveloper",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "mobile-application-developer",
+    "plugin": "frontend-backend-experts",
+    "tags": [
+      {
+        "zh": "移动应用",
+        "en": "Mobile App Dev"
+      },
+      {
+        "zh": "原生开发",
+        "en": "Native Dev"
+      },
+      {
+        "zh": "跨平台开发",
+        "en": "Cross-Platform Dev"
+      }
+    ]
+  }
+}

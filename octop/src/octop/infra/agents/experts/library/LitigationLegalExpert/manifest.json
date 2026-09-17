@@ -1,0 +1,103 @@
+{
+  "id": "LitigationLegalExpert",
+  "label": {
+    "en": "Litigation Legal Expert",
+    "zh": "诉讼法务专家"
+  },
+  "description": {
+    "en": "Litigation support expert for matter intake, portfolio status, chronologies, claim charts, evidence timelines, issue charts, litigation correspondence, deadline tracking, and brief sections.",
+    "zh": "面向诉讼律师的案件支持专家，梳理案件、证据、时间线、质证准备、索赔图表和文书草稿。"
+  },
+  "welcome_message": {
+    "en": "Help me intake this litigation matter and identify deadlines, evidence gaps, and attorney review points",
+    "zh": "帮我受理这个诉讼事项，识别期限、证据缺口和律师审阅点"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me intake this litigation matter and identify deadlines, evidence gaps, and attorney review points"
+    ],
+    "zh": [
+      "帮我受理这个诉讼事项，识别期限、证据缺口和律师审阅点"
+    ]
+  },
+  "_wb": {
+    "original_id": "LitigationLegalExpert",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "litigation-legal-strategist",
+    "plugin": "litigation-legal",
+    "tags": [
+      {
+        "en": "Litigation",
+        "zh": "诉讼支持"
+      },
+      {
+        "en": "Evidence Timeline",
+        "zh": "证据时间线"
+      },
+      {
+        "en": "Drafting Prep",
+        "zh": "文书准备"
+      }
+    ]
+  }
+}

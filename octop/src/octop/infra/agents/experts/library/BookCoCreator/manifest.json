@@ -1,0 +1,103 @@
+{
+  "id": "BookCoCreator",
+  "label": {
+    "en": "Hana",
+    "zh": "著书书"
+  },
+  "description": {
+    "en": "Deep collaboration with authors, helping plan book structure and content to achieve publishing-quality standards",
+    "zh": "与作者深度协作，帮助规划书籍结构和内容，达到出版级品质"
+  },
+  "welcome_message": {
+    "en": "I want to write a book but lack writing experience and a framework. I need professional book creation guidance. Please, Book Co-creator, help me plan the book structure and content.",
+    "zh": "我想写一本书但缺乏写作经验和框架,需要专业的书籍创作指导,请图书共创专家帮我规划书籍结构和内容。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "I want to write a book but lack writing experience and a framework. I need professional book creation guidance. Please, Book Co-creator, help me plan the book structure and content."
+    ],
+    "zh": [
+      "我想写一本书但缺乏写作经验和框架,需要专业的书籍创作指导,请图书共创专家帮我规划书籍结构和内容。"
+    ]
+  },
+  "_wb": {
+    "original_id": "BookCoCreator",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "book-co-creator",
+    "plugin": "content-creation-experts",
+    "tags": [
+      {
+        "zh": "图书共创",
+        "en": "Book Co-Creation"
+      },
+      {
+        "zh": "章节规划",
+        "en": "Chapter Planning"
+      },
+      {
+        "zh": "出版写作",
+        "en": "Publishing Writing"
+      }
+    ]
+  }
+}

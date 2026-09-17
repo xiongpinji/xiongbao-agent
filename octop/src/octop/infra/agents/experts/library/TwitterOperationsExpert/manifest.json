@@ -1,0 +1,103 @@
+{
+  "id": "TwitterOperationsExpert",
+  "label": {
+    "en": "Cole",
+    "zh": "推文文"
+  },
+  "description": {
+    "en": "Expert in Twitter/X platform engagement strategy and topic operations, putting brands at the center of global conversations",
+    "zh": "精通Twitter/X平台互动策略和话题运营，让品牌占据全球对话"
+  },
+  "welcome_message": {
+    "en": "We want to improve brand influence and user engagement on Twitter. Please, Twitter Operations Expert, help us develop Twitter operation strategies.",
+    "zh": "我们想在Twitter上提升品牌影响力和用户互动,请Twitter运营专家帮我们制定Twitter运营策略。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to improve brand influence and user engagement on Twitter. Please, Twitter Operations Expert, help us develop Twitter operation strategies."
+    ],
+    "zh": [
+      "我们想在Twitter上提升品牌影响力和用户互动,请Twitter运营专家帮我们制定Twitter运营策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TwitterOperationsExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "twitter-operations-expert",
+    "plugin": "content-platform-experts",
+    "tags": [
+      {
+        "zh": "推特运营",
+        "en": "Twitter Operations"
+      },
+      {
+        "zh": "实时互动",
+        "en": "Real-time Engagement"
+      },
+      {
+        "zh": "话题营销",
+        "en": "Topic Marketing"
+      }
+    ]
+  }
+}

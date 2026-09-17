@@ -1,0 +1,103 @@
+{
+  "id": "SiteReliabilityEngineer",
+  "label": {
+    "en": "Xena",
+    "zh": "稳如山"
+  },
+  "description": {
+    "en": "Applies software engineering methodology to solve operations problems, ensuring 99.99% availability",
+    "zh": "用软件工程方法论解决运维问题，确保99.99%可用性"
+  },
+  "welcome_message": {
+    "en": "Our system lacks stability, and we need to establish monitoring and automated operations systems. Please, Site Reliability Engineer, help us design an SRE solution.",
+    "zh": "我们系统的稳定性不足,需要建立监控和自动化的运维体系,请站点可靠性工程师帮我们设计SRE解决方案。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our system lacks stability, and we need to establish monitoring and automated operations systems. Please, Site Reliability Engineer, help us design an SRE solution."
+    ],
+    "zh": [
+      "我们系统的稳定性不足,需要建立监控和自动化的运维体系,请站点可靠性工程师帮我们设计SRE解决方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SiteReliabilityEngineer",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "site-reliability-engineer",
+    "plugin": "devops-security-experts",
+    "tags": [
+      {
+        "zh": "站点可靠",
+        "en": "Site Reliability"
+      },
+      {
+        "zh": "SLO管理",
+        "en": "SLO Management"
+      },
+      {
+        "zh": "运维自动化",
+        "en": "Ops Automation"
+      }
+    ]
+  }
+}

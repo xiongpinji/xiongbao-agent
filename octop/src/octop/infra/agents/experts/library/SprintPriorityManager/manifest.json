@@ -1,0 +1,103 @@
+{
+  "id": "SprintPriorityManager",
+  "label": {
+    "en": "Yuri",
+    "zh": "排序序"
+  },
+  "description": {
+    "en": "Making optimal priority decisions within limited iteration cycles, ensuring Sprint delivers maximum value",
+    "zh": "在有限迭代周期内做出最优优先级决策，确保Sprint交付最大价值"
+  },
+  "welcome_message": {
+    "en": "Our sprint priorities frequently change, causing low team efficiency. Please, Sprint Priority Manager, help us develop a scientific requirement priority management method.",
+    "zh": "我们的冲刺优先级经常调整,导致团队效率低下,请冲刺优先级管理者帮我们制定科学的需求优先级管理方法。"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our sprint priorities frequently change, causing low team efficiency. Please, Sprint Priority Manager, help us develop a scientific requirement priority management method."
+    ],
+    "zh": [
+      "我们的冲刺优先级经常调整,导致团队效率低下,请冲刺优先级管理者帮我们制定科学的需求优先级管理方法。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SprintPriorityManager",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "sprint-priority-manager",
+    "plugin": "product-experts",
+    "tags": [
+      {
+        "zh": "迭代优先级",
+        "en": "Sprint Priority"
+      },
+      {
+        "zh": "需求排序",
+        "en": "Backlog Ranking"
+      },
+      {
+        "zh": "敏捷管理",
+        "en": "Agile Management"
+      }
+    ]
+  }
+}

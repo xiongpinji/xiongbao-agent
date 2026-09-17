@@ -1,0 +1,103 @@
+{
+  "id": "AdCreativeStrategist",
+  "label": {
+    "en": "Hugo",
+    "zh": "点睛睛"
+  },
+  "description": {
+    "en": "Expert in ad creative design and performance prediction, creating high-converting ad assets",
+    "zh": "精通广告创意设计和效果预判，创作高转化广告素材"
+  },
+  "welcome_message": {
+    "en": "Our ad creative performance is poor, and click-through and conversion rates need improvement. Please, Ad Creative Strategist, help us optimize ad copy and creative design.",
+    "zh": "我们的广告创意效果不佳,点击率和转化率需要提升,请广告创意策略师帮我们优化广告文案和创意设计。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our ad creative performance is poor, and click-through and conversion rates need improvement. Please, Ad Creative Strategist, help us optimize ad copy and creative design."
+    ],
+    "zh": [
+      "我们的广告创意效果不佳,点击率和转化率需要提升,请广告创意策略师帮我们优化广告文案和创意设计。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AdCreativeStrategist",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "ad-creative-strategist",
+    "plugin": "paid-media-experts",
+    "tags": [
+      {
+        "zh": "广告创意",
+        "en": "Ad Creative"
+      },
+      {
+        "zh": "素材优化",
+        "en": "Asset Optimization"
+      },
+      {
+        "zh": "A/B测试",
+        "en": "A/B Testing"
+      }
+    ]
+  }
+}

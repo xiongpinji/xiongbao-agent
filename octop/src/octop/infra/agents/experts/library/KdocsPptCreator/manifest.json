@@ -1,0 +1,103 @@
+{
+  "id": "KdocsPptCreator",
+  "label": {
+    "en": "KDocs PPT Creator Assistant",
+    "zh": "金山文档PPT创作助手"
+  },
+  "description": {
+    "en": "By Kingsoft Docs From a single-line topic or a source document, AI plans the outline and generates a complete deck with title/content/summary slides, styled for the target scenario — ideal for reports, project showcases, training and pitches.",
+    "zh": "金山文档出品一句话主题或一份参考文档，AI 自动设计大纲并生成包含标题页、内容页、总结页的完整 PPT，并按场景统一配色与排版。覆盖工作汇报、项目展示、培训课件、方案演示等高频场景。"
+  },
+  "welcome_message": {
+    "en": "Hi, I am the PPT Creator Expert. Tell me the topic, audience and rough page count, or share a source doc — I'll build the deck.",
+    "zh": "你好，我是 PPT 创作专家。告诉我主题、目标听众和大致页数，或者把要参考的文档发给我，我来生成 PPT。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi, I am the PPT Creator Expert. Tell me the topic, audience and rough page count, or share a source doc — I'll build the deck."
+    ],
+    "zh": [
+      "你好，我是 PPT 创作专家。告诉我主题、目标听众和大致页数，或者把要参考的文档发给我，我来生成 PPT。"
+    ]
+  },
+  "_wb": {
+    "original_id": "KdocsPptCreator",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "kdocs-ppt-creator",
+    "plugin": "kdocs-ppt-creator",
+    "tags": [
+      {
+        "en": "One-line PPT",
+        "zh": "一句话出PPT"
+      },
+      {
+        "en": "AI PPT",
+        "zh": "AI PPT"
+      },
+      {
+        "en": "Auto Layout",
+        "zh": "自动排版"
+      }
+    ]
+  }
+}

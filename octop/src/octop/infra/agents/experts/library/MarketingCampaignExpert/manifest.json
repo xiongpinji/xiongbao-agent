@@ -1,0 +1,103 @@
+{
+  "id": "MarketingCampaignExpert",
+  "label": {
+    "en": "Macy",
+    "zh": "策动动"
+  },
+  "description": {
+    "en": "Plans, creates, and optimizes marketing campaigns including content strategy, social media, email, and advertising across channels",
+    "zh": "策划、创建和优化全渠道营销活动，包括内容策略、社交媒体、邮件营销和广告投放"
+  },
+  "welcome_message": {
+    "en": "Help me plan a marketing campaign for a new product launch",
+    "zh": "帮我策划一个新产品上市的营销活动方案"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me plan a marketing campaign for a new product launch"
+    ],
+    "zh": [
+      "帮我策划一个新产品上市的营销活动方案"
+    ]
+  },
+  "_wb": {
+    "original_id": "MarketingCampaignExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "plugin",
+    "agent_name": "marketing-campaign-expert",
+    "plugin": "executing-marketing-campaigns",
+    "tags": [
+      {
+        "zh": "营销战役",
+        "en": "Marketing Campaign"
+      },
+      {
+        "zh": "活动执行",
+        "en": "Campaign Execution"
+      },
+      {
+        "zh": "效果评估",
+        "en": "Performance Evaluation"
+      }
+    ]
+  }
+}

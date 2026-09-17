@@ -1,0 +1,103 @@
+{
+  "id": "AgentOrchestrator",
+  "label": {
+    "en": "Demi",
+    "zh": "调度达"
+  },
+  "description": {
+    "en": "Expert in multi-agent system orchestration and coordination, enabling AI teams to collaborate efficiently",
+    "zh": "精通多智能体系统的编排和协调，让AI团队高效协作"
+  },
+  "welcome_message": {
+    "en": "We have multiple AI agents that need to work together and require an intelligent orchestration system. Please, Agent Orchestrator, help us design an agent collaboration solution.",
+    "zh": "我们有多个AI代理需要协同工作,需要智能编排系统,请代理编排者帮我们设计代理协同方案。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We have multiple AI agents that need to work together and require an intelligent orchestration system. Please, Agent Orchestrator, help us design an agent collaboration solution."
+    ],
+    "zh": [
+      "我们有多个AI代理需要协同工作,需要智能编排系统,请代理编排者帮我们设计代理协同方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AgentOrchestrator",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "agent-orchestrator",
+    "plugin": "project-management-experts",
+    "tags": [
+      {
+        "zh": "流程编排",
+        "en": "Pipeline Orchestration"
+      },
+      {
+        "zh": "开发工作流",
+        "en": "Dev Workflow"
+      },
+      {
+        "zh": "自动化调度",
+        "en": "Auto Scheduling"
+      }
+    ]
+  }
+}

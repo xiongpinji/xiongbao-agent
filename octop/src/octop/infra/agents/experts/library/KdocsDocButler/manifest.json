@@ -1,0 +1,103 @@
+{
+  "id": "KdocsDocButler",
+  "label": {
+    "en": "KDocs Doc Butler Assistant",
+    "zh": "金山文档文档管家助手"
+  },
+  "description": {
+    "en": "By Kingsoft Docs End-to-end Kingsoft Docs lifecycle management: create docs of any type, locate files by keyword, AI-classify folders by topic, batch move/rename, and manage sharing links with permissions.",
+    "zh": "金山文档出品一站式管理金山文档全生命周期：新建各类在线文档、按关键词快速搜索定位、AI 按主题自动分类整理文件夹、批量移动重命名、生成分享链接与权限管理。"
+  },
+  "welcome_message": {
+    "en": "Hi, I am the Doc Butler. Tell me whether you want to create a doc, find one, organize folders, or share a file — I've got you covered.",
+    "zh": "你好，我是文档管家。告诉我要新建文档、找文档、整理文件夹，还是分享某份资料，我都搞定。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hi, I am the Doc Butler. Tell me whether you want to create a doc, find one, organize folders, or share a file — I've got you covered."
+    ],
+    "zh": [
+      "你好，我是文档管家。告诉我要新建文档、找文档、整理文件夹，还是分享某份资料，我都搞定。"
+    ]
+  },
+  "_wb": {
+    "original_id": "KdocsDocButler",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "kdocs-doc-butler",
+    "plugin": "kdocs-doc-butler",
+    "tags": [
+      {
+        "en": "Doc Creation",
+        "zh": "文档创建"
+      },
+      {
+        "en": "Smart Organize",
+        "zh": "智能整理"
+      },
+      {
+        "en": "Doc Search",
+        "zh": "文档搜索"
+      }
+    ]
+  }
+}

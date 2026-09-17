@@ -1,0 +1,103 @@
+{
+  "id": "ModelQualityAssuranceExpert",
+  "label": {
+    "en": "Sky",
+    "zh": "模检检"
+  },
+  "description": {
+    "en": "Systematically evaluating and ensuring AI model quality, ensuring outputs are accurate, fair, and safe",
+    "zh": "系统化评估保障AI模型质量，确保输出准确公平安全"
+  },
+  "welcome_message": {
+    "en": "Our AI model quality needs assurance, requiring systematic model evaluation and monitoring. Please, Model Quality Assurance Expert, help us establish a model QA system.",
+    "zh": "我们的AI模型质量需要保证,需要系统的模型评估和监控,请模型质量保证专家帮我们建立模型QA体系。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our AI model quality needs assurance, requiring systematic model evaluation and monitoring. Please, Model Quality Assurance Expert, help us establish a model QA system."
+    ],
+    "zh": [
+      "我们的AI模型质量需要保证,需要系统的模型评估和监控,请模型质量保证专家帮我们建立模型QA体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ModelQualityAssuranceExpert",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "model-quality-assurance-expert",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "模型质检",
+        "en": "Model QA"
+      },
+      {
+        "zh": "AI评估",
+        "en": "AI Evaluation"
+      },
+      {
+        "zh": "模型监控",
+        "en": "Model Monitoring"
+      }
+    ]
+  }
+}

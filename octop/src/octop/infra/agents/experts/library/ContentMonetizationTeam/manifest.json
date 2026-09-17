@@ -1,0 +1,103 @@
+{
+  "id": "ContentMonetizationTeam",
+  "label": {
+    "en": "Content Monetization Team",
+    "zh": "内容变现商业化专家团"
+  },
+  "description": {
+    "en": "5-member team covering CPS affiliate commissions, CPE/CPM performance ads, creator-brand marketplace matching, and revenue analysis for content monetization",
+    "zh": "5人专家团覆盖CPS带货分佣、CPE/CPM效果广告、创作者-品牌交易撮合与收益分析，助力内容创作者和品牌方实现商业化闭环"
+  },
+  "welcome_message": {
+    "en": "Help me design a content monetization plan suitable for my account",
+    "zh": "帮我设计一套适合我账号的内容变现方案"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me design a content monetization plan suitable for my account"
+    ],
+    "zh": [
+      "帮我设计一套适合我账号的内容变现方案"
+    ]
+  },
+  "_wb": {
+    "original_id": "ContentMonetizationTeam",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "team",
+    "agent_name": "content-monetization-team-lead",
+    "plugin": "content-monetization-team",
+    "tags": [
+      {
+        "en": "Content Monetization",
+        "zh": "内容变现"
+      },
+      {
+        "en": "CPS/CPE/CPM",
+        "zh": "CPS/CPE/CPM"
+      },
+      {
+        "en": "Creator Commerce",
+        "zh": "创作者商业化"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "TestResultsAnalyst",
+  "label": {
+    "en": "Lyra",
+    "zh": "析测测"
+  },
+  "description": {
+    "en": "Analyzing test results like a detective reading evidence, uncovering hidden quality issues",
+    "zh": "像侦探解读证据一样分析测试结果，发现隐藏的质量问题"
+  },
+  "welcome_message": {
+    "en": "We have a lot of test data but struggle to discover quality trends. Please, Test Results Analyst, help us analyze test data and provide improvement recommendations.",
+    "zh": "我们的测试数据很多但难以发现质量趋势,请测试结果分析师帮我们分析测试数据并给出改进建议。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We have a lot of test data but struggle to discover quality trends. Please, Test Results Analyst, help us analyze test data and provide improvement recommendations."
+    ],
+    "zh": [
+      "我们的测试数据很多但难以发现质量趋势,请测试结果分析师帮我们分析测试数据并给出改进建议。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TestResultsAnalyst",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "test-results-analyst",
+    "plugin": "quality-testing-experts",
+    "tags": [
+      {
+        "zh": "测试分析",
+        "en": "Test Results Analysis"
+      },
+      {
+        "zh": "质量度量",
+        "en": "Quality Metrics"
+      },
+      {
+        "zh": "缺陷趋势",
+        "en": "Defect Trends"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "TikTokStrategist",
+  "label": {
+    "en": "Bea",
+    "zh": "拓刻刻"
+  },
+  "description": {
+    "en": "Expert in TikTok algorithm and overseas short-video ecosystem, helping brands go viral on global platforms",
+    "zh": "精通TikTok算法和海外短视频生态，帮助品牌在全球平台爆发"
+  },
+  "welcome_message": {
+    "en": "We want to achieve viral growth on TikTok and need professional TikTok content strategies. Please, TikTok Strategist, help us develop a viral content plan.",
+    "zh": "我们想在TikTok上实现病毒式传播,需要专业的TikTok内容策略,请TikTok战略家帮我们制定爆款内容计划。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to achieve viral growth on TikTok and need professional TikTok content strategies. Please, TikTok Strategist, help us develop a viral content plan."
+    ],
+    "zh": [
+      "我们想在TikTok上实现病毒式传播,需要专业的TikTok内容策略,请TikTok战略家帮我们制定爆款内容计划。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TikTokStrategist",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "tik-tok-strategist",
+    "plugin": "content-platform-experts",
+    "tags": [
+      {
+        "zh": "TikTok策略",
+        "en": "TikTok Strategy"
+      },
+      {
+        "zh": "海外短视频",
+        "en": "Overseas Short Video"
+      },
+      {
+        "zh": "全球营销",
+        "en": "Global Marketing"
+      }
+    ]
+  }
+}

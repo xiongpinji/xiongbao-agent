@@ -1,0 +1,103 @@
+{
+  "id": "MonthEndCloser",
+  "label": {
+    "en": "Month-End Closer",
+    "zh": "关月结"
+  },
+  "description": {
+    "en": "Controller's right hand who runs the month-end close checklist: accruals, roll-forwards, variance commentary, and staged close package for sign-off.",
+    "zh": "财务负责人的月末关账搭档,按清单跑应计、滚动表、差异说明,把关账包整理好交给 controller 签核。"
+  },
+  "welcome_message": {
+    "en": "Please run month-end close for Entity ABC for 2026-04: build accrual schedule, roll-forwards for BS accounts, variance commentary vs budget, and stage the close package.",
+    "zh": "请帮某境内法人主体做 2026 年 4 月月末关账:建应计表、关键资产负债表科目滚动、对预算差异说明,并整理关账包。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please run month-end close for Entity ABC for 2026-04: build accrual schedule, roll-forwards for BS accounts, variance commentary vs budget, and stage the close package."
+    ],
+    "zh": [
+      "请帮某境内法人主体做 2026 年 4 月月末关账:建应计表、关键资产负债表科目滚动、对预算差异说明,并整理关账包。"
+    ]
+  },
+  "_wb": {
+    "original_id": "MonthEndCloser",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "month-end-closer",
+    "plugin": "month-end-closer",
+    "tags": [
+      {
+        "zh": "月末关账",
+        "en": "Month-End Close"
+      },
+      {
+        "zh": "应计表",
+        "en": "Accrual Schedule"
+      },
+      {
+        "zh": "差异说明",
+        "en": "Variance Commentary"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "FinancialTracker",
+  "label": {
+    "en": "Silas",
+    "zh": "账清清"
+  },
+  "description": {
+    "en": "Precisely tracking project and business financial data, ensuring every transaction is clear and transparent",
+    "zh": "精准追踪项目和业务的财务数据，确保每笔收支清晰透明"
+  },
+  "welcome_message": {
+    "en": "Our financial data management is chaotic, and we need better financial tracking and budget management. Please, Financial Tracker, help us establish a financial management system.",
+    "zh": "我们的财务数据管理混乱,需要更好的财务追踪和预算管理,请财务追踪者帮我们建立财务管理体系。"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our financial data management is chaotic, and we need better financial tracking and budget management. Please, Financial Tracker, help us establish a financial management system."
+    ],
+    "zh": [
+      "我们的财务数据管理混乱,需要更好的财务追踪和预算管理,请财务追踪者帮我们建立财务管理体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FinancialTracker",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "agent",
+    "agent_name": "financial-tracker",
+    "plugin": "finance-legal-experts",
+    "tags": [
+      {
+        "zh": "财务追踪",
+        "en": "Financial Tracking"
+      },
+      {
+        "zh": "预算监控",
+        "en": "Budget Monitoring"
+      },
+      {
+        "zh": "现金流管理",
+        "en": "Cash Flow Management"
+      }
+    ]
+  }
+}

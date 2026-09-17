@@ -1,0 +1,103 @@
+{
+  "id": "ProgrammaticAdBuyer",
+  "label": {
+    "en": "Luna",
+    "zh": "算法投"
+  },
+  "description": {
+    "en": "Expert in programmatic ad buying and DSP platforms, achieving large-scale precision targeting through algorithms",
+    "zh": "精通程序化广告购买和DSP平台，通过算法实现大规模精准投放"
+  },
+  "welcome_message": {
+    "en": "We want to try programmatic advertising and need professional DSP and RTB operation experience. Please, Programmatic Ad Buyer, help us design programmatic advertising strategies.",
+    "zh": "我们想尝试程序化广告投放,需要专业的DSP和RTB操作经验,请程序化广告买家帮我们设计程序化投放策略。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to try programmatic advertising and need professional DSP and RTB operation experience. Please, Programmatic Ad Buyer, help us design programmatic advertising strategies."
+    ],
+    "zh": [
+      "我们想尝试程序化广告投放,需要专业的DSP和RTB操作经验,请程序化广告买家帮我们设计程序化投放策略。"
+    ]
+  },
+  "_wb": {
+    "original_id": "ProgrammaticAdBuyer",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "programmatic-ad-buyer",
+    "plugin": "paid-media-experts",
+    "tags": [
+      {
+        "zh": "程序化购买",
+        "en": "Programmatic Buying"
+      },
+      {
+        "zh": "RTB竞价",
+        "en": "RTB Bidding"
+      },
+      {
+        "zh": "广告交易",
+        "en": "Ad Exchange"
+      }
+    ]
+  }
+}

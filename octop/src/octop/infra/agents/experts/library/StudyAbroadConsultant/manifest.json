@@ -1,0 +1,103 @@
+{
+  "id": "StudyAbroadConsultant",
+  "label": {
+    "en": "Wrenn",
+    "zh": "留洋洋"
+  },
+  "description": {
+    "en": "Expert in international study application processes and institution information",
+    "zh": "精通各国留学申请流程和院校信息"
+  },
+  "welcome_message": {
+    "en": "We want to start a study abroad consulting business and need professional study abroad guidance. Please, Study Abroad Consultant, help us design a study abroad service system.",
+    "zh": "我们想开展留学咨询业务,需要专业的留学指导,请留学顾问帮我们设计留学服务体系。"
+  },
+  "icon_name": "users",
+  "color": "#06b6d4",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to start a study abroad consulting business and need professional study abroad guidance. Please, Study Abroad Consultant, help us design a study abroad service system."
+    ],
+    "zh": [
+      "我们想开展留学咨询业务,需要专业的留学指导,请留学顾问帮我们设计留学服务体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "StudyAbroadConsultant",
+    "category_id": "09-OperationsHR",
+    "category_label": {
+      "en": "Operations & HR",
+      "zh": "运营与人力资源"
+    },
+    "expert_type": "agent",
+    "agent_name": "study-abroad-consultant",
+    "plugin": "education-training-experts",
+    "tags": [
+      {
+        "zh": "留学咨询",
+        "en": "Study Abroad Consulting"
+      },
+      {
+        "zh": "院校选择",
+        "en": "School Selection"
+      },
+      {
+        "zh": "申请规划",
+        "en": "Application Planning"
+      }
+    ]
+  }
+}

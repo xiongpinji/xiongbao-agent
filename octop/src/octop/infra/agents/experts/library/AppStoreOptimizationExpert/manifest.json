@@ -1,0 +1,103 @@
+{
+  "id": "AppStoreOptimizationExpert",
+  "label": {
+    "en": "Ella",
+    "zh": "榜上上"
+  },
+  "description": {
+    "en": "Expert in App Store and Google Play search ranking algorithms, making apps stand out",
+    "zh": "精通App Store和Google Play搜索排名算法，让应用脱颖而出"
+  },
+  "welcome_message": {
+    "en": "Our app ranks poorly in app stores, and download volumes are not ideal. Please, App Store Optimization Expert, help us improve our ASO performance.",
+    "zh": "我们的应用在应用商店的排名靠后,下载量不理想,请应用商店优化专家帮我们提升ASO效果。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our app ranks poorly in app stores, and download volumes are not ideal. Please, App Store Optimization Expert, help us improve our ASO performance."
+    ],
+    "zh": [
+      "我们的应用在应用商店的排名靠后,下载量不理想,请应用商店优化专家帮我们提升ASO效果。"
+    ]
+  },
+  "_wb": {
+    "original_id": "AppStoreOptimizationExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "app-store-optimization-expert",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "ASO优化",
+        "en": "ASO Optimization"
+      },
+      {
+        "zh": "应用市场",
+        "en": "App Store"
+      },
+      {
+        "zh": "下载转化",
+        "en": "Download Conversion"
+      }
+    ]
+  }
+}

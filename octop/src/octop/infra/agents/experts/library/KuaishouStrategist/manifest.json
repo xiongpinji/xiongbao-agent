@@ -1,0 +1,103 @@
+{
+  "id": "KuaishouStrategist",
+  "label": {
+    "en": "Pax",
+    "zh": "老铁铁"
+  },
+  "description": {
+    "en": "Deep understanding of Kuaishou's lower-tier market characteristics and Laotie culture, creating down-to-earth content strategies",
+    "zh": "深谙快手下沉市场特性和老铁文化，打造接地气的内容策略"
+  },
+  "welcome_message": {
+    "en": "We want to enter Kuaishou for marketing and need to understand Kuaishou's user characteristics and operation methods. Please, Kuaishou Strategist, help us develop a Kuaishou operation plan.",
+    "zh": "我们想进入快手平台进行营销,需要了解快手的用户特点和运营方法,请快手战略家帮我们制定快手运营方案。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "We want to enter Kuaishou for marketing and need to understand Kuaishou's user characteristics and operation methods. Please, Kuaishou Strategist, help us develop a Kuaishou operation plan."
+    ],
+    "zh": [
+      "我们想进入快手平台进行营销,需要了解快手的用户特点和运营方法,请快手战略家帮我们制定快手运营方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "KuaishouStrategist",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "kuaishou-strategist",
+    "plugin": "content-platform-experts",
+    "tags": [
+      {
+        "zh": "快手运营",
+        "en": "Kuaishou Operations"
+      },
+      {
+        "zh": "短视频策略",
+        "en": "Short Video Strategy"
+      },
+      {
+        "zh": "直播变现",
+        "en": "Livestream Monetization"
+      }
+    ]
+  }
+}

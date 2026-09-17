@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "expert_id": "MarketingCampaignTeam",
+  "lead_id": "marketing-director",
+  "lead_name": "营销战役团队 - 主理人",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\MarketingCampaignTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "content-creator",
+      "display_name": "笔达（Pen） · 内容创作师（Content Creator）",
+      "specialty": "博客/邮件/社媒内容、品牌声音、邮件序列",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "campaign-planner",
+      "display_name": "策略（Camp） · 战役策划师（Campaign Planner）",
+      "specialty": "战役策略、受众定义、渠道组合、预算分配",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "seo-expert",
+      "display_name": "优搜（Opti） · SEO 专家（SEO Expert）",
+      "specialty": "SEO 审计、关键词策略、效果分析报告",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "brand-analyst",
+      "display_name": "品析（Brandi） · 品牌分析师（Brand Analyst）",
+      "specialty": "品牌审核、竞品定位分析、messaging 对比",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "content-creator",
+        "campaign-planner",
+        "seo-expert",
+        "brand-analyst"
+      ]
+    }
+  ]
+}

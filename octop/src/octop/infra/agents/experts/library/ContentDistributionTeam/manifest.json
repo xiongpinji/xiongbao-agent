@@ -1,0 +1,103 @@
+{
+  "id": "ContentDistributionTeam",
+  "label": {
+    "en": "Content Distribution Team",
+    "zh": "全域内容分发专家团"
+  },
+  "description": {
+    "en": "One-stop multi-platform content distribution solution covering 13+ global social media platforms with scheduling, analytics, optimization, and automated publishing via MCP.",
+    "zh": "一站式多平台内容分发方案，覆盖13+全球社交媒体平台（含微信视频号），提供发布规则适配、排期管理、批量发布编排、跨平台数据分析和小红书自动化发布能力"
+  },
+  "welcome_message": {
+    "en": "Help me create a multi-platform content distribution plan",
+    "zh": "帮我制定一个多平台内容分发方案"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me create a multi-platform content distribution plan"
+    ],
+    "zh": [
+      "帮我制定一个多平台内容分发方案"
+    ]
+  },
+  "_wb": {
+    "original_id": "ContentDistributionTeam",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "team",
+    "agent_name": "content-distribution-team-lead",
+    "plugin": "content-distribution-team",
+    "tags": [
+      {
+        "en": "Multi-Platform Distribution",
+        "zh": "多平台分发"
+      },
+      {
+        "en": "Content Scheduling",
+        "zh": "排期管理"
+      },
+      {
+        "en": "Cross-Platform Analytics",
+        "zh": "跨平台数据分析"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "EquityResearchExpert",
+  "label": {
+    "en": "Quentin",
+    "zh": "研股股"
+  },
+  "description": {
+    "en": "Equity research toolkit: earnings analysis, initiating coverage reports, morning notes, idea generation, thesis tracking, catalyst calendar, and sector overview",
+    "zh": "股票研究工具集：财报分析、首次覆盖报告、晨会纪要、选股筛选、投资论点追踪、催化日历和行业概览"
+  },
+  "welcome_message": {
+    "en": "Help me write an initiating coverage report for a company",
+    "zh": "帮我写一份某公司的首次覆盖报告"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me write an initiating coverage report for a company"
+    ],
+    "zh": [
+      "帮我写一份某公司的首次覆盖报告"
+    ]
+  },
+  "_wb": {
+    "original_id": "EquityResearchExpert",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "plugin",
+    "agent_name": "equity-research-expert",
+    "plugin": "equity-research",
+    "tags": [
+      {
+        "zh": "股票研究",
+        "en": "Equity Research"
+      },
+      {
+        "zh": "盈利预测",
+        "en": "Earnings Forecast"
+      },
+      {
+        "zh": "催化事件",
+        "en": "Catalyst Calendar"
+      }
+    ]
+  }
+}

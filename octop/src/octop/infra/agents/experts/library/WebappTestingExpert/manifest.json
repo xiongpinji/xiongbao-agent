@@ -1,0 +1,103 @@
+{
+  "id": "WebappTestingExpert",
+  "label": {
+    "en": "Cypress",
+    "zh": "端测测"
+  },
+  "description": {
+    "en": "Web application testing assistant, guides users through launching, configuring, and testing web applications",
+    "zh": "Web 应用测试助手，引导用户完成 Web 应用的启动、配置和测试流程"
+  },
+  "welcome_message": {
+    "en": "Help me test this web application",
+    "zh": "帮我测试下这个Web应用"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me test this web application"
+    ],
+    "zh": [
+      "帮我测试下这个Web应用"
+    ]
+  },
+  "_wb": {
+    "original_id": "WebappTestingExpert",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "plugin",
+    "agent_name": "webapp-testing-expert",
+    "plugin": "webapp-testing",
+    "tags": [
+      {
+        "zh": "Web测试",
+        "en": "Web Testing"
+      },
+      {
+        "zh": "端到端测试",
+        "en": "E2E Testing"
+      },
+      {
+        "zh": "功能验证",
+        "en": "Functional Verification"
+      }
+    ]
+  }
+}

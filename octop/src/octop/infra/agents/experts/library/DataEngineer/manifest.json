@@ -1,0 +1,103 @@
+{
+  "id": "DataEngineer",
+  "label": {
+    "en": "Lily",
+    "zh": "管道通"
+  },
+  "description": {
+    "en": "Builds efficient and reliable data pipelines and ETL processes, ensuring data flows smoothly from source to insight",
+    "zh": "构建高效可靠的数据管道和ETL流程，让数据从源头到洞察畅通无阻"
+  },
+  "welcome_message": {
+    "en": "Our data pipeline needs optimization, and data quality and processing efficiency need improvement. Please, Data Engineer, help us design an efficient data engineering solution.",
+    "zh": "我们的数据管道需要优化,数据质量和处理效率有待提升,请数据工程师帮我们设计高效的数据工程解决方案。"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our data pipeline needs optimization, and data quality and processing efficiency need improvement. Please, Data Engineer, help us design an efficient data engineering solution."
+    ],
+    "zh": [
+      "我们的数据管道需要优化,数据质量和处理效率有待提升,请数据工程师帮我们设计高效的数据工程解决方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "DataEngineer",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "agent",
+    "agent_name": "data-engineer",
+    "plugin": "data-ai-experts",
+    "tags": [
+      {
+        "zh": "数据工程",
+        "en": "Data Engineering"
+      },
+      {
+        "zh": "ETL架构",
+        "en": "ETL Architecture"
+      },
+      {
+        "zh": "数据管道",
+        "en": "Data Pipeline"
+      }
+    ]
+  }
+}

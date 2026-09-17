@@ -1,0 +1,103 @@
+{
+  "id": "CATNetworkQualityAnalyst",
+  "label": {
+    "en": "Aaron",
+    "zh": "亚伦"
+  },
+  "description": {
+    "en": "Proficient in multi-dimensional performance analysis, anomaly identification, packet capture diagnostics, and problem demarcation to quickly pinpoint root causes of network and service issues.",
+    "zh": "精通多维性能分析、异常定位、抓包诊断、问题定界，快速定位网络与服务异常根因"
+  },
+  "welcome_message": {
+    "en": "Please analyze the error status of the cloud probe task task-xxxxxxxx over the last 24 hours.",
+    "zh": "帮分析一下云拨测任务task-xxxxxxxx最近24小时的错误情况"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Please analyze the error status of the cloud probe task task-xxxxxxxx over the last 24 hours."
+    ],
+    "zh": [
+      "帮分析一下云拨测任务task-xxxxxxxx最近24小时的错误情况"
+    ]
+  },
+  "_wb": {
+    "original_id": "CATNetworkQualityAnalyst",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "cat-network-quality-analyst",
+    "plugin": "cat-network-quality-analyst",
+    "tags": [
+      {
+        "zh": "云拨测",
+        "en": "Cloud Probe Testing"
+      },
+      {
+        "zh": "网络分析",
+        "en": "Network Analysis"
+      },
+      {
+        "zh": "运维诊断",
+        "en": "SRE Diagnostics"
+      }
+    ]
+  }
+}

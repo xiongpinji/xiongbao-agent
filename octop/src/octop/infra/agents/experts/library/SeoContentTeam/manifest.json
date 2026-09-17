@@ -1,0 +1,103 @@
+{
+  "id": "SeoContentTeam",
+  "label": {
+    "en": "SEO Content Team",
+    "zh": "SEO 内容营销团队"
+  },
+  "description": {
+    "en": "7 specialist roles across 5 phases: keyword research, long-form writing, SEO optimization, content editing, link strategy, and CRO analysis — full-stack SEO content marketing",
+    "zh": "7位专业角色分5阶段协作：关键词研究、SEO长文创作、技术优化、内容编辑、链接策略、转化率分析，全流程自动化产出高质量SEO内容"
+  },
+  "welcome_message": {
+    "en": "Write an SEO-optimized long-form article to boost organic traffic",
+    "zh": "帮我写一篇提升自然流量的 SEO 长文"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Write an SEO-optimized long-form article to boost organic traffic"
+    ],
+    "zh": [
+      "帮我写一篇提升自然流量的 SEO 长文"
+    ]
+  },
+  "_wb": {
+    "original_id": "SeoContentTeam",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "team",
+    "agent_name": "seo-content-team-lead",
+    "plugin": "seo-content-team",
+    "tags": [
+      {
+        "en": "SEO Content",
+        "zh": "SEO内容"
+      },
+      {
+        "en": "Keyword Research",
+        "zh": "关键词研究"
+      },
+      {
+        "en": "Conversion Optimization",
+        "zh": "转化率优化"
+      }
+    ]
+  }
+}

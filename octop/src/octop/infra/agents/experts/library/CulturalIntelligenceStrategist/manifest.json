@@ -1,0 +1,103 @@
+{
+  "id": "CulturalIntelligenceStrategist",
+  "label": {
+    "en": "Hazel",
+    "zh": "知文文"
+  },
+  "description": {
+    "en": "Helping brands establish cultural sensitivity in globalization processes",
+    "zh": "帮助品牌建立全球化过程中的文化敏感度"
+  },
+  "welcome_message": {
+    "en": "Our business involves multicultural environments and needs cultural intelligence strategies. Please, Cultural Intelligence Strategist, help us develop cross-cultural management solutions.",
+    "zh": "我们的业务涉及多文化环境,需要文化智能策略,请文化智能战略家帮我们制定跨文化管理方案。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our business involves multicultural environments and needs cultural intelligence strategies. Please, Cultural Intelligence Strategist, help us develop cross-cultural management solutions."
+    ],
+    "zh": [
+      "我们的业务涉及多文化环境,需要文化智能策略,请文化智能战略家帮我们制定跨文化管理方案。"
+    ]
+  },
+  "_wb": {
+    "original_id": "CulturalIntelligenceStrategist",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "cultural-intelligence-strategist",
+    "plugin": "community-marketing-experts",
+    "tags": [
+      {
+        "zh": "文化智能",
+        "en": "Cultural Intelligence"
+      },
+      {
+        "zh": "全球适配",
+        "en": "Global Adaptation"
+      },
+      {
+        "zh": "包容策略",
+        "en": "Inclusion Strategy"
+      }
+    ]
+  }
+}

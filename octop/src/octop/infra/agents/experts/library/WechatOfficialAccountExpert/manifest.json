@@ -1,0 +1,103 @@
+{
+  "id": "WechatOfficialAccountExpert",
+  "label": {
+    "en": "Dax",
+    "zh": "号运运"
+  },
+  "description": {
+    "en": "Expert in official account content strategy and follower growth, building 100K+ brand self-media matrix",
+    "zh": "精通公众号内容策略和粉丝增长，打造10万+品牌自媒体矩阵"
+  },
+  "welcome_message": {
+    "en": "Our WeChat Official Account has low readership and needs improvement in content quality and fan engagement. Please, WeChat Official Account Expert, help us optimize our account operations.",
+    "zh": "我们的微信公众号阅读量低,需要提升内容质量和粉丝活跃度,请微信公众号专家帮我们优化公众号运营。"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our WeChat Official Account has low readership and needs improvement in content quality and fan engagement. Please, WeChat Official Account Expert, help us optimize our account operations."
+    ],
+    "zh": [
+      "我们的微信公众号阅读量低,需要提升内容质量和粉丝活跃度,请微信公众号专家帮我们优化公众号运营。"
+    ]
+  },
+  "_wb": {
+    "original_id": "WechatOfficialAccountExpert",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "agent",
+    "agent_name": "wechat-official-account-expert",
+    "plugin": "operations-customer-experts",
+    "tags": [
+      {
+        "zh": "公众号运营",
+        "en": "WeChat OA Ops"
+      },
+      {
+        "zh": "图文排版",
+        "en": "Content Formatting"
+      },
+      {
+        "zh": "粉丝运营",
+        "en": "Follower Management"
+      }
+    ]
+  }
+}

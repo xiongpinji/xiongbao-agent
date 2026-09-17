@@ -1,0 +1,103 @@
+{
+  "id": "LegalClinicSupervisor",
+  "label": {
+    "en": "Legal Clinic Supervisor",
+    "zh": "法律诊所督导"
+  },
+  "description": {
+    "en": "Supervisor assistant for law school clinics: clinic setup, student onboarding, client intake, research starts, deadlines, status, letters, and semester handoff.",
+    "zh": "面向法学院诊所导师的监督助手，支持客户接待、研究启动、期限追踪、学生入职和学期交接。"
+  },
+  "welcome_message": {
+    "en": "Help me set up a supervised intake workflow for a new clinic matter",
+    "zh": "帮我为一个新的诊所案件搭建有监督的客户接待流程"
+  },
+  "icon_name": "shield",
+  "color": "#f97316",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me set up a supervised intake workflow for a new clinic matter"
+    ],
+    "zh": [
+      "帮我为一个新的诊所案件搭建有监督的客户接待流程"
+    ]
+  },
+  "_wb": {
+    "original_id": "LegalClinicSupervisor",
+    "category_id": "11-SecurityCompliance",
+    "category_label": {
+      "en": "Security & Compliance",
+      "zh": "法务安全"
+    },
+    "expert_type": "agent",
+    "agent_name": "legal-clinic-supervisor",
+    "plugin": "legal-clinic-supervisor",
+    "tags": [
+      {
+        "en": "Clinic Intake",
+        "zh": "诊所接待"
+      },
+      {
+        "en": "Student Supervision",
+        "zh": "学生监督"
+      },
+      {
+        "en": "Matter Handoff",
+        "zh": "案件交接"
+      }
+    ]
+  }
+}

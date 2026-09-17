@@ -1,0 +1,131 @@
+{
+  "id": "TencentCloudPriceExpert",
+  "label": {
+    "en": "Tencent Cloud Price Inquiry Assistant",
+    "zh": "腾讯云刊例价查询助手"
+  },
+  "description": {
+    "en": "A specialized assistant for Tencent Cloud sales teams. Two core capabilities: (1) Product consulting — classification, comparison, billing model explanation, selection advice; (2) List price inquiry — real-time pricing via internal APIs, supports single product natural language query, batch Excel upload, and cross-zone/region price comparison with full audit trails.",
+    "zh": "专为腾讯云销售团队打造的刊例价查询助手。两大核心能力：① 产品咨询——分类对比、计费模式解读、选型建议；② 刊例价查询——通过内部 API 实时查价，支持单产品自然语言查价、Excel 批量查价、跨可用区/地域自动比价，结果带完整证据链。"
+  },
+  "welcome_message": {
+    "en": "Hello! I'm your Tencent Cloud Price Inquiry Assistant 🔍\n\nI can help you with:\n- **Product consulting**: Compare products, understand billing models (e.g. \"How to choose between Redis Standard and Cluster?\")\n- **Quick pricing**: Just describe the config, e.g. \"CVM 4C8G Beijing monthly\"\n- **Batch pricing**: Upload an Excel config list for bulk price lookup\n- **Price comparison**: Auto-compare across zones and regions for the best price\n\nWhat would you like to know?",
+    "zh": "你好！我是腾讯云刊例价查询助手\n\n我可以帮你：\n- **产品咨询**：了解产品分类、对比选型、计费模式（如\"Redis 标准架构和集群架构怎么选\"）\n- **快速查价**：告诉我产品名称和配置，如\"CVM 4核8G 北京包月\"\n- **批量查价**：上传 Excel 配置清单，逐行查出刊例价并生成报价单\n- **比价**：支持跨地域、跨可用区自动比价，取最低价\n\n请告诉我你想了解什么产品，或者要查什么价格？"
+  },
+  "icon_name": "cloud",
+  "color": "#0ea5e9",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Hello! I'm your Tencent Cloud Price Inquiry Assistant 🔍",
+      "",
+      "I can help you with:",
+      "- **Product consulting**: Compare products, understand billing models (e.g. \"How to choose between Redis Standard and Cluster?\")",
+      "- **Quick pricing**: Just describe the config, e.g. \"CVM 4C8G Beijing monthly\""
+    ],
+    "zh": [
+      "你好！我是腾讯云刊例价查询助手",
+      "",
+      "我可以帮你：",
+      "- **产品咨询**：了解产品分类、对比选型、计费模式（如\"Redis 标准架构和集群架构怎么选\"）",
+      "- **快速查价**：告诉我产品名称和配置，如\"CVM 4核8G 北京包月\""
+    ]
+  },
+  "_wb": {
+    "original_id": "TencentCloudPriceExpert",
+    "category_id": "13-TencentZone",
+    "category_label": {
+      "en": "Tencent Zone",
+      "zh": "腾讯专区"
+    },
+    "expert_type": "agent",
+    "agent_name": "price-inquiry-assistant",
+    "plugin": "tencent-cloud-price-expert",
+    "tags": [
+      {
+        "en": "Price Inquiry",
+        "zh": "刊例价查询"
+      },
+      {
+        "en": "Product Consulting",
+        "zh": "产品咨询"
+      },
+      {
+        "en": "Batch Pricing",
+        "zh": "批量询价"
+      },
+      {
+        "en": "Tencent Cloud",
+        "zh": "腾讯云"
+      }
+    ]
+  }
+}

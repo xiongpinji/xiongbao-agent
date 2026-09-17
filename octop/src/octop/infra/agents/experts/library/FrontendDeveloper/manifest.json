@@ -1,0 +1,103 @@
+{
+  "id": "FrontendDeveloper",
+  "label": {
+    "en": "Paul",
+    "zh": "像素匠"
+  },
+  "description": {
+    "en": "Expert in modern web technologies and mainstream frameworks, building responsive high-performance web applications with pixel-perfect precision",
+    "zh": "精通现代Web技术和主流框架，以像素级精度构建响应式高性能Web应用"
+  },
+  "welcome_message": {
+    "en": "Our frontend interface needs development with requirements for responsive design and good user interaction experience. Please, Frontend Developer, help us implement frontend features.",
+    "zh": "我们的前端界面需要开发,要求响应式设计和良好的用户交互体验,请前端开发工程师帮我们实现前端功能。"
+  },
+  "icon_name": "code",
+  "color": "#3b82f6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our frontend interface needs development with requirements for responsive design and good user interaction experience. Please, Frontend Developer, help us implement frontend features."
+    ],
+    "zh": [
+      "我们的前端界面需要开发,要求响应式设计和良好的用户交互体验,请前端开发工程师帮我们实现前端功能。"
+    ]
+  },
+  "_wb": {
+    "original_id": "FrontendDeveloper",
+    "category_id": "02-Engineering",
+    "category_label": {
+      "en": "Engineering",
+      "zh": "技术工程"
+    },
+    "expert_type": "agent",
+    "agent_name": "frontend-developer",
+    "plugin": "frontend-backend-experts",
+    "tags": [
+      {
+        "zh": "前端开发",
+        "en": "Frontend Dev"
+      },
+      {
+        "zh": "页面交互",
+        "en": "Page Interaction"
+      },
+      {
+        "zh": "组件开发",
+        "en": "Component Dev"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "TechnicalDocumentationEngineer",
+  "label": {
+    "en": "Anna",
+    "zh": "文通通"
+  },
+  "description": {
+    "en": "Transforms complex technical concepts into clear and accurate documentation, making technical knowledge shareable",
+    "zh": "将复杂技术概念转化为清晰准确的文档，让技术知识可传播"
+  },
+  "welcome_message": {
+    "en": "Our technical documentation is inadequate, affecting development efficiency and knowledge transfer. Please, Technical Documentation Engineer, help us establish a systematic documentation system.",
+    "zh": "我们的技术文档不够完善,影响开发效率和知识传递,请技术文档工程师帮我们建立系统的文档体系。"
+  },
+  "icon_name": "check-circle",
+  "color": "#84cc16",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our technical documentation is inadequate, affecting development efficiency and knowledge transfer. Please, Technical Documentation Engineer, help us establish a systematic documentation system."
+    ],
+    "zh": [
+      "我们的技术文档不够完善,影响开发效率和知识传递,请技术文档工程师帮我们建立系统的文档体系。"
+    ]
+  },
+  "_wb": {
+    "original_id": "TechnicalDocumentationEngineer",
+    "category_id": "10-ProjectQuality",
+    "category_label": {
+      "en": "Project & Quality",
+      "zh": "项目管理与质量"
+    },
+    "expert_type": "agent",
+    "agent_name": "technical-documentation-engineer",
+    "plugin": "education-training-experts",
+    "tags": [
+      {
+        "zh": "技术文档",
+        "en": "Technical Documentation"
+      },
+      {
+        "zh": "API文档",
+        "en": "API Documentation"
+      },
+      {
+        "zh": "开发者指南",
+        "en": "Developer Guide"
+      }
+    ]
+  }
+}

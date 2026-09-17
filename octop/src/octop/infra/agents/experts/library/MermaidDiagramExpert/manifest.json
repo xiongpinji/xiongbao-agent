@@ -1,0 +1,103 @@
+{
+  "id": "MermaidDiagramExpert",
+  "label": {
+    "en": "Mia",
+    "zh": "绘灵"
+  },
+  "description": {
+    "en": "Transforms natural language into professional Mermaid diagrams with 15+ themes, 6 chart types, and instant SVG/ASCII rendering",
+    "zh": "将自然语言转化为专业级Mermaid图表，支持6种图表类型、15种主题配色，秒级渲染出版级SVG与ASCII可视化"
+  },
+  "welcome_message": {
+    "en": "Draw a user login authentication flowchart",
+    "zh": "画一个用户登录认证流程图"
+  },
+  "icon_name": "pen-tool",
+  "color": "#8b5cf6",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Draw a user login authentication flowchart"
+    ],
+    "zh": [
+      "画一个用户登录认证流程图"
+    ]
+  },
+  "_wb": {
+    "original_id": "MermaidDiagramExpert",
+    "category_id": "01-ProductDesign",
+    "category_label": {
+      "en": "Product Design",
+      "zh": "产品设计"
+    },
+    "expert_type": "agent",
+    "agent_name": "mermaid-diagram-expert",
+    "plugin": "mermaid-diagram-expert",
+    "tags": [
+      {
+        "zh": "Mermaid图表",
+        "en": "Mermaid Diagrams"
+      },
+      {
+        "zh": "SVG渲染",
+        "en": "SVG Rendering"
+      },
+      {
+        "zh": "架构可视化",
+        "en": "Architecture Visualization"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "LevelDesigner",
+  "label": {
+    "en": "Jack",
+    "zh": "关卡卡"
+  },
+  "description": {
+    "en": "Treating each level as a carefully orchestrated experience, telling stories through space",
+    "zh": "将每个关卡视为精心编排的体验，用空间讲述故事"
+  },
+  "welcome_message": {
+    "en": "Our game level design needs optimization to improve player experience. Please, Level Designer, help us design game levels.",
+    "zh": "我们的游戏关卡设计需要优化,提升玩家体验,请关卡设计师帮我们设计游戏关卡。"
+  },
+  "icon_name": "gamepad-2",
+  "color": "#ec4899",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our game level design needs optimization to improve player experience. Please, Level Designer, help us design game levels."
+    ],
+    "zh": [
+      "我们的游戏关卡设计需要优化,提升玩家体验,请关卡设计师帮我们设计游戏关卡。"
+    ]
+  },
+  "_wb": {
+    "original_id": "LevelDesigner",
+    "category_id": "03-GameSpatial",
+    "category_label": {
+      "en": "Game & Spatial",
+      "zh": "游戏与空间计算"
+    },
+    "expert_type": "agent",
+    "agent_name": "level-designer",
+    "plugin": "game-design-experts",
+    "tags": [
+      {
+        "zh": "关卡设计",
+        "en": "Level Design"
+      },
+      {
+        "zh": "场景布局",
+        "en": "Scene Layout"
+      },
+      {
+        "zh": "难度曲线",
+        "en": "Difficulty Curve"
+      }
+    ]
+  }
+}

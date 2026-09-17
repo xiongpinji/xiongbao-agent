@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "expert_id": "CloudOpsTeam",
+  "lead_id": "cloud-ops-team-lead",
+  "lead_name": "cloud-ops-team-lead",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\CloudOpsTeam\\SOUL.md",
+  "members": [
+    {
+      "agent_id": "cloud-q",
+      "display_name": "CloudQ",
+      "specialty": "cloudq / 售前售中 DevOps 专家。擅长多云统一管理、架构可视化、智能巡检与风险评估，具备全渠道 ChatOps · 24/7 AIOps · 全方位 CloudOps 三大核心能力",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "andon-q",
+      "display_name": "AndonQ",
+      "specialty": "andonq / 售后服务专家。擅长工单查询（OAuth2 鉴权 + SSE API）、24/7 智能问答、全产品线云 API 接入，为用户提供全天候工单管理和智能客服服务",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    },
+    {
+      "agent_id": "migra-q",
+      "display_name": "MigraQ",
+      "specialty": "migraq / 云迁移专家。擅长跨云资源扫描、规格映射推荐、TCO 成本分析和迁移规划，帮助企业高效从 AWS、阿里云、华为云、GCP 等迁移至腾讯云",
+      "phase": "roundtable",
+      "mode": "parallel",
+      "alias": "",
+      "emoji": "",
+      "typical_query": ""
+    }
+  ],
+  "phases": [
+    {
+      "id": "roundtable",
+      "name": "圆桌并行",
+      "mode": "parallel",
+      "member_ids": [
+        "cloud-q",
+        "andon-q",
+        "migra-q"
+      ]
+    }
+  ]
+}

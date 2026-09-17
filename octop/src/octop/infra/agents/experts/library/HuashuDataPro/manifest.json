@@ -1,0 +1,103 @@
+{
+  "id": "HuashuDataPro",
+  "label": {
+    "en": "Huashu Data Analysis Team",
+    "zh": "花叔数据分析专家团"
+  },
+  "description": {
+    "en": "Local data analysis team for One Person Companies. Three experts (Trend / Structure / Anomaly) analyze in parallel and deliver HTML / XLSX / PPTX reports without any cloud upload.",
+    "zh": "「一人公司」本地数据分析专家团。一份 Excel 进，趋势 / 结构 / 异常三专家并行分析，交付网页、Excel、PPT 三格式报告，数据不出本地。"
+  },
+  "welcome_message": {
+    "en": "Analyze finance.xlsx and deliver reports in all three formats.",
+    "zh": "分析这份财务表，三种格式的报告都要：finance.xlsx"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Analyze finance.xlsx and deliver reports in all three formats."
+    ],
+    "zh": [
+      "分析这份财务表，三种格式的报告都要：finance.xlsx"
+    ]
+  },
+  "_wb": {
+    "original_id": "HuashuDataPro",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "team",
+    "agent_name": "huashu-data-pro-team-lead",
+    "plugin": "huashu-data-pro",
+    "tags": [
+      {
+        "zh": "数据分析",
+        "en": "Data Analysis"
+      },
+      {
+        "zh": "本地推理",
+        "en": "Local Inference"
+      },
+      {
+        "zh": "多专家并行",
+        "en": "Multi-Expert Parallel"
+      }
+    ]
+  }
+}

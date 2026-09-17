@@ -1,0 +1,103 @@
+{
+  "id": "GPTResearcherTeam",
+  "label": {
+    "en": "Deep Research Team",
+    "zh": "深度研究团队"
+  },
+  "description": {
+    "en": "Deep research report generation: 7 roles in 5 phases aggregate multi-source data through review-revise loop into cited professional reports",
+    "zh": "深度研究报告输出，7角色5阶段聚合多源信息，经审稿修订循环输出带引用的专业报告"
+  },
+  "welcome_message": {
+    "en": "Help me conduct deep research on the development trends of AI Agents in enterprise applications",
+    "zh": "帮我深度调研下AI Agent在企业级应用中的发展趋势"
+  },
+  "icon_name": "brain",
+  "color": "#10b981",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me conduct deep research on the development trends of AI Agents in enterprise applications"
+    ],
+    "zh": [
+      "帮我深度调研下AI Agent在企业级应用中的发展趋势"
+    ]
+  },
+  "_wb": {
+    "original_id": "GPTResearcherTeam",
+    "category_id": "04-DataAI",
+    "category_label": {
+      "en": "Data & AI",
+      "zh": "数据与人工智能"
+    },
+    "expert_type": "team",
+    "agent_name": "research-chief-editor",
+    "plugin": "gpt-researcher-team",
+    "tags": [
+      {
+        "zh": "深度调研",
+        "en": "Deep Research"
+      },
+      {
+        "zh": "报告撰写",
+        "en": "Report Writing"
+      },
+      {
+        "zh": "多源研究",
+        "en": "Multi-Source Research"
+      }
+    ]
+  }
+}

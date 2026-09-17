@@ -1,0 +1,111 @@
+{
+  "id": "VideoGenTeam",
+  "label": {
+    "en": "VideoGenTeam",
+    "zh": "苍何视频生成团队"
+  },
+  "description": {
+    "en": "A three-agent team that automatically creates short videos: Collector gathers AI/tech news, Planner designs scripts and storyboards, Producer renders final MP4 with TTS and subtitles using HyperFrames.",
+    "zh": "三位一体的AI视频创作团队：灵阅负责采集AI/科技热点，灵枢负责策划选题与脚本，灵映负责渲染MP4视频成品（配音+字幕）。全流程自动化，60秒短视频一键生成。"
+  },
+  "welcome_message": {
+    "en": "Create a 60-second video about [your topic]",
+    "zh": "帮我做一期视频，主题是[你的选题]，时长60秒"
+  },
+  "icon_name": "edit",
+  "color": "#ef4444",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Create a 60-second video about [your topic]"
+    ],
+    "zh": [
+      "帮我做一期视频，主题是[你的选题]，时长60秒"
+    ]
+  },
+  "_wb": {
+    "original_id": "VideoGenTeam",
+    "category_id": "06-ContentCreative",
+    "category_label": {
+      "en": "Content Creative",
+      "zh": "内容创作"
+    },
+    "expert_type": "team",
+    "agent_name": "video-gen-team-lead",
+    "plugin": "video-gen-team",
+    "tags": [
+      {
+        "en": "AI Video",
+        "zh": "AI视频"
+      },
+      {
+        "en": "Content Creation",
+        "zh": "内容创作"
+      },
+      {
+        "en": "Short Video",
+        "zh": "短视频"
+      },
+      {
+        "en": "TTS",
+        "zh": "语音合成"
+      },
+      {
+        "en": "HyperFrames",
+        "zh": "视频渲染"
+      }
+    ]
+  }
+}

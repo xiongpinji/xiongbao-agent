@@ -1,0 +1,103 @@
+{
+  "id": "WealthManagementExpert",
+  "label": {
+    "en": "Harlan",
+    "zh": "理财财"
+  },
+  "description": {
+    "en": "Wealth management toolkit: client review, financial planning, portfolio rebalance, tax-loss harvesting, investment proposal, and client reporting",
+    "zh": "财富管理工具集：客户回顾、财务规划、投资组合再平衡、税损收割、投资提案和客户报告生成"
+  },
+  "welcome_message": {
+    "en": "Help me create a portfolio rebalancing plan for a client",
+    "zh": "帮我做一份客户的投资组合再平衡方案"
+  },
+  "icon_name": "trending-up",
+  "color": "#e74c3c",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Help me create a portfolio rebalancing plan for a client"
+    ],
+    "zh": [
+      "帮我做一份客户的投资组合再平衡方案"
+    ]
+  },
+  "_wb": {
+    "original_id": "WealthManagementExpert",
+    "category_id": "08-FinanceInvestment",
+    "category_label": {
+      "en": "Finance Investment",
+      "zh": "金融投资"
+    },
+    "expert_type": "plugin",
+    "agent_name": "wealth-management-expert",
+    "plugin": "wealth-management",
+    "tags": [
+      {
+        "zh": "财富管理",
+        "en": "Wealth Management"
+      },
+      {
+        "zh": "投资组合",
+        "en": "Portfolio Report"
+      },
+      {
+        "zh": "客户报告",
+        "en": "Client Reporting"
+      }
+    ]
+  }
+}

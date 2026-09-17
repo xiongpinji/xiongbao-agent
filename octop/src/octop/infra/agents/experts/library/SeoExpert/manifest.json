@@ -1,0 +1,103 @@
+{
+  "id": "SeoExpert",
+  "label": {
+    "en": "Vega",
+    "zh": "搜霸霸"
+  },
+  "description": {
+    "en": "Expert in Google search algorithms and technical SEO, keeping websites at the top of search results",
+    "zh": "精通Google搜索算法和技术SEO，让网站在搜索结果中稳居前列"
+  },
+  "welcome_message": {
+    "en": "Our website lacks sufficient organic search traffic and needs a comprehensive SEO optimization strategy. Please, SEO Expert, help us improve search engine rankings and traffic.",
+    "zh": "我们的网站自然搜索流量不足,需要全面的SEO优化策略,请SEO专家帮我们提升搜索引擎排名和流量。"
+  },
+  "icon_name": "trending-up",
+  "color": "#f59e0b",
+  "prompt_files": [
+    "SOUL.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    },
+    {
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "description": {
+        "en": "",
+        "zh": ""
+      },
+      "prompt": {
+        "en": "",
+        "zh": ""
+      },
+      "color": "#f1f5f9",
+      "icon_name": "star"
+    }
+  ],
+  "task_examples": {
+    "en": [
+      "Our website lacks sufficient organic search traffic and needs a comprehensive SEO optimization strategy. Please, SEO Expert, help us improve search engine rankings and traffic."
+    ],
+    "zh": [
+      "我们的网站自然搜索流量不足,需要全面的SEO优化策略,请SEO专家帮我们提升搜索引擎排名和流量。"
+    ]
+  },
+  "_wb": {
+    "original_id": "SeoExpert",
+    "category_id": "05-MarketingGrowth",
+    "category_label": {
+      "en": "Marketing Growth",
+      "zh": "营销增长"
+    },
+    "expert_type": "agent",
+    "agent_name": "seo-expert",
+    "plugin": "seo-growth-experts",
+    "tags": [
+      {
+        "zh": "SEO优化",
+        "en": "SEO Optimization"
+      },
+      {
+        "zh": "关键词策略",
+        "en": "Keyword Strategy"
+      },
+      {
+        "zh": "技术SEO",
+        "en": "Technical SEO"
+      }
+    ]
+  }
+}
