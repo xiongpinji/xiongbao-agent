@@ -54,6 +54,25 @@ python -S -m octop.contrib.workbuddy.teach_cli create-routine --skill <skill> --
 
 Safety gates: human approve before create; dry/test/live modes; high-risk steps need approval; stale_data_policy 不复用昨日数据；每 bot 最多 50 routines，保留最近 20 次 run。
 
+### Scheduler（stdlib cron tick）
+
+无需常驻 APScheduler：由系统计划任务每分钟调用 `tick` 即可。
+
+```powershell
+python -S tests\contrib\workbuddy\test_routine_scheduler.py
+# → ALL SCHEDULER TESTS OK
+
+python -S -m octop.contrib.workbuddy.teach_cli --root artifacts\teach_routine due
+python -S -m octop.contrib.workbuddy.teach_cli --root artifacts\teach_routine tick --mode dry
+```
+
+| Check | Result |
+|---|---|
+| 5-field cron match (`*`, `*/n`, ranges) | OK |
+| same-minute 不重复触发 | OK |
+| `due` preview + `next` | OK |
+| Windows 无 tzdata 时 Asia/Shanghai 固定偏移回退 | OK |
+
 ## Local LLM（V1）
 
 ```powershell
@@ -67,7 +86,7 @@ Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `W
 
 ## Out of scope (later)
 
-- CDP / 浏览器真录制；LLM 自动 drafter；APScheduler 常驻调度
+- CDP / 浏览器真录制；LLM 自动 drafter；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

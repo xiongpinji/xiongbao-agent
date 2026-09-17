@@ -14,7 +14,7 @@ def _utc_iso() -> str:
 
 @dataclass
 class CronSpec:
-    """Simple cron-like schedule (string form; APScheduler can consume later)."""
+    """Simple 5-field cron schedule (stdlib matcher in ``cron.py``)."""
 
     expr: str  # e.g. "0 9 * * *"
     timezone: str = "Asia/Shanghai"
@@ -79,6 +79,7 @@ class Routine:
     timezone: str = "Asia/Shanghai"
     enabled: bool = True
     created_at: str = field(default_factory=_utc_iso)
+    last_fired_at: str | None = None
     last_runs: list[RunRecord] = field(default_factory=list)
     max_routines_per_bot: int = 50
     keep_runs: int = 20
@@ -93,6 +94,7 @@ class Routine:
             "timezone": self.timezone,
             "enabled": self.enabled,
             "created_at": self.created_at,
+            "last_fired_at": self.last_fired_at,
             "last_runs": [r.to_dict() for r in self.last_runs[-self.keep_runs :]],
         }
 
@@ -109,6 +111,7 @@ class Routine:
             timezone=str(data.get("timezone") or "Asia/Shanghai"),
             enabled=bool(data.get("enabled", True)),
             created_at=str(data.get("created_at") or _utc_iso()),
+            last_fired_at=data.get("last_fired_at"),
             last_runs=[RunRecord.from_dict(r) for r in (data.get("last_runs") or [])],
         )
 

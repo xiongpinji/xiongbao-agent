@@ -4,7 +4,8 @@
 Examples::
 
     python -S -m octop.contrib.workbuddy.teach_cli demo
-    python -S -m octop.contrib.workbuddy.teach_cli list
+    python -S -m octop.contrib.workbuddy.teach_cli due
+    python -S -m octop.contrib.workbuddy.teach_cli tick --mode dry
     python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry
 """
 
@@ -15,7 +16,7 @@ import json
 import sys
 from pathlib import Path
 
-from .routine import RoutineEngine, RoutineStore
+from .routine import RoutineEngine, RoutineScheduler, RoutineStore
 from .teach import TeachRecorder, TeachStore, draft_skill_from_recording
 
 
@@ -145,6 +146,36 @@ def cmd_run(args: argparse.Namespace) -> int:
     return 0 if run.ok else 1
 
 
+def cmd_due(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    sched = RoutineScheduler(
+        RoutineStore(root / "routines"),
+        TeachStore(root / "teach"),
+    )
+    print(json.dumps(sched.preview(), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_tick(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    routine_store = RoutineStore(root / "routines")
+    engine = RoutineEngine(routine_store)
+    sched = RoutineScheduler(routine_store, TeachStore(root / "teach"), engine)
+    results = sched.tick(
+        mode=args.mode,  # type: ignore[arg-type]
+        confirm_test=bool(args.confirm_test),
+        approvals=set(args.approve or []),
+    )
+    payload = {
+        "fired": sum(1 for r in results if r.fired),
+        "results": [r.to_dict() for r in results],
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    if results and any(r.error or (r.run and not r.run.ok) for r in results):
+        return 1
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Teach / Routine V2 CLI")
     parser.add_argument("--root", default=str(_default_root()))
@@ -177,6 +208,15 @@ def main(argv: list[str] | None = None) -> int:
     p_run.add_argument("--approve", action="append", default=[])
     p_run.add_argument("--confirm-test", action="store_true")
     p_run.set_defaults(func=cmd_run)
+
+    p_due = sub.add_parser("due", help="Preview schedule / due status for all routines")
+    p_due.set_defaults(func=cmd_due)
+
+    p_tick = sub.add_parser("tick", help="Fire all due routines for the current minute")
+    p_tick.add_argument("--mode", choices=["dry", "test", "live"], default="dry")
+    p_tick.add_argument("--approve", action="append", default=[])
+    p_tick.add_argument("--confirm-test", action="store_true")
+    p_tick.set_defaults(func=cmd_tick)
 
     args = parser.parse_args(argv)
     return int(args.func(args))
