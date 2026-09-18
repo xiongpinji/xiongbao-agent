@@ -184,7 +184,7 @@ class TestV109CowritePublish(unittest.TestCase):
 class TestV1010HubConsole(unittest.TestCase):
     def test_hub_v10(self) -> None:
         data = hub_status()
-        self.assertEqual(data["v"], 10)
+        self.assertGreaterEqual(int(data["v"]), 10)
         self.assertIn("runtime", data)
 
     def test_api_runtime(self) -> None:

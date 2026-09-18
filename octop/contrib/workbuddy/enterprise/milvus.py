@@ -22,6 +22,16 @@ def milvus_configured() -> bool:
     return bool(_env("OCTOP_MILVUS_URI"))
 
 
+def default_collection() -> str:
+    """Prefer tenant-scoped ``wb_<tid>`` when ``WB_TENANT_ID`` is set."""
+    tid = _env("WB_TENANT_ID")
+    if tid:
+        from ..tenant.milvus_ns import tenant_collection
+
+        return tenant_collection(tid)
+    return _env("OCTOP_MILVUS_COLLECTION") or "wb_memory"
+
+
 def _headers() -> dict[str, str]:
     h = {
         "Content-Type": "application/json",
@@ -68,7 +78,7 @@ def search(
     top_k: int = 5,
     output_fields: list[str] | None = None,
 ) -> dict[str, Any]:
-    coll = collection or _env("OCTOP_MILVUS_COLLECTION") or "wb_memory"
+    coll = collection or default_collection()
     body: dict[str, Any] = {
         "collectionName": coll,
         "data": [vector],
@@ -84,7 +94,7 @@ def upsert_texts(
     collection: str | None = None,
 ) -> dict[str, Any]:
     """Upsert pre-embedded rows: each row needs ``vector`` + metadata fields."""
-    coll = collection or _env("OCTOP_MILVUS_COLLECTION") or "wb_memory"
+    coll = collection or default_collection()
     return _post(
         "/v2/vectordb/entities/insert",
         {"collectionName": coll, "data": rows},
@@ -96,7 +106,7 @@ def rag_status() -> dict[str, Any]:
     result: dict[str, Any] = {
         "configured": configured,
         "uri": _env("OCTOP_MILVUS_URI"),
-        "collection": _env("OCTOP_MILVUS_COLLECTION") or "wb_memory",
+        "collection": default_collection(),
         "wired": True,
     }
     if configured:

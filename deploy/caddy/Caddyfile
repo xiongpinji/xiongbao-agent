@@ -1,0 +1,20 @@
+# Production edge for WorkBuddy multi-tenant console.
+# Replace example.com with your domain; Caddy obtains TLS automatically.
+#
+# Console is ONLY reachable via this reverse proxy (no host :8010 publish).
+
+{$WB_DOMAIN:localhost} {
+	encode gzip
+	reverse_proxy wb-console-prod:8010
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		-Server
+	}
+
+	log {
+		output stdout
+	}
+}

@@ -1,40 +1,43 @@
-# TASKBOARD — WorkBuddy 运行时贯通（V10）
+# TASKBOARD — 多租户生产硬化（V11）
 
-> 基线：V1–V9 已交付（产品面对齐）。  
-> 本板覆盖：**把 V9 孤岛能力串成可执行闭环**（Task 跑通、策略生效、入站轮询、Skill 入目录、KB/档案注入、打包导出）。  
-> **边界不变**：不复刻 Electron/QClaw、腾讯云 SaaS、小程序/计费、腾讯文档专有 API。
+> 基线：V1–V10 已交付（能力对齐 + 运行时贯通）。  
+> 本板目标：**一套实例服务多家客户（多租户）**，可私有化部署、可验收隔离。  
+> **边界**：不复刻腾讯云 SaaS 计费/小程序；租户模型落在 WorkBuddy 层 + Octop 多用户映射，不改 Octop 核心 Dashboard。
 
-## V9（已完成，归档）
+## 部署定义（Done 标准）
 
-| ID | 交付物 | 状态 |
-|---|---|---|
-| V9.1–V9.16 | 任务 / 权限 / 数据 / 模型 / worktree / 微信QQ / 资料库 / 灵感 / KB / 共写 / 通道桥 / Skill / Console / Harbor / 审计 / verify | ✅ |
+1. 两租户数据互不可见（artifacts / Console API / Milvus 命名空间）
+2. Console 默认鉴权，禁止裸奔公网
+3. Compose 生产拓扑：仅 443 对外（Caddy/TLS），内部端口不映射
+4. 租户可注册、配额可强制、可按租户备份/恢复
+5. `verify_v11.py` 全绿
 
-## V10 任务拆解（一次性）
+## V11 任务拆解
 
 | ID | 交付物 | 验收 | 状态 |
 |---|---|---|---|
-| V10.1 | `runtime/task_runner`：Task → GoalEngine 执行（dry/live） | 单测 dry 路径 | ✅ |
-| V10.2 | `runtime/policy_gate`：跑 Task/Goal 前校验 SecurityPolicy | ask 拒写 / craft 放行 | ✅ |
-| V10.3 | `runtime/profile_env`：激活 ModelProfile → env/caller | 注入 base_url/model | ✅ |
-| V10.4 | `runtime/inbox_poll`：Inbox JSONL → ChannelBridge | 游标不重复消费 | ✅ |
-| V10.5 | `runtime/skill_register`：install + 写入 installed 索引 | 目录可被 Catalog 扫到 | ✅ |
-| V10.6 | `runtime/kb_context`：KB search 注入记忆上下文 | 命中片段进 prompt 前缀 | ✅ |
-| V10.7 | `runtime/bundle_export`：多根（tasks/kb/cowrite/…）打包 | zip 往返 | ✅ |
-| V10.8 | Task create 可选 git worktree 绑定 | meta.worktree 落盘 | ✅ |
-| V10.9 | Cowrite export → LibraryIndex 发布 | library list 可见 | ✅ |
-| V10.10 | Console `/api/runtime/*` + Hub v10 + `verify_v10` + docs | VERIFY V10 OK | ✅ |
+| V11.1 | `tenant/`：Tenant 注册表 + JWT claims(`tid`/`uid`) | 创建两租户；签发/校验 token | ✅ |
+| V11.2 | `TenantRoots`：`artifacts/tenants/<tid>/users/<uid>/…` | 跨租户路径不重叠 | ✅ |
+| V11.3 | Console 强制鉴权 + 本租户 Task 列表 | 无 token→401；跨租户不泄漏 | ✅ |
+| V11.4 | 租户配额（tasks/storage_mb/agents） | 超限明确错误 | ✅ |
+| V11.5 | `tenant backup/restore` 切片 | 只动本租户数据 | ✅ |
+| V11.6 | Milvus collection=`wb_{tid}` 前缀 | 跨租户 search 不串 | ✅ |
+| V11.7 | Casdoor token → Console 会话桥（可选） | 配置后可换发本系统 JWT | ✅ |
+| V11.8 | 生产 Compose：Caddy + TLS 样例 + 隐藏 8010 | 文档一键起 | ✅ |
+| V11.9 | `deploy/enterprise/MULTI_TENANT.md` runbook | 目录树/权限/运维 | ✅ |
+| V11.10 | Hub v11 + `verify_v11` + 单测 + docs | VERIFY V11 OK | ✅ |
 
-## 明确不进 V10
+## 明确不进 V11
 
-- Harbor **真机全量**评分（入口已有；本板只保 dry/harness）
-- 腾讯闭源桌面壳 / 云托管 / 计费
-- 修改 Octop 核心 Dashboard React
+- 腾讯闭源 Electron / 云计费 / 小程序
+- 修改 Octop Dashboard React
+- Harbor 真机全量评分（仍 dry/harness）
+- 完整计费账单系统（仅留配额钩子）
 
 ## 验收
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
-python -S scripts\verify_v10.py
-# → VERIFY V10 OK
+python -S scripts\verify_v11.py
+# → VERIFY V11 OK
 ```

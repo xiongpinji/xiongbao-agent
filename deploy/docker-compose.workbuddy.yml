@@ -1,17 +1,19 @@
-# WorkBuddy-aligned Octop stack (self-hosted 7×24)
+# WorkBuddy multi-tenant production deployment
 #
-# Default (lightweight, always-on):
+# Lightweight (dev / single-user):
 #   docker compose -f deploy/docker-compose.workbuddy.yml up -d
-#   → tick (cron) + wb-console (:8010)
 #
 # Full Octop API:
 #   docker compose -f deploy/docker-compose.workbuddy.yml --profile full up -d
+#
+# Production multi-tenant (Caddy TLS, auth on, no public 8010):
+#   docker compose -f deploy/docker-compose.workbuddy.yml --profile prod up -d
 #
 # Optional:
 #   --profile casdoor   Casdoor SSO
 #   --profile milvus    Milvus vector DB
 #
-# Env: copy deploy/.env.workbuddy.example → deploy/.env.workbuddy (do not commit secrets)
+# Env: copy deploy/.env.workbuddy.example → deploy/.env.workbuddy
 
 services:
   tick:
@@ -20,9 +22,12 @@ services:
     volumes:
       - ../:/app
       - octop_data:/var/lib/octop
+      - wb_artifacts:/app/artifacts
     environment:
       OCTOP_HOME: /var/lib/octop
       PYTHONPATH: /app
+      WB_MULTI_TENANT: ${WB_MULTI_TENANT:-0}
+      WB_ARTIFACTS_ROOT: /app/artifacts
     entrypoint:
       - bash
       - -lc
@@ -43,9 +48,15 @@ services:
     working_dir: /app
     volumes:
       - ../:/app
+      - wb_artifacts:/app/artifacts
     environment:
       PYTHONPATH: /app
       WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
+      WB_MULTI_TENANT: ${WB_MULTI_TENANT:-0}
+      WB_CONSOLE_AUTH: ${WB_CONSOLE_AUTH:-0}
+      WB_CONSOLE_SECRET: ${WB_CONSOLE_SECRET:-wb-dev-secret-change-me}
+      WB_ARTIFACTS_ROOT: /app/artifacts
+      WB_TENANT_REGISTRY: /app/artifacts/tenants/_registry.json
     command:
       - python
       - -S
@@ -55,6 +66,7 @@ services:
       - 0.0.0.0
       - --port
       - "8010"
+    # Dev maps 8010; production profile uses Caddy only (see wb-console-prod + caddy)
     ports:
       - "8010:8010"
     restart: unless-stopped
@@ -65,25 +77,86 @@ services:
           "python",
           "-S",
           "-c",
-          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/api/status', timeout=3)",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/api/health', timeout=3)",
         ]
       interval: 30s
       timeout: 5s
       retries: 3
 
+  # Production: console without host port publish
+  wb-console-prod:
+    profiles: ["prod"]
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ../:/app
+      - wb_artifacts:/app/artifacts
+    environment:
+      PYTHONPATH: /app
+      WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
+      WB_MULTI_TENANT: "1"
+      WB_CONSOLE_AUTH: "1"
+      WB_CONSOLE_SECRET: ${WB_CONSOLE_SECRET:?set WB_CONSOLE_SECRET}
+      WB_ARTIFACTS_ROOT: /app/artifacts
+      WB_TENANT_REGISTRY: /app/artifacts/tenants/_registry.json
+      OCTOP_CASDOOR_ENDPOINT: ${OCTOP_CASDOOR_ENDPOINT:-}
+      OCTOP_CASDOOR_CLIENT_ID: ${OCTOP_CASDOOR_CLIENT_ID:-}
+      OCTOP_CASDOOR_CLIENT_SECRET: ${OCTOP_CASDOOR_CLIENT_SECRET:-}
+    command:
+      - python
+      - -S
+      - -m
+      - octop.contrib.workbuddy.console_server
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8010"
+    expose:
+      - "8010"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-S",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/api/health', timeout=3)",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  caddy:
+    profiles: ["prod"]
+    image: caddy:2.8-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - wb-console-prod
+    restart: unless-stopped
+
   octop:
-    profiles: ["full"]
+    profiles: ["full", "prod"]
     image: python:3.12-slim
     working_dir: /app/octop
     volumes:
       - ../:/app
       - octop_data:/var/lib/octop
+      - wb_artifacts:/app/artifacts
     environment:
       OCTOP_HOME: /var/lib/octop
       PYTHONPATH: /app/octop/src:/app
       WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
       WB_LLM_BASE_URL: ${WB_LLM_BASE_URL:-}
       WB_LLM_MODEL: ${WB_LLM_MODEL:-}
+      WB_MULTI_TENANT: ${WB_MULTI_TENANT:-1}
+      WB_ARTIFACTS_ROOT: /app/artifacts
       OCTOP_CASDOOR_ENDPOINT: ${OCTOP_CASDOOR_ENDPOINT:-}
       OCTOP_MILVUS_URI: ${OCTOP_MILVUS_URI:-}
     command:
@@ -92,6 +165,7 @@ services:
       - |
         pip install -q -e . &&
         python -m octop.cli run --host 0.0.0.0 --port 8000
+    # prod: only expose internally; caddy can reverse-proxy if needed
     ports:
       - "8000:8000"
     restart: unless-stopped
@@ -120,3 +194,6 @@ services:
 volumes:
   octop_data:
   milvus_data:
+  wb_artifacts:
+  caddy_data:
+  caddy_config:

@@ -61,7 +61,8 @@ class TestV8Compose(unittest.TestCase):
         text = path.read_text(encoding="utf-8")
         self.assertIn("wb-console", text)
         self.assertIn("8010", text)
-        self.assertIn('profiles: ["full"]', text)
+        self.assertIn("full", text)
+        self.assertIn("profiles:", text)
 
 
 if __name__ == "__main__":

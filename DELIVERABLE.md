@@ -378,6 +378,33 @@ python -S -m octop.contrib.workbuddy.runtime_cli skill-register --id diagnose
 python -S -m octop.contrib.workbuddy.runtime_cli bundle-export --out artifacts/bundle.zip
 ```
 
+## V11 — READY（多租户生产部署）
+
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_v11.py
+# → VERIFY V11 OK
+```
+
+| Check | Result |
+|---|---|
+| Tenant 注册 + JWT (`tid`/`uid`) | OK |
+| `artifacts/tenants/<tid>/users/<uid>/` 隔离 | OK |
+| Console 鉴权 401 + 本租户 tasks | OK |
+| 配额强制 | OK |
+| 租户 backup/restore | OK |
+| Milvus `wb_<tid>` | OK |
+| Casdoor → Console 换发入口 | OK |
+| Compose `--profile prod` + Caddy | OK |
+| `deploy/enterprise/MULTI_TENANT.md` | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.tenant_cli create acme --name "Acme"
+python -S -m octop.contrib.workbuddy.tenant_cli login acme admin <api_key>
+# $env:WB_MULTI_TENANT=1; $env:WB_CONSOLE_AUTH=1; $env:WB_CONSOLE_SECRET='...'
+docker compose -f deploy/docker-compose.workbuddy.yml --profile prod up -d
+```
+
 ## Out of scope（产品边界）
 
 - 腾讯闭源 Electron / QClaw 桌面壳（UI → Octop Dashboard + WorkBuddy Console + CLI）

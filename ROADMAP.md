@@ -12,21 +12,22 @@
 | V8 | Harbor uv sync + dry-run / Compose 常驻 / Console+Hub | ✅ |
 | V9 | 任务生命周期 / 权限 / 数据 / 模型档案 / worktree / 微信QQ / 资料库 / 灵感 / KB / 共写 / 通道桥 / Skill 安装扫描 / Console v2 / Harbor 评分钩子 / 审计挂钩 | ✅ |
 | V10 | Task→Goal 执行 / Policy 门禁 / 模型档案注入 / Inbox 轮询 / Skill 注册目录 / KB 召回 / 多根打包 / Task+worktree / Cowrite→Library / Console Runtime | ✅ |
+| V11 | 多租户注册 / 路径隔离 / Console JWT / 配额 / 租户备份 / Milvus 命名空间 / Casdoor 换发 / Caddy 生产 Compose / Runbook | ✅ |
 
 ## 产品边界（无法像素级复制）
 
 | 项 | 等价交付 |
 |---|---|
 | 腾讯 Electron / QClaw 桌面壳 | Octop Dashboard + WorkBuddy Console + CLI |
-| 腾讯云托管 SaaS | Docker Compose / systemd 私有化 7×24 |
-| 小程序 / 移动端 / 计费 | 不做 |
+| 腾讯云托管 SaaS | Docker Compose / systemd 私有化 7×24（多租户） |
+| 小程序 / 移动端 / 计费 | 不做（仅配额钩子） |
 | 腾讯文档 / IMA / 乐享 | 本地 knowledge 适配 |
 
 ## 验收
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_v11.py
 python -S scripts\verify_v10.py
 python -S scripts\verify_v9.py
-python -S scripts\verify_full.py
 ```

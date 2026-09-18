@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: MIT
-"""Update hub with V10 runtime surfaces."""
+"""Update hub with V11 multi-tenant surfaces."""
 
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -31,15 +32,31 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
     installed_count = 0
     if installed.is_dir():
         installed_count = sum(1 for p in installed.iterdir() if p.is_dir() and (p / "SKILL.md").is_file())
+    tenants_reg = root / "artifacts" / "tenants" / "_registry.json"
+    tenant_count = 0
+    if tenants_reg.is_file():
+        try:
+            data = json.loads(tenants_reg.read_text(encoding="utf-8"))
+            tenant_count = len(data.get("tenants") or {})
+        except (OSError, json.JSONDecodeError):
+            tenant_count = -1
     return {
         "ok": True,
-        "v": 10,
+        "v": 11,
         "root": str(root),
         "harbor": harbor.to_dict(),
         "harness": harness_mount_probe(root=root),
         "enterprise": enterprise,
         "audit": {"path": str(audit_path), "lines": audit_lines},
         "tasks": {"root": str(tasks_root), "count": task_count},
+        "tenants": {
+            "registry": str(tenants_reg),
+            "count": tenant_count,
+            "multi_tenant": (os.environ.get("WB_MULTI_TENANT") or "").strip() in {"1", "true", "yes"},
+            "console_auth": (os.environ.get("WB_CONSOLE_AUTH") or os.environ.get("WB_MULTI_TENANT") or "").strip()
+            in {"1", "true", "yes"},
+            "cli": "python -S -m octop.contrib.workbuddy.tenant_cli",
+        },
         "runtime": {
             "cli": "python -S -m octop.contrib.workbuddy.runtime_cli",
             "commands": [
@@ -57,15 +74,18 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
         },
         "compose": {
             "file": str(root / "deploy" / "docker-compose.workbuddy.yml"),
-            "hint": "docker compose -f deploy/docker-compose.workbuddy.yml up -d",
-            "profiles": ["full", "casdoor", "milvus"],
+            "hint": "docker compose -f deploy/docker-compose.workbuddy.yml --profile prod up -d",
+            "profiles": ["full", "casdoor", "milvus", "prod"],
         },
         "console": {
             "default_port": 8010,
             "path": "/",
             "apis": [
+                "/api/health",
+                "/api/auth/login",
                 "/api/status",
                 "/api/tasks",
+                "/api/tenant",
                 "/api/skills",
                 "/api/connectors",
                 "/api/harbor",
