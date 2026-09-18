@@ -11,11 +11,13 @@
   <header class="topbar" role="banner">
     <div class="brand">知远<span>WorkBuddy</span></div>
     <span class="chip muted" id="sessionChip">未登录</span>
+    <span class="chip" id="projectChip" title="当前项目空间">项目 · —</span>
     <span class="chip" id="modeChip" title="当前模式">创作</span>
     <span class="chip muted" id="modelChip" title="当前模型">模型 · —</span>
     <span class="chip muted" id="entChip" title="企业服务">企业服务 · —</span>
     <div class="grow"></div>
     <nav class="topbar-nav" aria-label="主导航">
+      <button type="button" class="linkish hide-sm" id="btnProjects">项目空间</button>
       <button type="button" class="linkish hide-sm" id="btnSkills">技能</button>
       <a class="hide-sm" href="/ops.html" id="btnOps">设置</a>
       <div class="more-wrap">
@@ -42,6 +44,12 @@
       <div class="col-hd">
         <h2>任务</h2>
         <button type="button" class="btn" id="btnNew">新建</button>
+      </div>
+      <div class="col-hd" style="border-bottom:0;padding-top:0;gap:0.4rem">
+        <select id="projectSelect" aria-label="项目空间" style="flex:1;min-width:0">
+          <option value="">全部项目</option>
+        </select>
+        <button type="button" class="btn ghost" id="btnNewProject" title="新建项目空间">+</button>
       </div>
       <div class="col-hd" style="border-bottom:0;padding-top:0">
         <input class="search" id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" />
@@ -140,6 +148,17 @@
     <div class="skills-list" id="skillsList"></div>
   </aside>
 
+  <aside class="skills-drawer" id="projectDrawer" aria-label="项目空间">
+    <div class="col-hd">
+      <h2 id="projectDrawerTitle">项目空间</h2>
+      <button type="button" class="btn ghost" id="btnCloseProject">关闭</button>
+    </div>
+    <div class="skills-list" id="projectPanel">
+      <p class="hint" style="color:var(--muted);font-size:0.85rem;padding:0 0.25rem">选择或新建项目后，可将市场技能存入本空间；执行任务时自动加载。</p>
+      <div id="projectSkillList"></div>
+    </div>
+  </aside>
+
   <div class="task-ctx-menu" id="taskCtxMenu" role="menu">
     <button type="button" data-act="rename">改名</button>
     <button type="button" data-act="pin">置顶/取消</button>
@@ -158,10 +177,12 @@
       pending: "待开始", running: "进行中", waiting: "等待中",
       completed: "已完成", failed: "失败", cancelled: "已取消"
     };
+    const PROJECT_KEY = "wb_shell_project";
     let state = {
       tasks: [], current: null, authRequired: true,
       sending: false, pollTimer: null, currentStatus: "",
-      ctxTaskId: null, liveConfirmShown: false
+      ctxTaskId: null, liveConfirmShown: false,
+      projects: [], projectId: localStorage.getItem(PROJECT_KEY) || ""
     };
     const layouts = ["layout-narrow", "layout-standard", "layout-wide"];
 
@@ -344,9 +365,104 @@
       return `<span class="status-badge ${escapeHtml(st)}">${STATUS_LABEL[st] || st}</span>`;
     }
 
+    async function refreshProjects() {
+      const data = await api("/api/projects");
+      state.projects = data.projects || [];
+      const sel = document.getElementById("projectSelect");
+      const cur = state.projectId;
+      sel.innerHTML = '<option value="">全部项目</option>' + state.projects.map(p =>
+        `<option value="${escapeHtml(p.project_id)}">${escapeHtml(p.name || p.project_id)}（${p.skill_count || 0} 技能）</option>`
+      ).join("");
+      if (cur && state.projects.some(p => p.project_id === cur)) sel.value = cur;
+      else if (cur && !state.projects.some(p => p.project_id === cur)) {
+        state.projectId = "";
+        localStorage.removeItem(PROJECT_KEY);
+        sel.value = "";
+      }
+      updateProjectChip();
+    }
+    function updateProjectChip() {
+      const chip = document.getElementById("projectChip");
+      if (!state.projectId) {
+        chip.textContent = "项目 · 未选";
+        chip.className = "chip muted";
+        return;
+      }
+      const p = state.projects.find(x => x.project_id === state.projectId);
+      const n = p ? (p.skill_count || 0) : 0;
+      chip.textContent = "项目 · " + (p ? (p.name || p.project_id) : state.projectId) + " · " + n + "技能";
+      chip.className = "chip";
+    }
+    function setProjectId(id) {
+      state.projectId = id || "";
+      if (state.projectId) localStorage.setItem(PROJECT_KEY, state.projectId);
+      else localStorage.removeItem(PROJECT_KEY);
+      document.getElementById("projectSelect").value = state.projectId;
+      updateProjectChip();
+    }
+    document.getElementById("projectSelect").addEventListener("change", async (e) => {
+      setProjectId(e.target.value);
+      await refreshTasks();
+    });
+    document.getElementById("btnNewProject").addEventListener("click", async () => {
+      const id = prompt("项目 ID（英文/数字/-_）", "my_project");
+      if (!id) return;
+      const name = prompt("项目显示名", id) || id;
+      try {
+        const data = await api("/api/projects", {
+          method: "POST",
+          body: JSON.stringify({ project_id: id.trim(), name: name.trim() }),
+        });
+        await refreshProjects();
+        setProjectId(data.project.project_id);
+        toast("项目已创建", "ok");
+        openProjectDrawer();
+      } catch (err) { /* toast via api */ }
+    });
+
+    async function openProjectDrawer() {
+      document.getElementById("projectDrawer").classList.add("open");
+      document.getElementById("skillsDrawer").classList.remove("open");
+      const title = document.getElementById("projectDrawerTitle");
+      const box = document.getElementById("projectSkillList");
+      if (!state.projectId) {
+        title.textContent = "项目空间";
+        box.innerHTML = '<div class="empty">请先在左侧选择或新建项目</div>';
+        return;
+      }
+      const data = await api("/api/projects/" + encodeURIComponent(state.projectId));
+      const p = data.project;
+      title.textContent = (p.name || p.project_id) + " · 技能";
+      const skills = p.skills || [];
+      box.innerHTML = `
+        <p style="color:var(--muted);font-size:0.8rem;margin:0 0 0.75rem">执行归属本项目的任务时，将自动加载下列技能。</p>
+        ${skills.length ? skills.map(s => `
+          <div class="skill-row">
+            <h3>${escapeHtml(s.name || s.id)}</h3>
+            <p>${escapeHtml(s.description || "")}</p>
+          </div>`).join("") : '<div class="empty">暂无项目技能<br/><button type="button" class="btn" id="btnOpenMarketFromProject" style="margin-top:0.75rem">从技能市场存入</button></div>'}
+        <div style="margin-top:1rem">
+          <button type="button" class="btn ghost" id="btnDepositMore">从技能市场存入…</button>
+        </div>`;
+      const openM = () => { document.getElementById("projectDrawer").classList.remove("open"); document.getElementById("btnSkills").click(); };
+      const a = document.getElementById("btnOpenMarketFromProject");
+      const b = document.getElementById("btnDepositMore");
+      if (a) a.addEventListener("click", openM);
+      if (b) b.addEventListener("click", openM);
+    }
+    document.getElementById("btnProjects").addEventListener("click", openProjectDrawer);
+    document.getElementById("btnCloseProject").addEventListener("click", () => {
+      document.getElementById("projectDrawer").classList.remove("open");
+    });
+    document.getElementById("projectChip").addEventListener("click", openProjectDrawer);
+
     async function refreshTasks() {
       const q = document.getElementById("search").value.trim();
-      const data = await api("/api/tasks" + (q ? ("?q=" + encodeURIComponent(q)) : ""));
+      const params = new URLSearchParams();
+      if (q) params.set("q", q);
+      if (state.projectId) params.set("project_id", state.projectId);
+      const qs = params.toString();
+      const data = await api("/api/tasks" + (qs ? ("?" + qs) : ""));
       state.tasks = data.tasks || [];
       const box = document.getElementById("taskList");
       if (!state.tasks.length) {
@@ -364,6 +480,7 @@
             ${statusBadge(t.status)}
             <span class="mode-dot ${escapeHtml(t.mode || "craft")}" title="${MODE_LABEL[t.mode] || t.mode}"></span>
             <span>${MODE_LABEL[t.mode] || t.mode}</span>
+            ${t.project_id ? `<span title="项目">${escapeHtml(t.project_id)}</span>` : ""}
             <span>${formatRelTime(t.updated_at)}</span>
           </div>
         </div>`).join("");
@@ -450,9 +567,13 @@
       const data = await api("/api/tasks/" + encodeURIComponent(id));
       const t = data.task;
       state.currentStatus = t.status || "";
-      document.getElementById("taskTitle").textContent = t.title;
+      document.getElementById("taskTitle").textContent = t.title + (t.project_id ? (" · " + t.project_id) : "");
       document.getElementById("modeSelect").value = t.mode || "craft";
       document.getElementById("modeChip").textContent = MODE_LABEL[t.mode] || t.mode || "创作";
+      if (t.project_id && t.project_id !== state.projectId) {
+        // Keep filter unless user is browsing all; soft-sync chip only when empty
+        if (!state.projectId) setProjectId(t.project_id);
+      }
       renderMessages(t.messages || []);
       await refreshWorkspace(id);
       await refreshTasks();
@@ -569,9 +690,11 @@
       e.target.value = "";
       if (!file) return;
       if (!state.current) {
+        const body = { title: file.name, mode: document.getElementById("modeSelect").value };
+        if (state.projectId) body.project_id = state.projectId;
         const created = await api("/api/tasks", {
           method: "POST",
-          body: JSON.stringify({ title: file.name, mode: document.getElementById("modeSelect").value }),
+          body: JSON.stringify(body),
         });
         state.current = created.task.task_id;
       }
@@ -648,7 +771,9 @@
       const title = prompt("任务标题", "新任务");
       if (!title) return;
       const mode = document.getElementById("modeSelect").value;
-      const data = await api("/api/tasks", { method: "POST", body: JSON.stringify({ title, mode }) });
+      const body = { title, mode };
+      if (state.projectId) body.project_id = state.projectId;
+      const data = await api("/api/tasks", { method: "POST", body: JSON.stringify(body) });
       await refreshTasks();
       await openTask(data.task.task_id);
     }
@@ -695,9 +820,11 @@
       }
       if (!state.current) {
         const title = document.getElementById("composer").value.trim().slice(0, 40) || "新任务";
+        const body = { title, mode: document.getElementById("modeSelect").value };
+        if (state.projectId) body.project_id = state.projectId;
         const created = await api("/api/tasks", {
           method: "POST",
-          body: JSON.stringify({ title, mode: document.getElementById("modeSelect").value }),
+          body: JSON.stringify(body),
         });
         state.current = created.task.task_id;
       }
@@ -773,21 +900,48 @@
 
     document.getElementById("btnSkills").addEventListener("click", async () => {
       document.getElementById("skillsDrawer").classList.add("open");
+      document.getElementById("projectDrawer").classList.remove("open");
       const data = await api("/api/skills");
       const installed = new Set(data.installed || []);
-      document.getElementById("skillsList").innerHTML = (data.skills || []).map(s => `
+      const canDeposit = !!state.projectId;
+      document.getElementById("skillsList").innerHTML = (canDeposit
+        ? `<p style="color:var(--muted);font-size:0.8rem;margin:0 0 0.75rem">当前项目：<strong>${escapeHtml(state.projectId)}</strong> — 可「存入项目」</p>`
+        : `<p style="color:var(--muted);font-size:0.8rem;margin:0 0 0.75rem">未选项目时仅可安装到本机；选中项目后可存入项目空间。</p>`) +
+        (data.skills || []).map(s => `
         <div class="skill-row">
           <h3>${escapeHtml(s.name || s.id)}</h3>
           <p>${escapeHtml(s.description || "")}</p>
-          <button type="button" class="btn ${installed.has(s.id) ? "ghost" : ""}" data-install="${escapeHtml(s.id)}" ${installed.has(s.id) ? "disabled" : ""}>
-            ${installed.has(s.id) ? "已安装" : "安装"}
-          </button>
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+            <button type="button" class="btn ${installed.has(s.id) ? "ghost" : ""}" data-install="${escapeHtml(s.id)}" ${installed.has(s.id) ? "disabled" : ""}>
+              ${installed.has(s.id) ? "已安装" : "安装"}
+            </button>
+            <button type="button" class="btn ghost" data-deposit="${escapeHtml(s.id)}" ${canDeposit ? "" : "disabled"} title="${canDeposit ? "存入当前项目空间" : "请先选择项目"}">
+              存入项目
+            </button>
+          </div>
         </div>`).join("") || '<div class="empty">无技能</div>';
     });
     document.getElementById("btnCloseSkills").addEventListener("click", () => {
       document.getElementById("skillsDrawer").classList.remove("open");
     });
     document.getElementById("skillsList").addEventListener("click", async (e) => {
+      const dep = e.target.closest("[data-deposit]");
+      if (dep && !dep.disabled) {
+        if (!state.projectId) { toast("请先选择项目空间", "error"); return; }
+        dep.disabled = true; dep.textContent = "存入中…";
+        try {
+          await api("/api/projects/" + encodeURIComponent(state.projectId) + "/skills/deposit", {
+            method: "POST",
+            body: JSON.stringify({ skill_id: dep.dataset.deposit }),
+          });
+          dep.textContent = "已存入";
+          toast("技能已存入项目", "ok");
+          await refreshProjects();
+        } catch {
+          dep.disabled = false; dep.textContent = "存入项目";
+        }
+        return;
+      }
       const btn = e.target.closest("[data-install]");
       if (!btn || btn.disabled) return;
       btn.disabled = true; btn.textContent = "安装中…";
@@ -803,6 +957,7 @@
     async function boot() {
       if (!(await ensureAuth())) return;
       await refreshEnterprise();
+      await refreshProjects();
       await refreshTasks();
       if (state.tasks[0]) await openTask(state.tasks[0].task_id);
     }

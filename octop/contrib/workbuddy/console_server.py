@@ -16,6 +16,7 @@ from .connectors import probe_status as connectors_probe
 from .console_workspace import read_preview, resolve_download, save_upload, workspace_payload
 from .enterprise.probe import enterprise_probe
 from .hub import hub_status
+from .project import ProjectSpace
 from .skills import SkillCatalog, install_from_vendor, install_skill
 from .task import TaskStore
 from .tenant import (
@@ -41,6 +42,7 @@ _API_GET_EXACT = {
     "/api/status",
     "/api/hub",
     "/api/tasks",
+    "/api/projects",
     "/api/skills",
     "/api/connectors",
     "/api/harbor",
@@ -69,6 +71,28 @@ def _tasks_root_for(ctx: TenantContext | None) -> Path:
     return Path("artifacts/tasks")
 
 
+def _projects_root_for(ctx: TenantContext | None) -> Path:
+    roots = _roots_for(ctx)
+    if roots is not None:
+        return roots.projects
+    return Path("artifacts/projects")
+
+
+def _run_task_kwargs(ctx: TenantContext | None) -> dict[str, Any]:
+    roots = _roots_for(ctx)
+    kb = roots.knowledge if roots else Path("artifacts/knowledge")
+    goals = Path("artifacts/goal_craft")
+    if roots is not None:
+        goals = roots.root / "goal_craft"
+        goals.mkdir(parents=True, exist_ok=True)
+    return {
+        "tasks_root": _tasks_root_for(ctx),
+        "goals_root": goals,
+        "kb_root": kb,
+        "projects_root": _projects_root_for(ctx),
+    }
+
+
 def _llm_model() -> str:
     return (
         (os.environ.get("WB_LLM_MODEL") or "").strip()
@@ -91,6 +115,7 @@ def _task_summary(t: Any) -> dict[str, Any]:
         "title": t.title,
         "status": t.status,
         "mode": t.mode,
+        "project_id": t.project_id or "",
         "updated_at": t.updated_at,
         "pinned": bool(t.meta.get("pinned")),
         "archived": bool(t.meta.get("archived")),
@@ -145,12 +170,21 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
         store = TaskStore(_tasks_root_for(ctx))
         q = (query.get("q") or [""])[0]
         status = (query.get("status") or [""])[0] or None
+        project_id = (query.get("project_id") or [""])[0] or None
         include_archived = (query.get("archived") or ["0"])[0] in {"1", "true", "yes"}
-        rows = [
-            _task_summary(t)
-            for t in store.list_tasks(status=status, query=q or None, include_archived=include_archived)
-        ]
+        rows = []
+        for t in store.list_tasks(status=status, query=q or None, include_archived=include_archived):
+            if project_id and (t.project_id or "") != project_id:
+                continue
+            rows.append(_task_summary(t))
         return {"ok": True, "count": len(rows), "tasks": rows}
+    if path == "/api/projects":
+        space = ProjectSpace(_projects_root_for(ctx))
+        rows = []
+        for p in space.list_projects():
+            skills = space.list_skills(p.project_id)
+            rows.append({**p.to_dict(), "skill_count": len(skills), "skills": skills[:20]})
+        return {"ok": True, "count": len(rows), "projects": rows}
     if path == "/api/skills":
         cat = SkillCatalog()
         n = cat.scan()
@@ -232,6 +266,32 @@ def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, lis
     return 404, {"ok": False, "error": "not found"}
 
 
+def api_get_project_path(path: str, ctx: TenantContext | None) -> tuple[int, dict[str, Any]]:
+    """Handle /api/projects/<id> and /api/projects/<id>/skills."""
+    parts = [p for p in path.strip("/").split("/") if p]
+    if len(parts) < 3 or parts[0] != "api" or parts[1] != "projects":
+        return 404, {"ok": False, "error": "not found"}
+    project_id = unquote(parts[2])
+    space = ProjectSpace(_projects_root_for(ctx))
+    try:
+        meta = space.load(project_id)
+    except FileNotFoundError:
+        return 404, {"ok": False, "error": "project not found"}
+    if len(parts) == 3:
+        return 200, {
+            "ok": True,
+            "project": {
+                **meta.to_dict(),
+                "skill_count": len(space.list_skills(project_id)),
+                "skills": space.skill_details(project_id),
+                "memory_preview": space.memory_text(project_id, limit=400),
+            },
+        }
+    if parts[3] == "skills":
+        return 200, {"ok": True, "project_id": project_id, "skills": space.skill_details(project_id)}
+    return 404, {"ok": False, "error": "not found"}
+
+
 def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: TenantContext | None) -> tuple[int, dict[str, Any]]:
     if path == "/api/auth/login":
         tid = str(body.get("tenant_id") or (query.get("tenant_id") or [""])[0]).strip()
@@ -253,11 +313,27 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         title = str(body.get("title") or body.get("prompt") or "新任务").strip()
         mode = str(body.get("mode") or "craft").strip() or "craft"
         prompt = str(body.get("prompt") or "").strip()
+        project_id = str(body.get("project_id") or "").strip()
         try:
-            rec = store.create(title=title, mode=mode, prompt=prompt)
+            rec = store.create(title=title, mode=mode, prompt=prompt, project_id=project_id)
         except Exception as exc:  # noqa: BLE001
             return 400, {"ok": False, "error": str(exc)}
         return 200, {"ok": True, "task": _task_detail(rec)}
+
+    if path == "/api/projects":
+        space = ProjectSpace(_projects_root_for(ctx))
+        project_id = str(body.get("project_id") or body.get("id") or "").strip()
+        name = str(body.get("name") or project_id).strip()
+        description = str(body.get("description") or "").strip()
+        if not project_id:
+            return 400, {"ok": False, "error": "project_id required"}
+        try:
+            meta = space.create(project_id, name=name, description=description)
+        except FileExistsError as exc:
+            return 409, {"ok": False, "error": str(exc)}
+        except Exception as exc:  # noqa: BLE001
+            return 400, {"ok": False, "error": str(exc)}
+        return 200, {"ok": True, "project": {**meta.to_dict(), "skill_count": 0, "skills": []}}
 
     if path == "/api/skills/install":
         skill_id = str(body.get("skill_id") or body.get("id") or "").strip()
@@ -298,19 +374,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             dry = _as_bool(body.get("dry"), default=False)
         else:
             dry = False
-        roots = _roots_for(ctx)
-        kb = roots.knowledge if roots else Path("artifacts/knowledge")
-        goals = Path("artifacts/goal_craft")
-        if roots is not None:
-            goals = roots.root / "goal_craft"
-            goals.mkdir(parents=True, exist_ok=True)
-        result = run_task(
-            tid,
-            dry_run=dry,
-            tasks_root=_tasks_root_for(ctx),
-            goals_root=goals,
-            kb_root=kb,
-        )
+        result = run_task(tid, dry_run=dry, **_run_task_kwargs(ctx))
         return 200, {"ok": result.ok, **result.to_dict()}
 
     if path == "/api/harbor/dry-run":
@@ -339,8 +403,56 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         result = harbor_score_entry(job=job, dry_run=dry, timeout=min(timeout, 300.0))
         return 200, result
 
-    # /api/tasks/<id>/messages|actions|patch|delete
+    # /api/projects/<id>/skills/deposit | memory
     parts = [p for p in path.strip("/").split("/") if p]
+    if len(parts) >= 4 and parts[0] == "api" and parts[1] == "projects":
+        project_id = unquote(parts[2])
+        space = ProjectSpace(_projects_root_for(ctx))
+        try:
+            space.load(project_id)
+        except FileNotFoundError:
+            return 404, {"ok": False, "error": "project not found"}
+
+        if parts[3] == "skills" and len(parts) >= 5 and parts[4] == "deposit":
+            skill_id = str(body.get("skill_id") or body.get("id") or "").strip()
+            skill_path = str(body.get("skill_path") or body.get("path") or "").strip()
+            src: Path | None = None
+            if skill_path:
+                src = Path(skill_path)
+            elif skill_id:
+                installed = Path("artifacts/skillhub/installed") / skill_id
+                if installed.is_dir() and (installed / "SKILL.md").is_file():
+                    src = installed
+                else:
+                    cat = SkillCatalog()
+                    cat.scan()
+                    meta = next((m for m in cat.list() if m.id == skill_id), None)
+                    if meta is None or not meta.path:
+                        return 404, {"ok": False, "error": "skill not found"}
+                    src = Path(meta.path)
+                    if src.is_file():
+                        src = src.parent
+            else:
+                return 400, {"ok": False, "error": "skill_id or skill_path required"}
+            try:
+                dest = space.deposit_skill(project_id, src)
+            except Exception as exc:  # noqa: BLE001
+                return 400, {"ok": False, "error": str(exc)}
+            return 200, {
+                "ok": True,
+                "project_id": project_id,
+                "deposited": dest.name,
+                "skills": space.skill_details(project_id),
+            }
+
+        if parts[3] == "memory":
+            text = str(body.get("text") or body.get("content") or "")
+            mem = space._dir(project_id) / "memory" / "MEMORY.md"  # noqa: SLF001
+            mem.parent.mkdir(parents=True, exist_ok=True)
+            mem.write_text(text, encoding="utf-8")
+            return 200, {"ok": True, "project_id": project_id, "bytes": len(text.encode("utf-8"))}
+
+    # /api/tasks/<id>/messages|actions|patch|delete
     if len(parts) >= 4 and parts[0] == "api" and parts[1] == "tasks":
         task_id = unquote(parts[2])
         action = parts[3]
@@ -379,24 +491,11 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             role = str(body.get("role") or "user").strip() or "user"
             store.append_message(task_id, role, content)
             run = body.get("run", True)
-            # V17: live by default
             dry = _as_bool(body.get("dry"), default=False)
             if run and role == "user":
                 from .runtime import run_task
 
-                roots = _roots_for(ctx)
-                kb = roots.knowledge if roots else Path("artifacts/knowledge")
-                goals = Path("artifacts/goal_craft")
-                if roots is not None:
-                    goals = roots.root / "goal_craft"
-                    goals.mkdir(parents=True, exist_ok=True)
-                run_task(
-                    task_id,
-                    dry_run=dry,
-                    tasks_root=_tasks_root_for(ctx),
-                    goals_root=goals,
-                    kb_root=kb,
-                )
+                run_task(task_id, dry_run=dry, **_run_task_kwargs(ctx))
             rec = store.get(task_id)
             return 200, {"ok": True, "task": _task_detail(rec)}
 
@@ -412,6 +511,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
                     title=body.get("title"),
                     mode=body.get("mode"),
                     status=body.get("status"),
+                    project_id=body.get("project_id") if "project_id" in body else None,
                     meta_patch=meta_patch or None,
                 )
             except Exception as exc:  # noqa: BLE001
@@ -533,6 +633,8 @@ class _Handler(BaseHTTPRequestHandler):
 
             if path.startswith("/api/tasks/") and path != "/api/tasks":
                 code, payload = api_get_task_path(path, ctx, query)
+            elif path.startswith("/api/projects/") and path != "/api/projects":
+                code, payload = api_get_project_path(path, ctx)
             elif path in _API_GET_EXACT:
                 payload = api_payload(path, ctx, query)
                 code = 200

@@ -38,8 +38,18 @@ def parse_target(instruction: str) -> str:
 
 
 def parse_content(instruction: str) -> str:
-    m = _CONTENT_RE.search(instruction)
-    return m.group(1) if m else ""
+    marker = "（内容："
+    i = instruction.find(marker)
+    if i < 0:
+        # legacy latin fallback
+        m = re.search(r"\(content:(.*)\)\s*$", instruction, re.I | re.S)
+        return m.group(1) if m else ""
+    start = i + len(marker)
+    # Use the last closing fullwidth paren so nested （…） inside body survive
+    j = instruction.rfind("）")
+    if j <= start:
+        return ""
+    return instruction[start:j]
 
 
 class LiveStepRunner:

@@ -20,6 +20,7 @@
 | V15 | Casdoor OIDC 换发联调 / pptx 预览 / Harbor live 评分 | ✅ |
 | V16 | Harbor 四子集 smoke / Casdoor 生产清单 / Caddy tls internal | ✅ |
 | V17 | 用户壳四维质量：人话执行/默认真跑/CSS 抽出/登录与交互 100%·视觉≥95% | ✅ |
+| V18 | 项目空间 + 专家技能存入/执行绑定（壳+API+run_task） | ✅ |
 
 ## 产品边界（无法像素级复制）
 
@@ -36,7 +37,7 @@
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_project_space.py
 python -S scripts\verify_v17.py
 python -S scripts\verify_v16.py
-python -S scripts\verify_v11.py
 ```

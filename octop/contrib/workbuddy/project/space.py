@@ -109,7 +109,50 @@ class ProjectSpace:
         skills = self._dir(project_id) / "skills"
         if not skills.is_dir():
             return []
-        return sorted(p.name for p in skills.iterdir())
+        return sorted(p.name for p in skills.iterdir() if p.is_dir() or p.suffix.lower() == ".md")
+
+    def skill_details(self, project_id: str) -> list[dict[str, Any]]:
+        """Return deposited skills with name/description when SKILL.md is present."""
+        from ..skills.parser import parse_skill_file
+
+        rows: list[dict[str, Any]] = []
+        skills = self._dir(project_id) / "skills"
+        if not skills.is_dir():
+            return rows
+        for p in sorted(skills.iterdir()):
+            skill_md = p / "SKILL.md" if p.is_dir() else p
+            if not skill_md.is_file():
+                if p.is_dir():
+                    rows.append({"id": p.name, "name": p.name, "description": "", "path": str(p)})
+                continue
+            try:
+                pkg = parse_skill_file(skill_md, skill_id=p.stem if p.is_file() else p.name)
+                rows.append(
+                    {
+                        "id": pkg.meta.id,
+                        "name": pkg.meta.name,
+                        "description": (pkg.meta.description_zh or pkg.meta.description)[:160],
+                        "path": str(skill_md),
+                    }
+                )
+            except OSError:
+                rows.append({"id": p.name, "name": p.name, "description": "", "path": str(skill_md)})
+        return rows
+
+    def skills_root(self, project_id: str) -> Path:
+        p = self._dir(project_id) / "skills"
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+
+    def memory_text(self, project_id: str, *, limit: int = 3000) -> str:
+        path = self._dir(project_id) / "memory" / "MEMORY.md"
+        if not path.is_file():
+            return ""
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            return ""
+        return text[:limit]
 
     def shared_path(self, project_id: str) -> Path:
         p = self._dir(project_id) / "shared"

@@ -84,6 +84,11 @@ class TenantRoots:
     def skillhub(self) -> Path:
         return self.root / "skillhub"
 
+    @property
+    def projects(self) -> Path:
+        """Tenant-scoped project spaces (shared across users of the tenant)."""
+        return self.tenant_root / "projects"
+
     def ensure(self) -> None:
         for p in (
             self.tasks,
@@ -95,6 +100,7 @@ class TenantRoots:
             self.china_im,
             self.skillhub / "installed",
             self.shared,
+            self.projects,
         ):
             p.mkdir(parents=True, exist_ok=True)
 
@@ -112,6 +118,7 @@ class TenantRoots:
             "china_im": str(self.china_im),
             "skillhub": str(self.skillhub),
             "shared": str(self.shared),
+            "projects": str(self.projects),
         }
 
 

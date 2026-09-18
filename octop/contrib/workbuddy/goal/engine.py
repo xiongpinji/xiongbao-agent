@@ -49,18 +49,30 @@ class GoalEngine:
         self.llm_caller = llm_caller
         self.skill_ids: list[str] = []
         self.skills_work_root: Path | None = None
+        self.skills_root_override: Path | None = None
 
-    def bind_skills(self, skill_ids: list[str], *, work_root: Path | None = None) -> None:
+    def bind_skills(
+        self,
+        skill_ids: list[str],
+        *,
+        work_root: Path | None = None,
+        skills_root: Path | None = None,
+    ) -> None:
         self.skill_ids = list(skill_ids)
         self.skills_work_root = Path(work_root) if work_root else Path("artifacts") / "skillhub"
+        self.skills_root_override = Path(skills_root) if skills_root else None
 
     def _skill_context(self) -> str:
         if not self.skill_ids:
             return ""
         from ..skills import SkillCatalog, SkillRuntime
 
+        if self.skills_root_override is not None:
+            cat = SkillCatalog(skills_root=self.skills_root_override, include_builtin=False)
+        else:
+            cat = SkillCatalog()
         rt = SkillRuntime(
-            SkillCatalog(),
+            cat,
             work_root=self.skills_work_root or Path("artifacts") / "skillhub",
         )
         for sid in self.skill_ids:

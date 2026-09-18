@@ -205,6 +205,7 @@ class TaskStore:
         title: str | None = None,
         mode: str | None = None,
         status: str | None = None,
+        project_id: str | None = None,
         meta_patch: dict[str, Any] | None = None,
     ) -> TaskRecord:
         rec = self.get(task_id)
@@ -216,6 +217,8 @@ class TaskStore:
             if status not in TASK_STATUSES:
                 raise ValueError(f"invalid status: {status}")
             rec.status = status
+        if project_id is not None:
+            rec.project_id = project_id.strip()
         if meta_patch:
             rec.meta.update(meta_patch)
         rec.updated_at = _utc()
