@@ -34,12 +34,12 @@
 
   /* Text */
   --text: #f9fafb;
-  --muted: #a1a1b3;
+  --muted: #a1a1b8;
   --hint: #6b7280;
 
   /* Layout */
-  --sidebar-w: 248px;
-  --right-w: 340px;
+  --sidebar-w: 252px;
+  --right-w: 336px;
   --topbar-h: 0px;
   --radius-xs: 4px;
   --radius-sm: 8px;

@@ -14,11 +14,20 @@
 
   const AGENT_FILTERS = ["全部", "办公", "开发", "分析", "创作", "研究"];
   const PROJ_FILTERS = ["全部", "进行中", "已完成", "已归档"];
+  const ICON_CYCLE = ["chart", "code", "write", "star", "search", "settings", "rocket", "bot"];
 
   function escape(s) {
     return String(s).replace(/[&<>"']/g, (c) =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
     );
+  }
+
+  function ico(name) {
+    return `<svg class="ico" aria-hidden="true"><use href="#i-${escape(name)}"/></svg>`;
+  }
+
+  function iconBox(name) {
+    return `<div class="icon">${ico(name)}</div>`;
   }
 
   function setView(view) {
@@ -69,10 +78,10 @@
     } else if (view === "tools") {
       body.innerHTML = `
         <div class="card-grid">
-          <div class="agent-card" data-go="parity-models"><div class="icon">🧠</div><h3>模型档案</h3><p>切换本地 / 远程模型</p></div>
-          <div class="agent-card" data-go="parity-channels"><div class="icon">📡</div><h3>通道向导</h3><p>飞书 / 钉钉 / 企微配置</p></div>
-          <div class="agent-card" data-go="parity-worktree"><div class="icon">🌿</div><h3>仓库 Worktree</h3><p>并行任务目录</p></div>
-          <div class="agent-card" data-go="ops"><div class="icon">🛠️</div><h3>运维控制台</h3><p>Harbor / Runtime / 连接器</p></div>
+          <div class="agent-card" data-go="parity-models">${iconBox("brain")}<h3>模型档案</h3><p>切换本地 / 远程模型</p></div>
+          <div class="agent-card" data-go="parity-channels">${iconBox("radio")}<h3>通道向导</h3><p>飞书 / 钉钉 / 企微配置</p></div>
+          <div class="agent-card" data-go="parity-worktree">${iconBox("leaf")}<h3>仓库 Worktree</h3><p>并行任务目录</p></div>
+          <div class="agent-card" data-go="ops">${iconBox("tool")}<h3>运维控制台</h3><p>Harbor / Runtime / 连接器</p></div>
         </div>`;
       body.onclick = (e) => {
         const c = e.target.closest("[data-go]");
@@ -109,16 +118,15 @@
       const re = map[filter];
       if (re) skills = skills.filter((s) => re.test((s.name || "") + (s.description || "")));
     }
-    const icons = ["📊", "💻", "📝", "🎨", "🔍", "⚙️", "🚀", "📈"];
     body.innerHTML = skills.length
       ? `<div class="card-grid">${skills.map((s, i) => `
           <div class="agent-card" data-skill="${escape(s.id)}">
-            <div class="icon">${icons[i % icons.length]}</div>
+            ${iconBox(ICON_CYCLE[i % ICON_CYCLE.length])}
             <h3>${escape(s.name || s.id)}</h3>
             <p>${escape(s.description || "专业智能体技能")}</p>
             <p class="proj-meta" style="margin-top:8px">${installed.has(s.id) ? "已安装" : "可安装"}</p>
           </div>`).join("")}</div>`
-      : '<div class="empty"><div class="empty-art"></div>暂无匹配的智能体</div>';
+      : `<div class="empty"><div class="empty-art"></div>暂无匹配的智能体</div>`;
     body.onclick = async (e) => {
       const card = e.target.closest("[data-skill]");
       if (!card) return;
@@ -137,13 +145,12 @@
       }
       renderAgents(body, filter);
     };
-    // right preview
     const prev = $("rightAgentPreview");
     if (prev) {
       prev.innerHTML = (data.skills || []).slice(0, 4).map((s, i) => `
-        <div class="agent-card" style="padding:12px">
-          <div class="icon" style="width:32px;height:32px;font-size:14px;margin-bottom:8px">${icons[i % icons.length]}</div>
-          <h3 style="font-size:13px">${escape(s.name || s.id)}</h3>
+        <div class="agent-card">
+          ${iconBox(ICON_CYCLE[i % ICON_CYCLE.length])}
+          <h3>${escape(s.name || s.id)}</h3>
         </div>`).join("");
     }
   }
@@ -155,7 +162,7 @@
     body.innerHTML = rows.length
       ? `<div class="proj-list">${rows.map((p) => `
           <div class="proj-card" data-pid="${escape(p.project_id)}">
-            <div class="icon">📁</div>
+            ${iconBox("folder")}
             <div>
               <h3>${escape(p.name || p.project_id)}</h3>
               <p>${escape(p.description || "项目空间")}</p>
@@ -163,7 +170,7 @@
             </div>
             <span class="chip muted">打开</span>
           </div>`).join("")}</div>`
-      : '<div class="empty"><div class="empty-art"></div>暂无项目，点击右上角新建</div>';
+      : `<div class="empty"><div class="empty-art"></div>暂无项目，点击右上角新建</div>`;
     body.onclick = (e) => {
       const c = e.target.closest("[data-pid]");
       if (!c) return;
@@ -187,14 +194,14 @@
       <div class="card-grid">
         ${entries.map((e) => `
           <div class="kb-card">
-            <div class="icon">📂</div>
+            ${iconBox("folder")}
             <h3>${escape(e.title || e.entry_id)}</h3>
             <p>${escape(e.path || "")}</p>
             <div class="proj-meta" style="margin-top:8px">${e.size || 0} B · ${escape((e.indexed_at || "").slice(0, 10))}</div>
           </div>`).join("")}
         ${files.map((f) => `
           <div class="kb-card">
-            <div class="icon">📄</div>
+            ${iconBox("file")}
             <h3>${escape(f.path.split("/").pop())}</h3>
             <p>${escape(f.path)}</p>
             <div class="proj-meta" style="margin-top:8px">${f.bytes || 0} B</div>
@@ -331,7 +338,6 @@
       });
     });
 
-    // keep side chips in sync
     const obs = new MutationObserver(syncChrome);
     ["sessionChip", "projectChip", "modelChip"].forEach((id) => {
       const el = $(id);
@@ -340,18 +346,16 @@
     syncChrome();
     setInterval(syncChrome, 1500);
 
-    // preload right-rail agent preview
     setTimeout(async () => {
       if (!window.wbApi) return;
       try {
         const data = await window.wbApi("/api/skills");
         const prev = $("rightAgentPreview");
         if (!prev) return;
-        const icons = ["📊", "💻", "📝", "🎨"];
         prev.innerHTML = (data.skills || []).slice(0, 4).map((s, i) => `
-          <div class="agent-card" style="padding:12px;cursor:default">
-            <div class="icon" style="width:32px;height:32px;font-size:14px;margin-bottom:8px">${icons[i % icons.length]}</div>
-            <h3 style="font-size:13px">${escape(s.name || s.id)}</h3>
+          <div class="agent-card">
+            ${iconBox(ICON_CYCLE[i % ICON_CYCLE.length])}
+            <h3>${escape(s.name || s.id)}</h3>
           </div>`).join("");
       } catch (_) { /* ignore */ }
     }, 800);
