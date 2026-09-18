@@ -1,0 +1,48 @@
+/* WorkBuddy shell design tokens (V17) */
+:root {
+  --bg: #f0f3f7;
+  --bg-elevated: #f7f9fc;
+  --panel: #ffffff;
+  --text: #152033;
+  --muted: #5b6b7c;
+  --line: #e3e9f0;
+  --line-strong: #cfd8e3;
+  --accent: #1f6feb;
+  --accent-hover: #1a5fd0;
+  --accent-soft: #e8f1ff;
+  --accent-border: #c5daf8;
+  --ok: #0f7a45;
+  --ok-soft: #e7f7ee;
+  --warn: #b45309;
+  --warn-soft: #fff7ed;
+  --danger: #b91c1c;
+  --danger-soft: #fef2f2;
+  --sidebar-w: 288px;
+  --right-w: 360px;
+  --topbar-h: 56px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 10px 30px rgba(21, 32, 51, 0.08);
+  --shadow-lg: 0 22px 60px rgba(21, 32, 51, 0.16);
+  --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --fs-xs: 0.72rem;
+  --fs-sm: 0.8rem;
+  --fs-md: 0.92rem;
+  --fs-lg: 1.05rem;
+  --fs-xl: 1.35rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+}
+
+.app.layout-narrow {
+  --sidebar-w: 240px;
+  --right-w: 300px;
+}
+.app.layout-wide {
+  --sidebar-w: 320px;
+  --right-w: 400px;
+}

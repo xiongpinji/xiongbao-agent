@@ -1,32 +1,36 @@
-# TASKBOARD — V16 四子集 Harbor + Casdoor/TLS 固化
+# TASKBOARD — V17 四维质量提升（功能/交互/结构/视觉）
 
-> Smoke 已完成；Full 已后台启动。
+> shell.html 产品壳收口；不引入 React。
 
 ## Done
 
-1. 四子集 smoke **all_ok**（office/code/web/sec）  
-2. Casdoor 生产清单 + GO_LIVE SSO 勾选  
-3. Caddy `tls internal`；`https://localhost/api/health` 200  
-4. Windows MAX_PATH / web judge 修复；full 长跑已启动（`--full`）
+1. C1–C2：抽出 `tokens.css` / `shell.css`；顶栏单行 +「更多」菜单  
+2. D1+D5：登录品牌卡（API Key / Casdoor）+「仅演练」开关  
+3. A1–A3+B5/B6：人话映射、默认真执行、状态轮询、中文角色/芯片  
+4. B1–B4/B7–B8：loading/toast/空态 CTA/窄屏三段/Enter/徽章  
+5. A4–A7：SSO 页签、模型 chip、下载、任务改名删除  
+6. D2–D4+C3–C5：气泡/侧栏/右栏/布局档位；运维降权到设置/更多  
+7. `verify_v17` + 审计分数刷新
 
 | ID | 状态 |
 |---|---|
-| V16.1 四子集 smoke live | ✅ |
-| V16.2 四子集 full 启动 | ✅（后台） |
-| V16.3 Casdoor/TLS 固化文档 | ✅ |
-| V16.4 verify/docs/commit | ✅ |
+| V17.C 结构抽出+顶栏 | ✅ |
+| V17.D 登录/发送视觉 | ✅ |
+| V17.A 人话+真执行+状态机 | ✅ |
+| V17.B 交互收口 | ✅ |
+| V17.A4–7 SSO/模型/下载/CRUD | ✅ |
+| V17.D 打磨+布局档位 | ✅ |
+| V17.verify | ✅ |
 
 ## 验收
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
-$env:WB_BENCH_ROOT = 'W:\'
-$env:WB_STAGE_ROOT = 'C:\wbstage'
-$env:AUTO_BUILD_HARNESS_MOUNT = '1'
-python -S scripts\run_harbor_four_subsets.py
+python -S scripts\verify_v17.py
 ```
 
 ## 距主线
 
-- Full 四子集（260 tasks）耗时长，结果写入 `artifacts/harbor/four_subsets_full.json`  
-- 公网 DNS 证书仍非门禁（本地 `tls internal` 已够私有化）
+- 流式 SSE（可选 V18）  
+- Harbor sec-full Windows 样本题（平台限制，非用户壳门禁）  
+- 公网 Let's Encrypt（本地 tls internal 已够私有化）

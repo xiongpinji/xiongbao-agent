@@ -101,11 +101,12 @@ def run_task(
         from ..goal.planner import plan_goal
 
         plan = plan_goal(goal)
+        n_steps = len(plan.steps)
         store.set_status(task_id, "waiting")
         store.append_message(
             task_id,
             "system",
-            f"[dry-run] planned {len(plan.steps)} steps — not executed",
+            f"已完成演练：规划了 {n_steps} 步，未实际执行。取消「仅演练」后可正式运行。",
         )
         store.add_result(
             task_id,
@@ -122,20 +123,23 @@ def run_task(
             True,
             status="waiting",
             detail={
-                "plan_steps": len(plan.steps),
+                "plan_steps": n_steps,
                 "policy": gate.to_dict(),
                 "goal_preview": goal[:400],
+                "user_message": f"已完成演练（{n_steps} 步）",
             },
         )
 
     # live path
     store.set_status(task_id, "running")
+    store.append_message(task_id, "assistant", "已开始执行，请稍候…")
     gstore = GoalStore(goals_root)
     engine = GoalEngine(gstore)
     approvals = {"all"} if approve_all else set()
     run = engine.run(goal, mode="live", approvals=approvals)
     store.link_goal(task_id, run.id)
-    store.set_status(task_id, "completed" if run.status == "accepted" else "failed")
+    final_status = "completed" if run.status == "accepted" else "failed"
+    store.set_status(task_id, final_status)
     store.add_result(
         task_id,
         {
@@ -145,18 +149,24 @@ def run_task(
             "error": run.error or "",
         },
     )
-    store.append_message(
-        task_id,
-        "assistant",
-        f"goal run {run.id} → {run.status}",
-    )
+    if run.status == "accepted":
+        user_msg = "执行完成。可在右侧查看产物与预览。"
+    else:
+        err = (run.error or run.status or "未知错误").strip()
+        user_msg = f"执行未成功：{err}"
+    store.append_message(task_id, "assistant", user_msg)
     return TaskRunResult(
         ok=run.status == "accepted",
         task_id=task_id,
         mode=rec.mode,
         dry_run=False,
         goal_run_id=run.id,
-        status=run.status,
-        detail={"error": run.error or "", "policy": gate.to_dict()},
+        status=final_status,
+        detail={
+            "error": run.error or "",
+            "policy": gate.to_dict(),
+            "goal_status": run.status,
+            "user_message": user_msg,
+        },
         error=run.error or "",
     )

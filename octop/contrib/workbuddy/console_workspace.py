@@ -225,6 +225,18 @@ def read_preview(task_dir: Path, rel_path: str) -> dict[str, Any]:
     return build_preview(target, rel=rel_path)
 
 
+def resolve_download(task_dir: Path, rel_path: str) -> tuple[Path | None, str]:
+    """Return (file_path, error). error empty on success."""
+    root = Path(task_dir).resolve()
+    rel = (rel_path or "").strip().lstrip("/\\")
+    if not rel or ".." in Path(rel).parts:
+        return None, "invalid path"
+    target = (root / rel).resolve()
+    if not str(target).startswith(str(root)) or not target.is_file():
+        return None, "file not found"
+    return target, ""
+
+
 def save_upload(
     task_dir: Path,
     *,

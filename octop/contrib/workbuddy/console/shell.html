@@ -4,237 +4,135 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>知远 · WorkBuddy</title>
-  <style>
-    :root {
-      --bg: #f4f6f8;
-      --panel: #ffffff;
-      --text: #1c2430;
-      --muted: #6b7785;
-      --line: #e2e8ef;
-      --accent: #2563a8;
-      --accent-soft: #e8f1fa;
-      --ok: #1a7f4b;
-      --warn: #b45309;
-      --sidebar-w: 280px;
-      --right-w: 340px;
-      --radius: 10px;
-      --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-    body {
-      font-family: var(--font);
-      color: var(--text);
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-    }
-    .topbar {
-      height: 52px; flex: none;
-      display: flex; align-items: center; gap: 1rem;
-      padding: 0 1rem;
-      background: var(--panel);
-      border-bottom: 1px solid var(--line);
-    }
-    .brand { font-weight: 700; letter-spacing: 0.02em; }
-    .brand span { color: var(--muted); font-weight: 500; margin-left: 0.35rem; font-size: 0.85rem; }
-    .topbar .grow { flex: 1; }
-    .topbar a, .topbar button.linkish {
-      color: var(--muted); text-decoration: none; font-size: 0.85rem;
-      background: none; border: 0; cursor: pointer;
-    }
-    .chip {
-      font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
-    }
-    .app {
-      flex: 1; min-height: 0;
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr var(--right-w);
-    }
-    .col {
-      background: var(--panel);
-      border-right: 1px solid var(--line);
-      min-height: 0; display: flex; flex-direction: column;
-    }
-    .col.right { border-right: 0; border-left: 1px solid var(--line); }
-    .col-hd {
-      padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--line);
-      display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;
-    }
-    .col-hd h2 { margin: 0; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; flex: 1; }
-    input, select, textarea {
-      font: inherit; border: 1px solid var(--line); border-radius: 8px;
-      padding: 0.45rem 0.6rem; background: #fff; color: var(--text);
-    }
-    button.btn {
-      border: 0; border-radius: 8px; padding: 0.45rem 0.75rem;
-      background: var(--accent); color: #fff; font-weight: 600; cursor: pointer;
-    }
-    button.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); }
-    button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .search { width: 100%; }
-    .task-list { overflow: auto; flex: 1; padding: 0.35rem; }
-    .task-item {
-      display: block; width: 100%; text-align: left;
-      border: 0; background: transparent; cursor: pointer;
-      padding: 0.65rem 0.7rem; border-radius: 8px; margin-bottom: 0.2rem;
-    }
-    .task-item:hover { background: var(--bg); }
-    .task-item.active { background: var(--accent-soft); }
-    .task-item .t { font-weight: 600; font-size: 0.92rem; }
-    .task-item .m { color: var(--muted); font-size: 0.75rem; margin-top: 0.2rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
-    .pin { color: var(--warn); }
-    .messages { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .bubble {
-      max-width: 92%; padding: 0.75rem 0.9rem; border-radius: 12px;
-      border: 1px solid var(--line); background: var(--bg); white-space: pre-wrap; line-height: 1.45;
-      font-size: 0.92rem;
-    }
-    .bubble.user { align-self: flex-end; background: var(--accent-soft); border-color: #c9dcf0; }
-    .bubble.assistant, .bubble.system { align-self: flex-start; }
-    .bubble .role { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; }
-    .composer {
-      border-top: 1px solid var(--line); padding: 0.75rem; display: grid; gap: 0.5rem;
-    }
-    .composer-row { display: flex; gap: 0.5rem; align-items: center; }
-    .composer textarea { width: 100%; min-height: 72px; resize: vertical; }
-    .empty {
-      margin: auto; color: var(--muted); text-align: center; padding: 2rem; font-size: 0.95rem;
-    }
-    .tabs { display: flex; gap: 0.25rem; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
-    .tabs button {
-      flex: 1; border: 0; background: transparent; padding: 0.4rem; cursor: pointer;
-      color: var(--muted); border-radius: 6px; font-size: 0.78rem; font-weight: 600;
-    }
-    .tabs button.active { background: var(--accent-soft); color: var(--accent); }
-    .pane { display: none; flex: 1; overflow: auto; padding: 0.75rem; font-size: 0.85rem; }
-    .pane.active { display: block; }
-    .file-row, .art-row {
-      padding: 0.45rem 0.35rem; border-bottom: 1px solid var(--line);
-      cursor: pointer; display: flex; justify-content: space-between; gap: 0.5rem;
-    }
-    .file-row:hover { background: var(--bg); }
-    pre.preview {
-      margin: 0; white-space: pre-wrap; word-break: break-word;
-      font-size: 0.78rem; line-height: 1.4; background: var(--bg);
-      border: 1px solid var(--line); border-radius: 8px; padding: 0.65rem;
-    }
-    .login-mask {
-      position: fixed; inset: 0; background: rgba(28,36,48,0.45);
-      display: none; align-items: center; justify-content: center; z-index: 20;
-    }
-    .login-mask.show { display: flex; }
-    .login-card {
-      width: min(420px, 92vw); background: #fff; border-radius: 14px;
-      padding: 1.25rem 1.35rem; box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-      display: grid; gap: 0.65rem;
-    }
-    .login-card h1 { margin: 0; font-size: 1.2rem; }
-    .login-card label { display: grid; gap: 0.25rem; font-size: 0.8rem; color: var(--muted); }
-    .skills-drawer {
-      position: fixed; right: 0; top: 52px; bottom: 0; width: min(380px, 100vw);
-      background: #fff; border-left: 1px solid var(--line); transform: translateX(100%);
-      transition: transform 0.2s ease; z-index: 15; display: flex; flex-direction: column;
-    }
-    .skills-drawer.open { transform: translateX(0); }
-    .skills-list { overflow: auto; flex: 1; padding: 0.5rem; }
-    .skill-row {
-      border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem; margin-bottom: 0.45rem;
-    }
-    .skill-row h3 { margin: 0 0 0.25rem; font-size: 0.9rem; }
-    .skill-row p { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.78rem; }
-    @media (max-width: 960px) {
-      .app { grid-template-columns: 1fr; }
-      .col.right, .col.left { display: none; }
-      .app.show-left .col.left { display: flex; }
-      .app.show-right .col.right { display: flex; }
-      .app.show-left .col.center, .app.show-right .col.center { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/console/tokens.css" />
+  <link rel="stylesheet" href="/console/shell.css" />
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="brand">知远<span>WorkBuddy</span></div>
-    <span class="chip" id="modeChip">craft</span>
+    <span class="chip muted" id="sessionChip">未登录</span>
+    <span class="chip" id="modeChip" title="当前模式">创作</span>
+    <span class="chip muted" id="modelChip" title="当前模型">模型 · —</span>
+    <span class="chip muted" id="entChip" title="企业服务">企业服务 · —</span>
     <div class="grow"></div>
-    <span class="chip" id="sessionChip">未登录</span>
-    <span class="chip" id="entChip" title="企业组件">SSO/向量</span>
-    <button type="button" class="linkish" id="btnSkills">技能</button>
-    <button type="button" class="linkish" id="btnHarbor">Harbor</button>
-    <button type="button" class="linkish" id="btnScore">Score</button>
-    <a href="/ops.html">运维</a>
-    <button type="button" class="linkish" id="btnLogout">退出</button>
+    <nav class="topbar-nav" aria-label="主导航">
+      <button type="button" class="linkish hide-sm" id="btnSkills">技能</button>
+      <a class="hide-sm" href="/ops.html" id="btnOps">设置</a>
+      <div class="more-wrap">
+        <button type="button" class="linkish" id="btnMore" aria-haspopup="true" aria-expanded="false">更多</button>
+        <div class="more-menu" id="moreMenu" role="menu">
+          <button type="button" id="btnLayout">布局档位</button>
+          <button type="button" id="btnHarbor">Harbor 演练</button>
+          <button type="button" id="btnScore">评分</button>
+          <a href="/ops.html">运维控制台</a>
+          <button type="button" id="btnLogout">退出登录</button>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <div class="app" id="app">
-    <aside class="col left">
+  <div class="mobile-tabs" id="mobileTabs" role="tablist" aria-label="窄屏分区">
+    <button type="button" data-pane="left" role="tab">任务</button>
+    <button type="button" data-pane="center" class="active" role="tab">对话</button>
+    <button type="button" data-pane="right" role="tab">结果</button>
+  </div>
+
+  <div class="app layout-standard" id="app" role="presentation">
+    <nav class="col left" aria-label="任务列表">
       <div class="col-hd">
         <h2>任务</h2>
         <button type="button" class="btn" id="btnNew">新建</button>
       </div>
       <div class="col-hd" style="border-bottom:0;padding-top:0">
-        <input class="search" id="search" placeholder="搜索任务…" />
+        <input class="search" id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" />
       </div>
       <div class="task-list" id="taskList"></div>
-    </aside>
+    </nav>
 
-    <section class="col center">
+    <main class="col center" aria-label="对话">
       <div class="col-hd">
         <h2 id="taskTitle">选择或新建任务</h2>
-        <select id="modeSelect" title="模式">
-          <option value="ask">Ask</option>
-          <option value="plan">Plan</option>
-          <option value="craft" selected>Craft</option>
+        <select id="modeSelect" aria-label="任务模式">
+          <option value="ask">询问</option>
+          <option value="plan">规划</option>
+          <option value="craft" selected>创作</option>
         </select>
-        <button type="button" class="btn ghost" id="btnPin">置顶</button>
+        <button type="button" class="btn ghost" id="btnPin" title="置顶">★</button>
+        <button type="button" class="btn ghost" id="btnRename" title="改名">改名</button>
         <button type="button" class="btn ghost" id="btnArchive">归档</button>
+        <button type="button" class="btn danger" id="btnDelete" title="删除">删除</button>
       </div>
-      <div class="messages" id="messages"><div class="empty">登录后从左侧新建任务，开始对话。</div></div>
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="empty">
+          <div class="empty-art" aria-hidden="true"></div>
+          选择左侧任务，或新建第一个任务开始
+          <div class="cta"><button type="button" class="btn" id="btnEmptyNew">新建第一个任务</button></div>
+        </div>
+      </div>
       <div class="composer">
-        <textarea id="composer" placeholder="用一句话描述任务，或继续追问…"></textarea>
+        <textarea id="composer" placeholder="描述你要完成的事…（Enter 发送，Shift+Enter 换行）" aria-label="消息输入"></textarea>
         <div class="composer-row">
-          <label style="font-size:0.8rem;color:var(--muted)"><input type="checkbox" id="dryRun" checked /> dry-run</label>
-          <label class="btn ghost" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.6rem;cursor:pointer">
-            附件<input type="file" id="fileInput" style="display:none" />
+          <label class="switch" title="开启后只规划不执行">
+            <input type="checkbox" id="dryRun" />
+            <span>仅演练</span>
+          </label>
+          <label class="btn ghost" style="cursor:pointer;margin:0">
+            附件
+            <input type="file" id="fileInput" hidden />
           </label>
           <span class="hint" id="uploadHint" style="font-size:0.75rem;color:var(--muted)"></span>
           <div class="grow"></div>
           <button type="button" class="btn" id="btnSend">发送</button>
         </div>
       </div>
-    </section>
+    </main>
 
-    <aside class="col right">
+    <aside class="col right" aria-label="结果">
       <div class="col-hd"><h2>结果</h2></div>
-      <div class="tabs" id="resultTabs">
-        <button type="button" data-pane="artifacts" class="active">产物</button>
-        <button type="button" data-pane="files">文件</button>
-        <button type="button" data-pane="changes">变更</button>
-        <button type="button" data-pane="preview">预览</button>
+      <div class="tabs" id="resultTabs" role="tablist">
+        <button type="button" data-pane="artifacts" class="active" role="tab">产物</button>
+        <button type="button" data-pane="files" role="tab">文件</button>
+        <button type="button" data-pane="changes" role="tab">变更</button>
+        <button type="button" data-pane="preview" role="tab">预览</button>
       </div>
-      <div class="pane active" id="pane-artifacts"></div>
-      <div class="pane" id="pane-files"></div>
-      <div class="pane" id="pane-changes"></div>
-      <div class="pane" id="pane-preview">
-        <div id="previewHost"><pre class="preview" id="previewBox">选择任务后显示预览</pre></div>
+      <div class="pane active" id="pane-artifacts" role="tabpanel"></div>
+      <div class="pane" id="pane-files" role="tabpanel"></div>
+      <div class="pane" id="pane-changes" role="tabpanel"></div>
+      <div class="pane" id="pane-preview" role="tabpanel">
+        <div id="previewHost"><div class="empty"><div class="empty-art"></div>选择文件查看预览</div></div>
       </div>
     </aside>
   </div>
 
-  <div class="login-mask show" id="loginMask">
-    <form class="login-card" id="loginForm">
-      <h1>登录租户</h1>
-      <p style="margin:0;color:var(--muted);font-size:0.85rem">使用 tenant_id + admin api_key（多租户隔离）</p>
-      <label>tenant_id<input name="tid" required placeholder="acme_corp" /></label>
-      <label>user_id<input name="uid" value="admin" required /></label>
-      <label>api_key<input name="key" type="password" required /></label>
-      <button type="submit" class="btn">进入工作台</button>
-      <p id="loginErr" style="margin:0;color:#b91c1c;font-size:0.8rem"></p>
-    </form>
+  <div class="login-mask show" id="loginMask" role="dialog" aria-modal="true" aria-labelledby="loginBrandTitle">
+    <div class="login-shell">
+      <div class="login-brand">
+        <h1 id="loginBrandTitle">知远 WorkBuddy</h1>
+        <p>企业本地工作台 · 登录后管理任务与产物</p>
+      </div>
+      <div class="login-card">
+        <div class="login-tabs" role="tablist">
+          <button type="button" class="active" data-login="key" role="tab">API Key</button>
+          <button type="button" data-login="sso" role="tab">Casdoor 换发</button>
+        </div>
+        <form class="login-pane active" id="loginFormKey">
+          <p class="hint">使用租户 ID 与管理员 API Key（多租户隔离）</p>
+          <label>租户 ID<input name="tid" required placeholder="acme_corp" autocomplete="username" /></label>
+          <label>用户 ID<input name="uid" value="admin" required /></label>
+          <label>API Key<input name="key" type="password" required autocomplete="current-password" /></label>
+          <button type="submit" class="btn">进入工作台</button>
+        </form>
+        <form class="login-pane" id="loginFormSso">
+          <p class="hint">粘贴 Casdoor access_token，或由运维配置 password-grant 后换发。换发成功后签发本机 JWT。</p>
+          <label>Casdoor Token<textarea name="casdoor" rows="4" required placeholder="eyJhbGciOi…" style="resize:vertical"></textarea></label>
+          <button type="submit" class="btn">换发并登录</button>
+        </form>
+        <p id="loginErr" style="margin:0;color:var(--danger);font-size:0.8rem"></p>
+      </div>
+    </div>
   </div>
 
-  <aside class="skills-drawer" id="skillsDrawer">
+  <aside class="skills-drawer" id="skillsDrawer" aria-label="技能市场">
     <div class="col-hd">
       <h2>技能市场</h2>
       <button type="button" class="btn ghost" id="btnCloseSkills">关闭</button>
@@ -242,9 +140,30 @@
     <div class="skills-list" id="skillsList"></div>
   </aside>
 
+  <div class="task-ctx-menu" id="taskCtxMenu" role="menu">
+    <button type="button" data-act="rename">改名</button>
+    <button type="button" data-act="pin">置顶/取消</button>
+    <button type="button" data-act="archive">归档</button>
+    <button type="button" class="danger" data-act="delete">删除</button>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
   <script>
     const TOKEN_KEY = "wb_shell_jwt";
-    let state = { tasks: [], current: null, authRequired: true };
+    const LAYOUT_KEY = "wb_shell_layout";
+    const MODE_LABEL = { ask: "询问", plan: "规划", craft: "创作" };
+    const ROLE_LABEL = { user: "你", assistant: "助手", system: "系统" };
+    const STATUS_LABEL = {
+      pending: "待开始", running: "进行中", waiting: "等待中",
+      completed: "已完成", failed: "失败", cancelled: "已取消"
+    };
+    let state = {
+      tasks: [], current: null, authRequired: true,
+      sending: false, pollTimer: null, currentStatus: "",
+      ctxTaskId: null, liveConfirmShown: false
+    };
+    const layouts = ["layout-narrow", "layout-standard", "layout-wide"];
 
     function token() { return localStorage.getItem(TOKEN_KEY) || ""; }
     function setToken(t) { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); }
@@ -254,28 +173,125 @@
       if (t) h.Authorization = "Bearer " + t;
       return h;
     }
+    function toast(msg, kind) {
+      const host = document.getElementById("toastHost");
+      const el = document.createElement("div");
+      el.className = "toast" + (kind ? " " + kind : "");
+      el.textContent = msg;
+      host.appendChild(el);
+      setTimeout(() => el.remove(), 4200);
+    }
     async function api(path, opts = {}) {
-      const r = await fetch(path, Object.assign({}, opts, { headers: headers(opts.headers || {}) }));
+      let r;
+      try {
+        r = await fetch(path, Object.assign({}, opts, { headers: headers(opts.headers || {}) }));
+      } catch (e) {
+        toast("网络错误：" + (e.message || "无法连接"), "error");
+        throw e;
+      }
       const data = await r.json().catch(() => ({}));
       if (!r.ok) {
         const err = new Error(data.error || ("HTTP " + r.status));
-        err.status = r.status; err.data = data; throw err;
+        err.status = r.status; err.data = data;
+        if (r.status === 401) toast("登录已失效，请重新登录", "error");
+        else toast(err.message, "error");
+        throw err;
       }
       return data;
     }
-
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    }
+    function humanizeContent(raw) {
+      let s = String(raw || "");
+      s = s.replace(/^\[dry-run\]\s*planned\s+(\d+)\s+steps[^\n]*/i,
+        (_, n) => `已完成演练：规划了 ${n} 步，未实际执行。`);
+      s = s.replace(/^goal\s+run\s+\S+\s*→\s*accepted/i, "执行完成。可在右侧查看产物与预览。");
+      s = s.replace(/^goal\s+run\s+\S+\s*→\s*(\S+)/i, (_, st) => `执行结束（状态：${st}）`);
+      s = s.replace(/^\[upload\]\s*/i, "已上传附件：");
+      return s;
+    }
+    function formatRelTime(iso) {
+      if (!iso) return "";
+      const t = Date.parse(iso);
+      if (!t) return "";
+      const sec = Math.round((Date.now() - t) / 1000);
+      if (sec < 60) return "刚刚";
+      if (sec < 3600) return Math.floor(sec / 60) + " 分钟前";
+      if (sec < 86400) return Math.floor(sec / 3600) + " 小时前";
+      if (sec < 604800) return Math.floor(sec / 86400) + " 天前";
+      try { return new Date(t).toLocaleDateString("zh-CN"); } catch { return ""; }
+    }
+    function formatTs(iso) {
+      if (!iso) return "";
+      try {
+        return new Date(iso).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+      } catch { return ""; }
+    }
     function showLogin(show) {
       document.getElementById("loginMask").classList.toggle("show", !!show);
     }
+    function applyLayout(name) {
+      const app = document.getElementById("app");
+      layouts.forEach(c => app.classList.remove(c));
+      const cls = layouts.includes(name) ? name : "layout-standard";
+      app.classList.add(cls);
+      localStorage.setItem(LAYOUT_KEY, cls);
+    }
+    applyLayout(localStorage.getItem(LAYOUT_KEY) || "layout-standard");
+
+    /* —— more menu —— */
+    const moreBtn = document.getElementById("btnMore");
+    const moreMenu = document.getElementById("moreMenu");
+    moreBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = !moreMenu.classList.contains("open");
+      moreMenu.classList.toggle("open", open);
+      moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", () => {
+      moreMenu.classList.remove("open");
+      document.getElementById("taskCtxMenu").classList.remove("open");
+    });
+    document.getElementById("btnLayout").addEventListener("click", () => {
+      const app = document.getElementById("app");
+      const cur = layouts.find(c => app.classList.contains(c)) || "layout-standard";
+      const next = layouts[(layouts.indexOf(cur) + 1) % layouts.length];
+      applyLayout(next);
+      toast("布局：" + ({ "layout-narrow": "窄", "layout-standard": "标准", "layout-wide": "宽" }[next] || next));
+    });
+
+    /* —— mobile panes —— */
+    document.getElementById("mobileTabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-pane]");
+      if (!btn) return;
+      const app = document.getElementById("app");
+      app.classList.remove("show-left", "show-right");
+      document.querySelectorAll("#mobileTabs button").forEach(b => b.classList.toggle("active", b === btn));
+      if (btn.dataset.pane === "left") app.classList.add("show-left");
+      if (btn.dataset.pane === "right") app.classList.add("show-right");
+    });
+
+    /* —— login tabs —— */
+    document.querySelectorAll(".login-tabs button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".login-tabs button").forEach(b => b.classList.toggle("active", b === btn));
+        document.getElementById("loginFormKey").classList.toggle("active", btn.dataset.login === "key");
+        document.getElementById("loginFormSso").classList.toggle("active", btn.dataset.login === "sso");
+        document.getElementById("loginErr").textContent = "";
+      });
+    });
 
     async function ensureAuth() {
       const health = await api("/api/health");
       state.authRequired = !!health.auth_required;
+      const model = health.model || "未配置";
+      document.getElementById("modelChip").textContent = "模型 · " + model;
       if (!state.authRequired) { showLogin(false); return true; }
       if (!token()) { showLogin(true); return false; }
       try {
         const ten = await api("/api/tenant");
-        document.getElementById("sessionChip").textContent = ten.tenant_id + " / admin";
+        document.getElementById("sessionChip").textContent = (ten.name || ten.tenant_id) + " / " + (ten.role || "admin");
         showLogin(false);
         return true;
       } catch {
@@ -285,7 +301,7 @@
       }
     }
 
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    document.getElementById("loginFormKey").addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
       try {
@@ -304,10 +320,29 @@
         document.getElementById("loginErr").textContent = err.message;
       }
     });
-
+    document.getElementById("loginFormSso").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      try {
+        const data = await api("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ casdoor_token: String(fd.get("casdoor") || "").trim() }),
+        });
+        setToken(data.token);
+        document.getElementById("loginErr").textContent = "";
+        await boot();
+      } catch (err) {
+        document.getElementById("loginErr").textContent = err.message;
+      }
+    });
     document.getElementById("btnLogout").addEventListener("click", () => {
       setToken(""); location.reload();
     });
+
+    function statusBadge(status) {
+      const st = status || "pending";
+      return `<span class="status-badge ${escapeHtml(st)}">${STATUS_LABEL[st] || st}</span>`;
+    }
 
     async function refreshTasks() {
       const q = document.getElementById("search").value.trim();
@@ -315,69 +350,157 @@
       state.tasks = data.tasks || [];
       const box = document.getElementById("taskList");
       if (!state.tasks.length) {
-        box.innerHTML = '<div class="empty">暂无任务</div>';
+        box.innerHTML = `<div class="empty"><div class="empty-art"></div>暂无任务
+          <div class="cta"><button type="button" class="btn" id="btnEmptyNewSide">新建第一个任务</button></div></div>`;
+        const b = document.getElementById("btnEmptyNewSide");
+        if (b) b.addEventListener("click", createTaskPrompt);
         return;
       }
       box.innerHTML = state.tasks.map(t => `
-        <button type="button" class="task-item ${state.current === t.task_id ? "active" : ""}" data-id="${t.task_id}">
+        <div class="task-item ${state.current === t.task_id ? "active" : ""}" data-id="${escapeHtml(t.task_id)}">
+          <button type="button" class="menu-btn" data-menu="${escapeHtml(t.task_id)}" title="更多" aria-label="任务菜单">⋯</button>
           <div class="t">${t.pinned ? '<span class="pin">★ </span>' : ""}${escapeHtml(t.title)}</div>
-          <div class="m"><span>${t.status}</span><span>${t.mode}</span></div>
-        </button>`).join("");
-    }
-
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+          <div class="m">
+            ${statusBadge(t.status)}
+            <span class="mode-dot ${escapeHtml(t.mode || "craft")}" title="${MODE_LABEL[t.mode] || t.mode}"></span>
+            <span>${MODE_LABEL[t.mode] || t.mode}</span>
+            <span>${formatRelTime(t.updated_at)}</span>
+          </div>
+        </div>`).join("");
     }
 
     document.getElementById("taskList").addEventListener("click", (e) => {
-      const btn = e.target.closest(".task-item");
-      if (!btn) return;
-      openTask(btn.dataset.id);
+      const menuBtn = e.target.closest("[data-menu]");
+      if (menuBtn) {
+        e.stopPropagation();
+        openTaskMenu(menuBtn.dataset.menu, e.clientX, e.clientY);
+        return;
+      }
+      const item = e.target.closest(".task-item");
+      if (!item) return;
+      openTask(item.dataset.id);
     });
-
     document.getElementById("search").addEventListener("input", () => {
       clearTimeout(window.__sq);
       window.__sq = setTimeout(refreshTasks, 200);
     });
 
+    function openTaskMenu(taskId, x, y) {
+      state.ctxTaskId = taskId;
+      const menu = document.getElementById("taskCtxMenu");
+      menu.classList.add("open");
+      menu.style.left = Math.min(x, window.innerWidth - 160) + "px";
+      menu.style.top = Math.min(y, window.innerHeight - 160) + "px";
+    }
+    document.getElementById("taskCtxMenu").addEventListener("click", async (e) => {
+      const btn = e.target.closest("button[data-act]");
+      if (!btn || !state.ctxTaskId) return;
+      e.stopPropagation();
+      const id = state.ctxTaskId;
+      document.getElementById("taskCtxMenu").classList.remove("open");
+      if (btn.dataset.act === "rename") await renameTask(id);
+      else if (btn.dataset.act === "pin") {
+        const cur = state.tasks.find(t => t.task_id === id);
+        await api("/api/tasks/" + encodeURIComponent(id) + "/patch", {
+          method: "POST", body: JSON.stringify({ pinned: !(cur && cur.pinned) }),
+        });
+        await refreshTasks();
+      } else if (btn.dataset.act === "archive") {
+        await api("/api/tasks/" + encodeURIComponent(id) + "/patch", {
+          method: "POST", body: JSON.stringify({ archived: true }),
+        });
+        if (state.current === id) clearCurrent("任务已归档");
+        await refreshTasks();
+      } else if (btn.dataset.act === "delete") {
+        await deleteTask(id);
+      }
+    });
+
+    async function renameTask(id) {
+      const cur = state.tasks.find(t => t.task_id === id);
+      const title = prompt("任务名称", (cur && cur.title) || "");
+      if (!title) return;
+      await api("/api/tasks/" + encodeURIComponent(id) + "/patch", {
+        method: "POST", body: JSON.stringify({ title }),
+      });
+      if (state.current === id) document.getElementById("taskTitle").textContent = title;
+      await refreshTasks();
+      toast("已改名", "ok");
+    }
+    async function deleteTask(id) {
+      if (!confirm("确定删除该任务？此操作不可恢复。")) return;
+      await api("/api/tasks/" + encodeURIComponent(id) + "/delete", { method: "POST", body: "{}" });
+      if (state.current === id) clearCurrent("任务已删除");
+      await refreshTasks();
+      toast("已删除", "ok");
+    }
+    function clearCurrent(msg) {
+      state.current = null;
+      state.currentStatus = "";
+      stopPoll();
+      document.getElementById("taskTitle").textContent = "选择或新建任务";
+      document.getElementById("messages").innerHTML = `<div class="empty"><div class="empty-art"></div>${escapeHtml(msg || "选择任务")}</div>`;
+      ["pane-artifacts", "pane-files", "pane-changes"].forEach(id => {
+        document.getElementById(id).innerHTML = '<div class="empty"><div class="empty-art"></div>暂无内容</div>';
+      });
+    }
+
     async function openTask(id) {
       state.current = id;
       const data = await api("/api/tasks/" + encodeURIComponent(id));
       const t = data.task;
+      state.currentStatus = t.status || "";
       document.getElementById("taskTitle").textContent = t.title;
       document.getElementById("modeSelect").value = t.mode || "craft";
-      document.getElementById("modeChip").textContent = t.mode || "craft";
+      document.getElementById("modeChip").textContent = MODE_LABEL[t.mode] || t.mode || "创作";
       renderMessages(t.messages || []);
       await refreshWorkspace(id);
-      refreshTasks();
+      await refreshTasks();
+      if (t.status === "running") startPoll();
+      else stopPoll();
     }
 
-    function renderMessages(msgs) {
+    function renderMessages(msgs, pending) {
       const box = document.getElementById("messages");
-      if (!msgs.length) {
-        box.innerHTML = '<div class="empty">发送第一条消息开始</div>';
+      if (!msgs.length && !pending) {
+        box.innerHTML = `<div class="empty"><div class="empty-art"></div>发送第一条消息开始
+          <div class="cta"><button type="button" class="btn" id="btnEmptyFocus">开始输入</button></div></div>`;
+        const b = document.getElementById("btnEmptyFocus");
+        if (b) b.addEventListener("click", () => document.getElementById("composer").focus());
         return;
       }
-      box.innerHTML = msgs.map(m => `
-        <div class="bubble ${m.role}">
-          <div class="role">${m.role}</div>
-          <div>${escapeHtml(m.content)}</div>
+      let html = msgs.map(m => `
+        <div class="bubble ${escapeHtml(m.role)}">
+          <div class="role">${ROLE_LABEL[m.role] || m.role}</div>
+          <div>${escapeHtml(humanizeContent(m.content))}</div>
+          <div class="meta">${formatTs(m.ts)}</div>
         </div>`).join("");
+      if (pending) {
+        html += `<div class="bubble assistant pending"><div class="role">助手</div><div>正在处理…</div></div>`;
+      }
+      box.innerHTML = html;
       box.scrollTop = box.scrollHeight;
     }
 
     async function refreshWorkspace(id) {
       const ws = await api("/api/tasks/" + encodeURIComponent(id) + "/workspace");
+      const empty = (t) => `<div class="empty"><div class="empty-art"></div>${t}</div>`;
       document.getElementById("pane-artifacts").innerHTML = (ws.artifacts || []).map(a =>
         `<div class="art-row"><span>${escapeHtml(a.path)}</span><span>${a.bytes || 0} B</span></div>`
-      ).join("") || '<div class="empty">暂无产物</div>';
-      document.getElementById("pane-files").innerHTML = (ws.files || []).map(f =>
-        `<div class="file-row" data-path="${escapeHtml(f.path)}"><span>${escapeHtml(f.path)}</span><span>${f.bytes} B</span></div>`
-      ).join("") || '<div class="empty">暂无文件</div>';
+      ).join("") || empty("暂无产物");
+      document.getElementById("pane-files").innerHTML = (ws.files || []).filter(f => f.path !== "task.json").map(f =>
+        `<div class="file-row" data-path="${escapeHtml(f.path)}">
+          <span>${escapeHtml(f.path)}</span>
+          <span class="actions">
+            <span>${f.bytes} B</span>
+            <button type="button" data-dl="${escapeHtml(f.path)}">下载</button>
+          </span>
+        </div>`
+      ).join("") || empty("暂无文件");
       document.getElementById("pane-changes").innerHTML = (ws.changes || []).map(c =>
         `<div class="art-row"><span>${escapeHtml(c.kind || "change")}</span><span>${escapeHtml(c.path || c.status || "")}</span></div>`
-      ).join("") || '<div class="empty">暂无变更</div>';
-      renderPreview(ws.preview || {});
+      ).join("") || empty("暂无变更");
+      if (ws.preview) renderPreview(ws.preview);
     }
 
     function mdLite(src) {
@@ -390,11 +513,11 @@
       s = s.replace(/\n\n/g, "</p><p>");
       return "<p>" + s + "</p>";
     }
-
     function renderPreview(prev) {
       const host = document.getElementById("previewHost");
       if (!prev || !prev.ok) {
-        host.innerHTML = '<pre class="preview" id="previewBox">' + escapeHtml((prev && (prev.error || prev.content)) || "无预览") + "</pre>";
+        host.innerHTML = '<div class="empty"><div class="empty-art"></div>' +
+          escapeHtml((prev && (prev.error || prev.content)) || "选择文件查看预览") + "</div>";
         return;
       }
       const fmt = prev.format || "text";
@@ -406,15 +529,36 @@
       } else if (fmt === "image") {
         host.innerHTML = '<img alt="preview" style="max-width:100%;border-radius:8px;border:1px solid var(--line)" src="' + escapeHtml(prev.content || "") + '" />';
       } else {
-        host.innerHTML = '<pre class="preview" id="previewBox"></pre>';
+        host.innerHTML = '<pre class="preview"></pre>';
         host.querySelector("pre").textContent = prev.content || "";
       }
     }
 
     document.getElementById("pane-files").addEventListener("click", async (e) => {
+      const dl = e.target.closest("[data-dl]");
+      if (dl && state.current) {
+        e.stopPropagation();
+        const url = "/api/tasks/" + encodeURIComponent(state.current) +
+          "/download?path=" + encodeURIComponent(dl.dataset.dl) + "&raw=1";
+        try {
+          const r = await fetch(url, { headers: headers() });
+          if (!r.ok) throw new Error("下载失败");
+          const blob = await r.blob();
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = dl.dataset.dl.split("/").pop() || "download";
+          a.click();
+          URL.revokeObjectURL(a.href);
+          toast("已开始下载", "ok");
+        } catch (err) {
+          toast(err.message || "下载失败", "error");
+        }
+        return;
+      }
       const row = e.target.closest(".file-row");
       if (!row || !state.current) return;
-      const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/preview?path=" + encodeURIComponent(row.dataset.path));
+      const data = await api("/api/tasks/" + encodeURIComponent(state.current) +
+        "/preview?path=" + encodeURIComponent(row.dataset.path));
       renderPreview(data);
       document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b.dataset.pane === "preview"));
       document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-preview"));
@@ -447,8 +591,10 @@
         renderMessages(data.task.messages || []);
         await refreshWorkspace(state.current);
         await refreshTasks();
+        toast("附件已上传", "ok");
       } catch (err) {
         hint.textContent = "失败: " + err.message;
+        toast("上传失败：" + err.message, "error");
       }
     });
 
@@ -458,43 +604,36 @@
         const c = ent.casdoor || {};
         const m = ent.milvus || {};
         const chip = document.getElementById("entChip");
-        const cOk = c.configured ? (c.reachable === false ? "SSO!" : "SSO✓") : "SSO·";
-        const mOk = m.configured ? (m.reachable === false ? "向量!" : "向量✓") : "向量·";
-        chip.textContent = cOk + " " + mOk;
-        chip.title = JSON.stringify({ casdoor: c, milvus: m }, null, 0);
+        const cOk = c.configured ? (c.reachable === false ? "SSO 异常" : "SSO 正常") : "SSO 未配";
+        const mOk = m.configured ? (m.reachable === false ? "向量异常" : "向量正常") : "向量未配";
+        chip.textContent = cOk + " · " + mOk;
+        chip.className = "chip " + ((c.reachable === false || m.reachable === false) ? "warn" : (c.configured || m.configured ? "ok" : "muted"));
+        chip.title = JSON.stringify({ casdoor: c, milvus: m });
       } catch {
-        document.getElementById("entChip").textContent = "企业?";
+        document.getElementById("entChip").textContent = "企业服务 · —";
       }
     }
 
     document.getElementById("btnHarbor").addEventListener("click", async () => {
-      const btn = document.getElementById("btnHarbor");
-      btn.textContent = "Harbor…";
+      toast("Harbor 演练中…");
       try {
         const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
-        alert(data.ok ? ("Harbor dry-run OK\n" + String(data.stdout_tail || data.detail || "").slice(0, 400))
-          : ("Harbor dry-run: " + (data.error || JSON.stringify(data)).slice(0, 400)));
+        toast(data.ok ? "Harbor 演练成功" : ("Harbor：" + (data.error || "失败")), data.ok ? "ok" : "error");
       } catch (err) {
-        alert("Harbor: " + err.message);
-      } finally {
-        btn.textContent = "Harbor";
+        toast("Harbor：" + err.message, "error");
       }
     });
-
     document.getElementById("btnScore").addEventListener("click", async () => {
-      const live = confirm("确定跑 live score？\n取消 = dry（推荐）\n确定 = live（耗时长）");
-      const btn = document.getElementById("btnScore");
-      btn.textContent = "Score…";
+      const live = confirm("确定跑 live 评分？\n取消 = 仅演练（推荐）\n确定 = live（耗时长）");
+      toast(live ? "Live 评分中…" : "演练评分中…");
       try {
         const data = await api("/api/harbor/score", {
           method: "POST",
           body: JSON.stringify({ live: !!live, timeout: live ? 180 : 30 }),
         });
-        alert(JSON.stringify(data, null, 2).slice(0, 600));
+        toast(data.ok === false ? ("评分失败") : "评分完成", data.ok === false ? "error" : "ok");
       } catch (err) {
-        alert("Score: " + err.message);
-      } finally {
-        btn.textContent = "Score";
+        toast("评分：" + err.message, "error");
       }
     });
 
@@ -505,21 +644,55 @@
       document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + btn.dataset.pane));
     });
 
-    document.getElementById("btnNew").addEventListener("click", async () => {
+    async function createTaskPrompt() {
       const title = prompt("任务标题", "新任务");
       if (!title) return;
       const mode = document.getElementById("modeSelect").value;
       const data = await api("/api/tasks", { method: "POST", body: JSON.stringify({ title, mode }) });
       await refreshTasks();
       await openTask(data.task.task_id);
-    });
+    }
+    document.getElementById("btnNew").addEventListener("click", createTaskPrompt);
+    document.getElementById("btnEmptyNew").addEventListener("click", createTaskPrompt);
 
     document.getElementById("btnSend").addEventListener("click", sendMessage);
     document.getElementById("composer").addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) sendMessage();
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
     });
 
+    function startPoll() {
+      stopPoll();
+      state.pollTimer = setInterval(async () => {
+        if (!state.current || state.sending) return;
+        try {
+          const data = await api("/api/tasks/" + encodeURIComponent(state.current));
+          const t = data.task;
+          if (t.status !== state.currentStatus) {
+            state.currentStatus = t.status;
+            renderMessages(t.messages || []);
+            await refreshWorkspace(state.current);
+            await refreshTasks();
+          } else {
+            renderMessages(t.messages || []);
+          }
+          if (t.status !== "running") stopPoll();
+        } catch { /* ignore poll errors */ }
+      }, 2000);
+    }
+    function stopPoll() {
+      if (state.pollTimer) { clearInterval(state.pollTimer); state.pollTimer = null; }
+    }
+
     async function sendMessage() {
+      if (state.sending) return;
+      const dry = document.getElementById("dryRun").checked;
+      if (!dry && !state.liveConfirmShown) {
+        toast("将真实执行任务（未勾选「仅演练」）");
+        state.liveConfirmShown = true;
+      }
       if (!state.current) {
         const title = document.getElementById("composer").value.trim().slice(0, 40) || "新任务";
         const created = await api("/api/tasks", {
@@ -530,19 +703,39 @@
       }
       const content = document.getElementById("composer").value.trim();
       if (!content) return;
-      document.getElementById("btnSend").disabled = true;
+      state.sending = true;
+      const btn = document.getElementById("btnSend");
+      btn.disabled = true;
+      btn.textContent = "处理中…";
+      const optimistic = [
+        ...(state.tasks.find(t => t.task_id === state.current) ? [] : []),
+      ];
+      // show pending bubble with current messages + user text
       try {
-        const dry = document.getElementById("dryRun").checked;
+        const cur = await api("/api/tasks/" + encodeURIComponent(state.current));
+        const msgs = (cur.task.messages || []).concat([{ role: "user", content, ts: new Date().toISOString() }]);
+        renderMessages(msgs, true);
+      } catch {
+        renderMessages([{ role: "user", content, ts: new Date().toISOString() }], true);
+      }
+      try {
         const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/messages", {
           method: "POST",
           body: JSON.stringify({ content, run: true, dry }),
         });
         document.getElementById("composer").value = "";
+        state.currentStatus = data.task.status || "";
         renderMessages(data.task.messages || []);
         await refreshWorkspace(state.current);
         await refreshTasks();
+        if (data.task.status === "running") startPoll();
+        else stopPoll();
+      } catch (err) {
+        toast("发送失败：" + err.message, "error");
       } finally {
-        document.getElementById("btnSend").disabled = false;
+        state.sending = false;
+        btn.disabled = false;
+        btn.textContent = "发送";
       }
     }
 
@@ -552,10 +745,9 @@
       await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
         method: "POST", body: JSON.stringify({ mode }),
       });
-      document.getElementById("modeChip").textContent = mode;
+      document.getElementById("modeChip").textContent = MODE_LABEL[mode] || mode;
       refreshTasks();
     });
-
     document.getElementById("btnPin").addEventListener("click", async () => {
       if (!state.current) return;
       const cur = state.tasks.find(t => t.task_id === state.current);
@@ -564,14 +756,19 @@
       });
       refreshTasks();
     });
+    document.getElementById("btnRename").addEventListener("click", () => {
+      if (state.current) renameTask(state.current);
+    });
     document.getElementById("btnArchive").addEventListener("click", async () => {
       if (!state.current) return;
       await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
         method: "POST", body: JSON.stringify({ archived: true }),
       });
-      state.current = null;
-      document.getElementById("messages").innerHTML = '<div class="empty">任务已归档</div>';
+      clearCurrent("任务已归档");
       refreshTasks();
+    });
+    document.getElementById("btnDelete").addEventListener("click", () => {
+      if (state.current) deleteTask(state.current);
     });
 
     document.getElementById("btnSkills").addEventListener("click", async () => {
@@ -597,9 +794,9 @@
       try {
         await api("/api/skills/install", { method: "POST", body: JSON.stringify({ skill_id: btn.dataset.install }) });
         btn.textContent = "已安装";
+        toast("技能已安装", "ok");
       } catch (err) {
         btn.disabled = false; btn.textContent = "安装失败";
-        alert(err.message);
       }
     });
 

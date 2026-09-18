@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
@@ -220,6 +221,14 @@ class TaskStore:
         rec.updated_at = _utc()
         self._save(rec)
         return rec
+
+    def delete(self, task_id: str) -> bool:
+        """Remove task directory; returns True if deleted."""
+        d = self._dir(task_id)
+        if not d.is_dir():
+            raise FileNotFoundError(f"task not found: {task_id}")
+        shutil.rmtree(d)
+        return True
 
     def list_tasks(
         self,

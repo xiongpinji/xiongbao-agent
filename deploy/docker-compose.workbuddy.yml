@@ -113,8 +113,9 @@ services:
       - 0.0.0.0
       - --port
       - "8010"
-    expose:
-      - "8010"
+    ports:
+      # Local实测明文入口（生产对外仍走 Caddy 443；本机调试可直接 http://127.0.0.1:8010）
+      - "8010:8010"
     restart: unless-stopped
     healthcheck:
       test:

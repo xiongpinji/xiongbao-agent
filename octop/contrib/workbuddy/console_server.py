@@ -1,18 +1,19 @@
 # SPDX-License-Identifier: MIT
-"""WorkBuddy Console v12 — multi-tenant auth + task shell APIs."""
+"""WorkBuddy Console v17 — multi-tenant auth + product shell APIs."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import mimetypes
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, unquote, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 from .connectors import probe_status as connectors_probe
-from .console_workspace import read_preview, save_upload, workspace_payload
+from .console_workspace import read_preview, resolve_download, save_upload, workspace_payload
 from .enterprise.probe import enterprise_probe
 from .hub import hub_status
 from .skills import SkillCatalog, install_from_vendor, install_skill
@@ -32,6 +33,7 @@ _CONSOLE_DIR = Path(__file__).resolve().parent / "console"
 _SHELL = _CONSOLE_DIR / "shell.html"
 _OPS = _CONSOLE_DIR / "ops.html"
 _LEGACY = _CONSOLE_DIR / "index.html"
+_STATIC_EXT = {".css": "text/css; charset=utf-8", ".js": "application/javascript; charset=utf-8"}
 
 _PUBLIC_GET = {"/api/health"}
 _API_GET_EXACT = {
@@ -67,6 +69,22 @@ def _tasks_root_for(ctx: TenantContext | None) -> Path:
     return Path("artifacts/tasks")
 
 
+def _llm_model() -> str:
+    return (
+        (os.environ.get("WB_LLM_MODEL") or "").strip()
+        or (os.environ.get("OPENAI_MODEL") or "").strip()
+        or ""
+    )
+
+
+def _as_bool(value: Any, *, default: bool = False) -> bool:
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() not in {"0", "false", "no", ""}
+
+
 def _task_summary(t: Any) -> dict[str, Any]:
     return {
         "task_id": t.task_id,
@@ -90,7 +108,12 @@ def _task_detail(t: Any) -> dict[str, Any]:
 def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
     query = query or {}
     if path == "/api/health":
-        return {"ok": True, "auth_required": auth_required(), "v": 15}
+        return {
+            "ok": True,
+            "auth_required": auth_required(),
+            "v": 17,
+            "model": _llm_model() or None,
+        }
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -156,12 +179,13 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
             "hint": "POST /api/harbor/dry-run",
         }
     if path == "/api/enterprise":
-        return {"ok": True, "v": 15, **enterprise_probe()}
+        return {"ok": True, "v": 17, **enterprise_probe()}
     if path == "/api/runtime":
         data = hub_status()
         return {
             "ok": True,
             "v": data.get("v"),
+            "model": _llm_model() or None,
             "runtime": data.get("runtime"),
             "tasks": data.get("tasks"),
             "hint": "POST /api/runtime/run-task",
@@ -170,9 +194,8 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
 
 
 def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, list[str]]) -> tuple[int, dict[str, Any]]:
-    """Handle /api/tasks/<id> and /api/tasks/<id>/workspace."""
+    """Handle /api/tasks/<id> and /api/tasks/<id>/workspace|preview|download."""
     parts = [p for p in path.strip("/").split("/") if p]
-    # api tasks <id> [workspace|preview]
     if len(parts) < 3 or parts[0] != "api" or parts[1] != "tasks":
         return 404, {"ok": False, "error": "not found"}
     task_id = unquote(parts[2])
@@ -191,6 +214,21 @@ def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, lis
         if not rel:
             return 400, {"ok": False, "error": "path required"}
         return 200, read_preview(task_dir, rel)
+    if parts[3] == "download":
+        # JSON metadata only; binary download handled in _Handler
+        rel = (query.get("path") or [""])[0]
+        if not rel:
+            return 400, {"ok": False, "error": "path required"}
+        target, err = resolve_download(task_dir, rel)
+        if err:
+            return 404, {"ok": False, "error": err}
+        assert target is not None
+        return 200, {
+            "ok": True,
+            "path": rel,
+            "bytes": target.stat().st_size,
+            "download_url": f"/api/tasks/{quote(task_id)}/download?path={quote(rel)}&raw=1",
+        }
     return 404, {"ok": False, "error": "not found"}
 
 
@@ -199,7 +237,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         tid = str(body.get("tenant_id") or (query.get("tenant_id") or [""])[0]).strip()
         uid = str(body.get("user_id") or (query.get("user_id") or [""])[0]).strip()
         key = str(body.get("api_key") or (query.get("api_key") or [""])[0]).strip()
-        casdoor = str(body.get("casdoor_token") or "").strip()
+        casdoor = str(body.get("casdoor_token") or body.get("access_token") or "").strip()
         try:
             if casdoor:
                 new_ctx = exchange_casdoor_token(casdoor)
@@ -252,7 +290,14 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         tid = str((query.get("task_id") or [body.get("task_id", "")])[0]).strip()
         if not tid:
             return 400, {"ok": False, "error": "task_id required"}
-        dry = (query.get("dry") or [str(body.get("dry", "1"))])[0] not in {"0", "false", "no"}
+        # V17: live by default unless dry explicitly set
+        dry_q = query.get("dry")
+        if dry_q is not None:
+            dry = dry_q[0] not in {"0", "false", "no"}
+        elif "dry" in body:
+            dry = _as_bool(body.get("dry"), default=False)
+        else:
+            dry = False
         roots = _roots_for(ctx)
         kb = roots.knowledge if roots else Path("artifacts/knowledge")
         goals = Path("artifacts/goal_craft")
@@ -294,7 +339,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         result = harbor_score_entry(job=job, dry_run=dry, timeout=min(timeout, 300.0))
         return 200, result
 
-    # /api/tasks/<id>/messages or /api/tasks/<id>/actions
+    # /api/tasks/<id>/messages|actions|patch|delete
     parts = [p for p in path.strip("/").split("/") if p]
     if len(parts) >= 4 and parts[0] == "api" and parts[1] == "tasks":
         task_id = unquote(parts[2])
@@ -304,6 +349,10 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             store.get(task_id)
         except FileNotFoundError:
             return 404, {"ok": False, "error": "task not found"}
+
+        if action == "delete":
+            store.delete(task_id)
+            return 200, {"ok": True, "deleted": task_id}
 
         if action == "upload":
             filename = str(body.get("filename") or body.get("name") or "upload.bin")
@@ -319,7 +368,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
                 task_id,
                 {"kind": "upload", "path": result["path"], "bytes": result.get("bytes", 0)},
             )
-            store.append_message(task_id, "system", f"[upload] {result['path']} ({result.get('bytes', 0)} B)")
+            store.append_message(task_id, "system", f"已上传附件：{result['path']}（{result.get('bytes', 0)} B）")
             rec = store.get(task_id)
             return 200, {"ok": True, "upload": result, "task": _task_detail(rec)}
 
@@ -330,7 +379,8 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             role = str(body.get("role") or "user").strip() or "user"
             store.append_message(task_id, role, content)
             run = body.get("run", True)
-            dry = body.get("dry", True)
+            # V17: live by default
+            dry = _as_bool(body.get("dry"), default=False)
             if run and role == "user":
                 from .runtime import run_task
 
@@ -342,7 +392,7 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
                     goals.mkdir(parents=True, exist_ok=True)
                 run_task(
                     task_id,
-                    dry_run=bool(dry) if not isinstance(dry, str) else dry not in {"0", "false", "no"},
+                    dry_run=dry,
                     tasks_root=_tasks_root_for(ctx),
                     goals_root=goals,
                     kb_root=kb,
@@ -425,12 +475,62 @@ class _Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         query = parse_qs(parsed.query)
+
+        # static console assets (css/js)
+        if path.startswith("/console/") or path in {"/tokens.css", "/shell.css"}:
+            rel = path[len("/console/") :] if path.startswith("/console/") else path.lstrip("/")
+            target = (_CONSOLE_DIR / rel).resolve()
+            if not str(target).startswith(str(_CONSOLE_DIR.resolve())) or not target.is_file():
+                self._send(404, b"not found", "text/plain; charset=utf-8")
+                return
+            ctype = _STATIC_EXT.get(target.suffix.lower(), "application/octet-stream")
+            self._send(200, target.read_bytes(), ctype)
+            return
+
         if path.startswith("/api/"):
             ctx, err = self._auth_context()
             if err is not None:
                 body = json.dumps(err, ensure_ascii=False).encode("utf-8")
                 self._send(401, body, "application/json; charset=utf-8")
                 return
+
+            # binary download
+            parts = [p for p in path.strip("/").split("/") if p]
+            if (
+                len(parts) >= 4
+                and parts[0] == "api"
+                and parts[1] == "tasks"
+                and parts[3] == "download"
+                and (query.get("raw") or ["0"])[0] in {"1", "true", "yes"}
+            ):
+                task_id = unquote(parts[2])
+                rel = (query.get("path") or [""])[0]
+                store = TaskStore(_tasks_root_for(ctx))
+                try:
+                    store.get(task_id)
+                except FileNotFoundError:
+                    self._send(404, b'{"ok":false,"error":"task not found"}', "application/json; charset=utf-8")
+                    return
+                target, derr = resolve_download(store._dir(task_id), rel)  # noqa: SLF001
+                if derr or target is None:
+                    self._send(
+                        404,
+                        json.dumps({"ok": False, "error": derr or "not found"}, ensure_ascii=False).encode("utf-8"),
+                        "application/json; charset=utf-8",
+                    )
+                    return
+                data = target.read_bytes()
+                mime = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+                self.send_response(200)
+                self.send_header("Content-Type", mime)
+                self.send_header("Content-Disposition", f'attachment; filename="{target.name}"')
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+
             if path.startswith("/api/tasks/") and path != "/api/tasks":
                 code, payload = api_get_task_path(path, ctx, query)
             elif path in _API_GET_EXACT:
