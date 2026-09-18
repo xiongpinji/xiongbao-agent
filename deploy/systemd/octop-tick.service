@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MIT
+[Unit]
+Description=Octop WorkBuddy routine tick (one-shot)
+After=network.target
+
+[Service]
+Type=oneshot
+User=octop
+Group=octop
+WorkingDirectory=/opt/xiongbao-agent
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/xiongbao-agent
+# Optional: EnvironmentFile=-/etc/octop/octop.env
+ExecStart=/usr/bin/python3 -S -m octop.contrib.workbuddy.teach_cli --root /var/lib/octop/teach_routine tick --mode dry
+# Flip to --mode live only after WB_ALLOW_OUTBOUND=1 and human-approved routines

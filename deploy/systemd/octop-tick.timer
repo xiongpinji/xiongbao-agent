@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+[Unit]
+Description=Run Octop WorkBuddy routine tick every minute
+Requires=octop-tick.service
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+AccuracySec=15s
+Persistent=true
+Unit=octop-tick.service
+
+[Install]
+WantedBy=timers.target

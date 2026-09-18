@@ -11,11 +11,13 @@
 | V3 | Goal/Craft / SkillHub prompt 绑定 / Goal `--llm` / 飞书 open API | ✅ |
 | V4 | 脚本沙箱 / Goal `--skill` / outbox retry / verify_v4 | ✅ |
 | V5.1 | Windows 计划任务 `tick` 示例 | ✅ |
+| V5.2 | Office 题库拉取 + **llm_lite** 本地评分（无 Docker Harbor） | ✅ |
+| V5.3 | systemd 单元 + Casdoor/Milvus **文档门禁** | ✅ |
 
-## V5 — 剩余（可选 / 阻塞）
+## 后续（非阻塞）
 
-1. Harbor 子集 live LLM 评分 — **阻塞**：`vendor/workbuddy-bench` 无 office 题库；需自行 `fetch-dataset.sh office` 后再接线
-2. Casdoor / Milvus / systemd — **企业包装，默认跳过**（需明确点名）
+1. 全量 Harbor Docker 评分（code/web/sec + office 官方 verifier）— 需 Docker 环境
+2. Casdoor / Milvus **代码接线**（当前仅 env 约定与文档）
 
 ## 工作方式
 

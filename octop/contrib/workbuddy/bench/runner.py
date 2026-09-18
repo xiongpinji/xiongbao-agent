@@ -3,6 +3,10 @@
 
 Mock mode is the default (no LLM). Swap ``caller`` for a real MemberCaller
 when wiring live models.
+
+Office tasks:
+- ``office_mode="placeholder"`` (default): list-only, no Harbor Docker.
+- ``office_mode="llm_lite"``: local LLM answer + heuristic/judge score (no Docker).
 """
 
 from __future__ import annotations
@@ -10,9 +14,14 @@ from __future__ import annotations
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Literal
+
 from ..team.runtime import MemberCaller, MockMemberCaller, TeamAgentRuntime
+from .llm_judge import LLMFn, score_office_with_llm
 from .metrics import MetricsSink
 from .models import BenchReport, BenchTask, TaskResult
+
+OfficeMode = Literal["placeholder", "llm_lite"]
 
 
 def _utc_now() -> str:
@@ -28,10 +37,16 @@ class BenchRunner:
         caller: MemberCaller | None = None,
         metrics: MetricsSink | None = None,
         materialize_teams: bool = True,
+        office_mode: OfficeMode = "placeholder",
+        office_llm: LLMFn | None = None,
+        office_use_judge: bool = True,
     ) -> None:
         self.caller: MemberCaller = caller or MockMemberCaller()
         self.metrics = metrics or MetricsSink()
         self.materialize_teams = materialize_teams
+        self.office_mode: OfficeMode = office_mode
+        self.office_llm = office_llm
+        self.office_use_judge = office_use_judge
 
     def run(self, tasks: list[BenchTask], *, suite: str = "smoke-50") -> BenchReport:
         started = _utc_now()
@@ -102,6 +117,8 @@ class BenchRunner:
         if task.kind == "agent":
             return self._run_agent(task)
         if task.kind == "office":
+            if self.office_mode == "llm_lite":
+                return self._run_office_llm_lite(task)
             return self._run_office_placeholder(task)
         return TaskResult(
             task_id=task.task_id,
@@ -194,13 +211,33 @@ class BenchRunner:
             kind="office",
             expert_id=task.expert_id,
             passed=False,
-            score=0.0 if not present else 0.0,
+            score=0.0,
             latency_ms=0.0,
             detail=(
                 "office task listed but not executed "
-                "(requires vendor/workbuddy-bench Harbor + Docker)"
+                "(use --office --live-llm for llm_lite, or full Harbor+Docker)"
                 if present
                 else "office task directory missing"
             ),
-            artifacts={"listed_only": True, "present": present},
+            artifacts={"listed_only": True, "present": present, "mode": "placeholder"},
+        )
+
+    def _run_office_llm_lite(self, task: BenchTask) -> TaskResult:
+        """Local LLM-lite scoring without Docker Harbor."""
+        llm = self.office_llm
+        if llm is None:
+            return TaskResult(
+                task_id=task.task_id,
+                kind="office",
+                expert_id=task.expert_id,
+                passed=False,
+                score=0.0,
+                latency_ms=0.0,
+                detail="office_mode=llm_lite but office_llm is None",
+                artifacts={"mode": "llm_lite"},
+            )
+        return score_office_with_llm(
+            task,
+            llm=llm,
+            use_judge=self.office_use_judge,
         )

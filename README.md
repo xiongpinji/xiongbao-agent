@@ -44,7 +44,14 @@
 3. **Outbox 投递日志与重试** — `outbox/delivery.jsonl` + `teach_cli retry-outbox`
 4. **验收** — `scripts/verify_v4.py`
 
-延后：企业版 Casdoor / Milvus / systemd；Harbor 全量 live 评分。
+**V5（Office + 企业包装文档）**
+
+1. **Office 题库** — `scripts/fetch_office_dataset.ps1`（HF → gitignored datasets）
+2. **llm_lite 评分** — 无 Docker；本地 LLM + 启发式/可选 judge（`--office --live-llm`）
+3. **systemd + Casdoor/Milvus 文档门禁** — `deploy/systemd/`、`deploy/enterprise/README.md`
+4. **验收** — `scripts/verify_v5.py`
+
+延后：Casdoor/Milvus 代码接线；Harbor 全量 Docker verifier。
 
 ## 目录要点
 
@@ -222,19 +229,23 @@ python -S -m octop.contrib.workbuddy.cli --vendor vendor --output octop\src\octo
 
 ## 官方 workbuddy-bench（可选）
 
-HF 可访问时拉取 Office 50 题（约 10MB）：
-
-```bash
-# Git Bash / WSL
-cd vendor/workbuddy-bench
-./scripts/dataset/fetch-dataset.sh office
-```
-
-本仓库的 smoke bench **不依赖** HF；官方题需 Docker + Harbor 才能真正打分。  
-数据集就位后可：
+拉取 Office 50 题（约 3–10MB，gitignore）：
 
 ```powershell
-python -S -m octop.contrib.workbuddy.bench.cli --list-office --dry-sample-only
+powershell -File scripts\fetch_office_dataset.ps1
+# 或 Git Bash / WSL:
+# cd vendor/workbuddy-bench && ./scripts/dataset/fetch-dataset.sh office
+```
+
+本仓库 **smoke-50** 不依赖 HF。Office 有两条路径：
+
+1. **llm_lite（本仓库）** — 本地 LLM 作答 + 启发式/judge，无需 Docker  
+2. **全量 Harbor（上游）** — 需 Docker + 官方 verifier
+
+```powershell
+python -S -m octop.contrib.workbuddy.bench.cli --office --list-office --dry-sample-only
+python -S -m octop.contrib.workbuddy.bench.cli --office --live-llm --limit 3 --no-judge --pass-rate 0.3
+python -S scripts\verify_v5.py
 ```
 
 ## 环境要求

@@ -234,9 +234,35 @@ powershell -File scripts\windows\unregister_routine_tick.ps1
 
 详见 `scripts/windows/README.md`。
 
+## V5.2 / V5.3 — READY（Office llm-lite + 企业包装文档）
+
+```powershell
+powershell -File scripts\fetch_office_dataset.ps1
+python -S scripts\verify_v5.py
+# → V5 VERIFY OK
+
+# 可选：本地 Ollama 对 2 道 office 题做 llm_lite 评分
+python -S scripts\verify_v5.py --live --limit 2 --pass-rate 0
+```
+
+| Check | Result |
+|---|---|
+| `fetch_office_dataset.ps1` 拉取/解压 office 50 题 | OK（数据集 gitignore） |
+| `llm_judge` 启发式 + 假 LLM 单测 | OK |
+| `--office --live-llm` 本地评分路径（无 Docker） | OK |
+| `deploy/systemd/*.service|timer` | OK |
+| `deploy/enterprise/README.md` Casdoor/Milvus 门禁 | OK（文档约定，未接线） |
+
+```powershell
+python -S -m octop.contrib.workbuddy.bench.cli --office --list-office --dry-sample-only
+python -S -m octop.contrib.workbuddy.bench.cli --office --live-llm --limit 3 --no-judge --pass-rate 0.3
+```
+
+说明：`llm_lite` ≠ 官方 Harbor verifier；全量 Docker Harbor 仍属后续。
+
 ## Out of scope (later)
 
-- 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
-- Casdoor / Milvus / systemd packaging
-- Live LLM scoring on Harbor office/code/web/sec subsets
+- 常驻 APScheduler 进程（可用系统 cron / systemd timer + `tick` 替代）
+- Casdoor / Milvus **运行时接线**（文档门禁已就绪）
+- 全量 Harbor Docker 评分（code/web/sec + 官方 office verifier）
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

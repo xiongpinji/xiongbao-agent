@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: MIT
+[Unit]
+Description=Octop / 知远智能体 API (uvicorn)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=octop
+Group=octop
+WorkingDirectory=/opt/xiongbao-agent/octop
+Environment=PYTHONUNBUFFERED=1
+Environment=OCTOP_HOME=/var/lib/octop
+# Optional: EnvironmentFile=-/etc/octop/octop.env
+ExecStart=/opt/xiongbao-agent/.venv/bin/octop run
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+
+# Hardening (adjust if agent needs broader FS)
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
