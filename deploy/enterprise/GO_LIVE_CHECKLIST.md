@@ -1,11 +1,12 @@
 # 多租户上线检查单（Go-Live）
 
 > 适用：`deploy/docker-compose.workbuddy.yml --profile prod`  
-> 配套：[`MULTI_TENANT.md`](./MULTI_TENANT.md)  
-> 验收脚本：`python -S scripts/verify_v11.py`  
+> **客户签字总入口**：[`ACCEPTANCE_PACK.md`](./ACCEPTANCE_PACK.md)（剧本 + 本单摘要）  
+> 配套：[`MULTI_TENANT.md`](./MULTI_TENANT.md) · [`RELIABILITY.md`](./RELIABILITY.md) · [`CHANNEL_INBOUND.md`](./CHANNEL_INBOUND.md)  
+> 验收脚本：`python -S scripts/verify_delivery_pack.py`（含客户剧本）  
 > 本轮签字副本（含密钥路径，勿提交密钥本身）：`artifacts/go_live/SIGN_OFF.md`
 
-**交付标准（P0）= 多租户隔离 + Console 鉴权 + 可私有化启动。**  
+**交付标准（P0）= 多租户隔离 + Console 鉴权 + 客户剧本跑通 + 可私有化启动。**  
 域名 / 公网 DNS / 公网证书 **不是** 交付门槛（属可选运维增强）。
 
 在每一项完成后打勾。**任一项 P0 未过，不得对客户开放。**
@@ -17,15 +18,26 @@
 ## 0. 发布基线（P0）
 
 - [x] 代码已在 `main`：`git log -1` 含 `feat(v11)` / Hub `v>=11`
+- [ ] 本机：`PYTHONPATH=. python -S scripts/verify_delivery_pack.py` → `VERIFY DELIVERY PACK OK`
 - [x] 本机/构建机：`PYTHONPATH=. python -S scripts/verify_v11.py` → `VERIFY V11 OK`
 - [x] 未把 `.env.workbuddy`、api_key、`WB_CONSOLE_SECRET` 提交进 git
 - [x] 访问入口已明确（内网 IP / 主机名 / 反代均可；**不要求**公网域名）
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_delivery_pack.py
 python -S scripts\verify_v11.py
 git log -1 --oneline
 ```
+
+---
+
+## 0.1 客户剧本（P0 — 新增）
+
+完整勾选表见 [`ACCEPTANCE_PACK.md`](./ACCEPTANCE_PACK.md) §A。
+
+- [ ] `python -S scripts/verify_customer_playbook.py` → OK  
+- [ ] 现场（可选）：`--live` 对 `8010` 跑通登录→项目→技能→执行→下载→ACL
 
 ---
 

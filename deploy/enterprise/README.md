@@ -4,7 +4,9 @@
 不把真实密钥、租户 ID、连接串提交进仓库。
 
 **多租户生产部署**：见 [`MULTI_TENANT.md`](./MULTI_TENANT.md)（V11：租户隔离、Console JWT、Caddy/TLS、按租户备份）。  
-**上线检查单**：见 [`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md)（放行前逐项勾选）。
+**客户交付验收包**：见 [`ACCEPTANCE_PACK.md`](./ACCEPTANCE_PACK.md)（剧本勾选 + `verify_delivery_pack.py`）。  
+**上线检查单**：见 [`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md)（放行前逐项勾选）。  
+**可靠性 / 通道入站**：[`RELIABILITY.md`](./RELIABILITY.md) · [`CHANNEL_INBOUND.md`](./CHANNEL_INBOUND.md)。
 
 ## systemd（已提供单元文件）
 
@@ -74,6 +76,7 @@ WB_LLM_MODEL=qwen2.5:3b
 ## 验收
 
 ```bash
+python -S scripts/verify_delivery_pack.py
 python -S scripts/verify_v5.py
 # 检查 deploy/systemd/* 与 deploy/enterprise/README.md 存在
 ```

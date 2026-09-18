@@ -1,6 +1,13 @@
 # 真实客户开户与异地备份（无域名）
 
-配套：[`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md) · [`MULTI_TENANT.md`](./MULTI_TENANT.md)
+配套：[`ACCEPTANCE_PACK.md`](./ACCEPTANCE_PACK.md)（**签字总入口**） · [`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md) · [`MULTI_TENANT.md`](./MULTI_TENANT.md) · [`RELIABILITY.md`](./RELIABILITY.md)
+
+开户前先跑：
+
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_customer_playbook.py
+```
 
 ## 1. 正式租户开户
 

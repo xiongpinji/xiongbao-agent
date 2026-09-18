@@ -223,7 +223,7 @@
     const data = await window.wbApi("/api/channels");
     const wizard = data.wizard || [];
     openParity("通道配置向导", `
-      <p class="hint">凭据通过环境变量配置；下列为探测结果与配置步骤。</p>
+      <p class="hint">凭据通过环境变量配置；下列为探测结果与配置步骤。入站：<code>POST /api/channels/inbound</code> 可将一条消息建成任务（仅合同点名通道）。</p>
       ${wizard.map((s) => `
         <div class="skill-row">
           <h3>${s.ready ? "✅" : "○"} ${escape(s.title)}</h3>

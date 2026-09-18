@@ -12,12 +12,14 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, quote, unquote, urlparse
 
+from .channel_inbound import ingest_to_task, parse_inbound_body
 from .connectors import probe_status as connectors_probe
 from .console_events import iter_sse_frames
 from .console_parity_api import api_get_extra, api_post_extra, normalize_members, require_role, save_project_meta
 from .console_workspace import read_preview, resolve_download, save_upload, workspace_payload
 from .enterprise.probe import enterprise_probe
 from .hub import hub_status
+from .ops_health import health_detail, restart_playbook, task_replay
 from .project import ProjectSpace
 from .skills import SkillCatalog, install_from_vendor, install_skill
 from .task import TaskStore
@@ -26,11 +28,13 @@ from .tenant import (
     TenantRegistry,
     TenantRoots,
     auth_required,
+    check_can_create_task,
     exchange_casdoor_token,
     issue_token,
     parse_bearer,
     verify_token,
 )
+from .tenant.quota import QuotaExceeded
 
 _CONSOLE_DIR = Path(__file__).resolve().parent / "console"
 _SHELL = _CONSOLE_DIR / "shell.html"
@@ -59,6 +63,7 @@ _API_GET_EXACT = {
     "/api/memory",
     "/api/team",
     "/api/worktree",
+    "/api/ops",
 }
 
 
@@ -143,12 +148,18 @@ def _task_detail(t: Any) -> dict[str, Any]:
 def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
     query = query or {}
     if path == "/api/health":
-        return {
-            "ok": True,
-            "auth_required": auth_required(),
-            "v": 17,
-            "model": _llm_model() or None,
-        }
+        return health_detail(auth_required=auth_required(), model=_llm_model() or None)
+    if path == "/api/ops":
+        detail = health_detail(auth_required=auth_required(), model=_llm_model() or None)
+        detail["playbook"] = restart_playbook()
+        if ctx is not None:
+            detail["tenant"] = ctx.to_claims()
+            tr = _tasks_root_for(ctx)
+            detail["tasks_root"] = str(tr)
+            detail["tasks_count"] = (
+                sum(1 for p in tr.iterdir() if (p / "task.json").is_file()) if tr.is_dir() else 0
+            )
+        return detail
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -178,6 +189,7 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
         }
     if path == "/api/tasks":
         store = TaskStore(_tasks_root_for(ctx))
+        # enforce tenant quota when creating — handled in api_post
         q = (query.get("q") or [""])[0]
         status = (query.get("status") or [""])[0] or None
         project_id = (query.get("project_id") or [""])[0] or None
@@ -283,6 +295,8 @@ def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, lis
             after = 0
         rows, cursor = read_events(task_dir, after=after)
         return 200, {"ok": True, "events": rows, "cursor": cursor, "task_id": task_id}
+    if parts[3] == "replay":
+        return 200, task_replay(task_dir, store=store, task_id=task_id)
     return 404, {"ok": False, "error": "not found"}
 
 
@@ -331,6 +345,13 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
 
     if path == "/api/tasks":
         store = TaskStore(_tasks_root_for(ctx))
+        if ctx is not None:
+            rec_t = _registry().get(ctx.tenant_id)
+            if rec_t is not None:
+                try:
+                    check_can_create_task(rec_t, TenantRoots(ctx.tenant_id, ctx.user_id))
+                except QuotaExceeded as exc:
+                    return 429, {"ok": False, "error": str(exc), "code": exc.code}
         title = str(body.get("title") or body.get("prompt") or "新任务").strip()
         mode = str(body.get("mode") or "craft").strip() or "craft"
         prompt = str(body.get("prompt") or "").strip()
@@ -581,6 +602,40 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             return 200, {"ok": True, "task": _task_detail(rec)}
 
     # parity extras (models / knowledge / cowrite / memory / members…)
+    if path == "/api/channels/inbound":
+        try:
+            msg = parse_inbound_body(body)
+        except ValueError as exc:
+            return 400, {"ok": False, "error": str(exc)}
+        if ctx is not None:
+            rec_t = _registry().get(ctx.tenant_id)
+            if rec_t is not None:
+                try:
+                    check_can_create_task(rec_t, TenantRoots(ctx.tenant_id, ctx.user_id))
+                except QuotaExceeded as exc:
+                    return 429, {"ok": False, "error": str(exc), "code": exc.code}
+        project_id = str(body.get("project_id") or "").strip()
+        mode = str(body.get("mode") or "craft").strip() or "craft"
+        out = ingest_to_task(
+            msg,
+            tasks_root=_tasks_root_for(ctx),
+            mode=mode,
+            project_id=project_id,
+        )
+        run = bool(body.get("run", False))
+        dry = _as_bool(body.get("dry"), default=True)
+        if run:
+            from .runtime import run_task
+
+            result = run_task(out["task_id"], **{**_run_task_kwargs(ctx), "dry_run": dry})
+            out["run"] = {
+                "ok": result.ok,
+                "status": result.status,
+                "dry_run": dry,
+                "detail": result.detail,
+            }
+        return 200, out
+
     code, payload = api_post_extra(path, body, ctx)
     if code != 404 or payload.get("error") != "not found":
         return code, payload
@@ -754,6 +809,7 @@ class _Handler(BaseHTTPRequestHandler):
                     "/api/team",
                     "/api/channels",
                     "/api/worktree",
+                    "/api/ops",
                 }:
                     code, payload = api_get_extra(path, ctx, query)
                 else:
