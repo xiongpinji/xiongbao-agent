@@ -9,13 +9,13 @@
 | V1 | wb2octop / Team / smoke-50 / 本地 LLM | ✅ |
 | V2 | Teach→Routine / cron tick / CDP / Notion+飞书 webhook | ✅ |
 | V3 | Goal/Craft / SkillHub prompt 绑定 / Goal `--llm` / 飞书 open API | ✅ |
-| V4 | 脚本沙箱 / Goal `--skill` / outbox retry / verify_v4 | ✅（连推完成） |
+| V4 | 脚本沙箱 / Goal `--skill` / outbox retry / verify_v4 | ✅ |
+| V5.1 | Windows 计划任务 `tick` 示例 | ✅ |
 
-## V5 — 后续（自动开干）
+## V5 — 剩余（可选）
 
-1. Harbor 子集 live LLM 评分接线（可选，需题库）
-2. Windows 计划任务示例（`tick` 调度）
-3. Casdoor / Milvus / systemd — **企业包装，默认跳过**（需你明确点名）
+1. Harbor 子集 live LLM 评分接线（需题库；无数据则跳过）
+2. Casdoor / Milvus / systemd — **企业包装，默认跳过**（需你明确点名）
 
 ## 工作方式
 

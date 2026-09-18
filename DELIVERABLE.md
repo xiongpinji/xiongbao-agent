@@ -224,6 +224,16 @@ python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir <live-wor
 python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir <live-work> --outbound
 ```
 
+### Windows 计划任务（V5.1）
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\windows\register_routine_tick.ps1
+# 默认每分钟 dry tick；上线：-Mode live
+powershell -File scripts\windows\unregister_routine_tick.ps1
+```
+
+详见 `scripts/windows/README.md`。
+
 ## Out of scope (later)
 
 - 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）

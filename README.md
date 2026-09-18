@@ -206,6 +206,14 @@ python -S scripts\verify_v4.py
 python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir artifacts\goal_craft\work\<id> --list-only
 ```
 
+## Windows 计划任务（Routine tick）
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\windows\register_routine_tick.ps1
+```
+
+详见 `scripts/windows/README.md`。
+
 ## 转换专家（如需重跑）
 
 ```powershell
