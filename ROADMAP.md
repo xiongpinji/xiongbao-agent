@@ -13,19 +13,19 @@
 | V9 | 任务生命周期 / 权限 / 数据 / 模型档案 / worktree / 微信QQ / 资料库 / 灵感 / KB / 共写 / 通道桥 / Skill 安装扫描 / Console v2 / Harbor 评分钩子 / 审计挂钩 | ✅ |
 | V10 | Task→Goal 执行 / Policy 门禁 / 模型档案注入 / Inbox 轮询 / Skill 注册目录 / KB 召回 / 多根打包 / Task+worktree / Cowrite→Library / Console Runtime | ✅ |
 | V11 | 多租户注册 / 路径隔离 / Console JWT / 配额 / 租户备份 / Milvus 命名空间 / Casdoor 换发 / Caddy 生产 Compose / Runbook | ✅ |
-| Go-Live | 无域名 P0 勾选签字 + 正式开户/异地备份手册 + Console JWT 登录条 | ✅ |
-| 一致性审计 | 能力≈对齐；交互/前端/UI≠桌面壳 → 见 `deploy/enterprise/WORKBUDDY_PARITY_AUDIT.md` | ✅ |
+| Go-Live | 无域名 P0 勾选签字 + 正式开户/异地备份手册 | ✅ |
+| V12 | Web 三栏用户壳 + Task/Workspace/Skills API + verify_v12；交互/前端主差距收口 | ✅ |
 
 ## 产品边界（无法像素级复制）
 
 | 项 | 等价交付 |
 |---|---|
-| 腾讯 Electron / QClaw 桌面壳 | Octop Dashboard + WorkBuddy Console + CLI（**非三栏桌面 UI**） |
+| 腾讯 Electron / QClaw 桌面壳 | **Web 三栏壳** `/` + 运维 `/ops.html` + CLI |
 | 腾讯云托管 SaaS | Docker Compose / systemd 私有化 7×24（多租户） |
 | 小程序 / 移动端 / 计费 | 不做（仅配额钩子） |
 | 腾讯文档 / IMA / 乐享 | 本地 knowledge 适配 |
 
-> 若需「用户交互也像 WorkBuddy」，另开 **V12 User Shell**（Web 三栏复用现有 API），不阻塞当前多租户交付。
+一致性评分见 `deploy/enterprise/WORKBUDDY_PARITY_AUDIT.md`。
 
 ## 验收
 

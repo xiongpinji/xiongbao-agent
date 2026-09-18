@@ -42,7 +42,7 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
             tenant_count = -1
     return {
         "ok": True,
-        "v": 11,
+        "v": 12,
         "root": str(root),
         "harbor": harbor.to_dict(),
         "harness": harness_mount_probe(root=root),
@@ -80,16 +80,21 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
         "console": {
             "default_port": 8010,
             "path": "/",
+            "ops": "/ops.html",
             "apis": [
                 "/api/health",
                 "/api/auth/login",
                 "/api/status",
                 "/api/tasks",
-                "/api/tenant",
+                "/api/tasks/{id}",
+                "/api/tasks/{id}/workspace",
+                "/api/tasks/{id}/messages",
                 "/api/skills",
+                "/api/skills/install",
                 "/api/connectors",
                 "/api/harbor",
                 "/api/runtime",
+                "/api/tenant",
             ],
         },
     }

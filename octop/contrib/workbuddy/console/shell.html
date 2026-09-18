@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>知远 · WorkBuddy</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --text: #1c2430;
+      --muted: #6b7785;
+      --line: #e2e8ef;
+      --accent: #2563a8;
+      --accent-soft: #e8f1fa;
+      --ok: #1a7f4b;
+      --warn: #b45309;
+      --sidebar-w: 280px;
+      --right-w: 340px;
+      --radius: 10px;
+      --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      height: 52px; flex: none;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0 1rem;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-weight: 700; letter-spacing: 0.02em; }
+    .brand span { color: var(--muted); font-weight: 500; margin-left: 0.35rem; font-size: 0.85rem; }
+    .topbar .grow { flex: 1; }
+    .topbar a, .topbar button.linkish {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      background: none; border: 0; cursor: pointer;
+    }
+    .chip {
+      font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .app {
+      flex: 1; min-height: 0;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr var(--right-w);
+    }
+    .col {
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      min-height: 0; display: flex; flex-direction: column;
+    }
+    .col.right { border-right: 0; border-left: 1px solid var(--line); }
+    .col-hd {
+      padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--line);
+      display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;
+    }
+    .col-hd h2 { margin: 0; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; flex: 1; }
+    input, select, textarea {
+      font: inherit; border: 1px solid var(--line); border-radius: 8px;
+      padding: 0.45rem 0.6rem; background: #fff; color: var(--text);
+    }
+    button.btn {
+      border: 0; border-radius: 8px; padding: 0.45rem 0.75rem;
+      background: var(--accent); color: #fff; font-weight: 600; cursor: pointer;
+    }
+    button.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); }
+    button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .search { width: 100%; }
+    .task-list { overflow: auto; flex: 1; padding: 0.35rem; }
+    .task-item {
+      display: block; width: 100%; text-align: left;
+      border: 0; background: transparent; cursor: pointer;
+      padding: 0.65rem 0.7rem; border-radius: 8px; margin-bottom: 0.2rem;
+    }
+    .task-item:hover { background: var(--bg); }
+    .task-item.active { background: var(--accent-soft); }
+    .task-item .t { font-weight: 600; font-size: 0.92rem; }
+    .task-item .m { color: var(--muted); font-size: 0.75rem; margin-top: 0.2rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .pin { color: var(--warn); }
+    .messages { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .bubble {
+      max-width: 92%; padding: 0.75rem 0.9rem; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--bg); white-space: pre-wrap; line-height: 1.45;
+      font-size: 0.92rem;
+    }
+    .bubble.user { align-self: flex-end; background: var(--accent-soft); border-color: #c9dcf0; }
+    .bubble.assistant, .bubble.system { align-self: flex-start; }
+    .bubble .role { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; }
+    .composer {
+      border-top: 1px solid var(--line); padding: 0.75rem; display: grid; gap: 0.5rem;
+    }
+    .composer-row { display: flex; gap: 0.5rem; align-items: center; }
+    .composer textarea { width: 100%; min-height: 72px; resize: vertical; }
+    .empty {
+      margin: auto; color: var(--muted); text-align: center; padding: 2rem; font-size: 0.95rem;
+    }
+    .tabs { display: flex; gap: 0.25rem; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
+    .tabs button {
+      flex: 1; border: 0; background: transparent; padding: 0.4rem; cursor: pointer;
+      color: var(--muted); border-radius: 6px; font-size: 0.78rem; font-weight: 600;
+    }
+    .tabs button.active { background: var(--accent-soft); color: var(--accent); }
+    .pane { display: none; flex: 1; overflow: auto; padding: 0.75rem; font-size: 0.85rem; }
+    .pane.active { display: block; }
+    .file-row, .art-row {
+      padding: 0.45rem 0.35rem; border-bottom: 1px solid var(--line);
+      cursor: pointer; display: flex; justify-content: space-between; gap: 0.5rem;
+    }
+    .file-row:hover { background: var(--bg); }
+    pre.preview {
+      margin: 0; white-space: pre-wrap; word-break: break-word;
+      font-size: 0.78rem; line-height: 1.4; background: var(--bg);
+      border: 1px solid var(--line); border-radius: 8px; padding: 0.65rem;
+    }
+    .login-mask {
+      position: fixed; inset: 0; background: rgba(28,36,48,0.45);
+      display: none; align-items: center; justify-content: center; z-index: 20;
+    }
+    .login-mask.show { display: flex; }
+    .login-card {
+      width: min(420px, 92vw); background: #fff; border-radius: 14px;
+      padding: 1.25rem 1.35rem; box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+      display: grid; gap: 0.65rem;
+    }
+    .login-card h1 { margin: 0; font-size: 1.2rem; }
+    .login-card label { display: grid; gap: 0.25rem; font-size: 0.8rem; color: var(--muted); }
+    .skills-drawer {
+      position: fixed; right: 0; top: 52px; bottom: 0; width: min(380px, 100vw);
+      background: #fff; border-left: 1px solid var(--line); transform: translateX(100%);
+      transition: transform 0.2s ease; z-index: 15; display: flex; flex-direction: column;
+    }
+    .skills-drawer.open { transform: translateX(0); }
+    .skills-list { overflow: auto; flex: 1; padding: 0.5rem; }
+    .skill-row {
+      border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem; margin-bottom: 0.45rem;
+    }
+    .skill-row h3 { margin: 0 0 0.25rem; font-size: 0.9rem; }
+    .skill-row p { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.78rem; }
+    @media (max-width: 960px) {
+      .app { grid-template-columns: 1fr; }
+      .col.right, .col.left { display: none; }
+      .app.show-left .col.left { display: flex; }
+      .app.show-right .col.right { display: flex; }
+      .app.show-left .col.center, .app.show-right .col.center { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">知远<span>WorkBuddy</span></div>
+    <span class="chip" id="modeChip">craft</span>
+    <div class="grow"></div>
+    <span class="chip" id="sessionChip">未登录</span>
+    <button type="button" class="linkish" id="btnSkills">技能</button>
+    <a href="/ops.html">运维</a>
+    <button type="button" class="linkish" id="btnLogout">退出</button>
+  </header>
+
+  <div class="app" id="app">
+    <aside class="col left">
+      <div class="col-hd">
+        <h2>任务</h2>
+        <button type="button" class="btn" id="btnNew">新建</button>
+      </div>
+      <div class="col-hd" style="border-bottom:0;padding-top:0">
+        <input class="search" id="search" placeholder="搜索任务…" />
+      </div>
+      <div class="task-list" id="taskList"></div>
+    </aside>
+
+    <section class="col center">
+      <div class="col-hd">
+        <h2 id="taskTitle">选择或新建任务</h2>
+        <select id="modeSelect" title="模式">
+          <option value="ask">Ask</option>
+          <option value="plan">Plan</option>
+          <option value="craft" selected>Craft</option>
+        </select>
+        <button type="button" class="btn ghost" id="btnPin">置顶</button>
+        <button type="button" class="btn ghost" id="btnArchive">归档</button>
+      </div>
+      <div class="messages" id="messages"><div class="empty">登录后从左侧新建任务，开始对话。</div></div>
+      <div class="composer">
+        <textarea id="composer" placeholder="用一句话描述任务，或继续追问…"></textarea>
+        <div class="composer-row">
+          <label style="font-size:0.8rem;color:var(--muted)"><input type="checkbox" id="dryRun" checked /> dry-run</label>
+          <div class="grow"></div>
+          <button type="button" class="btn" id="btnSend">发送</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="col right">
+      <div class="col-hd"><h2>结果</h2></div>
+      <div class="tabs" id="resultTabs">
+        <button type="button" data-pane="artifacts" class="active">产物</button>
+        <button type="button" data-pane="files">文件</button>
+        <button type="button" data-pane="changes">变更</button>
+        <button type="button" data-pane="preview">预览</button>
+      </div>
+      <div class="pane active" id="pane-artifacts"></div>
+      <div class="pane" id="pane-files"></div>
+      <div class="pane" id="pane-changes"></div>
+      <div class="pane" id="pane-preview"><pre class="preview" id="previewBox">选择任务后显示预览</pre></div>
+    </aside>
+  </div>
+
+  <div class="login-mask show" id="loginMask">
+    <form class="login-card" id="loginForm">
+      <h1>登录租户</h1>
+      <p style="margin:0;color:var(--muted);font-size:0.85rem">使用 tenant_id + admin api_key（多租户隔离）</p>
+      <label>tenant_id<input name="tid" required placeholder="acme_corp" /></label>
+      <label>user_id<input name="uid" value="admin" required /></label>
+      <label>api_key<input name="key" type="password" required /></label>
+      <button type="submit" class="btn">进入工作台</button>
+      <p id="loginErr" style="margin:0;color:#b91c1c;font-size:0.8rem"></p>
+    </form>
+  </div>
+
+  <aside class="skills-drawer" id="skillsDrawer">
+    <div class="col-hd">
+      <h2>技能市场</h2>
+      <button type="button" class="btn ghost" id="btnCloseSkills">关闭</button>
+    </div>
+    <div class="skills-list" id="skillsList"></div>
+  </aside>
+
+  <script>
+    const TOKEN_KEY = "wb_shell_jwt";
+    let state = { tasks: [], current: null, authRequired: true };
+
+    function token() { return localStorage.getItem(TOKEN_KEY) || ""; }
+    function setToken(t) { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); }
+    function headers(extra = {}) {
+      const h = Object.assign({ "Content-Type": "application/json" }, extra);
+      const t = token();
+      if (t) h.Authorization = "Bearer " + t;
+      return h;
+    }
+    async function api(path, opts = {}) {
+      const r = await fetch(path, Object.assign({}, opts, { headers: headers(opts.headers || {}) }));
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        const err = new Error(data.error || ("HTTP " + r.status));
+        err.status = r.status; err.data = data; throw err;
+      }
+      return data;
+    }
+
+    function showLogin(show) {
+      document.getElementById("loginMask").classList.toggle("show", !!show);
+    }
+
+    async function ensureAuth() {
+      const health = await api("/api/health");
+      state.authRequired = !!health.auth_required;
+      if (!state.authRequired) { showLogin(false); return true; }
+      if (!token()) { showLogin(true); return false; }
+      try {
+        const ten = await api("/api/tenant");
+        document.getElementById("sessionChip").textContent = ten.tenant_id + " / admin";
+        showLogin(false);
+        return true;
+      } catch {
+        setToken("");
+        showLogin(true);
+        return false;
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      try {
+        const data = await api("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({
+            tenant_id: fd.get("tid"),
+            user_id: fd.get("uid"),
+            api_key: fd.get("key"),
+          }),
+        });
+        setToken(data.token);
+        document.getElementById("loginErr").textContent = "";
+        await boot();
+      } catch (err) {
+        document.getElementById("loginErr").textContent = err.message;
+      }
+    });
+
+    document.getElementById("btnLogout").addEventListener("click", () => {
+      setToken(""); location.reload();
+    });
+
+    async function refreshTasks() {
+      const q = document.getElementById("search").value.trim();
+      const data = await api("/api/tasks" + (q ? ("?q=" + encodeURIComponent(q)) : ""));
+      state.tasks = data.tasks || [];
+      const box = document.getElementById("taskList");
+      if (!state.tasks.length) {
+        box.innerHTML = '<div class="empty">暂无任务</div>';
+        return;
+      }
+      box.innerHTML = state.tasks.map(t => `
+        <button type="button" class="task-item ${state.current === t.task_id ? "active" : ""}" data-id="${t.task_id}">
+          <div class="t">${t.pinned ? '<span class="pin">★ </span>' : ""}${escapeHtml(t.title)}</div>
+          <div class="m"><span>${t.status}</span><span>${t.mode}</span></div>
+        </button>`).join("");
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    }
+
+    document.getElementById("taskList").addEventListener("click", (e) => {
+      const btn = e.target.closest(".task-item");
+      if (!btn) return;
+      openTask(btn.dataset.id);
+    });
+
+    document.getElementById("search").addEventListener("input", () => {
+      clearTimeout(window.__sq);
+      window.__sq = setTimeout(refreshTasks, 200);
+    });
+
+    async function openTask(id) {
+      state.current = id;
+      const data = await api("/api/tasks/" + encodeURIComponent(id));
+      const t = data.task;
+      document.getElementById("taskTitle").textContent = t.title;
+      document.getElementById("modeSelect").value = t.mode || "craft";
+      document.getElementById("modeChip").textContent = t.mode || "craft";
+      renderMessages(t.messages || []);
+      await refreshWorkspace(id);
+      refreshTasks();
+    }
+
+    function renderMessages(msgs) {
+      const box = document.getElementById("messages");
+      if (!msgs.length) {
+        box.innerHTML = '<div class="empty">发送第一条消息开始</div>';
+        return;
+      }
+      box.innerHTML = msgs.map(m => `
+        <div class="bubble ${m.role}">
+          <div class="role">${m.role}</div>
+          <div>${escapeHtml(m.content)}</div>
+        </div>`).join("");
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function refreshWorkspace(id) {
+      const ws = await api("/api/tasks/" + encodeURIComponent(id) + "/workspace");
+      document.getElementById("pane-artifacts").innerHTML = (ws.artifacts || []).map(a =>
+        `<div class="art-row"><span>${escapeHtml(a.path)}</span><span>${a.bytes || 0} B</span></div>`
+      ).join("") || '<div class="empty">暂无产物</div>';
+      document.getElementById("pane-files").innerHTML = (ws.files || []).map(f =>
+        `<div class="file-row" data-path="${escapeHtml(f.path)}"><span>${escapeHtml(f.path)}</span><span>${f.bytes} B</span></div>`
+      ).join("") || '<div class="empty">暂无文件</div>';
+      document.getElementById("pane-changes").innerHTML = (ws.changes || []).map(c =>
+        `<div class="art-row"><span>${escapeHtml(c.kind || "change")}</span><span>${escapeHtml(c.path || c.status || "")}</span></div>`
+      ).join("") || '<div class="empty">暂无变更</div>';
+      const prev = ws.preview || {};
+      document.getElementById("previewBox").textContent = prev.content || "无预览";
+    }
+
+    document.getElementById("pane-files").addEventListener("click", async (e) => {
+      const row = e.target.closest(".file-row");
+      if (!row || !state.current) return;
+      const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/preview?path=" + encodeURIComponent(row.dataset.path));
+      document.getElementById("previewBox").textContent = data.content || data.error || "";
+      document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b.dataset.pane === "preview"));
+      document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-preview"));
+    });
+
+    document.getElementById("resultTabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-pane]");
+      if (!btn) return;
+      document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b === btn));
+      document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + btn.dataset.pane));
+    });
+
+    document.getElementById("btnNew").addEventListener("click", async () => {
+      const title = prompt("任务标题", "新任务");
+      if (!title) return;
+      const mode = document.getElementById("modeSelect").value;
+      const data = await api("/api/tasks", { method: "POST", body: JSON.stringify({ title, mode }) });
+      await refreshTasks();
+      await openTask(data.task.task_id);
+    });
+
+    document.getElementById("btnSend").addEventListener("click", sendMessage);
+    document.getElementById("composer").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) sendMessage();
+    });
+
+    async function sendMessage() {
+      if (!state.current) {
+        const title = document.getElementById("composer").value.trim().slice(0, 40) || "新任务";
+        const created = await api("/api/tasks", {
+          method: "POST",
+          body: JSON.stringify({ title, mode: document.getElementById("modeSelect").value }),
+        });
+        state.current = created.task.task_id;
+      }
+      const content = document.getElementById("composer").value.trim();
+      if (!content) return;
+      document.getElementById("btnSend").disabled = true;
+      try {
+        const dry = document.getElementById("dryRun").checked;
+        const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/messages", {
+          method: "POST",
+          body: JSON.stringify({ content, run: true, dry }),
+        });
+        document.getElementById("composer").value = "";
+        renderMessages(data.task.messages || []);
+        await refreshWorkspace(state.current);
+        await refreshTasks();
+      } finally {
+        document.getElementById("btnSend").disabled = false;
+      }
+    }
+
+    document.getElementById("modeSelect").addEventListener("change", async () => {
+      if (!state.current) return;
+      const mode = document.getElementById("modeSelect").value;
+      await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
+        method: "POST", body: JSON.stringify({ mode }),
+      });
+      document.getElementById("modeChip").textContent = mode;
+      refreshTasks();
+    });
+
+    document.getElementById("btnPin").addEventListener("click", async () => {
+      if (!state.current) return;
+      const cur = state.tasks.find(t => t.task_id === state.current);
+      await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
+        method: "POST", body: JSON.stringify({ pinned: !(cur && cur.pinned) }),
+      });
+      refreshTasks();
+    });
+    document.getElementById("btnArchive").addEventListener("click", async () => {
+      if (!state.current) return;
+      await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
+        method: "POST", body: JSON.stringify({ archived: true }),
+      });
+      state.current = null;
+      document.getElementById("messages").innerHTML = '<div class="empty">任务已归档</div>';
+      refreshTasks();
+    });
+
+    document.getElementById("btnSkills").addEventListener("click", async () => {
+      document.getElementById("skillsDrawer").classList.add("open");
+      const data = await api("/api/skills");
+      const installed = new Set(data.installed || []);
+      document.getElementById("skillsList").innerHTML = (data.skills || []).map(s => `
+        <div class="skill-row">
+          <h3>${escapeHtml(s.name || s.id)}</h3>
+          <p>${escapeHtml(s.description || "")}</p>
+          <button type="button" class="btn ${installed.has(s.id) ? "ghost" : ""}" data-install="${escapeHtml(s.id)}" ${installed.has(s.id) ? "disabled" : ""}>
+            ${installed.has(s.id) ? "已安装" : "安装"}
+          </button>
+        </div>`).join("") || '<div class="empty">无技能</div>';
+    });
+    document.getElementById("btnCloseSkills").addEventListener("click", () => {
+      document.getElementById("skillsDrawer").classList.remove("open");
+    });
+    document.getElementById("skillsList").addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-install]");
+      if (!btn || btn.disabled) return;
+      btn.disabled = true; btn.textContent = "安装中…";
+      try {
+        await api("/api/skills/install", { method: "POST", body: JSON.stringify({ skill_id: btn.dataset.install }) });
+        btn.textContent = "已安装";
+      } catch (err) {
+        btn.disabled = false; btn.textContent = "安装失败";
+        alert(err.message);
+      }
+    });
+
+    async function boot() {
+      if (!(await ensureAuth())) return;
+      await refreshTasks();
+      if (state.tasks[0]) await openTask(state.tasks[0].task_id);
+    }
+    boot();
+  </script>
+</body>
+</html>

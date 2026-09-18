@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-"""WorkBuddy Console v11 — multi-tenant auth + scoped task APIs."""
+"""WorkBuddy Console v12 — multi-tenant auth + task shell APIs."""
 
 from __future__ import annotations
 
@@ -9,11 +9,12 @@ import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from .connectors import probe_status as connectors_probe
+from .console_workspace import read_preview, workspace_payload
 from .hub import hub_status
-from .skills import SkillCatalog
+from .skills import SkillCatalog, install_from_vendor, install_skill
 from .task import TaskStore
 from .tenant import (
     TenantContext,
@@ -26,9 +27,13 @@ from .tenant import (
     verify_token,
 )
 
-_STATIC = Path(__file__).resolve().parent / "console" / "index.html"
+_CONSOLE_DIR = Path(__file__).resolve().parent / "console"
+_SHELL = _CONSOLE_DIR / "shell.html"
+_OPS = _CONSOLE_DIR / "ops.html"
+_LEGACY = _CONSOLE_DIR / "index.html"
+
 _PUBLIC_GET = {"/api/health"}
-_API_GET = {
+_API_GET_EXACT = {
     "/api/health",
     "/api/status",
     "/api/hub",
@@ -45,17 +50,45 @@ def _registry() -> TenantRegistry:
     return TenantRegistry(os.environ.get("WB_TENANT_REGISTRY") or "artifacts/tenants/_registry.json")
 
 
+def _roots_for(ctx: TenantContext | None) -> TenantRoots | None:
+    if ctx is None:
+        return None
+    roots = TenantRoots(ctx.tenant_id, ctx.user_id)
+    roots.ensure()
+    return roots
+
+
 def _tasks_root_for(ctx: TenantContext | None) -> Path:
-    if ctx is not None:
-        roots = TenantRoots(ctx.tenant_id, ctx.user_id)
-        roots.ensure()
+    roots = _roots_for(ctx)
+    if roots is not None:
         return roots.tasks
     return Path("artifacts/tasks")
 
 
-def api_payload(path: str, ctx: TenantContext | None) -> dict[str, Any]:
+def _task_summary(t: Any) -> dict[str, Any]:
+    return {
+        "task_id": t.task_id,
+        "title": t.title,
+        "status": t.status,
+        "mode": t.mode,
+        "updated_at": t.updated_at,
+        "pinned": bool(t.meta.get("pinned")),
+        "archived": bool(t.meta.get("archived")),
+        "message_count": len(t.messages),
+    }
+
+
+def _task_detail(t: Any) -> dict[str, Any]:
+    data = t.to_dict()
+    data["pinned"] = bool(t.meta.get("pinned"))
+    data["archived"] = bool(t.meta.get("archived"))
+    return data
+
+
+def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
+    query = query or {}
     if path == "/api/health":
-        return {"ok": True, "auth_required": auth_required(), "v": 11}
+        return {"ok": True, "auth_required": auth_required(), "v": 12}
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -85,15 +118,12 @@ def api_payload(path: str, ctx: TenantContext | None) -> dict[str, Any]:
         }
     if path == "/api/tasks":
         store = TaskStore(_tasks_root_for(ctx))
+        q = (query.get("q") or [""])[0]
+        status = (query.get("status") or [""])[0] or None
+        include_archived = (query.get("archived") or ["0"])[0] in {"1", "true", "yes"}
         rows = [
-            {
-                "task_id": t.task_id,
-                "title": t.title,
-                "status": t.status,
-                "mode": t.mode,
-                "updated_at": t.updated_at,
-            }
-            for t in store.list_tasks()
+            _task_summary(t)
+            for t in store.list_tasks(status=status, query=q or None, include_archived=include_archived)
         ]
         return {"ok": True, "count": len(rows), "tasks": rows}
     if path == "/api/skills":
@@ -105,9 +135,13 @@ def api_payload(path: str, ctx: TenantContext | None) -> dict[str, Any]:
                 "name": m.name,
                 "description": (m.description_zh or m.description)[:120],
             }
-            for m in cat.list()[:40]
+            for m in cat.list()[:80]
         ]
-        return {"ok": True, "total": n, "skills": items}
+        installed_root = Path("artifacts/skillhub/installed")
+        installed = []
+        if installed_root.is_dir():
+            installed = [p.name for p in installed_root.iterdir() if p.is_dir()]
+        return {"ok": True, "total": n, "skills": items, "installed": installed}
     if path == "/api/connectors":
         return {"ok": True, **connectors_probe()}
     if path == "/api/harbor":
@@ -125,12 +159,37 @@ def api_payload(path: str, ctx: TenantContext | None) -> dict[str, Any]:
             "v": data.get("v"),
             "runtime": data.get("runtime"),
             "tasks": data.get("tasks"),
-            "hint": "POST /api/runtime/run-task?task_id=...&dry=1",
+            "hint": "POST /api/runtime/run-task",
         }
     return {"ok": False, "error": "not found"}
 
 
-def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: TenantContext | None) -> dict[str, Any]:
+def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, list[str]]) -> tuple[int, dict[str, Any]]:
+    """Handle /api/tasks/<id> and /api/tasks/<id>/workspace."""
+    parts = [p for p in path.strip("/").split("/") if p]
+    # api tasks <id> [workspace|preview]
+    if len(parts) < 3 or parts[0] != "api" or parts[1] != "tasks":
+        return 404, {"ok": False, "error": "not found"}
+    task_id = unquote(parts[2])
+    store = TaskStore(_tasks_root_for(ctx))
+    try:
+        rec = store.get(task_id)
+    except FileNotFoundError:
+        return 404, {"ok": False, "error": "task not found"}
+    task_dir = store._dir(task_id)  # noqa: SLF001
+    if len(parts) == 3:
+        return 200, {"ok": True, "task": _task_detail(rec)}
+    if parts[3] == "workspace":
+        return 200, workspace_payload(task_dir, rec.to_dict())
+    if parts[3] == "preview":
+        rel = (query.get("path") or [""])[0]
+        if not rel:
+            return 400, {"ok": False, "error": "path required"}
+        return 200, read_preview(task_dir, rel)
+    return 404, {"ok": False, "error": "not found"}
+
+
+def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: TenantContext | None) -> tuple[int, dict[str, Any]]:
     if path == "/api/auth/login":
         tid = str(body.get("tenant_id") or (query.get("tenant_id") or [""])[0]).strip()
         uid = str(body.get("user_id") or (query.get("user_id") or [""])[0]).strip()
@@ -142,20 +201,125 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             else:
                 new_ctx = _registry().authenticate(tid, uid, key)
             token = issue_token(new_ctx)
-            return {"ok": True, "token": token, "claims": new_ctx.to_claims()}
+            return 200, {"ok": True, "token": token, "claims": new_ctx.to_claims()}
         except Exception as exc:  # noqa: BLE001
-            return {"ok": False, "error": str(exc)}
+            return 401, {"ok": False, "error": str(exc)}
+
+    if path == "/api/tasks":
+        store = TaskStore(_tasks_root_for(ctx))
+        title = str(body.get("title") or body.get("prompt") or "新任务").strip()
+        mode = str(body.get("mode") or "craft").strip() or "craft"
+        prompt = str(body.get("prompt") or "").strip()
+        try:
+            rec = store.create(title=title, mode=mode, prompt=prompt)
+        except Exception as exc:  # noqa: BLE001
+            return 400, {"ok": False, "error": str(exc)}
+        return 200, {"ok": True, "task": _task_detail(rec)}
+
+    if path == "/api/skills/install":
+        skill_id = str(body.get("skill_id") or body.get("id") or "").strip()
+        if not skill_id:
+            return 400, {"ok": False, "error": "skill_id required"}
+        dest_root = Path("artifacts/skillhub/installed")
+        result: dict[str, Any]
+        try:
+            result = install_from_vendor(skill_id, dest_root=dest_root, force=True)
+        except FileNotFoundError:
+            cat = SkillCatalog()
+            cat.scan()
+            meta = next((m for m in cat.list() if m.id == skill_id), None)
+            if meta is None or not meta.path:
+                return 404, {"ok": False, "error": "skill not found"}
+            src = Path(meta.path)
+            if src.is_file():
+                src = src.parent
+            try:
+                result = install_skill(src, dest_root, force=True)
+            except Exception as exc:  # noqa: BLE001
+                return 400, {"ok": False, "error": str(exc)}
+        except Exception as exc:  # noqa: BLE001
+            return 400, {"ok": False, "error": str(exc)}
+        return 200, {"ok": bool(result.get("installed")), **result}
+
     if path == "/api/runtime/run-task":
         from .runtime import run_task
 
-        tid = (query.get("task_id") or [body.get("task_id", "")])[0]
-        tid = str(tid).strip()
+        tid = str((query.get("task_id") or [body.get("task_id", "")])[0]).strip()
         if not tid:
-            return {"ok": False, "error": "task_id required"}
-        dry = (query.get("dry") or ["1"])[0] not in {"0", "false", "no"}
-        result = run_task(tid, dry_run=dry, tasks_root=_tasks_root_for(ctx))
-        return {"ok": result.ok, **result.to_dict()}
-    return {"ok": False, "error": "not found"}
+            return 400, {"ok": False, "error": "task_id required"}
+        dry = (query.get("dry") or [str(body.get("dry", "1"))])[0] not in {"0", "false", "no"}
+        roots = _roots_for(ctx)
+        kb = roots.knowledge if roots else Path("artifacts/knowledge")
+        goals = Path("artifacts/goal_craft")
+        if roots is not None:
+            goals = roots.root / "goal_craft"
+            goals.mkdir(parents=True, exist_ok=True)
+        result = run_task(
+            tid,
+            dry_run=dry,
+            tasks_root=_tasks_root_for(ctx),
+            goals_root=goals,
+            kb_root=kb,
+        )
+        return 200, {"ok": result.ok, **result.to_dict()}
+
+    # /api/tasks/<id>/messages or /api/tasks/<id>/actions
+    parts = [p for p in path.strip("/").split("/") if p]
+    if len(parts) >= 4 and parts[0] == "api" and parts[1] == "tasks":
+        task_id = unquote(parts[2])
+        action = parts[3]
+        store = TaskStore(_tasks_root_for(ctx))
+        try:
+            store.get(task_id)
+        except FileNotFoundError:
+            return 404, {"ok": False, "error": "task not found"}
+
+        if action == "messages":
+            content = str(body.get("content") or body.get("text") or "").strip()
+            if not content:
+                return 400, {"ok": False, "error": "content required"}
+            role = str(body.get("role") or "user").strip() or "user"
+            store.append_message(task_id, role, content)
+            run = body.get("run", True)
+            dry = body.get("dry", True)
+            if run and role == "user":
+                from .runtime import run_task
+
+                roots = _roots_for(ctx)
+                kb = roots.knowledge if roots else Path("artifacts/knowledge")
+                goals = Path("artifacts/goal_craft")
+                if roots is not None:
+                    goals = roots.root / "goal_craft"
+                    goals.mkdir(parents=True, exist_ok=True)
+                run_task(
+                    task_id,
+                    dry_run=bool(dry) if not isinstance(dry, str) else dry not in {"0", "false", "no"},
+                    tasks_root=_tasks_root_for(ctx),
+                    goals_root=goals,
+                    kb_root=kb,
+                )
+            rec = store.get(task_id)
+            return 200, {"ok": True, "task": _task_detail(rec)}
+
+        if action == "patch":
+            meta_patch: dict[str, Any] = {}
+            if "pinned" in body:
+                meta_patch["pinned"] = bool(body["pinned"])
+            if "archived" in body:
+                meta_patch["archived"] = bool(body["archived"])
+            try:
+                rec = store.update(
+                    task_id,
+                    title=body.get("title"),
+                    mode=body.get("mode"),
+                    status=body.get("status"),
+                    meta_patch=meta_patch or None,
+                )
+            except Exception as exc:  # noqa: BLE001
+                return 400, {"ok": False, "error": str(exc)}
+            return 200, {"ok": True, "task": _task_detail(rec)}
+
+    return 404, {"ok": False, "error": "not found"}
 
 
 def _read_json_body(handler: BaseHTTPRequestHandler) -> dict[str, Any]:
@@ -186,9 +350,7 @@ class _Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def _auth_context(self) -> tuple[TenantContext | None, dict[str, Any] | None]:
-        """Return (ctx, error_payload). error_payload set → respond 401."""
         if not auth_required():
-            # Optional bearer still accepted for scoped roots
             token = parse_bearer(self.headers.get("Authorization"))
             if token:
                 try:
@@ -213,26 +375,35 @@ class _Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
         path = parsed.path
+        query = parse_qs(parsed.query)
         if path.startswith("/api/"):
             ctx, err = self._auth_context()
             if err is not None:
                 body = json.dumps(err, ensure_ascii=False).encode("utf-8")
                 self._send(401, body, "application/json; charset=utf-8")
                 return
-            payload = api_payload(path, ctx)
-            code = 200 if path in _API_GET else 404
-            if path not in _API_GET:
-                payload = {"ok": False, "error": "not found"}
+            if path.startswith("/api/tasks/") and path != "/api/tasks":
+                code, payload = api_get_task_path(path, ctx, query)
+            elif path in _API_GET_EXACT:
+                payload = api_payload(path, ctx, query)
+                code = 200
+            else:
+                code, payload = 404, {"ok": False, "error": "not found"}
             body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
             self._send(code, body, "application/json; charset=utf-8")
             return
-        if path in {"/", "/index.html"}:
-            if not _STATIC.is_file():
-                self._send(404, b"console missing", "text/plain; charset=utf-8")
-                return
-            self._send(200, _STATIC.read_bytes(), "text/html; charset=utf-8")
+        # static pages
+        if path in {"/", "/index.html", "/shell.html"}:
+            target = _SHELL if _SHELL.is_file() else _LEGACY
+        elif path in {"/ops", "/ops.html"}:
+            target = _OPS if _OPS.is_file() else _LEGACY
+        else:
+            self._send(404, b"not found", "text/plain; charset=utf-8")
             return
-        self._send(404, b"not found", "text/plain; charset=utf-8")
+        if not target.is_file():
+            self._send(404, b"console missing", "text/plain; charset=utf-8")
+            return
+        self._send(200, target.read_bytes(), "text/html; charset=utf-8")
 
     def do_POST(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
@@ -245,14 +416,7 @@ class _Handler(BaseHTTPRequestHandler):
                 body = json.dumps(err, ensure_ascii=False).encode("utf-8")
                 self._send(401, body, "application/json; charset=utf-8")
                 return
-            payload = api_post(path, query, body_obj, ctx)
-            if path == "/api/auth/login":
-                code = 200 if payload.get("ok") else 401
-            elif path == "/api/runtime/run-task":
-                code = 200 if payload.get("ok") or "error" in payload else 404
-            else:
-                code = 404
-                payload = {"ok": False, "error": "not found"}
+            code, payload = api_post(path, query, body_obj, ctx)
             body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
             self._send(code, body, "application/json; charset=utf-8")
             return
@@ -264,7 +428,7 @@ def serve(*, host: str = "127.0.0.1", port: int = 8010) -> None:
     mode = "AUTH ON" if auth_required() else "auth optional"
     print(
         f"[wb-console] http://{host}:{port}/  ({mode})  "
-        "APIs: /api/health|/api/auth/login|/api/tasks|/api/tenant|/api/runtime"
+        "shell=/ ops=/ops.html  APIs: /api/tasks|/api/auth/login|/api/skills/install"
     )
     httpd.serve_forever()
 

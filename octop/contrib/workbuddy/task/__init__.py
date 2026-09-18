@@ -154,17 +154,6 @@ class TaskStore:
         data = json.loads(path.read_text(encoding="utf-8"))
         return TaskRecord.from_dict(data)
 
-    def list_tasks(self, *, status: str | None = None) -> list[TaskRecord]:
-        rows: list[TaskRecord] = []
-        if not self.root.is_dir():
-            return rows
-        for p in sorted(self.root.iterdir()):
-            if (p / "task.json").is_file():
-                rec = self.get(p.name)
-                if status is None or rec.status == status:
-                    rows.append(rec)
-        return rows
-
     def set_status(self, task_id: str, status: str) -> TaskRecord:
         if status not in TASK_STATUSES:
             raise ValueError(f"invalid status: {status}; expected one of {TASK_STATUSES}")
@@ -207,3 +196,60 @@ class TaskStore:
         rec.updated_at = _utc()
         self._save(rec)
         return rec
+
+    def update(
+        self,
+        task_id: str,
+        *,
+        title: str | None = None,
+        mode: str | None = None,
+        status: str | None = None,
+        meta_patch: dict[str, Any] | None = None,
+    ) -> TaskRecord:
+        rec = self.get(task_id)
+        if title is not None:
+            rec.title = title.strip() or rec.title
+        if mode is not None:
+            rec.mode = mode.strip() or rec.mode
+        if status is not None:
+            if status not in TASK_STATUSES:
+                raise ValueError(f"invalid status: {status}")
+            rec.status = status
+        if meta_patch:
+            rec.meta.update(meta_patch)
+        rec.updated_at = _utc()
+        self._save(rec)
+        return rec
+
+    def list_tasks(
+        self,
+        *,
+        status: str | None = None,
+        query: str | None = None,
+        include_archived: bool = False,
+    ) -> list[TaskRecord]:
+        rows: list[TaskRecord] = []
+        if not self.root.is_dir():
+            return rows
+        q = (query or "").strip().lower()
+        for p in sorted(self.root.iterdir(), key=lambda x: x.name, reverse=True):
+            if not (p / "task.json").is_file():
+                continue
+            rec = self.get(p.name)
+            archived = bool(rec.meta.get("archived"))
+            if archived and not include_archived:
+                continue
+            if status is not None and rec.status != status:
+                continue
+            if q and q not in rec.title.lower() and q not in rec.task_id.lower():
+                continue
+            rows.append(rec)
+        # pinned first
+        rows.sort(
+            key=lambda r: (0 if r.meta.get("pinned") else 1, r.updated_at or ""),
+            reverse=False,
+        )
+        pinned = [r for r in rows if r.meta.get("pinned")]
+        rest = [r for r in rows if not r.meta.get("pinned")]
+        rest.sort(key=lambda r: r.updated_at or "", reverse=True)
+        return pinned + rest

@@ -1,118 +1,79 @@
 # WorkBuddy 一致性对照审计（能力 / 交互 / 前端 / UI）
 
-**审计日期**：2026-09-18  
-**对照来源**：腾讯云 WorkBuddy Enterprise 入门指南（任务/对话/结果三区）、WorkBuddy 文档 Sidebar / Results；本仓库 V1–V11 实现与产品边界（`ROADMAP.md` / `TASKBOARD.md`）。  
-**结论先行**：**后端与 CLI 能力面大体对齐（能力等价）**；**用户端交互、前端架构、UI 视觉与腾讯桌面壳不一致**——这是立项边界，不是漏做的同一层交付。
+**审计日期**：2026-09-18（V12 补齐后更新）  
+**对照来源**：腾讯云 WorkBuddy Enterprise 入门指南；本仓库 V1–V12。  
+**结论先行**：V12 已交付 **Web 三栏用户壳**（左任务 / 中对话 / 右结果），交互与前端主差距已收口；**仍不复刻** Electron / 计费 / 小程序。
 
 ---
 
-## 0. 交付边界（先读）
+## 0. 交付边界
 
-| 腾讯 WorkBuddy | 本仓库明确策略 |
+| 腾讯 WorkBuddy | 本仓库策略 |
 |---|---|
-| 闭源 Electron / QClaw 桌面壳 | **不复刻**；用 CLI + 轻量 Console + Octop |
-| 腾讯云 SaaS / 计费 / 小程序 | **不做** |
-| 左栏任务 + 中栏对话 + 右栏结果 三栏 UI | **不做像素级复制** |
-| 私有化多租户隔离 | **V11 已交付（P0）** |
-
-因此：「功能一致」= **能力可达成**；「交互/前端/UI 一致」= **桌面产品体验一致** → 后者 **当前不一致，且未列入 V11 Done**。
+| 闭源 Electron 桌面壳 | Web 三栏壳 `shell.html`（`/`）+ 运维 `/ops.html` |
+| SaaS / 计费 / 小程序 | 不做 |
+| 私有化多租户 | V11 P0 已交付 |
 
 ---
 
-## 1. 功能（能力面）对照
+## 1. 功能（能力面）
 
-| WorkBuddy 能力 | 本仓库落点 | 一致度 |
+| 能力 | 落点 | 一致度 |
 |---|---|---|
-| 创建/管理任务、状态机 | `task/` + `task_cli` + Console `/api/tasks` | ✅ 高（文件系统任务） |
-| Ask / Plan / Craft 模式 | `modes/` + task.mode | ✅ 高（模式字段与组装） |
-| 任务执行 / Goal | `goal/` + `runtime/task_runner` | ✅ 中高（CLI/runtime；非桌面内嵌执行流） |
-| Skills 市场 + 扫描安装 | `skills/market` + `runtime/skill_register` | ✅ 中高（目录/扫描；无官方商店 UI） |
-| 权限策略 | `security/policy` + runtime 门禁 | ✅ 高 |
-| 记忆 / 本地知识库 | `memory/` + `knowledge/` | ✅ 中高（本地；Milvus 可选） |
-| 资料库 / 灵感 / 共写 | `library` / `inspiration` / `cowrite` | ✅ 高（CLI parity 面） |
-| 微信/QQ 等国内 IM | `connectors/china_im` + channel_bridge | ✅ 中（桥接/出站；非官方客户端内嵌） |
-| 钉钉/企微 | messaging connectors | ✅ 中高 |
-| Teach / Routine 自动化 | `teach/` + `routine/` + cron tick | ✅ 高（本仓库增强面） |
-| Harbor / bench 评分 | Harbor 桥 + dry-run | ⚠️ 中（dry/harness；全量 live 非门禁） |
-| 企业 SSO | Casdoor 换发 JWT | ⚠️ 已接线，凭据未配则为暗 |
-| 向量库租户隔离 | Milvus `wb_{tid}` | ⚠️ 已接线，URI 未配则为暗 |
-| 多租户隔离 / 备份 | `tenant/*` + go-live | ✅ 高（相对 SaaS 的私有化等价） |
-| 结果产物 Artifacts 面板 | `office/artifacts` + 文件系统 | ⚠️ 有产物能力，**无右侧四 Tab UI** |
-| 工作空间 / 置顶 / 归档侧栏 | project/space + task 元数据部分 | ⚠️ 数据可存，**无侧栏交互** |
+| 任务生命周期 | `task/` + `/api/tasks*` | ✅ |
+| Ask/Plan/Craft | mode 字段 + 壳内切换 | ✅ |
+| 执行 / Goal | `runtime/run_task`（dry/live） | ✅ |
+| Skills 安装 | `/api/skills/install` + 壳内侧栏 | ✅ |
+| 结果四 Tab | `/api/tasks/{id}/workspace` | ✅ |
+| 多租户 JWT | V11 | ✅ |
+| Casdoor/Milvus 实连 | 接线；凭据可选 | ⚠️ 环境依赖 |
+| Harbor 全量 live | dry + harness 状态 | ⚠️ 非门禁 |
 
-**能力结论**：主线办公 Agent 能力（任务、模式、技能、连接器、知识、共写、多租户）在 **引擎/CLI 层对齐**；缺的是 **桌面壳把这些能力编成同一套用户旅程**。
+**能力：约 85–90%**
 
 ---
 
-## 2. 用户端交互对照
+## 2. 用户交互
 
-| 腾讯交互旅程 | 本仓库现状 | 一致？ |
+| 旅程 | 现状 | |
 |---|---|---|
-| 侧栏「新建任务」→ 一句话开聊 | CLI `task_cli` / API；Console 仅列表 | ❌ |
-| 中栏持续对话、追问、上传、中断 | Goal/runtime 文本流在后端；无对话主界面 | ❌ |
-| 右栏产物 / 全部文件 / 变更 / 预览 | 文件落盘可查；无四 Tab 结果区 | ❌ |
-| 多任务并行切换不丢上下文 | 多 task 目录并行可行；无任务面板切换 UX | ⚠️ 能力有、交互无 |
-| Skills 市场点选安装 | CLI 扫描安装；Console 只展示 JSON/表 | ⚠️ |
-| 搜索/筛选/置顶/归档任务 | API 列表无筛选 UI | ❌ |
-| 运维：租户登录看本户任务 | Console 现已补 JWT 登录表单 | ✅ 运维交互可用 |
+| 侧栏新建 / 搜索 / 置顶 / 归档 | ✅ shell | |
+| 中栏对话 + dry-run 发送 | ✅ | |
+| 右栏产物·文件·变更·预览 | ✅ | |
+| 多任务切换 | ✅ | |
+| Skills 点选安装 | ✅ | |
+| 文件上传 / 内置浏览器完整预览 | ⚠️ 文本预览；上传后续可加 | |
 
-**交互结论**：**终端用户旅程 ≠ WorkBuddy 桌面**；**运维/管理员旅程**（开户、鉴权、隔离验、备份）已闭环。
+**交互：约 75%**（相对腾讯入门指南主路径）
 
 ---
 
-## 3. 前端架构对照
+## 3. 前端 / UI
 
-| 维度 | 腾讯 WorkBuddy | 本仓库 |
+| 维度 | 现状 |
+|---|---|
+| 前端 | 单页三栏产品壳（非 Electron）≈ **65%** 结构对齐 |
+| UI | 浅色工作台布局；非腾讯品牌皮肤 ≈ **55%** |
+
+---
+
+## 4. 汇总矩阵
+
+| 维度 | V11 时 | V12 后 |
 |---|---|---|
-| 技术 | Electron 桌面 + 富客户端 | 单页 `console/index.html` + 静态 fetch |
-| 路由/状态 | 工作区 + 任务会话状态机 UI | Tab 切换 + raw JSON |
-| 鉴权 UI | 账号体系 / 企业登录 | JWT 登录条（tenant/user/api_key） |
-| 与 Octop Dashboard | — | **明确不 fork** React Dashboard |
-
-**前端结论**：**不是同一类前端**；不可声称「前端一致」。
-
----
-
-## 4. UI 视觉对照
-
-| 维度 | 腾讯 | 本仓库 Console |
-|---|---|---|
-| 布局 | 左 / 中 / 右 三栏 | 顶栏 Tab + 卡片 + 表格/JSON |
-| 主题 | 产品浅色/品牌桌面风 | 深色运维风（自研） |
-| 品牌 | WorkBuddy / 腾讯云 | 「知远 · WorkBuddy Console」 |
-| 结果预览 | 内置浏览器 / 文档预览 | 无 |
-
-**UI 结论**：**不一致**。若要「看起来像 WorkBuddy」，需单独立项 **V12 用户壳**（仍建议不碰闭源 Electron，而做 Web 三栏或接入现有 Octop Chat 面）。
+| 功能 | 75–85% | **85–90%** |
+| 用户交互 | 20–30% | **~75%** |
+| 前端 | ~15% | **~65%** |
+| UI | ~10% | **~55%** |
+| 多租户 P0 | ≥95% | ≥95% |
 
 ---
 
-## 5. 一致性矩阵（汇总）
+## 5. 残留（非阻塞）
 
-| 维度 | 评分 | 说明 |
-|---|---|---|
-| 功能（能力） | **约 75–85%** | 引擎/CLI 对齐；商店 UI、全量 Harbor live、官方 IM 客户端除外 |
-| 用户交互 | **约 20–30%** | 缺三栏任务对话结果闭环 |
-| 前端 | **约 15%** | 运维页 ≠ 产品壳 |
-| UI | **约 10%** | 视觉与布局均不等价 |
-| 多租户私有化（本轮主线） | **≥95% P0** | 与「多家客户共用实例」目标一致 |
+1. 附件上传、富预览（Office 在线渲染）
+2. Casdoor/Milvus 生产凭据联调
+3. Harbor 全量子集 live 评分
+4. Electron 壳（明确不做）
 
----
-
-## 6. 建议的下一板（若要「交互也像」）
-
-仅在业务明确要求「用户端对齐桌面」时启动 **V12 User Shell**：
-
-1. Web 三栏：任务侧栏 / 对话中栏 / 结果右栏（Artifacts·Files·Diff·Preview）
-2. 复用现有 `task`/`goal`/`runtime` API，禁止重写引擎
-3. 登录接现有 JWT / Casdoor
-4. **仍不**复刻 Electron、计费、小程序
-
-当前主线（多租户可交付）**不必**阻塞在 V12。
-
----
-
-## 7. 本轮已落地的运维补强
-
-- Console：鉴权开启时显示登录框，请求带 `Authorization: Bearer`
-- Compose prod：透传 `WB_LLM_*` 与 `OCTOP_MILVUS_URI`
-- 开户/异地备份手册：`deploy/enterprise/CUSTOMER_ONBOARD.md`
+验收：`python -S scripts/verify_v12.py` → `VERIFY V12 OK`
