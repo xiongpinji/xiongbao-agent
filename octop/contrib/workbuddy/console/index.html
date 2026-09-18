@@ -66,7 +66,7 @@
 <body>
   <header>
     <h1>知远 · WorkBuddy Console</h1>
-    <p>V9 状态面：概览 / 任务 / 技能 / 连接器 / Harbor</p>
+    <p>V10 状态面：概览 / 任务 / 技能 / 连接器 / Harbor / Runtime</p>
   </header>
   <div class="tabs" id="tabs">
     <button type="button" data-tab="overview" class="active">概览</button>
@@ -74,6 +74,7 @@
     <button type="button" data-tab="skills">技能</button>
     <button type="button" data-tab="connectors">连接器</button>
     <button type="button" data-tab="harbor">Harbor</button>
+    <button type="button" data-tab="runtime">Runtime</button>
   </div>
   <main>
     <div class="actions">
@@ -111,6 +112,14 @@
     <section class="panel" id="panel-harbor">
       <div class="card"><h2>Harbor · /api/harbor</h2><pre id="raw-harbor">loading…</pre></div>
     </section>
+
+    <section class="panel" id="panel-runtime">
+      <div class="card">
+        <h2>Runtime · /api/runtime</h2>
+        <p class="hint">POST /api/runtime/run-task?task_id=&lt;id&gt;&amp;dry=1</p>
+        <pre id="raw-runtime">loading…</pre>
+      </div>
+    </section>
   </main>
   <script>
     const cards = document.getElementById("cards");
@@ -130,21 +139,25 @@
 
     async function load() {
       try {
-        const [status, tasks, skills, connectors, harbor] = await Promise.all([
+        const [status, tasks, skills, connectors, harbor, runtime] = await Promise.all([
           fetch("/api/status").then(r => r.json()),
           fetch("/api/tasks").then(r => r.json()),
           fetch("/api/skills").then(r => r.json()),
           fetch("/api/connectors").then(r => r.json()),
           fetch("/api/harbor").then(r => r.json()),
+          fetch("/api/runtime").then(r => r.json()),
         ]);
         const h = status.harbor || {};
         const subsets = h.subsets || {};
         const taskSum = Object.values(subsets).reduce((n, s) => n + (s.tasks || 0), 0);
+        const rt = (status.runtime || runtime.runtime || {});
         cards.innerHTML = [
+          pill("Hub", "v" + (status.v || "?"), true),
           pill("Docker", h.docker_available ? (h.docker_version || "ok") : "offline", !!h.docker_available),
           pill("Harbor venv", h.bench_synced ? (h.python_version || "synced") : "missing", !!h.bench_synced),
           pill("Tasks", String((tasks.tasks || []).length), true),
           pill("Skills", String(skills.total || 0), (skills.total || 0) > 0),
+          pill("Installed", String(rt.installed_skills || 0), true),
           pill("Bench", String(taskSum), taskSum > 0),
         ].join("");
         document.getElementById("raw-status").textContent = JSON.stringify(status, null, 2);
@@ -152,6 +165,7 @@
         document.getElementById("raw-skills").textContent = JSON.stringify(skills, null, 2);
         document.getElementById("raw-connectors").textContent = JSON.stringify(connectors, null, 2);
         document.getElementById("raw-harbor").textContent = JSON.stringify(harbor, null, 2);
+        document.getElementById("raw-runtime").textContent = JSON.stringify(runtime, null, 2);
         document.getElementById("tasks-body").innerHTML = (tasks.tasks || []).map(t =>
           `<tr><td>${t.task_id}</td><td>${t.title}</td><td>${t.status}</td><td>${t.mode}</td></tr>`
         ).join("") || "<tr><td colspan=4>暂无任务</td></tr>";

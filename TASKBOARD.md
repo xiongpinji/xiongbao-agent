@@ -1,42 +1,40 @@
-# TASKBOARD — WorkBuddy 剩余全量对齐（V9）
+# TASKBOARD — WorkBuddy 运行时贯通（V10）
 
-> 基线：V1–V8 已交付（能力对齐 + Harbor dry-run + Compose/Console 常驻）。  
-> 本板覆盖：**官方文档功能矩阵中仍缺的等价能力**。  
-> **边界不变**：不复刻 Electron/QClaw、腾讯云 SaaS、小程序/移动端、计费积分。
+> 基线：V1–V9 已交付（产品面对齐）。  
+> 本板覆盖：**把 V9 孤岛能力串成可执行闭环**（Task 跑通、策略生效、入站轮询、Skill 入目录、KB/档案注入、打包导出）。  
+> **边界不变**：不复刻 Electron/QClaw、腾讯云 SaaS、小程序/计费、腾讯文档专有 API。
 
-## V9 任务拆解（一次性）
+## V9（已完成，归档）
+
+| ID | 交付物 | 状态 |
+|---|---|---|
+| V9.1–V9.16 | 任务 / 权限 / 数据 / 模型 / worktree / 微信QQ / 资料库 / 灵感 / KB / 共写 / 通道桥 / Skill / Console / Harbor / 审计 / verify | ✅ |
+
+## V10 任务拆解（一次性）
 
 | ID | 交付物 | 验收 | 状态 |
 |---|---|---|---|
-| V9.1 | `task/` 生命周期：create/list/get/append/complete + CLI | 单测 + `task_cli` | ✅ |
-| V9.2 | `security/policy` 权限模式（ask/plan/craft/sandbox） | 策略读写 + CLI | ✅ |
-| V9.3 | `data/` 工作区导出导入 zip/jsonl | export/import 往返 | ✅ |
-| V9.4 | `models_profile/` 模型档案（本地 OpenAI 兼容） | profile get/set/list | ✅ |
-| V9.5 | `gitwork/worktree` 并行任务目录隔离 | create/list/remove | ✅ |
-| V9.6 | 微信/QQ 连接器（webhook 出站 + 入站 inbox JSONL） | probe + Fake HTTP | ✅ |
-| V9.7 | `library/` 资料库索引 + 轻量发布（静态 html） | index/publish | ✅ |
-| V9.8 | `inspiration/` + Buddy App 模板脚手架 | list/scaffold | ✅ |
-| V9.9 | `knowledge/` 本地 KB（目录切片 + 可选 Milvus upsert） | ingest/search | ✅ |
-| V9.10 | `cowrite/` 人机双写会话 | start/append/export | ✅ |
-| V9.11 | `channel_bridge` 入站消息 → Task（门禁） | dry 路径单测 | ✅ |
-| V9.12 | Skill 市场：`install` from vendor + `scanner` 启发式 | install/scan CLI | ✅ |
-| V9.13 | Console v2：任务/技能/连接器/Harbor Tab + API | `/api/*` + UI | ✅ |
-| V9.14 | Harbor：harness-mount 探测 + 可选单题评分入口 | CLI dry 可跳过 | ✅ |
-| V9.15 | 审计挂钩：Task 创建自动写 AuditLog + hooks | 自动落盘 | ✅ |
-| V9.16 | `verify_v9.py` + ROADMAP/DELIVERABLE 更新 + commit | VERIFY V9 OK | ✅ |
+| V10.1 | `runtime/task_runner`：Task → GoalEngine 执行（dry/live） | 单测 dry 路径 | ✅ |
+| V10.2 | `runtime/policy_gate`：跑 Task/Goal 前校验 SecurityPolicy | ask 拒写 / craft 放行 | ✅ |
+| V10.3 | `runtime/profile_env`：激活 ModelProfile → env/caller | 注入 base_url/model | ✅ |
+| V10.4 | `runtime/inbox_poll`：Inbox JSONL → ChannelBridge | 游标不重复消费 | ✅ |
+| V10.5 | `runtime/skill_register`：install + 写入 installed 索引 | 目录可被 Catalog 扫到 | ✅ |
+| V10.6 | `runtime/kb_context`：KB search 注入记忆上下文 | 命中片段进 prompt 前缀 | ✅ |
+| V10.7 | `runtime/bundle_export`：多根（tasks/kb/cowrite/…）打包 | zip 往返 | ✅ |
+| V10.8 | Task create 可选 git worktree 绑定 | meta.worktree 落盘 | ✅ |
+| V10.9 | Cowrite export → LibraryIndex 发布 | library list 可见 | ✅ |
+| V10.10 | Console `/api/runtime/*` + Hub v10 + `verify_v10` + docs | VERIFY V10 OK | ✅ |
 
-## 明确不进 V9（产品边界）
+## 明确不进 V10
 
-- 腾讯 Electron / QClaw / 小程序 / 移动端壳
-- 腾讯云托管、积分、账单、发票
-- 腾讯文档 / IMA / 乐享专有 API（用本地 KB 等价）
-- CDN 全站镜像
-- 修改 Octop 核心 Dashboard React 路由（继续 Console 独立面）
+- Harbor **真机全量**评分（入口已有；本板只保 dry/harness）
+- 腾讯闭源桌面壳 / 云托管 / 计费
+- 修改 Octop 核心 Dashboard React
 
 ## 验收
 
 ```powershell
 $env:PYTHONPATH = (Get-Location).Path
-python -S scripts\verify_v9.py
-# → VERIFY V9 OK
+python -S scripts\verify_v10.py
+# → VERIFY V10 OK
 ```

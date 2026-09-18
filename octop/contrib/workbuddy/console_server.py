@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-"""WorkBuddy Console v2 — tasks / skills / connectors / harbor tabs + APIs."""
+"""WorkBuddy Console v2 — tasks / skills / connectors / harbor / runtime tabs + APIs."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import argparse
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from .connectors import probe_status as connectors_probe
 from .hub import hub_status
@@ -15,6 +15,15 @@ from .skills import SkillCatalog
 from .task import TaskStore
 
 _STATIC = Path(__file__).resolve().parent / "console" / "index.html"
+_API_GET = {
+    "/api/status",
+    "/api/hub",
+    "/api/tasks",
+    "/api/skills",
+    "/api/connectors",
+    "/api/harbor",
+    "/api/runtime",
+}
 
 
 def _tasks_root() -> Path:
@@ -23,9 +32,7 @@ def _tasks_root() -> Path:
 
 def api_payload(path: str) -> dict:
     if path in {"/api/status", "/api/hub"}:
-        data = hub_status()
-        data["v"] = 9
-        return data
+        return hub_status()
     if path == "/api/tasks":
         store = TaskStore(_tasks_root())
         rows = [
@@ -61,6 +68,28 @@ def api_payload(path: str) -> dict:
             "status": harbor_status().to_dict(),
             "harness": harness_mount_probe(),
         }
+    if path == "/api/runtime":
+        data = hub_status()
+        return {
+            "ok": True,
+            "v": data.get("v"),
+            "runtime": data.get("runtime"),
+            "tasks": data.get("tasks"),
+            "hint": "POST /api/runtime/run-task?task_id=...&dry=1",
+        }
+    return {"ok": False, "error": "not found"}
+
+
+def api_post(path: str, query: dict[str, list[str]]) -> dict:
+    if path == "/api/runtime/run-task":
+        from .runtime import run_task
+
+        tid = (query.get("task_id") or [""])[0].strip()
+        if not tid:
+            return {"ok": False, "error": "task_id required"}
+        dry = (query.get("dry") or ["1"])[0] not in {"0", "false", "no"}
+        result = run_task(tid, dry_run=dry)
+        return {"ok": result.ok, **result.to_dict()}
     return {"ok": False, "error": "not found"}
 
 
@@ -73,25 +102,22 @@ class _Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", content_type)
         self.send_header("Cache-Control", "no-store")
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def do_OPTIONS(self) -> None:  # noqa: N802
+        self._send(204, b"", "text/plain")
 
     def do_GET(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
         path = parsed.path
         if path.startswith("/api/"):
             payload = api_payload(path)
-            code = 200 if payload.get("ok", True) or path in {"/api/status", "/api/hub"} else 404
-            if path not in {
-                "/api/status",
-                "/api/hub",
-                "/api/tasks",
-                "/api/skills",
-                "/api/connectors",
-                "/api/harbor",
-            }:
-                code = 404
+            code = 200 if path in _API_GET else 404
+            if path not in _API_GET:
                 payload = {"ok": False, "error": "not found"}
             body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
             self._send(code, body, "application/json; charset=utf-8")
@@ -104,10 +130,28 @@ class _Handler(BaseHTTPRequestHandler):
             return
         self._send(404, b"not found", "text/plain; charset=utf-8")
 
+    def do_POST(self) -> None:  # noqa: N802
+        parsed = urlparse(self.path)
+        path = parsed.path
+        query = parse_qs(parsed.query)
+        if path.startswith("/api/"):
+            payload = api_post(path, query)
+            code = 200 if payload.get("ok") or "error" in payload else 404
+            if path != "/api/runtime/run-task":
+                code = 404
+                payload = {"ok": False, "error": "not found"}
+            body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
+            self._send(code, body, "application/json; charset=utf-8")
+            return
+        self._send(404, b"not found", "text/plain; charset=utf-8")
+
 
 def serve(*, host: str = "127.0.0.1", port: int = 8010) -> None:
     httpd = ThreadingHTTPServer((host, port), _Handler)
-    print(f"[wb-console] http://{host}:{port}/  APIs: /api/status|/api/tasks|/api/skills|/api/connectors|/api/harbor")
+    print(
+        f"[wb-console] http://{host}:{port}/  "
+        "APIs: /api/status|/api/tasks|/api/skills|/api/connectors|/api/harbor|/api/runtime"
+    )
     httpd.serve_forever()
 
 

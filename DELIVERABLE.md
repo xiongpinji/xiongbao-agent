@@ -350,6 +350,34 @@ python -S -m octop.contrib.workbuddy.harbor_cli score --dry-run
 python -S -m octop.contrib.workbuddy.console_server --port 8010
 ```
 
+## V10 — READY（运行时贯通）
+
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_v10.py
+# → VERIFY V10 OK
+```
+
+| Check | Result |
+|---|---|
+| Task → GoalEngine dry 执行 | OK |
+| Policy 门禁（ask 拒写） | OK |
+| ModelProfile → env | OK |
+| Inbox → ChannelBridge 游标轮询 | OK |
+| Skill install + Catalog 可见 | OK |
+| KB 召回前缀 | OK |
+| 多根 artifacts 打包往返 | OK |
+| Task + worktree meta | OK |
+| Cowrite → Library 发布 | OK |
+| Hub v10 + `/api/runtime` | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.runtime_cli run-task --task-id <id>
+python -S -m octop.contrib.workbuddy.runtime_cli inbox-poll --allow
+python -S -m octop.contrib.workbuddy.runtime_cli skill-register --id diagnose
+python -S -m octop.contrib.workbuddy.runtime_cli bundle-export --out artifacts/bundle.zip
+```
+
 ## Out of scope（产品边界）
 
 - 腾讯闭源 Electron / QClaw 桌面壳（UI → Octop Dashboard + WorkBuddy Console + CLI）

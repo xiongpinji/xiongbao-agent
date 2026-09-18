@@ -199,7 +199,7 @@ class TestV913ConsoleApi(unittest.TestCase):
     def test_api_payload_shapes(self) -> None:
         status = api_payload("/api/status")
         self.assertTrue(status.get("ok"))
-        self.assertEqual(status.get("v"), 9)
+        self.assertGreaterEqual(int(status.get("v") or 0), 9)
         tasks = api_payload("/api/tasks")
         self.assertIn("tasks", tasks)
         skills = api_payload("/api/skills")
@@ -240,7 +240,7 @@ class TestV915AuditHooks(unittest.TestCase):
 class TestV9Hub(unittest.TestCase):
     def test_hub_v9(self) -> None:
         data = hub_status(root=ROOT)
-        self.assertEqual(data["v"], 9)
+        self.assertGreaterEqual(int(data["v"]), 9)
         self.assertIn("harness", data)
         self.assertIn("tasks", data)
         self.assertIn("/api/tasks", data["console"]["apis"])
