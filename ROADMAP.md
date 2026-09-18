@@ -12,10 +12,10 @@
 | V4 | 脚本沙箱 / Goal `--skill` / outbox retry / verify_v4 | ✅ |
 | V5.1 | Windows 计划任务 `tick` 示例 | ✅ |
 
-## V5 — 剩余（可选）
+## V5 — 剩余（可选 / 阻塞）
 
-1. Harbor 子集 live LLM 评分接线（需题库；无数据则跳过）
-2. Casdoor / Milvus / systemd — **企业包装，默认跳过**（需你明确点名）
+1. Harbor 子集 live LLM 评分 — **阻塞**：`vendor/workbuddy-bench` 无 office 题库；需自行 `fetch-dataset.sh office` 后再接线
+2. Casdoor / Milvus / systemd — **企业包装，默认跳过**（需明确点名）
 
 ## 工作方式
 
