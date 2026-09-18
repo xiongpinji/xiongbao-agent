@@ -29,8 +29,14 @@ $env:PYTHONPATH = (Get-Location).Path
 python -S scripts\verify_v17.py
 ```
 
+## Harbor 旁路（刚跑完）
+
+- 已隔离 Windows 坏样本 `dotnet-3stage-rat-loader`（剩 59 题）
+- 四子集 full 报告 `all_ok=True`（office/code/web/sec 进程均 rc=0）
+- **sec-full 分数仍为 Mean 0.000**：59 题全是异常（50×`RuntimeError` + 9×`EnvironmentStartTimeoutError`），属环境/样本限制，不挡 V17 用户壳交付
+
 ## 距主线
 
 - 流式 SSE（可选 V18）  
-- Harbor sec-full Windows 样本题（平台限制，非用户壳门禁）  
+- Harbor sec-full 在 Windows 上要换可跑样本或 Linux runner  
 - 公网 Let's Encrypt（本地 tls internal 已够私有化）
