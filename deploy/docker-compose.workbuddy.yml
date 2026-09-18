@@ -21,8 +21,7 @@ services:
     working_dir: /app
     volumes:
       - ../:/app
-      - octop_data:/var/lib/octop
-      - wb_artifacts:/app/artifacts
+      - ../artifacts:/app/artifacts
     environment:
       OCTOP_HOME: /var/lib/octop
       PYTHONPATH: /app
@@ -48,7 +47,7 @@ services:
     working_dir: /app
     volumes:
       - ../:/app
-      - wb_artifacts:/app/artifacts
+      - ../artifacts:/app/artifacts
     environment:
       PYTHONPATH: /app
       WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
@@ -90,7 +89,7 @@ services:
     working_dir: /app
     volumes:
       - ../:/app
-      - wb_artifacts:/app/artifacts
+      - ../artifacts:/app/artifacts
     environment:
       PYTHONPATH: /app
       WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
@@ -148,7 +147,7 @@ services:
     volumes:
       - ../:/app
       - octop_data:/var/lib/octop
-      - wb_artifacts:/app/artifacts
+      - ../artifacts:/app/artifacts
     environment:
       OCTOP_HOME: /var/lib/octop
       PYTHONPATH: /app/octop/src:/app
@@ -194,6 +193,5 @@ services:
 volumes:
   octop_data:
   milvus_data:
-  wb_artifacts:
   caddy_data:
   caddy_config:

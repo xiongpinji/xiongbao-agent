@@ -3,7 +3,8 @@
 本目录描述 **可选** 企业组件；默认开源/本地部署 **不启用**。
 不把真实密钥、租户 ID、连接串提交进仓库。
 
-**多租户生产部署**：见 [`MULTI_TENANT.md`](./MULTI_TENANT.md)（V11：租户隔离、Console JWT、Caddy/TLS、按租户备份）。
+**多租户生产部署**：见 [`MULTI_TENANT.md`](./MULTI_TENANT.md)（V11：租户隔离、Console JWT、Caddy/TLS、按租户备份）。  
+**上线检查单**：见 [`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md)（放行前逐项勾选）。
 
 ## systemd（已提供单元文件）
 

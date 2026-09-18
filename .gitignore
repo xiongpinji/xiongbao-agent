@@ -9,6 +9,11 @@ __pycache__/
 venv/
 .env
 *.sqlite
+deploy/.env.workbuddy
+deploy/.env.workbuddy.golive.local
+deploy/.env.workbuddy.*
+!deploy/.env.workbuddy.example
+
 
 # Large optional datasets (download via workbuddy-bench scripts)
 vendor/workbuddy-bench/datasets/*.tar.gz

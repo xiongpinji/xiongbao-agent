@@ -109,3 +109,5 @@ python -S -m octop.contrib.workbuddy.tenant_cli restore /var/backups/acme.zip --
 $env:PYTHONPATH = (Get-Location).Path
 python -S scripts\verify_v11.py
 ```
+
+上线放行前请按 [`GO_LIVE_CHECKLIST.md`](./GO_LIVE_CHECKLIST.md) 逐项勾选。
