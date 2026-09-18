@@ -6,6 +6,8 @@ Examples::
     python -S -m octop.contrib.workbuddy.teach_cli demo
     python -S -m octop.contrib.workbuddy.teach_cli demo --llm
     python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu --llm
+    python -S -m octop.contrib.workbuddy.teach_cli cdp-record --url https://example.com --seconds 20
+    python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live --live-runner
     python -S -m octop.contrib.workbuddy.teach_cli due
     python -S -m octop.contrib.workbuddy.teach_cli tick --mode dry
 """
@@ -17,8 +19,16 @@ import json
 import sys
 from pathlib import Path
 
-from .routine import RoutineEngine, RoutineScheduler, RoutineStore
-from .teach import TeachRecorder, TeachStore, draft_skill_from_recording, polish_draft_with_llm
+from .routine import LiveStepRunner, RoutineEngine, RoutineScheduler, RoutineStore
+from .teach import (
+    CdpTeachSession,
+    TeachRecorder,
+    TeachStore,
+    cdp_available,
+    draft_skill_from_recording,
+    polish_draft_with_llm,
+)
+from .teach.cdp_client import CdpError
 from .team.llm import OpenAICompatCaller
 
 
@@ -165,12 +175,66 @@ def cmd_create_routine(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_cdp_record(args: argparse.Namespace) -> int:
+    """Attach to Chrome CDP and record page actions into a TeachRecording."""
+    root = Path(args.root)
+    teach_store = TeachStore(root / "teach")
+    host = args.host
+    port = int(args.port)
+    if not cdp_available(host, port):
+        print(
+            f"CDP not reachable at {host}:{port}. "
+            "Start Chrome with --remote-debugging-port=9222",
+            file=sys.stderr,
+        )
+        return 2
+    rec = TeachRecorder(
+        bot_id=args.bot_id,
+        intent=args.intent or f"CDP 录制 {args.url or 'current page'}",
+        store_dir=teach_store.recordings_dir,
+    )
+    try:
+        session = CdpTeachSession.attach(
+            rec,
+            host=host,
+            port=port,
+            navigate_url=args.url,
+            page_url_substr=args.page_match,
+        )
+    except CdpError as exc:
+        print(f"CDP attach failed: {exc}", file=sys.stderr)
+        return 2
+    try:
+        n = session.record_for(float(args.seconds))
+    finally:
+        session.close()
+    recording = rec.close()
+    teach_store.save_recording(recording)
+    payload = {
+        "recording_id": recording.id,
+        "events_drained": n,
+        "steps": len(recording.steps),
+        "kinds": [s.kind for s in recording.steps],
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    print(f"CDP RECORD OK id={recording.id}")
+    return 0
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     teach_store = TeachStore(Path(args.root) / "teach")
     routine_store = RoutineStore(Path(args.root) / "routines")
     routine = routine_store.load(args.routine_id)
     draft = teach_store.load_draft(routine.skill_name)
-    engine = RoutineEngine(routine_store)
+    runner = None
+    if args.live_runner:
+        work = (
+            Path(args.live_work_dir)
+            if args.live_work_dir
+            else Path(args.root) / "live_work" / args.routine_id
+        )
+        runner = LiveStepRunner(work, allow_net=not bool(args.no_net))
+    engine = RoutineEngine(routine_store, runner=runner)
     approvals = set(args.approve or [])
     run = engine.run(
         routine,
@@ -255,11 +319,39 @@ def main(argv: list[str] | None = None) -> int:
     p_cr.add_argument("--timezone", default="Asia/Shanghai")
     p_cr.set_defaults(func=cmd_create_routine)
 
+    p_cdp = sub.add_parser(
+        "cdp-record",
+        help="Attach Chrome CDP (--remote-debugging-port=9222) and record clicks/types/nav",
+    )
+    p_cdp.add_argument("--url", default=None, help="Optional Page.navigate URL before polling")
+    p_cdp.add_argument("--seconds", type=float, default=15.0, help="Poll duration")
+    p_cdp.add_argument("--host", default="127.0.0.1")
+    p_cdp.add_argument("--port", type=int, default=9222)
+    p_cdp.add_argument("--page-match", default=None, help="Prefer page whose URL contains this")
+    p_cdp.add_argument("--bot-id", default="cdp-bot")
+    p_cdp.add_argument("--intent", default=None)
+    p_cdp.set_defaults(func=cmd_cdp_record)
+
     p_run = sub.add_parser("run")
     p_run.add_argument("--routine-id", required=True)
     p_run.add_argument("--mode", choices=["dry", "test", "live"], default="dry")
     p_run.add_argument("--approve", action="append", default=[])
     p_run.add_argument("--confirm-test", action="store_true")
+    p_run.add_argument(
+        "--live-runner",
+        action="store_true",
+        help="Use LiveStepRunner (sandbox files + outbox) for test/live modes",
+    )
+    p_run.add_argument(
+        "--live-work-dir",
+        default=None,
+        help="Sandbox root for LiveStepRunner (default: <root>/live_work/<routine-id>)",
+    )
+    p_run.add_argument(
+        "--no-net",
+        action="store_true",
+        help="With --live-runner, skip HTTP GET for navigate/read",
+    )
     p_run.set_defaults(func=cmd_run)
 
     p_due = sub.add_parser("due", help="Preview schedule / due status for all routines")

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+from .cdp_recorder import CdpTeachSession, cdp_available
 from .drafter import draft_skill_from_recording
 from .llm_drafter import polish_draft_with_llm
 from .models import (
@@ -19,6 +20,7 @@ from .store import TeachStore
 
 __all__ = [
     "Approval",
+    "CdpTeachSession",
     "DraftStep",
     "InputSpec",
     "RecordedStep",
@@ -27,6 +29,7 @@ __all__ = [
     "TeachRecording",
     "TeachStore",
     "Validation",
+    "cdp_available",
     "draft_skill_from_recording",
     "polish_draft_with_llm",
 ]

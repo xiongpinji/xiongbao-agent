@@ -92,6 +92,30 @@ python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu
 
 润色只改 trigger / instruction 文案；kind、approvals、安全策略仍以规则草稿为准；润色后 status 回到 `draft`，须重新 approve。
 
+### CDP 真录制 + Live 步骤执行器
+
+Chrome 需开启远程调试：`--remote-debugging-port=9222`。录制通过注入页面脚本轮询 click/type/navigate，写入 TeachRecording（stdlib WebSocket，无需第三方包）。
+
+```powershell
+python -S tests\contrib\workbuddy\test_cdp_live.py
+# → ALL CDP/LIVE TESTS OK
+
+# 真机录制（需本机 Chrome 已开 9222）
+python -S -m octop.contrib.workbuddy.teach_cli cdp-record --url https://example.com --seconds 20
+
+# Live 执行（沙箱写文件 + outbox JSONL；HTTP GET 可选）
+python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode test --confirm-test --live-runner --approve step:0
+```
+
+| Check | Result |
+|---|---|
+| CDP client Fake transport RPC | OK |
+| CdpTeachSession 事件映射 click/type/navigate | OK |
+| LiveStepRunner 沙箱写文件 / outbox / 路径逃逸拒绝 | OK |
+| RoutineEngine + LiveStepRunner test 模式 | OK |
+
+`message` 步骤默认写入 `<live-work>/outbox/messages.jsonl`，不静默外发；`click`/`type` 回放标记为 deferred（需 CDP 会话）。
+
 ## Local LLM（V1）
 
 ```powershell
@@ -105,7 +129,7 @@ Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `W
 
 ## Out of scope (later)
 
-- CDP / 浏览器真录制；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
+- CDP UI 回放（click/type 真执行）；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
