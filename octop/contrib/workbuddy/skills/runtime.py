@@ -11,6 +11,7 @@ from typing import Any, Callable
 
 from .catalog import SkillCatalog
 from .models import SkillPackage
+from .sandbox import ScriptRunResult, list_skill_scripts, run_skill_script
 
 
 def _utc_iso() -> str:
@@ -167,3 +168,34 @@ class SkillRuntime:
         out.write_text(json.dumps(row, ensure_ascii=False, indent=2), encoding="utf-8")
         row["run_path"] = str(out)
         return row
+
+    def list_scripts(self, skill_id: str) -> list[str]:
+        pkg = self.catalog.load(skill_id)
+        return list_skill_scripts(Path(pkg.meta.path).parent)
+
+    def run_script(
+        self,
+        skill_id: str,
+        script: str,
+        *,
+        args: list[str] | None = None,
+        timeout_s: float = 30.0,
+        allow_net: bool = False,
+    ) -> ScriptRunResult:
+        pkg = self.catalog.load(skill_id)
+        skill_dir = Path(pkg.meta.path).parent
+        result = run_skill_script(
+            skill_dir,
+            script,
+            skill_id=skill_id,
+            args=args,
+            timeout_s=timeout_s,
+            allow_net=allow_net,
+        )
+        run_id = f"skscript-{uuid.uuid4().hex[:8]}"
+        path = self.runs_dir / f"{run_id}.json"
+        path.write_text(
+            json.dumps(result.to_dict(), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        return result

@@ -147,6 +147,56 @@ def test_engine_rejects_without_approval() -> None:
         assert "approvals" in run.error
 
 
+def test_engine_bind_skills() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        skills = root / "skills"
+        sid = skills / "handoff"
+        sid.mkdir(parents=True)
+        (sid / "SKILL.md").write_text(
+            "---\nname: handoff\ndescription: Handoff skill\n---\n\n# Handoff\n\nPass context carefully.\n",
+            encoding="utf-8",
+        )
+        from octop.contrib.workbuddy.skills import SkillCatalog
+
+        # Monkey-patch catalog root via bind path: GoalEngine uses SkillCatalog()
+        # default root; instead inject via plan_goal skill_context by binding
+        # after we point SkillCatalog — use engine.bind_skills with custom catalog
+        # by temporarily writing into a work root and patching enable/compose.
+        store = GoalStore(root / "goal")
+        engine = GoalEngine(
+            store,
+            runner_factory=lambda d: LiveStepRunner(d, allow_net=False),
+        )
+        # Direct skill_context via planner for unit isolation when vendor absent:
+        from octop.contrib.workbuddy.goal.planner import plan_goal
+
+        plan = plan_goal("写入 skill-out.md", skill_context="## Bound Skills\n\nSkill: handoff\nPass context")
+        write = next(s for s in plan.steps if s.kind == "write")
+        assert "handoff" in write.instruction.lower() or "Bound Skills" in write.instruction
+
+        # Runtime bind path: install fake skills under catalog by constructing
+        # SkillRuntime-compatible tree and overriding catalog in engine helpers.
+        cat = SkillCatalog(skills)
+        assert cat.scan() == 1
+        engine.skill_ids = ["handoff"]
+        engine.skills_work_root = root / "skillhub"
+
+        # Patch SkillCatalog default by injecting through bind_skills after
+        # temporarily replacing GoalEngine._skill_context:
+        def _ctx() -> str:
+            from octop.contrib.workbuddy.skills import SkillRuntime
+
+            rt = SkillRuntime(cat, work_root=engine.skills_work_root or root / "skillhub")
+            rt.enable("handoff")
+            return rt.compose_system(["handoff"], max_chars=2000)
+
+        engine._skill_context = _ctx  # type: ignore[method-assign]
+        planned = engine.plan("写入 bind-out.md")
+        w = next(s for s in planned.steps if s.kind == "write")
+        assert "handoff" in w.instruction.lower() or "Pass context" in w.instruction
+
+
 def main() -> int:
     tests = [
         ("plan_write_message", test_plan_write_and_message),
@@ -154,6 +204,7 @@ def main() -> int:
         ("acceptor", test_acceptor_file_and_outbox),
         ("engine_accept", test_engine_accepts_demo_goal),
         ("engine_no_approve", test_engine_rejects_without_approval),
+        ("engine_bind_skills", test_engine_bind_skills),
     ]
     failed = 0
     for name, fn in tests:

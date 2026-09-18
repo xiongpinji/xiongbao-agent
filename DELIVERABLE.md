@@ -202,10 +202,31 @@ python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
 | materialize prompt pack | OK |
 | live_cli `--skill` 注入路径 | OK |
 
+## V4 — READY（沙箱 / Goal--skill / Outbox 重试）
+
+```powershell
+python -S scripts\verify_v4.py
+# → V4 VERIFY OK
+```
+
+| Check | Result |
+|---|---|
+| SkillHub `scripts/` 白名单沙箱（禁 path escape / shell=True） | OK |
+| `skills_cli scripts` / `exec` | OK |
+| Goal `plan/run --skill` 注入 Bound Skills | OK |
+| `outbox/delivery.jsonl` + `retry-outbox` | OK |
+| `scripts/verify_v4.py` | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.skills_cli scripts --id <skill>
+python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 x.md" --skill handoff
+python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir <live-work> --list-only
+python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir <live-work> --outbound
+```
+
 ## Out of scope (later)
 
 - 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
-- Skill 脚本全量沙箱执行（当前为 prompt pack 注入，非任意 script 执行）

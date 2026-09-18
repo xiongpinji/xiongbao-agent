@@ -39,8 +39,12 @@ def _guess_message_target(goal: str) -> str:
     return "local:outbox"
 
 
-def plan_goal(goal: str) -> GoalPlan:
-    """Compile a natural-language goal into steps + acceptance criteria."""
+def plan_goal(goal: str, *, skill_context: str = "") -> GoalPlan:
+    """Compile a natural-language goal into steps + acceptance criteria.
+
+    ``skill_context`` (optional SkillHub compose text) is embedded into the
+    write artifact only — it does not change step kinds or filename heuristics.
+    """
     text = (goal or "").strip()
     if not text:
         raise ValueError("goal is empty")
@@ -79,6 +83,9 @@ def plan_goal(goal: str) -> GoalPlan:
             f"# Goal output\n\n目标：{text}\n\n"
             f"（由 Goal/Craft 规则规划器自动生成）\n"
         )
+        ctx = (skill_context or "").strip()
+        if ctx:
+            body += f"\n## Bound Skills\n\n{ctx[:4000]}\n"
         steps.append(
             PlanStep(
                 index=idx,

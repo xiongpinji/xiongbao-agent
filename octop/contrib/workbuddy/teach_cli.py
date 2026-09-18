@@ -20,6 +20,7 @@ import json
 import os
 import sys
 from pathlib import Path
+from typing import Any
 
 from .routine import LiveStepRunner, RoutineEngine, RoutineScheduler, RoutineStore
 from .teach import (
@@ -34,6 +35,7 @@ from .teach import (
 from .teach.cdp_client import CdpError
 from .team.llm import OpenAICompatCaller
 from .connectors import FeishuConnector, NotionConnector, probe_status
+from .connectors.outbox import load_deliveries, retry_deliveries
 
 
 def _default_root() -> Path:
@@ -293,6 +295,26 @@ def cmd_connectors(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_retry_outbox(args: argparse.Namespace) -> int:
+    work = Path(args.work_dir)
+    if args.list_only:
+        rows = load_deliveries(work)
+        latest: dict[str, Any] = {}
+        for r in rows:
+            latest[r.id] = r.to_dict()
+        print(json.dumps({"work_dir": str(work), "deliveries": list(latest.values())}, ensure_ascii=False, indent=2))
+        return 0
+    if args.outbound:
+        os.environ["WB_ALLOW_OUTBOUND"] = "1"
+    report = retry_deliveries(
+        work,
+        max_items=int(args.max),
+        require_outbound_flag=True,
+    )
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if report.get("ok") else 1
+
+
 def cmd_due(args: argparse.Namespace) -> int:
     root = Path(args.root)
     sched = RoutineScheduler(
@@ -425,6 +447,24 @@ def main(argv: list[str] | None = None) -> int:
         help="Send a test text via WB_FEISHU_WEBHOOK",
     )
     p_conn.set_defaults(func=cmd_connectors)
+
+    p_retry = sub.add_parser(
+        "retry-outbox",
+        help="Retry failed/pending Feishu deliveries from outbox/delivery.jsonl",
+    )
+    p_retry.add_argument(
+        "--work-dir",
+        required=True,
+        help="Live work dir that contains outbox/ (e.g. artifacts/goal_craft/work/<id>)",
+    )
+    p_retry.add_argument("--list-only", action="store_true", help="List deliveries without retry")
+    p_retry.add_argument("--max", type=int, default=50, help="Max items to retry")
+    p_retry.add_argument(
+        "--outbound",
+        action="store_true",
+        help="Set WB_ALLOW_OUTBOUND=1 for real Feishu POST",
+    )
+    p_retry.set_defaults(func=cmd_retry_outbox)
 
     p_due = sub.add_parser("due", help="Preview schedule / due status for all routines")
     p_due.set_defaults(func=cmd_due)

@@ -47,9 +47,31 @@ class GoalEngine:
         self.max_retries = max_retries
         self.llm_polish = llm_polish
         self.llm_caller = llm_caller
+        self.skill_ids: list[str] = []
+        self.skills_work_root: Path | None = None
+
+    def bind_skills(self, skill_ids: list[str], *, work_root: Path | None = None) -> None:
+        self.skill_ids = list(skill_ids)
+        self.skills_work_root = Path(work_root) if work_root else Path("artifacts") / "skillhub"
+
+    def _skill_context(self) -> str:
+        if not self.skill_ids:
+            return ""
+        from ..skills import SkillCatalog, SkillRuntime
+
+        rt = SkillRuntime(
+            SkillCatalog(),
+            work_root=self.skills_work_root or Path("artifacts") / "skillhub",
+        )
+        for sid in self.skill_ids:
+            try:
+                rt.enable(sid)
+            except KeyError:
+                continue
+        return rt.compose_system(self.skill_ids, max_chars=4000)
 
     def plan(self, goal: str, *, use_llm: bool | None = None) -> GoalPlan:
-        plan = plan_goal(goal)
+        plan = plan_goal(goal, skill_context=self._skill_context())
         if use_llm if use_llm is not None else self.llm_polish:
             plan = polish_plan_with_llm(plan, caller=self.llm_caller)
         return plan

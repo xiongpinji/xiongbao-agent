@@ -176,12 +176,20 @@ class LiveStepRunner:
                 text = content or step.instruction
                 tgt = row["target"]
                 is_feishu = tgt.lower().startswith(("feishu:", "lark:"))
+                delivery_status = "skipped"
+                delivery_error = ""
+                delivery_conn: dict[str, Any] = {}
                 if is_feishu and self.allow_outbound:
                     os.environ["WB_ALLOW_OUTBOUND"] = "1"
                     conn = resolve_message(tgt, text, feishu=self.feishu, require_outbound_flag=True)
                     if conn is not None:
                         outbound["connector"] = conn.to_dict()
-                        if not conn.ok:
+                        delivery_conn = conn.to_dict()
+                        if conn.ok:
+                            delivery_status = "sent"
+                        else:
+                            delivery_status = "failed"
+                            delivery_error = conn.error or "send failed"
                             result["ok"] = False
                             result["error"] = conn.error
                 elif is_feishu:
@@ -189,6 +197,26 @@ class LiveStepRunner:
                         "skipped": True,
                         "reason": "allow_outbound=false; set --outbound and WB_FEISHU_WEBHOOK",
                     }
+                    delivery_status = "pending"
+                    delivery_error = "allow_outbound=false"
+                    delivery_conn = outbound["connector"]
+                else:
+                    delivery_status = "skipped"
+                    delivery_conn = {"local": True}
+                try:
+                    from ..connectors.outbox import record_attempt
+
+                    del_rec = record_attempt(
+                        self.work_dir,
+                        target=tgt,
+                        content=text,
+                        status=delivery_status,
+                        error=delivery_error,
+                        connector=delivery_conn,
+                    )
+                    outbound["delivery_id"] = del_rec.id
+                except Exception as exc:  # noqa: BLE001
+                    outbound["delivery_log_error"] = str(exc)
                 result["output"] = outbound
             elif step.kind == "decision":
                 decisions = context.get("decisions") or {}

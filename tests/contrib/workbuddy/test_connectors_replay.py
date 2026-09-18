@@ -196,6 +196,7 @@ def test_live_runner_cdp_replay_and_feishu_skip() -> None:
         )
         assert r3["ok"]
         assert r3["output"]["connector"]["skipped"] is True
+        assert r3["output"].get("delivery_id")
         assert fake.actions[0][0] == "click"
         assert fake.actions[1][0] == "type"
 
@@ -231,6 +232,58 @@ def test_cdp_replay_session_with_fake_transport() -> None:
     assert session.type_text("#q", "hi")["ok"]
 
 
+def test_outbox_delivery_log_and_retry() -> None:
+    from octop.contrib.workbuddy.connectors.outbox import (
+        load_deliveries,
+        record_attempt,
+        retry_deliveries,
+    )
+    from octop.contrib.workbuddy.connectors import ConnectorResult
+
+    with tempfile.TemporaryDirectory() as tmp:
+        work = Path(tmp)
+        rec = record_attempt(
+            work,
+            target="feishu:webhook",
+            content="hello retry",
+            status="failed",
+            error="boom",
+        )
+        assert rec.id
+        assert (work / "outbox" / "delivery.jsonl").is_file()
+        rows = load_deliveries(work)
+        assert len(rows) == 1
+        assert rows[0].status == "failed"
+
+        calls: list[tuple[str, str]] = []
+
+        def fake_send(target: str, text: str) -> ConnectorResult:
+            calls.append((target, text))
+            return ConnectorResult(True, "feishu", "webhook", {"ok": True}, None)
+
+        report = retry_deliveries(work, send_fn=fake_send)
+        assert report["retried"] == 1
+        assert report["ok"]
+        assert calls == [("feishu:webhook", "hello retry")]
+        latest = {r.id: r for r in load_deliveries(work)}
+        assert latest[rec.id].status == "sent"
+        assert latest[rec.id].attempts == 2
+
+        # LiveStepRunner should write pending delivery when outbound off
+        runner = LiveStepRunner(work / "live", allow_net=False, allow_outbound=False)
+        step = DraftStep(
+            index=0,
+            kind="message",
+            instruction="发送通知（目标：feishu:webhook）（内容：pending-msg）",
+            requires_approval=False,
+        )
+        result = runner(step, context={"mode": "live"})
+        assert result["ok"]
+        assert result["output"].get("delivery_id")
+        del_rows = load_deliveries(work / "live")
+        assert any(r.status == "pending" for r in del_rows)
+
+
 def main() -> int:
     tests = [
         ("parse_notion_page_id", test_parse_notion_page_id),
@@ -242,6 +295,7 @@ def main() -> int:
         ("notion_read", test_notion_read_mocked),
         ("live_cdp_feishu", test_live_runner_cdp_replay_and_feishu_skip),
         ("cdp_replay_session", test_cdp_replay_session_with_fake_transport),
+        ("outbox_retry", test_outbox_delivery_log_and_retry),
     ]
     failed = 0
     for name, fn in tests:

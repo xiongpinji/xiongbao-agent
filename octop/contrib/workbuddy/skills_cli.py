@@ -144,6 +144,36 @@ def cmd_run(args: argparse.Namespace) -> int:
     return 0 if row.get("ok") else 1
 
 
+def cmd_scripts(args: argparse.Namespace) -> int:
+    cat = _catalog(args)
+    rt = _runtime(args, cat)
+    try:
+        scripts = rt.list_scripts(args.id)
+    except KeyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(json.dumps({"skill_id": args.id, "scripts": scripts}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_exec(args: argparse.Namespace) -> int:
+    cat = _catalog(args)
+    rt = _runtime(args, cat)
+    try:
+        res = rt.run_script(
+            args.id,
+            args.script,
+            args=list(args.arg or []),
+            timeout_s=float(args.timeout),
+            allow_net=bool(args.allow_net),
+        )
+    except KeyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(json.dumps(res.to_dict(), ensure_ascii=False, indent=2))
+    return 0 if res.ok else 1
+
+
 def cmd_index(args: argparse.Namespace) -> int:
     cat = _catalog(args)
     cat.scan()
@@ -203,6 +233,20 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--task", required=True)
     p_run.add_argument("--llm", action="store_true")
     p_run.set_defaults(func=cmd_run)
+
+    p_scripts = sub.add_parser("scripts", help="List allowlisted scripts under skill/scripts/")
+    add_common(p_scripts)
+    p_scripts.add_argument("--id", required=True)
+    p_scripts.set_defaults(func=cmd_scripts)
+
+    p_exec = sub.add_parser("exec", help="Run one allowlisted script (sandbox)")
+    add_common(p_exec)
+    p_exec.add_argument("--id", required=True)
+    p_exec.add_argument("--script", required=True, help="Relative path under scripts/")
+    p_exec.add_argument("--arg", action="append", default=[], help="Extra argv (repeatable)")
+    p_exec.add_argument("--timeout", type=float, default=30.0)
+    p_exec.add_argument("--allow-net", action="store_true")
+    p_exec.set_defaults(func=cmd_exec)
 
     p_idx = sub.add_parser("index", help="Write JSON index of all skills")
     add_common(p_idx)

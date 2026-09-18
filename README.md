@@ -37,7 +37,14 @@
 2. **CLI** — `goal_cli demo|plan|run|list`（`--llm` 可选润色）
 3. **SkillHub 运行时绑定** — 扫描 `vendor/workbuddyskills/skills`，enable/compose/prompt pack；Team `live_cli --skill` 注入
 
-延后：企业版 Casdoor / Milvus / systemd；Skill 脚本全量执行。
+**V4（商用硬化）**
+
+1. **SkillHub 白名单脚本沙箱** — `skills_cli scripts|exec`，仅 `scripts/` 内相对路径
+2. **Goal ← SkillHub** — `goal_cli --skill` 注入 compose 上下文
+3. **Outbox 投递日志与重试** — `outbox/delivery.jsonl` + `teach_cli retry-outbox`
+4. **验收** — `scripts/verify_v4.py`
+
+延后：企业版 Casdoor / Milvus / systemd；Harbor 全量 live 评分。
 
 ## 目录要点
 
@@ -52,6 +59,7 @@ vendor/
   RongXinAI/
 tests/contrib/workbuddy/
 scripts/verify_v1.py
+scripts/verify_v4.py
 artifacts/bench/              # 评测输出（gitignore）
 artifacts/teach_routine/      # Teach/Routine demo 输出
 ```
@@ -175,16 +183,27 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并�
 
 ## SkillHub 运行时绑定
 
-扫描 `vendor/workbuddyskills/skills/*/SKILL.md`，enable / compose / 生成 prompt pack；可注入 Team live 运行。
+扫描 `vendor/workbuddyskills/skills/*/SKILL.md`，enable / compose / 生成 prompt pack；可注入 Team live 与 Goal。
 
 ```powershell
 python -S tests\contrib\workbuddy\test_skillhub.py
 python -S -m octop.contrib.workbuddy.skills_cli list
 python -S -m octop.contrib.workbuddy.skills_cli search diagnose
 python -S -m octop.contrib.workbuddy.skills_cli enable diagnose
-python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
+python -S -m octop.contrib.workbuddy.skills_cli compose --id diagnose
+python -S -m octop.contrib.workbuddy.skills_cli scripts --id diagnose
+# Goal 绑定 skill：
+python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 weekly.md" --skill diagnose
 # Team 真调时绑定 skill：
 python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --skill diagnose --max-members 2
+```
+
+## V4 验收
+
+```powershell
+python -S scripts\verify_v4.py
+# Outbox 失败重试（需真实凭证时加 --outbound）：
+python -S -m octop.contrib.workbuddy.teach_cli retry-outbox --work-dir artifacts\goal_craft\work\<id> --list-only
 ```
 
 ## 转换专家（如需重跑）
