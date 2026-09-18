@@ -51,7 +51,18 @@
 3. **systemd + Casdoor/Milvus 文档门禁** — `deploy/systemd/`、`deploy/enterprise/README.md`
 4. **验收** — `scripts/verify_v5.py`
 
-延后：Casdoor/Milvus 代码接线；Harbor 全量 Docker verifier。
+**V6（WorkBuddy 工作流补齐）**
+
+1. **Ask / Plan / Craft** — `modes/` 装配器；Team `live_cli --mode`；Goal `--work-mode`
+2. **工作区记忆** — SOUL/USER/MEMORY/daily 注入
+3. **连接器扩展** — 钉钉/企微 webhook + 103 包 `connectors_cli`
+4. **专家路由** — `router_cli route`
+5. **Bench 全子集** — `fetch_bench_subsets.ps1` + `--list-subsets`
+6. **builtin SkillHub** — skill-creator 等
+7. **企业软探测** — `enterprise_cli probe`
+8. **一键验收** — `scripts/verify_all.py`
+
+延后：Casdoor/Milvus JWT/RAG 接线；Harbor 全量 Docker verifier。
 
 ## 目录要点
 
@@ -67,15 +78,19 @@ vendor/
 tests/contrib/workbuddy/
 scripts/verify_v1.py
 scripts/verify_v4.py
+scripts/verify_v5.py
+scripts/verify_all.py          # V6 一键总验收
+scripts/fetch_bench_subsets.ps1
 artifacts/bench/              # 评测输出（gitignore）
 artifacts/teach_routine/      # Teach/Routine demo 输出
+TASKBOARD.md                  # WorkBuddy 差距看板
 ```
 
 ## 快速验证（Windows / 无 pytest）
 
 ```powershell
 cd "D:\AI编程库\项目库\进行中的项目\xiongbao agent"
-python -S scripts\verify_v1.py
+python -S scripts\verify_all.py
 ```
 
 等价分步：

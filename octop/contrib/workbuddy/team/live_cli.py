@@ -60,6 +60,18 @@ def main(argv: list[str] | None = None) -> int:
         default=Path("artifacts/skillhub"),
         help="SkillRuntime work root for enable/compose state",
     )
+    parser.add_argument(
+        "--mode",
+        default="craft",
+        choices=["ask", "plan", "craft"],
+        help="WorkBuddy work mode (ask=read-only, plan=plan-only, craft=full)",
+    )
+    parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=None,
+        help="Workspace root for SOUL.md / USER.md / MEMORY.md injection",
+    )
     args = parser.parse_args(argv)
 
     probe = probe_local_llm(
@@ -129,6 +141,58 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(f"bound skills: {bound_skills} ({len(composed)} chars)")
 
+    # Modes + workspace memory (WorkBuddy parity)
+    from ..memory import load_workspace_memory
+    from ..modes import assemble_system_prompt, mode_allows_writes, normalize_mode
+
+    work_mode = normalize_mode(args.mode)
+    soul = user = durable = daily = ""
+    if args.workspace:
+        mem = load_workspace_memory(args.workspace)
+        soul, user, durable, daily = mem.soul, mem.user, mem.durable, mem.daily
+        print(f"workspace memory: {mem.to_dict()}")
+    expert_soul = ""
+    soul_path = expert_dir / "SOUL.md"
+    if soul_path.is_file():
+        expert_soul = soul_path.read_text(encoding="utf-8", errors="replace")[:6000]
+    assembled = assemble_system_prompt(
+        mode=work_mode,
+        expert_prompt=expert_soul,
+        expert_id=args.expert,
+        soul=soul,
+        user_profile=user,
+        working_memory=daily,
+        durable_memory=durable,
+        model_name=str(model or "local"),
+    )
+    # Inject mode gate + memory into the user turn (Team runtime owns member SOULs)
+    mode_prefix = (
+        f"[Work mode: {work_mode} | writes={'yes' if mode_allows_writes(work_mode) else 'no'}]\n"
+        f"{assembled.sections[-1]}\n\n"
+    )
+    mem_bits = []
+    if soul.strip():
+        mem_bits.append("## SOUL.md\n" + soul.strip()[:2000])
+    if user.strip():
+        mem_bits.append("## USER.md\n" + user.strip()[:2000])
+    if durable.strip():
+        mem_bits.append("## MEMORY.md\n" + durable.strip()[:2000])
+    if daily.strip():
+        mem_bits.append("## Daily memory\n" + daily.strip()[:2000])
+    if mem_bits:
+        mode_prefix += "[Workspace identity]\n" + "\n\n".join(mem_bits) + "\n\n"
+    if work_mode == "ask":
+        mode_prefix += (
+            "[Ask gate] Answer only; do not propose file edits or shell mutations.\n\n"
+        )
+    elif work_mode == "plan":
+        mode_prefix += (
+            "[Plan gate] Produce an ordered plan with acceptance checks; "
+            "do not execute irreversible steps.\n\n"
+        )
+    query = mode_prefix + query
+    print(f"mode={work_mode} system_chars={len(assembled.system)}")
+
     print(f"running team={args.expert} query={args.query!r} …")
     result = rt.run_sync(query, dry_run=False)
     elapsed = time.perf_counter() - t0
@@ -136,6 +200,7 @@ def main(argv: list[str] | None = None) -> int:
     payload = {
         "expert": args.expert,
         "query": args.query,
+        "mode": work_mode,
         "bound_skills": bound_skills,
         "base_url": base,
         "model": model,

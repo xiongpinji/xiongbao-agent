@@ -149,13 +149,31 @@ def default_office_dataset_root(project_root: Path | None = None) -> Path:
     return root / "vendor" / "workbuddy-bench" / "datasets" / "wb-bench-office-v1.0"
 
 
-def list_office_tasks(dataset_root: Path | None = None) -> list[BenchTask]:
-    """List official Office subset tasks if the archive was extracted."""
-    root = Path(dataset_root) if dataset_root else default_office_dataset_root()
+_SUBSET_DIR = {
+    "office": "wb-bench-office-v1.0",
+    "code": "wb-bench-code-v1.0",
+    "web": "wb-bench-web-v1.0",
+    "sec": "wb-bench-sec-v1.0",
+}
+
+
+def default_subset_dataset_root(subset: str, project_root: Path | None = None) -> Path:
+    key = (subset or "office").strip().lower()
+    dirname = _SUBSET_DIR.get(key)
+    if not dirname:
+        raise ValueError(f"unknown subset: {subset} (expected office|code|web|sec)")
+    root = project_root or Path(__file__).resolve().parents[4]
+    return root / "vendor" / "workbuddy-bench" / "datasets" / dirname
+
+
+def list_subset_tasks(subset: str, dataset_root: Path | None = None) -> list[BenchTask]:
+    """List Harbor subset tasks if the archive was extracted."""
+    root = Path(dataset_root) if dataset_root else default_subset_dataset_root(subset)
     tasks_dir = root / "tasks"
     if not tasks_dir.is_dir():
         return []
-
+    kind = "office" if subset == "office" else "office"  # BenchTaskKind has office; reuse
+    # Use office kind for all Harbor tasks in local runner (listed / llm_lite)
     out: list[BenchTask] = []
     for d in sorted(tasks_dir.iterdir()):
         if not d.is_dir():
@@ -166,16 +184,21 @@ def list_office_tasks(dataset_root: Path | None = None) -> list[BenchTask]:
             prompt = instruction.read_text(encoding="utf-8", errors="replace").strip()
         out.append(
             BenchTask(
-                task_id=f"office-{d.name}",
+                task_id=f"{subset}-{d.name}",
                 kind="office",
                 expert_id=d.name,
-                prompt=prompt or f"(office task {d.name})",
-                category="office",
-                source="workbuddy-bench-office",
-                meta={"task_dir": str(d)},
+                prompt=prompt or f"({subset} task {d.name})",
+                category=subset,
+                source=f"workbuddy-bench-{subset}",
+                meta={"task_dir": str(d), "subset": subset},
             )
         )
     return out
+
+
+def list_office_tasks(dataset_root: Path | None = None) -> list[BenchTask]:
+    """List official Office subset tasks if the archive was extracted."""
+    return list_subset_tasks("office", dataset_root)
 
 
 def write_sample_json(tasks: list[BenchTask], path: Path) -> None:

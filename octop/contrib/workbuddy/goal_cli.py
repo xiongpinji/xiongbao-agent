@@ -32,6 +32,49 @@ def _bind_engine_skills(engine: GoalEngine, args: argparse.Namespace) -> None:
         )
 
 
+def _resolve_work_mode(args: argparse.Namespace) -> str:
+    from .modes import normalize_mode
+
+    return normalize_mode(getattr(args, "work_mode", None) or "craft")
+
+
+def _inject_workspace_goal(goal: str, args: argparse.Namespace) -> str:
+    """Prefix goal with mode gate + optional workspace memory."""
+    from .memory import load_workspace_memory
+    from .modes import assemble_system_prompt, mode_allows_writes
+
+    mode = _resolve_work_mode(args)
+    soul = user = durable = daily = ""
+    ws = getattr(args, "workspace", None)
+    if ws:
+        mem = load_workspace_memory(ws)
+        soul, user, durable, daily = mem.soul, mem.user, mem.durable, mem.daily
+    assembled = assemble_system_prompt(
+        mode=mode,
+        soul=soul,
+        user_profile=user,
+        working_memory=daily,
+        durable_memory=durable,
+    )
+    parts = [
+        f"[Work mode: {mode} | writes={'yes' if mode_allows_writes(mode) else 'no'}]",
+        assembled.sections[-1],
+    ]
+    if soul or user or durable or daily:
+        bits = []
+        if soul:
+            bits.append("SOUL: " + soul[:800])
+        if user:
+            bits.append("USER: " + user[:800])
+        if durable:
+            bits.append("MEMORY: " + durable[:800])
+        if daily:
+            bits.append("DAILY: " + daily[:800])
+        parts.append("[Workspace]\n" + "\n".join(bits))
+    parts.append("[Goal]\n" + goal)
+    return "\n\n".join(parts)
+
+
 def _add_skill_flags(sp: argparse.ArgumentParser) -> None:
     sp.add_argument(
         "--skill",
@@ -44,9 +87,22 @@ def _add_skill_flags(sp: argparse.ArgumentParser) -> None:
         default="artifacts/skillhub",
         help="SkillRuntime work root",
     )
+    sp.add_argument(
+        "--work-mode",
+        default="craft",
+        choices=["ask", "plan", "craft"],
+        help="Ask/Plan/Craft gate (ask/plan refuse mutating run)",
+    )
+    sp.add_argument(
+        "--workspace",
+        default=None,
+        help="Workspace with SOUL.md / USER.md / MEMORY.md",
+    )
 
 
 def cmd_demo(args: argparse.Namespace) -> int:
+    from .modes import mode_allows_writes
+
     root = Path(args.root)
     store = GoalStore(root)
     engine = GoalEngine(
@@ -56,6 +112,13 @@ def cmd_demo(args: argparse.Namespace) -> int:
     )
     _bind_engine_skills(engine, args)
     goal = args.goal or "把今日 PR 摘要写入 pr-summary.md 并通知飞书群"
+    goal = _inject_workspace_goal(goal, args)
+    mode = _resolve_work_mode(args)
+    if not mode_allows_writes(mode):
+        plan = engine.plan(goal, use_llm=bool(args.llm))
+        print(json.dumps({"mode": mode, "refused_run": True, "plan": plan.to_dict()}, ensure_ascii=False, indent=2))
+        print(f"GOAL DEMO PLAN-ONLY mode={mode}")
+        return 0
     run = engine.run(goal, approvals={"all"}, mode="live")
     print(json.dumps(run.to_dict(), ensure_ascii=False, indent=2))
     print(f"GOAL DEMO {'OK' if run.ok else 'FAIL'} id={run.id} status={run.status}")
@@ -65,14 +128,36 @@ def cmd_demo(args: argparse.Namespace) -> int:
 def cmd_plan(args: argparse.Namespace) -> int:
     engine = GoalEngine(GoalStore(Path(args.root)), llm_polish=bool(args.llm))
     _bind_engine_skills(engine, args)
-    plan = engine.plan(args.goal, use_llm=bool(args.llm))
-    print(json.dumps(plan.to_dict(), ensure_ascii=False, indent=2))
+    goal = _inject_workspace_goal(args.goal, args)
+    plan = engine.plan(goal, use_llm=bool(args.llm))
+    print(json.dumps({"mode": _resolve_work_mode(args), "plan": plan.to_dict()}, ensure_ascii=False, indent=2))
     return 0
 
 
 def cmd_run(args: argparse.Namespace) -> int:
+    from .modes import mode_allows_writes
+
     root = Path(args.root)
     store = GoalStore(root)
+    work_mode = _resolve_work_mode(args)
+    goal = _inject_workspace_goal(args.goal, args)
+    if not mode_allows_writes(work_mode):
+        engine = GoalEngine(store, llm_polish=bool(args.llm))
+        _bind_engine_skills(engine, args)
+        plan = engine.plan(goal, use_llm=bool(args.llm))
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "mode": work_mode,
+                    "error": f"work-mode={work_mode} refuses mutating run; use --work-mode craft",
+                    "plan": plan.to_dict(),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 2
     approvals: set[str] = set(args.approve or [])
     if args.approve_all:
         approvals.add("all")
@@ -88,7 +173,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     )
     _bind_engine_skills(engine, args)
     run = engine.run(
-        args.goal,
+        goal,
         work_dir=Path(args.work_dir) if args.work_dir else None,
         approvals=approvals,
         mode=args.mode,

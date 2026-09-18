@@ -23,6 +23,8 @@ Targets use prefixes::
     feishu:user_id/<id>
     feishu:email/<addr>
     feishu:open              Open API with WB_FEISHU_RECEIVE_ID*
+    dingtalk:webhook         DingTalk robot (WB_DINGTALK_WEBHOOK)
+    wecom:webhook            WeCom robot (WB_WECOM_WEBHOOK)
 """
 
 from __future__ import annotations
@@ -399,29 +401,10 @@ def resolve_read(target: str, *, notion: NotionConnector | None = None) -> Conne
     return None
 
 
-def resolve_message(
-    target: str,
-    text: str,
-    *,
-    feishu: FeishuConnector | None = None,
-    require_outbound_flag: bool = True,
-) -> ConnectorResult | None:
-    """If target is Feishu, send (or refuse without outbound flag); else None."""
-    t = target.strip().lower()
-    if t.startswith("feishu:") or t.startswith("lark:"):
-        client = feishu or FeishuConnector()
-        return client.send_text(
-            text,
-            require_outbound_flag=require_outbound_flag,
-            target=target,
-        )
-    return None
-
-
 def probe_status() -> dict[str, Any]:
     notion = NotionConnector()
     feishu = FeishuConnector()
-    return {
+    base = {
         "notion": {"configured": notion.configured(), "token_set": bool(notion.token)},
         "feishu": {
             "configured": feishu.configured(),
@@ -432,3 +415,39 @@ def probe_status() -> dict[str, Any]:
         },
         "outbound_allowed": outbound_allowed(),
     }
+    try:
+        from .extended import probe_extended_status
+
+        base["extended"] = probe_extended_status()
+    except Exception as exc:  # noqa: BLE001
+        base["extended"] = {"error": str(exc)}
+    return base
+
+
+def resolve_message(
+    target: str,
+    text: str,
+    *,
+    feishu: FeishuConnector | None = None,
+    require_outbound_flag: bool = True,
+) -> ConnectorResult | None:
+    """If target is Feishu / DingTalk / WeCom, send; else None."""
+    t = target.strip().lower()
+    if t.startswith("feishu:") or t.startswith("lark:"):
+        client = feishu or FeishuConnector()
+        return client.send_text(
+            text,
+            require_outbound_flag=require_outbound_flag,
+            target=target,
+        )
+    try:
+        from .extended import resolve_message_extended
+
+        ext = resolve_message_extended(
+            target, text, require_outbound_flag=require_outbound_flag
+        )
+        if ext is not None:
+            return ext
+    except Exception:
+        pass
+    return None

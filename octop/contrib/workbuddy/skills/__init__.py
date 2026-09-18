@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from .catalog import SkillCatalog, default_skills_root
+from .catalog import SkillCatalog, default_builtin_skills_root, default_skills_root
 from .models import SkillMeta, SkillPackage
 from .parser import parse_frontmatter, parse_skill_file
 from .runtime import SkillRuntime
@@ -15,6 +15,7 @@ __all__ = [
     "SkillPackage",
     "SkillRuntime",
     "ScriptRunResult",
+    "default_builtin_skills_root",
     "default_skills_root",
     "list_skill_scripts",
     "parse_frontmatter",

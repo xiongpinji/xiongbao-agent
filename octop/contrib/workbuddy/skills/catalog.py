@@ -17,22 +17,40 @@ def default_skills_root(project_root: Path | None = None) -> Path:
     return root / "vendor" / "workbuddyskills" / "skills"
 
 
+def default_builtin_skills_root(project_root: Path | None = None) -> Path:
+    root = project_root or Path(__file__).resolve().parents[4]
+    return root / "vendor" / "workbuddy-experts" / "builtin-skills"
+
+
 class SkillCatalog:
     """In-memory index of SkillMeta (lazy-load full body on demand)."""
 
-    def __init__(self, skills_root: Path | None = None) -> None:
+    def __init__(
+        self,
+        skills_root: Path | None = None,
+        *,
+        extra_roots: list[Path] | None = None,
+        include_builtin: bool | None = None,
+    ) -> None:
+        # Custom root (tests / overrides): skip builtin unless explicitly requested.
+        # Default root: include vendor builtin-skills (skill-creator, …).
+        explicit_root = skills_root is not None
         self.skills_root = Path(skills_root) if skills_root else default_skills_root()
+        if include_builtin is None:
+            include_builtin = not explicit_root
+        extras: list[Path] = []
+        if include_builtin:
+            extras.append(default_builtin_skills_root())
+        if extra_roots:
+            extras.extend(Path(p) for p in extra_roots)
+        self.extra_roots = extras
+        self.include_builtin = bool(include_builtin)
         self._index: dict[str, SkillMeta] = {}
         self._scanned = False
 
-    def scan(self, *, force: bool = False) -> int:
-        if self._scanned and not force:
-            return len(self._index)
-        self._index.clear()
-        root = self.skills_root
+    def _scan_root(self, root: Path) -> None:
         if not root.is_dir():
-            self._scanned = True
-            return 0
+            return
         for child in sorted(root.iterdir()):
             if not child.is_dir():
                 continue
@@ -43,7 +61,18 @@ class SkillCatalog:
                 pkg = parse_skill_file(skill_md, skill_id=child.name)
             except OSError:
                 continue
+            # First root wins on id collision (skills/ over builtin)
+            if pkg.meta.id in self._index:
+                continue
             self._index[pkg.meta.id] = pkg.meta
+
+    def scan(self, *, force: bool = False) -> int:
+        if self._scanned and not force:
+            return len(self._index)
+        self._index.clear()
+        self._scan_root(self.skills_root)
+        for root in self.extra_roots:
+            self._scan_root(root)
         self._scanned = True
         return len(self._index)
 

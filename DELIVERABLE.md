@@ -260,9 +260,37 @@ python -S -m octop.contrib.workbuddy.bench.cli --office --live-llm --limit 3 --n
 
 说明：`llm_lite` ≠ 官方 Harbor verifier；全量 Docker Harbor 仍属后续。
 
+## V6 — READY（Ask/Plan/Craft · 记忆 · 路由 · 连接器扩展 · verify_all）
+
+```powershell
+python -S scripts\verify_all.py
+# → VERIFY ALL OK — WorkBuddy V6 board green
+
+# 可选：拉取 code/web/sec 题库（office 已有可用 fetch_office_dataset.ps1）
+powershell -File scripts\fetch_bench_subsets.ps1 -Subset office,code,web
+python -S -m octop.contrib.workbuddy.bench.cli --list-subsets --dry-sample-only
+```
+
+| Check | Result |
+|---|---|
+| `modes_cli assemble` Ask/Plan/Craft | OK |
+| `memory` 加载 SOUL/USER/MEMORY + 挂 Team/Goal | OK |
+| 钉钉/企微 webhook + `connectors_cli`（103 包目录） | OK |
+| `router_cli route` 专家自动匹配 | OK |
+| SkillHub 含 builtin（skill-creator 等） | OK |
+| `enterprise_cli probe` Casdoor/Milvus 软探测 | OK |
+| `verify_all.py` | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.modes_cli assemble --mode craft --workspace .
+python -S -m octop.contrib.workbuddy.router_cli route --query "股票分析" --limit 5
+python -S -m octop.contrib.workbuddy.connectors_cli list --limit 10
+python -S -m octop.contrib.workbuddy.goal_cli run --goal "写 x.md" --work-mode ask   # 应拒绝执行
+```
+
 ## Out of scope (later)
 
 - 常驻 APScheduler 进程（可用系统 cron / systemd timer + `tick` 替代）
-- Casdoor / Milvus **运行时接线**（文档门禁已就绪）
+- Casdoor / Milvus **JWT/RAG 运行时接线**（软探测 + 文档门禁已就绪）
 - 全量 Harbor Docker 评分（code/web/sec + 官方 office verifier）
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

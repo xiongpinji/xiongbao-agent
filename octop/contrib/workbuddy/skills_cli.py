@@ -18,7 +18,7 @@ import json
 import sys
 from pathlib import Path
 
-from .skills import SkillCatalog, SkillRuntime, default_skills_root
+from .skills import SkillCatalog, SkillRuntime, default_builtin_skills_root
 from .team.llm import OpenAICompatCaller
 
 
@@ -27,9 +27,15 @@ def _default_work() -> Path:
 
 
 def _catalog(args: argparse.Namespace) -> SkillCatalog:
-    root = Path(args.skills_root) if args.skills_root else default_skills_root()
-    return SkillCatalog(root)
-
+    root = Path(args.skills_root) if getattr(args, "skills_root", None) else None
+    force_builtin = bool(getattr(args, "builtin", False))
+    no_builtin = bool(getattr(args, "no_builtin", False))
+    if root is not None:
+        # Explicit override: builtin off unless --builtin
+        include = force_builtin and not no_builtin
+        return SkillCatalog(root, include_builtin=include)
+    # Default vendor skills root: include builtin unless --no-builtin
+    return SkillCatalog(include_builtin=not no_builtin)
 
 def _runtime(args: argparse.Namespace, cat: SkillCatalog) -> SkillRuntime:
     work = Path(args.work_root)
@@ -46,6 +52,9 @@ def cmd_list(args: argparse.Namespace) -> int:
     items = cat.list()[: int(args.limit)]
     payload = {
         "skills_root": str(cat.skills_root),
+        "extra_roots": [str(p) for p in cat.extra_roots],
+        "include_builtin": cat.include_builtin,
+        "builtin_root": str(default_builtin_skills_root()),
         "total": n,
         "showing": len(items),
         "skills": [
@@ -187,11 +196,15 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="skills_cli", description="SkillHub runtime")
     p.add_argument("--skills-root", default=None, help="Override vendor skills dir")
     p.add_argument("--work-root", default=str(_default_work()))
+    p.add_argument("--builtin", action="store_true", help="Force-include builtin-skills root")
+    p.add_argument("--no-builtin", action="store_true", help="Exclude builtin-skills root")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     def add_common(sp: argparse.ArgumentParser) -> None:
         sp.add_argument("--skills-root", default=None)
         sp.add_argument("--work-root", default=str(_default_work()))
+        sp.add_argument("--builtin", action="store_true")
+        sp.add_argument("--no-builtin", action="store_true")
 
     p_list = sub.add_parser("list", help="List skills")
     add_common(p_list)

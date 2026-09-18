@@ -14,9 +14,13 @@ from .sample import (
     build_smoke_sample,
     default_library_root,
     default_office_dataset_root,
+    default_subset_dataset_root,
     list_office_tasks,
+    list_subset_tasks,
     write_sample_json,
 )
+
+_ALL_SUBSETS = ("office", "code", "web", "sec")
 
 
 def _build_office_llm(*, use_judge: bool):
@@ -49,6 +53,17 @@ def main(argv: list[str] | None = None) -> int:
         "--list-office",
         action="store_true",
         help="Also list official office tasks if dataset present",
+    )
+    parser.add_argument(
+        "--list-subsets",
+        action="store_true",
+        help="List all Harbor subsets (office/code/web/sec) task counts",
+    )
+    parser.add_argument(
+        "--subset",
+        default=None,
+        choices=list(_ALL_SUBSETS),
+        help="List / run one Harbor subset (default with --office: office)",
     )
     parser.add_argument(
         "--office",
@@ -88,17 +103,46 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    if args.list_subsets:
+        rows = []
+        for name in _ALL_SUBSETS:
+            root = default_subset_dataset_root(name)
+            tasks = list_subset_tasks(name, root)
+            rows.append(
+                {
+                    "subset": name,
+                    "dataset": str(root),
+                    "present": (root / "tasks").is_dir(),
+                    "count": len(tasks),
+                }
+            )
+        path = out_dir / "subsets_listed.json"
+        path.write_text(
+            json.dumps({"subsets": rows}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        print(json.dumps({"subsets": rows, "wrote": str(path)}, ensure_ascii=False, indent=2))
+        if args.dry_sample_only and not args.office and not args.subset:
+            return 0
+
+    subset_name = args.subset or ("office" if args.office or args.list_office else None)
     office_root = default_office_dataset_root()
-    office = list_office_tasks(office_root)
+    if subset_name:
+        office_root = default_subset_dataset_root(subset_name)
+        office = list_subset_tasks(subset_name, office_root)
+    else:
+        office = list_office_tasks(office_root)
+
     if args.limit and args.limit > 0:
         office = office[: args.limit]
 
-    if args.list_office or args.office:
-        office_path = out_dir / "office_listed.json"
+    if args.list_office or args.office or args.subset:
+        office_path = out_dir / f"{subset_name or 'office'}_listed.json"
         office_path.write_text(
             json.dumps(
                 {
                     "count": len(office),
+                    "subset": subset_name or "office",
                     "dataset": str(office_root),
                     "tasks": [t.to_dict() for t in office],
                 },
@@ -107,12 +151,22 @@ def main(argv: list[str] | None = None) -> int:
             ),
             encoding="utf-8",
         )
-        print(f"office listed: {len(office)} → {office_path}")
+        print(f"{subset_name or 'office'} listed: {len(office)} → {office_path}")
 
-    if args.office:
+    if args.office or (args.subset and not args.list_subsets and not args.dry_sample_only):
+        # Only execute scoring for office subset (llm_lite). Other subsets: list-only.
+        run_subset = subset_name or "office"
+        if run_subset != "office":
+            print(
+                f"INFO: subset={run_subset} listed only "
+                f"(Harbor Docker verifier out of scope; use --list-subsets)"
+            )
+            return 0 if office or True else 1
+
         if not office:
             print(f"FAIL: no office tasks under {office_root}")
             print("Hint: powershell -File scripts/fetch_office_dataset.ps1")
+            print("  or: powershell -File scripts/fetch_bench_subsets.ps1 -Subset office")
             return 1
         if args.dry_sample_only:
             return 0
@@ -140,7 +194,6 @@ def main(argv: list[str] | None = None) -> int:
         print(f"report:  {report_path}")
 
         if not args.live_llm:
-            # Placeholder listing is informational — always exit 0 if tasks present
             return 0
 
         rate = report.passed / report.total if report.total else 0.0
@@ -148,6 +201,9 @@ def main(argv: list[str] | None = None) -> int:
         if rate < gate:
             print(f"FAIL: pass rate {rate:.1%} < {gate:.0%}")
             return 1
+        return 0
+
+    if args.list_subsets and args.dry_sample_only:
         return 0
 
     tasks = build_smoke_sample(library, n=args.sample)
