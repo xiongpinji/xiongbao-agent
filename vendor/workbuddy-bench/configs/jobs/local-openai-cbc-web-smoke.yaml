@@ -1,0 +1,16 @@
+# Smoke: web subset, first 1 task.
+model: local-openai
+harness: codebuddy-code/2.103.4
+dataset: datasets/wb-bench-web-v1.0/tasks
+harness_backend: local
+model_connection: direct
+extra_allowed_hosts:
+  - host.docker.internal
+task_selection:
+  mode: first
+  count: 1
+n_attempts: 1
+# Local LLM has no kimi judge model — disable post-pipeline judge for smoke.
+llm_judge_override:
+  enabled: false
+  model: "<model-slug>"

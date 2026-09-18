@@ -60,3 +60,7 @@ configs/jobs/*
 !.claude/skills
 .agents/*
 !.agents/skills
+
+# xiongbao local-openai smoke/full jobs (tracked)
+!configs/jobs/local-openai-cbc-*.yaml
+

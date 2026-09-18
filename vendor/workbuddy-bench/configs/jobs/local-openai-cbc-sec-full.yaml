@@ -1,0 +1,11 @@
+# Full sec subset (all tasks). Long-running.
+model: local-openai
+harness: codebuddy-code/2.103.4
+dataset: datasets/wb-bench-sec-v1.0/tasks
+harness_backend: local
+model_connection: direct
+extra_allowed_hosts:
+  - host.docker.internal
+task_selection:
+  mode: all
+n_attempts: 1
