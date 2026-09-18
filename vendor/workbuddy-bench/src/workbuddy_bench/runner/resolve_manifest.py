@@ -614,6 +614,19 @@ def _list_task_names(dataset: str) -> list[str]:
     return sorted(p.name for p in tasks_dir.iterdir() if p.is_dir())
 
 
+def _win_long(path: Path) -> Path:
+    """Prefix ``\\\\?\\`` on Windows so deep trees exceed classic MAX_PATH."""
+    if os.name != "nt":
+        return path
+    raw = str(path)
+    if raw.startswith("\\\\?\\"):
+        return Path(raw)
+    resolved = str(path.resolve())
+    if resolved.startswith("\\\\"):
+        return Path("\\\\?\\UNC\\" + resolved[2:])
+    return Path("\\\\?\\" + resolved)
+
+
 def _stage_dataset(dataset: str, instance_id: str) -> str:
     """Copy the dataset to a throwaway staging dir and return the staged path.
 
@@ -640,13 +653,22 @@ def _stage_dataset(dataset: str, instance_id: str) -> str:
     if not orig.is_dir():
         return dataset  # absent: leave unchanged (dry-run / no checkout)
 
-    staged_root = _repo_root() / ".workspace" / "tmp" / "staged" / instance_id
+    stage_override = (os.environ.get("WB_STAGE_ROOT") or "").strip()
+    if stage_override:
+        staged_root = Path(stage_override) / instance_id
+    else:
+        staged_root = _repo_root() / ".workspace" / "tmp" / "staged" / instance_id
     shutil.rmtree(staged_root, ignore_errors=True)  # defensive: fresh base
 
     src_root = orig.parent
     dst_root = staged_root / src_root.name
-    shutil.copytree(src_root, dst_root, symlinks=True)
-    return str((dst_root / orig.name).relative_to(_repo_root()))
+    dst_root.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(_win_long(src_root), _win_long(dst_root), symlinks=True)
+    staged_tasks = dst_root / orig.name
+    if stage_override:
+        # Absolute path when staging outside the repo (short Windows path).
+        return str(staged_tasks)
+    return str(staged_tasks.relative_to(_repo_root()))
 
 
 def resolve_task_selection(

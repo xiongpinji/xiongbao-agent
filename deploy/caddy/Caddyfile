@@ -1,9 +1,8 @@
-# Production edge for WorkBuddy multi-tenant console.
-# Replace example.com with your domain; Caddy obtains TLS automatically.
-#
-# Console is ONLY reachable via this reverse proxy (no host :8010 publish).
-
 {$WB_DOMAIN:localhost} {
+	# Local / private deployments: use internal CA (no public DNS required).
+	# For public domains, remove `tls internal` and let Caddy obtain a public cert.
+	tls internal
+
 	encode gzip
 	reverse_proxy wb-console-prod:8010
 

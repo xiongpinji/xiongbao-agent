@@ -197,7 +197,7 @@ def main() -> int:
     os.environ.setdefault("OCTOP_CASDOOR_CLIENT_ID", CLIENT_ID)
     os.environ.setdefault("OCTOP_CASDOOR_CLIENT_SECRET", CLIENT_SECRET)
     password = os.environ.get("WB_OIDC_PASSWORD") or "Alice123!"
-    console_url = (os.environ.get("WB_CONSOLE_URL") or "http://127.0.0.1:8010").rstrip("/")
+    console_url = (os.environ.get("WB_CONSOLE_URL") or "https://localhost").rstrip("/")
 
     print("== Casdoor admin login ==")
     sess = CasdoorSession(ENDPOINT)

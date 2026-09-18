@@ -31,6 +31,14 @@ def datasets_root(root: Path | None = None) -> Path:
 
 
 def bench_pkg_root(root: Path | None = None) -> Path:
+    """Return workbuddy-bench package root.
+
+    ``WB_BENCH_ROOT`` may point at a short junction (e.g. ``D:\\wbbench``) to
+    avoid Windows ``MAX_PATH`` failures when staging deep code-subset trees.
+    """
+    override = (os.environ.get("WB_BENCH_ROOT") or "").strip()
+    if override:
+        return Path(override)
     return (root or project_root()) / "vendor" / "workbuddy-bench"
 
 

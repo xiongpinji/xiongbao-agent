@@ -103,13 +103,13 @@ curl -fsS -H "Authorization: Bearer $tokenA" http://127.0.0.1:8010/api/tasks
 
 ---
 
-## 4. SSO / 向量库（P1，选用才做）
+## 4. SSO / 向量库（P1）
 
-- [ ] Casdoor 可登录；`POST /api/auth/login` body `{"casdoor_token":"..."}` 换发成功
-- [ ] Casdoor claims 含 `tid`/`tenant` 与 `uid`/`name`/`sub`
-- [ ] Milvus 可达；不同 `WB_TENANT_ID` 写入不同 collection
+- [x] Casdoor 可登录；`POST /api/auth/login` body `{"casdoor_token":"..."}` 换发成功（V15 本地联调；见 `CASDOOR_PRODUCTION.md`）
+- [x] Casdoor claims 含 `tid`/`tenant`/`tag`/`affiliation` 与 `uid`/`name`/`sub`
+- [x] Milvus 可达；不同 `WB_TENANT_ID` 写入不同 collection
 
-> 本轮跳过（非 P0）。
+> 正式环境替换 client/用户即可，步骤见 [`CASDOOR_PRODUCTION.md`](./CASDOOR_PRODUCTION.md)。
 
 ---
 
@@ -140,10 +140,11 @@ python -S -m octop.contrib.workbuddy.tenant_cli restore artifacts\backups\custom
 
 仅当需要对外主机名或自动公网证书时再做：
 
-- [ ] 配置 `WB_DOMAIN` 与 DNS
-- [ ] Caddy 签出证书；`https://<域名>/api/health` 可用
+- [x] 本地 Caddy 已启用 `tls internal`（无公网 DNS 也可 `https://localhost`）
+- [ ] 配置公网 `WB_DOMAIN` 与 DNS（需要对外时再做）
+- [ ] 去掉 `tls internal`，让 Caddy 签公网证书；`https://<域名>/api/health` 可用
 
-> 本轮明确跳过。
+> 公网域名仍非交付门禁；私有化可用 `tls internal`。
 
 ---
 
