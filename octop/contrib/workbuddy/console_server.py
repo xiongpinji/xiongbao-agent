@@ -58,6 +58,7 @@ _API_GET_EXACT = {
     "/api/library",
     "/api/memory",
     "/api/team",
+    "/api/worktree",
 }
 
 
@@ -272,6 +273,16 @@ def api_get_task_path(path: str, ctx: TenantContext | None, query: dict[str, lis
             "bytes": target.stat().st_size,
             "download_url": f"/api/tasks/{quote(task_id)}/download?path={quote(rel)}&raw=1",
         }
+    if parts[3] in {"run-events", "events-json"}:
+        from .console_events import read_events
+
+        after = 0
+        try:
+            after = int((query.get("after") or ["0"])[0])
+        except ValueError:
+            after = 0
+        rows, cursor = read_events(task_dir, after=after)
+        return 200, {"ok": True, "events": rows, "cursor": cursor, "task_id": task_id}
     return 404, {"ok": False, "error": "not found"}
 
 
@@ -742,6 +753,7 @@ class _Handler(BaseHTTPRequestHandler):
                     "/api/memory",
                     "/api/team",
                     "/api/channels",
+                    "/api/worktree",
                 }:
                     code, payload = api_get_extra(path, ctx, query)
                 else:

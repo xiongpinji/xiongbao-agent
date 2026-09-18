@@ -263,6 +263,16 @@ def run_task(
     else:
         err = (run.error or run.status or "未知错误").strip()
         user_msg = f"执行未成功：{err}"
+    # stream typing deltas before final message persist
+    chunk = 12
+    for i in range(0, len(user_msg), chunk):
+        emit(
+            {
+                "kind": "assistant_delta",
+                "delta": user_msg[i : i + chunk],
+                "message": user_msg[: i + chunk],
+            }
+        )
     store.append_message(task_id, "assistant", user_msg)
     emit(
         {

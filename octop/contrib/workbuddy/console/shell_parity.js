@@ -1,4 +1,4 @@
-/* WorkBuddy shell parity extras — SSE / panels / models / channels */
+/* WorkBuddy shell parity extras — SSE / panels / models / channels / V20 */
 (function () {
   const $ = (id) => document.getElementById(id);
 
@@ -15,7 +15,8 @@
       <button type="button" class="linkish hide-sm" id="btnMemory">记忆</button>
       <button type="button" class="linkish hide-sm" id="btnModels">模型</button>
       <button type="button" class="linkish hide-sm" id="btnChannels">通道</button>
-      <button type="button" class="linkish hide-sm" id="btnTeam">专家团</button>`;
+      <button type="button" class="linkish hide-sm" id="btnTeam">专家团</button>
+      <button type="button" class="linkish hide-sm" id="btnWorktree">仓库</button>`;
     const skills = $("btnSkills");
     if (skills) top.insertBefore(bar, skills);
     else top.prepend(bar);
@@ -59,17 +60,36 @@
     if (d) d.classList.remove("open");
   }
 
+  function escape(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
   async function showKnowledge() {
-    const data = await window.wbApi("/api/knowledge");
-    const sources = (data.sources || []).map((s) => `<li>${escape(s)}</li>`).join("") || "<li>暂无</li>";
+    const [kb, lib] = await Promise.all([
+      window.wbApi("/api/knowledge"),
+      window.wbApi("/api/library"),
+    ]);
+    const sources = (kb.sources || []).map((s) => `<li>${escape(s)}</li>`).join("") || "<li>暂无</li>";
+    const tree = (lib.tree || []).map((n) =>
+      `<div class="tree-row ${escape(n.kind)}"><span>${escape(n.path)}</span><span>${n.bytes != null ? n.bytes + " B" : ""}</span></div>`
+    ).join("") || "<div class='empty'>资料库为空</div>";
+    const kbFiles = (lib.knowledge_files || []).map((f) =>
+      `<div class="tree-row file"><span>${escape(f.path)}</span><span>${f.bytes} B</span></div>`
+    ).join("");
     openParity("资料库", `
-      <p class="hint">本地知识库检索与录入</p>
+      <p class="hint">本地知识检索 · 资料树浏览 · 录入</p>
       <div class="composer-row"><input id="kbQ" placeholder="搜索…" style="flex:1"/><button class="btn" id="kbSearch">搜索</button></div>
       <div id="kbHits"></div>
+      <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">资料树</h3>
+      <div class="lib-tree">${tree}</div>
+      ${kbFiles ? `<h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">知识上传</h3><div class="lib-tree">${kbFiles}</div>` : ""}
       <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">录入笔记</h3>
       <textarea id="kbText" rows="4" style="width:100%"></textarea>
-      <button class="btn" id="kbIngest" style="margin-top:0.5rem">写入知识库</button>
-      <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">来源</h3><ul>${sources}</ul>`);
+      <div style="display:flex;gap:0.4rem;margin-top:0.5rem;flex-wrap:wrap">
+        <button class="btn" id="kbIngest">写入知识库</button>
+        <button class="btn ghost" id="libIngest">写入资料库</button>
+      </div>
+      <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">来源索引</h3><ul>${sources}</ul>`);
     $("kbSearch").onclick = async () => {
       const q = $("kbQ").value.trim();
       if (!q) return;
@@ -83,6 +103,13 @@
       if (!text) return;
       await window.wbApi("/api/knowledge/ingest", { method: "POST", body: JSON.stringify({ text, title: "note-" + Date.now() + ".md" }) });
       window.wbToast("已写入知识库", "ok");
+      showKnowledge();
+    };
+    $("libIngest").onclick = async () => {
+      const text = $("kbText").value.trim();
+      if (!text) return;
+      await window.wbApi("/api/library/ingest", { method: "POST", body: JSON.stringify({ text, title: "lib-" + Date.now() + ".md" }) });
+      window.wbToast("已写入资料库", "ok");
       showKnowledge();
     };
   }
@@ -194,21 +221,88 @@
 
   async function showChannels() {
     const data = await window.wbApi("/api/channels");
-    openParity("通道", `<pre class="preview">${escape(JSON.stringify(data, null, 2))}</pre>
-      <p class="hint">凭据通过环境变量配置（飞书/钉钉/企微 webhook）。完整运维见「设置」。</p>
-      <a class="btn" href="/ops.html">打开运维页</a>`);
+    const wizard = data.wizard || [];
+    openParity("通道配置向导", `
+      <p class="hint">凭据通过环境变量配置；下列为探测结果与配置步骤。</p>
+      ${wizard.map((s) => `
+        <div class="skill-row">
+          <h3>${s.ready ? "✅" : "○"} ${escape(s.title)}</h3>
+          <p>${escape(s.hint || "")}</p>
+          <code style="font-size:0.75rem">${escape((s.env || []).join(" / "))}</code>
+        </div>`).join("") || "<div class='empty'>无向导数据</div>"}
+      <details style="margin-top:1rem"><summary>原始探测 JSON</summary>
+        <pre class="preview">${escape(JSON.stringify(data, null, 2))}</pre>
+      </details>
+      <a class="btn" href="/ops.html" style="margin-top:0.75rem;display:inline-block">打开运维页</a>`);
   }
 
   async function showTeam() {
     const data = await window.wbApi("/api/team");
+    const experts = data.experts || [];
     openParity("专家团", `
-      <p>${escape(data.shell_note || "")}</p>
-      <p class="hint">${escape(data.hint || "")}</p>
-      <p>模式：${(data.modes || []).map(escape).join(" / ")}</p>`);
+      <p class="hint">${escape(data.shell_note || data.hint || "")}</p>
+      <label style="display:block;margin:0.5rem 0 0.25rem;font-size:0.8rem">专家</label>
+      <select id="teamExpert" style="width:100%">
+        ${experts.map((e) => `<option value="${escape(e.id)}">${escape(e.name)}${e.is_team ? " · Team" : ""}</option>`).join("")}
+      </select>
+      <textarea id="teamQuery" rows="3" style="width:100%;margin-top:0.5rem" placeholder="输入要交给专家团的问题…"></textarea>
+      <label style="display:flex;align-items:center;gap:0.4rem;margin:0.5rem 0;font-size:0.85rem">
+        <input type="checkbox" id="teamDry" checked /> 仅演练（dry-run，不调 LLM）
+      </label>
+      <button class="btn" id="teamRun">运行专家团</button>
+      <div id="teamOut" style="margin-top:0.75rem"></div>`);
+    $("teamRun").onclick = async () => {
+      const expert = $("teamExpert").value;
+      const query = $("teamQuery").value.trim();
+      if (!query) return;
+      $("teamOut").innerHTML = "<p class='hint'>运行中…</p>";
+      const r = await window.wbApi("/api/team/run", {
+        method: "POST",
+        body: JSON.stringify({ expert, query, dry_run: $("teamDry").checked, max_members: 2 }),
+      });
+      $("teamOut").innerHTML = `
+        <div class="skill-row">
+          <h3>${escape(r.team_id || expert)} ${r.dry_run ? "（演练）" : ""}</h3>
+          <pre class="preview" style="white-space:pre-wrap">${escape(r.final_report || "")}</pre>
+          ${(r.members || []).map((m) =>
+            `<details><summary>${escape(m.display_name || m.agent_id)}</summary><pre class="preview">${escape(m.content || "")}</pre></details>`
+          ).join("")}
+        </div>`;
+    };
   }
 
-  function escape(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  async function showWorktree() {
+    const data = await window.wbApi("/api/worktree");
+    openParity("打开仓库 / Worktree", `
+      <p class="hint">为任务创建并行 git worktree（默认 dry-run，不真正改仓库）。</p>
+      <input id="wtRepo" placeholder="本地 git 仓库绝对路径" style="width:100%;margin-bottom:0.35rem"/>
+      <input id="wtTitle" placeholder="任务标题" value="worktree 任务" style="width:100%;margin-bottom:0.35rem"/>
+      <label style="display:flex;align-items:center;gap:0.4rem;margin:0.4rem 0;font-size:0.85rem">
+        <input type="checkbox" id="wtDry" checked /> 演练登记（不调用 git worktree add）
+      </label>
+      <button class="btn" id="wtCreate">创建任务并绑定</button>
+      <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem">已登记</h3>
+      <div id="wtList">${(data.worktrees || []).map((w) =>
+        `<div class="tree-row"><span>${escape(w.path || "")}</span><span>${escape(w.branch || "")}</span></div>`
+      ).join("") || "<div class='empty'>暂无</div>"}</div>`);
+    $("wtCreate").onclick = async () => {
+      const repo = $("wtRepo").value.trim();
+      if (!repo) return;
+      const r = await window.wbApi("/api/worktree", {
+        method: "POST",
+        body: JSON.stringify({
+          repo,
+          title: $("wtTitle").value.trim() || "worktree 任务",
+          dry_run: $("wtDry").checked,
+          with_worktree: true,
+        }),
+      });
+      window.wbToast(r.dry_run ? "已演练登记 worktree" : "已创建 worktree", "ok");
+      if (r.task && r.task.task_id && window.wbRefreshTask) {
+        await window.wbRefreshTask(r.task.task_id);
+      }
+      showWorktree();
+    };
   }
 
   function showProgress(show) {
@@ -226,12 +320,20 @@
     if (!ol) return;
     showProgress(true);
     const msg = ev.message || ev.kind || "";
-    if (title && msg) title.textContent = msg;
-    if (ev.kind === "step_start" || ev.kind === "step_end" || ev.kind === "plan" || ev.kind === "skills") {
+    if (title && msg && ev.kind !== "assistant_delta") title.textContent = msg;
+    if (ev.kind === "assistant_delta") {
+      if (ev.delta && window.wbStreamDelta) window.wbStreamDelta(ev.delta);
+      else if (ev.message && window.wbStreamSet) window.wbStreamSet(ev.message);
+      return;
+    }
+    if (ev.kind === "step_start" || ev.kind === "step_end" || ev.kind === "plan" || ev.kind === "skills" || ev.kind === "running") {
       const li = document.createElement("li");
       li.textContent = msg || ev.kind;
       if (ev.kind === "step_end" && ev.ok === false) li.style.color = "var(--danger)";
       ol.appendChild(li);
+      if (window.wbState && window.wbState.current && window.wbRefreshTimeline) {
+        window.wbRefreshTimeline(window.wbState.current);
+      }
     }
     if (ev.terminal) {
       setTimeout(() => showProgress(false), 1800);
@@ -247,6 +349,7 @@
     const dec = new TextDecoder();
     let buf = "";
     showProgress(true);
+    if (window.wbStreamReset) window.wbStreamReset();
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -286,6 +389,7 @@
       if (e.target.id === "btnModels") showModels();
       if (e.target.id === "btnChannels") showChannels();
       if (e.target.id === "btnTeam") showTeam();
+      if (e.target.id === "btnWorktree") showWorktree();
     });
   });
 })();

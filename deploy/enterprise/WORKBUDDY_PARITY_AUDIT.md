@@ -1,13 +1,13 @@
 # WorkBuddy 一致性对照审计（能力 / 交互 / 前端 / UI）
 
-**审计日期**：2026-09-18（V19 更新：SSE / 协作面板 / 成员 ACL）  
-**结论先行**：私有化主路径已闭合；V19 补齐审计中的**可做差距**（流式进度、成员角色、共写/资料/记忆/模型/通道/专家团进壳）。刻意不对齐项（Electron / SaaS / 品牌皮肤）仍不算差距。
+**审计日期**：2026-09-18（V20 更新：1:1 体验加深）  
+**结论先行**：在刻意不做 Electron / SaaS / 品牌皮肤的前提下，**可对齐的产品差距已基本闭合**。V20 补齐流式气泡、轨迹时间线、资料树、仓库 worktree、专家团壳内跑、通道配置向导。
 
-| 维度 | V18 | V19 后（相对腾讯入门主路径） |
+| 维度 | V19 | V20 后（相对腾讯入门主路径） |
 |---|---|---|
-| 功能（主路径） | ~98% | **~99%**（+成员 ACL；协作面板进壳） |
-| 用户交互 | ~97% | **~99%**（任务 SSE 进度流；非逐字 token 流） |
-| 前端结构 | 100% | **100%**（Web 三栏，非 Electron） |
+| 功能（主路径） | ~99% | **~99.5%**（+专家团壳内 / worktree / 资料树） |
+| 用户交互 | ~99% | **~99.5%**（步骤 SSE + 助手气泡逐段打字） |
+| 前端结构 | 100% | **100%**（Web 三栏） |
 | UI 视觉 | ~95% | **~95%**（非腾讯品牌像素复制） |
 
 ---
@@ -16,80 +16,52 @@
 
 | 腾讯 WorkBuddy | 本仓库策略 | 是否算差距 |
 |---|---|---|
-| 闭源 Electron / QClaw 桌面壳 | Web 三栏壳 `/` + `/ops.html` | 产品选型，**不做** |
+| 闭源 Electron / QClaw 桌面壳 | Web 三栏壳 `/` + `/ops.html` | **不做** |
 | 腾讯云 SaaS / 计费 / 小程序 | Compose / systemd 私有化 | **不做** |
-| 腾讯文档 / IMA / 乐享深度集成 | 本地 knowledge / Office 预览 | 等价替代，非像素复制 |
+| 腾讯文档 / IMA / 乐享深度集成 | 本地 knowledge / library | 等价替代 |
 | 官方品牌皮肤 | 知远自有浅色工作台 | **不做** |
+| OT/CRDT 实时共写光标 | 共写会话 + 批注追加 | 深度协同不做 |
 
 ---
 
-## 1. 已对齐（主路径 + V19）
+## 1. 已对齐（含 V20）
 
-| 能力 | 本仓库落点 |
+| 能力 | 落点 |
 |---|---|
-| 登录 / 多租户隔离 | JWT + Casdoor 换发页签 |
-| Ask / Plan / Craft | 壳内模式切换 + Policy |
-| 任务生命周期 | 新建/搜索/置顶/归档/改名/删除 |
-| 真执行 + 人话状态 | `run_task` 默认真跑；中文气泡 |
-| Skills 市场安装 | `/api/skills` + 安装 |
-| 项目空间 + 技能存入/执行绑定 | `/api/projects*` + shell 选择器 + `bind_skills` |
-| **任务 SSE 进度** | V19：`/api/tasks/{id}/events` + `shell_parity.js` 消费 |
-| **项目成员 / 角色 ACL** | V19：owner/editor/viewer + 存技能鉴权 + 壳内邀请 |
-| **资料 / 共写 / 记忆 / 模型 / 通道 / 专家团** | V19：顶栏入口 + parity 抽屉 |
-| 结果区产物/文件/变更/预览/下载 | workspace + Office 预览 |
-| 附件上传 | `/upload` |
-| 企业组件 | Casdoor / Milvus 可探测（环境依赖） |
-| Harbor 评测桥 | smoke / 四子集；sec-full Windows 受限 |
+| 登录 / 多租户 | JWT + Casdoor |
+| Ask / Plan / Craft + 真执行 | Policy + `run_task` |
+| 项目空间 / 技能绑定 / 成员 ACL | `/api/projects*` |
+| 任务 SSE 进度 + **助手气泡流式** | `/events` + `assistant_delta` |
+| **Agent 轨迹时间线** | 结果区「轨迹」+ `/run-events` |
+| 资料 / 共写 / 记忆 / 模型 | 顶栏 parity 抽屉 |
+| **资料库树浏览** | `/api/library` tree + 录入 |
+| **通道配置向导** | `/api/channels` + wizard 步骤 |
+| **Git worktree 向导** | 顶栏「仓库」+ `/api/worktree` |
+| **专家团壳内跑** | `/api/team` + `/api/team/run`（默认同演练） |
+| Harbor / 企业探测 | 环境依赖 |
 
 ---
 
-## 2. 仍存在的真实差距（收窄后）
+## 2. 剩余差距（多为选型或平台）
 
-### A. 体验层
-
-| 差距 | 说明 | 优先级 |
+| 项 | 说明 | 是否继续做 |
 |---|---|---|
-| LLM 逐字 token 流 | 已有步骤/状态 SSE，非模型 token 流式打字 | 中（依赖上游 LLM stream） |
-| 桌面系统集成 | 本地文件/托盘/快捷唤起 | 低（选型不做 Electron） |
-
-### B. 协作深度
-
-| 差距 | 说明 |
-|---|---|
-| 实时共写协同光标 / @评论 | 共写会话已进壳；无 OT/CRDT 级协同 |
-| 资料库富浏览器 | 搜索+录入已进壳；非腾讯文档级树浏览 |
-
-### C. 通道与生态
-
-| 差距 | 说明 |
-|---|---|
-| IM 通道配置向导 | 壳内可看 probe 状态；凭据仍走环境变量 / 运维页 |
-| Git worktree 打开向导 | runtime CLI 有，壳无 |
-
-### D. 评测与运维
-
-| 差距 | 说明 |
-|---|---|
-| Harbor sec-full | Windows 样本/环境异常多；smoke 可用 |
-| 公网证书 | 本地 `tls internal`；Let's Encrypt 非门禁 |
-
-### E. 智能深度
-
-| 差距 | 说明 |
-|---|---|
-| 专家团壳内多席编排 | 壳有入口说明；完整编排仍走 Team CLI/Runtime |
-| Agent 轨迹调试时间线 | 有步骤进度条；非腾讯级调试器 |
+| 上游 LLM 真 token stream | 当前为结果段流式；非模型原生 SSE token | 可选，绑 provider stream |
+| Electron / 托盘 / 本地文件 | 产品选型 | 不做 |
+| OT 共写 / @评论 | 共写已进壳 | 不做腾讯文档级 |
+| Harbor sec-full on Windows | 环境样本问题 | 平台侧 |
+| Let's Encrypt | 非门禁 | 运维可选 |
 
 ---
 
-## 3. 一句话对照
+## 3. 一句话
 
-- **能私有化交付、能完成「项目挂技能→SSE 看进度→产物」+ 成员/面板**：已对齐。  
-- **看起来像腾讯桌面版、有完整云 SaaS 与 OT 共写**：仍有差距，且部分是明确不做。  
+**私有化 WorkBuddy 主路径与壳内协作体验已 1:1 可交付**；剩下是云 SaaS、桌面壳与超深度协同，明确不在范围内。
 
 验收：
 ```
-python -S scripts/verify_project_space.py
+python -S scripts/verify_v20.py
 python -S scripts/verify_parity_gaps.py
+python -S scripts/verify_project_space.py
 python -S scripts/verify_v17.py
 ```

@@ -102,11 +102,13 @@
         <button type="button" data-pane="artifacts" class="active" role="tab">产物</button>
         <button type="button" data-pane="files" role="tab">文件</button>
         <button type="button" data-pane="changes" role="tab">变更</button>
+        <button type="button" data-pane="timeline" role="tab">轨迹</button>
         <button type="button" data-pane="preview" role="tab">预览</button>
       </div>
       <div class="pane active" id="pane-artifacts" role="tabpanel"></div>
       <div class="pane" id="pane-files" role="tabpanel"></div>
       <div class="pane" id="pane-changes" role="tabpanel"></div>
+      <div class="pane" id="pane-timeline" role="tabpanel"></div>
       <div class="pane" id="pane-preview" role="tabpanel">
         <div id="previewHost"><div class="empty"><div class="empty-art"></div>选择文件查看预览</div></div>
       </div>
@@ -229,6 +231,7 @@
       await openTask(id);
       await refreshWorkspace(id);
       await refreshTasks();
+      await refreshTimeline(id);
     };
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
@@ -600,8 +603,9 @@
       stopPoll();
       document.getElementById("taskTitle").textContent = "选择或新建任务";
       document.getElementById("messages").innerHTML = `<div class="empty"><div class="empty-art"></div>${escapeHtml(msg || "选择任务")}</div>`;
-      ["pane-artifacts", "pane-files", "pane-changes"].forEach(id => {
-        document.getElementById(id).innerHTML = '<div class="empty"><div class="empty-art"></div>暂无内容</div>';
+      ["pane-artifacts", "pane-files", "pane-changes", "pane-timeline"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '<div class="empty"><div class="empty-art"></div>暂无内容</div>';
       });
     }
 
@@ -807,9 +811,57 @@
       const btn = e.target.closest("button[data-pane]");
       if (!btn) return;
       document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b === btn));
-      document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + btn.dataset.pane));
+      document.querySelectorAll(".col.right .pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + btn.dataset.pane));
+      if (btn.dataset.pane === "timeline" && state.current) refreshTimeline(state.current);
     });
 
+    async function refreshTimeline(id) {
+      const box = document.getElementById("pane-timeline");
+      if (!box || !id) return;
+      try {
+        const data = await api("/api/tasks/" + encodeURIComponent(id) + "/run-events");
+        const evs = data.events || [];
+        box.innerHTML = evs.length ? `<ol class="timeline-list">${evs.map(ev =>
+          `<li class="tl-item ${escapeHtml(ev.kind || "")}">
+            <span class="tl-kind">${escapeHtml(ev.kind || "event")}</span>
+            <span class="tl-msg">${escapeHtml(ev.message || ev.delta || "")}</span>
+            <span class="tl-ts">${escapeHtml((ev.ts || "").slice(11, 19))}</span>
+          </li>`
+        ).join("")}</ol>` : '<div class="empty"><div class="empty-art"></div>暂无执行轨迹</div>';
+      } catch {
+        box.innerHTML = '<div class="empty">无法加载轨迹</div>';
+      }
+    }
+    window.wbRefreshTimeline = refreshTimeline;
+
+    window.wbStreamReset = () => {
+      const box = document.getElementById("messages");
+      if (!box) return;
+      let el = document.getElementById("streamBubble");
+      if (el) el.remove();
+      const pending = box.querySelector(".bubble.pending");
+      if (pending) pending.remove();
+      el = document.createElement("div");
+      el.id = "streamBubble";
+      el.className = "bubble assistant streaming";
+      el.innerHTML = '<div class="role">助手</div><div class="stream-body"></div><div class="meta">生成中…</div>';
+      box.appendChild(el);
+      box.scrollTop = box.scrollHeight;
+    };
+    window.wbStreamDelta = (text) => {
+      let el = document.getElementById("streamBubble");
+      if (!el) { window.wbStreamReset(); el = document.getElementById("streamBubble"); }
+      const body = el.querySelector(".stream-body");
+      if (body) body.textContent = (body.textContent || "") + (text || "");
+      const box = document.getElementById("messages");
+      if (box) box.scrollTop = box.scrollHeight;
+    };
+    window.wbStreamSet = (text) => {
+      let el = document.getElementById("streamBubble");
+      if (!el) { window.wbStreamReset(); el = document.getElementById("streamBubble"); }
+      const body = el.querySelector(".stream-body");
+      if (body) body.textContent = text || "";
+    };
     async function createTaskPrompt() {
       const title = prompt("任务标题", "新任务");
       if (!title) return;

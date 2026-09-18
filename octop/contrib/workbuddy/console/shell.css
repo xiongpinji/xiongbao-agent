@@ -626,6 +626,36 @@ pre.preview {
   border: 1px solid var(--line);
 }
 
+.lib-tree { max-height: 220px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; padding: 0.35rem; }
+.tree-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: var(--fs-xs);
+  padding: 0.2rem 0.35rem;
+  border-radius: 4px;
+}
+.tree-row.dir { color: var(--muted); font-weight: 600; }
+.tree-row:hover { background: var(--bg); }
+
+.timeline-list { list-style: none; margin: 0; padding: 0.25rem; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 3.2rem;
+  gap: 0.35rem;
+  padding: 0.35rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-xs);
+}
+.tl-kind { color: var(--accent); font-weight: 600; }
+.tl-ts { color: var(--muted); text-align: right; }
+.bubble.streaming .stream-body::after {
+  content: "▍";
+  animation: blink 1s step-end infinite;
+  color: var(--muted);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
 @media (max-width: 960px) {
   .mobile-tabs { display: flex; }
   .app { grid-template-columns: 1fr; }

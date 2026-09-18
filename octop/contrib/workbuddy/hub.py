@@ -109,6 +109,8 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
                 "/api/library",
                 "/api/memory",
                 "/api/team",
+                "/api/team/run",
+                "/api/worktree",
                 "/api/channels",
                 "/api/enterprise",
                 "/api/harbor",
