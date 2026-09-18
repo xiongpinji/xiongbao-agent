@@ -14,7 +14,7 @@
 | V16.1 四子集 smoke live | ✅ |
 | V16.2 四子集 full 启动 | ✅（后台） |
 | V16.3 Casdoor/TLS 固化文档 | ✅ |
-| V16.4 verify/docs/commit | 🟡 |
+| V16.4 verify/docs/commit | ✅ |
 
 ## 验收
 
