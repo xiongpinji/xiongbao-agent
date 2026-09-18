@@ -174,6 +174,26 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并�
 
 验收种类：`file_exists`、`file_contains`、`outbox_message`、`step_ok`。高风险步骤需 `--approve-all` 或 `--approve step:N`。
 
+### SkillHub 运行时绑定（MVP）
+
+扫描 vendor skills → enable/compose → 生成 `COMPOSED_SYSTEM.md` prompt pack；Team `live_cli --skill` 注入。
+
+```powershell
+python -S tests\contrib\workbuddy\test_skillhub.py
+# → ALL SKILLHUB TESTS OK
+
+python -S -m octop.contrib.workbuddy.skills_cli index
+python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
+```
+
+| Check | Result |
+|---|---|
+| frontmatter 无 PyYAML 解析 | OK |
+| catalog scan / search / get | OK |
+| enable + compose_system | OK |
+| materialize prompt pack | OK |
+| live_cli `--skill` 注入路径 | OK |
+
 ## Out of scope (later)
 
 - 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
@@ -182,4 +202,4 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并�
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
 - Feishu open-platform chat API（当前 MVP 仅自定义机器人 webhook）
 - Goal LLM 规划润色（当前 rules；可接 WB_LLM_*）
-- SkillHub 全量运行时接入（vendor 资产已在，执行绑定未做）
+- Skill 脚本全量沙箱执行（当前为 prompt pack 注入，非任意 script 执行）

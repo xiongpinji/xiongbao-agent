@@ -48,6 +48,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-tokens", type=int, default=512)
     parser.add_argument("--out", type=Path, default=Path("artifacts/live_team/report.json"))
     parser.add_argument("--probe-only", action="store_true")
+    parser.add_argument(
+        "--skill",
+        action="append",
+        default=[],
+        help="Bind SkillHub skill id(s) into the team prompt (repeatable)",
+    )
+    parser.add_argument(
+        "--skills-work-root",
+        type=Path,
+        default=Path("artifacts/skillhub"),
+        help="SkillRuntime work root for enable/compose state",
+    )
     args = parser.parse_args(argv)
 
     probe = probe_local_llm(
@@ -98,13 +110,33 @@ def main(argv: list[str] | None = None) -> int:
         print(f"roster capped to {args.max_members}: {[m.agent_id for m in kept]}")
 
     t0 = time.perf_counter()
+    query = args.query
+    bound_skills: list[str] = []
+    if args.skill:
+        from ..skills import SkillCatalog, SkillRuntime
+
+        sk_cat = SkillCatalog()
+        sk_rt = SkillRuntime(sk_cat, work_root=args.skills_work_root)
+        for sid in args.skill:
+            sk_rt.enable(sid)
+            bound_skills.append(sid)
+        composed = sk_rt.compose_system(bound_skills, max_chars=8000)
+        if composed:
+            query = (
+                "[Bound Skills — follow their procedures when relevant]\n"
+                f"{composed}\n\n"
+                f"[User request]\n{args.query}"
+            )
+            print(f"bound skills: {bound_skills} ({len(composed)} chars)")
+
     print(f"running team={args.expert} query={args.query!r} …")
-    result = rt.run_sync(args.query, dry_run=False)
+    result = rt.run_sync(query, dry_run=False)
     elapsed = time.perf_counter() - t0
 
     payload = {
         "expert": args.expert,
         "query": args.query,
+        "bound_skills": bound_skills,
         "base_url": base,
         "model": model,
         "elapsed_s": round(elapsed, 2),

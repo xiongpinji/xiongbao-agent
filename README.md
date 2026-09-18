@@ -35,8 +35,9 @@
 
 1. **Goal / Craft** — 自然语言目标 → 规划 → 执行 → 逐条验收 → 失败重试
 2. **CLI** — `goal_cli demo|plan|run|list`
+3. **SkillHub 运行时绑定** — 扫描 `vendor/workbuddyskills/skills`，enable/compose/prompt pack；Team `live_cli --skill` 注入
 
-延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；SkillHub 运行时全量绑定。
+延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；Goal LLM 规划润色；Skill 脚本全量执行。
 
 ## 目录要点
 
@@ -169,6 +170,20 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并�
 ```
 
 流程：规划 steps+验收标准 → LiveStepRunner 执行 → 逐条验收 → 失败可重试。
+
+## SkillHub 运行时绑定
+
+扫描 `vendor/workbuddyskills/skills/*/SKILL.md`，enable / compose / 生成 prompt pack；可注入 Team live 运行。
+
+```powershell
+python -S tests\contrib\workbuddy\test_skillhub.py
+python -S -m octop.contrib.workbuddy.skills_cli list
+python -S -m octop.contrib.workbuddy.skills_cli search diagnose
+python -S -m octop.contrib.workbuddy.skills_cli enable diagnose
+python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
+# Team 真调时绑定 skill：
+python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --skill diagnose --max-members 2
+```
 
 ## 转换专家（如需重跑）
 
