@@ -29,7 +29,7 @@
 5. **Scheduler** — stdlib 5 字段 cron + `due`/`tick`（系统计划任务驱动）
 6. **LLM drafter** — 规则草稿 + 本地模型润色（`--llm`），人工 approve 仍强制
 7. **CDP 录制 + UI 回放** — `cdp-record` / `--cdp-replay`（Chrome 9222）
-8. **Connectors** — Notion 读页、飞书 webhook 外发（`--outbound` + 环境变量门禁）
+8. **Connectors** — Notion 读页、飞书 webhook + 开放平台 `im/v1/messages`（`--outbound` + 环境变量门禁）
 
 **V3（已完成 MVP）**
 
@@ -37,7 +37,7 @@
 2. **CLI** — `goal_cli demo|plan|run|list`（`--llm` 可选润色）
 3. **SkillHub 运行时绑定** — 扫描 `vendor/workbuddyskills/skills`，enable/compose/prompt pack；Team `live_cli --skill` 注入
 
-延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；Skill 脚本全量执行。
+延后：企业版 Casdoor / Milvus / systemd；Skill 脚本全量执行。
 
 ## 目录要点
 
@@ -149,7 +149,8 @@ python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live
   --live-runner --cdp-replay --outbound
 ```
 
-Env：`WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK`、`WB_ALLOW_OUTBOUND=1`。
+Env：`WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK` 或 `WB_FEISHU_APP_ID`/`SECRET`/`RECEIVE_ID`、`WB_ALLOW_OUTBOUND=1`。
+开放平台目标：`feishu:chat/<chat_id>`、`feishu:open_id/<id>`、`feishu:open`。
 
 调度（每分钟由系统任务调用即可，无需常驻进程）：
 

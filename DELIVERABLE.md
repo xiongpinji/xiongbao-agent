@@ -128,6 +128,9 @@ python -S -m octop.contrib.workbuddy.teach_cli connectors
 # CDP 回放 click/type（需 Chrome 9222）+ 可选飞书外发
 $env:WB_NOTION_TOKEN = "<token>"
 $env:WB_FEISHU_WEBHOOK = "https://open.feishu.cn/open-apis/bot/v2/hook/..."
+# 或开放平台 im/v1/messages：
+# $env:WB_FEISHU_APP_ID="cli_xxx"; $env:WB_FEISHU_APP_SECRET="xxx"
+# $env:WB_FEISHU_RECEIVE_ID="oc_xxx"; $env:WB_ALLOW_OUTBOUND="1"
 python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live `
   --live-runner --cdp-replay --outbound --approve step:0
 ```
@@ -136,10 +139,12 @@ python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live
 |---|---|
 | Notion page id 解析 + Fake HTTP 读页 | OK |
 | Feishu webhook 无 `WB_ALLOW_OUTBOUND` 拦截 / Fake POST | OK |
+| Feishu open API tenant_token + im/v1/messages | OK |
 | CdpReplaySession FakeTransport click/type/navigate | OK |
 | LiveStepRunner + CDP + Feishu 联通 | OK |
 
-Env: `WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK`、`WB_ALLOW_OUTBOUND=1`（`--outbound` 时 CLI 会置位）。目标前缀：`notion:page/<id>`、`feishu:webhook`。
+Env: `WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK` 或 `WB_FEISHU_APP_ID`/`SECRET`/`RECEIVE_ID`、`WB_ALLOW_OUTBOUND=1`（`--outbound` 时 CLI 会置位）。
+目标前缀：`notion:page/<id>`、`feishu:webhook`、`feishu:chat/<id>`、`feishu:open`。
 
 ## Local LLM（V1）
 
@@ -203,5 +208,4 @@ python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
-- Feishu open-platform chat API（当前 MVP 仅自定义机器人 webhook）
 - Skill 脚本全量沙箱执行（当前为 prompt pack 注入，非任意 script 执行）

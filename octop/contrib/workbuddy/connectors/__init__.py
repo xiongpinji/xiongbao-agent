@@ -5,8 +5,11 @@ Credentials via env (never commit secrets)::
 
     WB_NOTION_TOKEN          Notion internal integration secret
     WB_FEISHU_WEBHOOK        Feishu/Lark custom bot webhook URL
-    WB_FEISHU_APP_ID         (optional) open-platform app
-    WB_FEISHU_APP_SECRET     (optional)
+    WB_FEISHU_APP_ID         Open-platform app id (for im/v1/messages)
+    WB_FEISHU_APP_SECRET     Open-platform app secret
+    WB_FEISHU_RECEIVE_ID     Default chat/open/user id for open API
+    WB_FEISHU_RECEIVE_ID_TYPE  chat_id | open_id | user_id | email (default chat_id)
+    WB_FEISHU_BASE_URL       Override API host (default https://open.feishu.cn)
     WB_ALLOW_OUTBOUND=1      Required to actually POST messages (safety gate)
 
 Targets use prefixes::
@@ -15,6 +18,11 @@ Targets use prefixes::
     notion:https://www.notion.so/...
     feishu:webhook
     feishu:webhook/<alias>   (alias ignored; uses WB_FEISHU_WEBHOOK)
+    feishu:chat/<chat_id>    Open API → receive_id_type=chat_id
+    feishu:open_id/<id>
+    feishu:user_id/<id>
+    feishu:email/<addr>
+    feishu:open              Open API with WB_FEISHU_RECEIVE_ID*
 """
 
 from __future__ import annotations
@@ -177,9 +185,43 @@ class NotionConnector:
 
 # --- Feishu -----------------------------------------------------------------
 
+_FEISHU_DEFAULT_BASE = "https://open.feishu.cn"
+
+
+def parse_feishu_target(target: str) -> dict[str, str]:
+    """Parse ``feishu:…`` / ``lark:…`` into transport hints.
+
+    Returns keys: ``mode`` (``webhook``|``open``), optional ``receive_id``,
+    ``receive_id_type``.
+    """
+    raw = (target or "").strip()
+    lower = raw.lower()
+    if lower.startswith("lark:"):
+        raw = "feishu:" + raw[5:]
+        lower = raw.lower()
+    if not lower.startswith("feishu:"):
+        return {"mode": "webhook"}
+    rest = raw.split(":", 1)[1].strip()
+    if not rest or rest.lower().startswith("webhook"):
+        return {"mode": "webhook"}
+    if rest.lower() in {"open", "api", "app"}:
+        return {"mode": "open"}
+    for prefix, rid_type in (
+        ("chat/", "chat_id"),
+        ("chat_id/", "chat_id"),
+        ("open_id/", "open_id"),
+        ("user_id/", "user_id"),
+        ("email/", "email"),
+    ):
+        if rest.lower().startswith(prefix):
+            rid = rest[len(prefix) :].strip()
+            return {"mode": "open", "receive_id": rid, "receive_id_type": rid_type}
+    # bare id → treat as chat_id
+    return {"mode": "open", "receive_id": rest, "receive_id_type": "chat_id"}
+
 
 class FeishuConnector:
-    """Outbound Feishu via custom-bot webhook (default) or open API token."""
+    """Outbound Feishu via custom-bot webhook or open-platform im/v1/messages."""
 
     def __init__(
         self,
@@ -187,17 +229,39 @@ class FeishuConnector:
         *,
         app_id: str | None = None,
         app_secret: str | None = None,
+        receive_id: str | None = None,
+        receive_id_type: str | None = None,
+        base_url: str | None = None,
         timeout: float = 20.0,
     ) -> None:
         self.webhook = webhook if webhook is not None else _env("WB_FEISHU_WEBHOOK")
         self.app_id = app_id if app_id is not None else _env("WB_FEISHU_APP_ID")
         self.app_secret = app_secret if app_secret is not None else _env("WB_FEISHU_APP_SECRET")
+        self.receive_id = receive_id if receive_id is not None else _env("WB_FEISHU_RECEIVE_ID")
+        self.receive_id_type = (
+            receive_id_type
+            if receive_id_type is not None
+            else (_env("WB_FEISHU_RECEIVE_ID_TYPE") or "chat_id")
+        )
+        self.base_url = (base_url or _env("WB_FEISHU_BASE_URL") or _FEISHU_DEFAULT_BASE).rstrip("/")
         self.timeout = timeout
+        self._tenant_token: str | None = None
 
     def configured(self) -> bool:
         return bool(self.webhook) or (bool(self.app_id) and bool(self.app_secret))
 
-    def send_text(self, text: str, *, require_outbound_flag: bool = True) -> ConnectorResult:
+    def open_api_ready(self) -> bool:
+        return bool(self.app_id and self.app_secret and self.receive_id)
+
+    def send_text(
+        self,
+        text: str,
+        *,
+        require_outbound_flag: bool = True,
+        target: str | None = None,
+        receive_id: str | None = None,
+        receive_id_type: str | None = None,
+    ) -> ConnectorResult:
         if require_outbound_flag and not outbound_allowed():
             return ConnectorResult(
                 False,
@@ -206,17 +270,25 @@ class FeishuConnector:
                 {"queued_only": True, "text": text[:200]},
                 "WB_ALLOW_OUTBOUND not set — message kept local",
             )
+
+        hint = parse_feishu_target(target or "feishu:webhook")
+        mode = hint.get("mode", "webhook")
+        rid = receive_id or hint.get("receive_id") or self.receive_id
+        rid_type = receive_id_type or hint.get("receive_id_type") or self.receive_id_type
+
+        if mode == "webhook" and self.webhook:
+            return self._send_webhook(text)
+        if mode == "open" or (not self.webhook and self.app_id and self.app_secret):
+            return self._send_open_api(text, receive_id=rid, receive_id_type=rid_type)
         if self.webhook:
             return self._send_webhook(text)
-        if self.app_id and self.app_secret:
-            return ConnectorResult(
-                False,
-                "feishu",
-                "send_text",
-                {},
-                "open-platform chat send not configured; set WB_FEISHU_WEBHOOK for MVP",
-            )
-        return ConnectorResult(False, "feishu", "send_text", {}, "WB_FEISHU_WEBHOOK not set")
+        return ConnectorResult(
+            False,
+            "feishu",
+            "send_text",
+            {},
+            "set WB_FEISHU_WEBHOOK or WB_FEISHU_APP_ID/SECRET + RECEIVE_ID",
+        )
 
     def _send_webhook(self, text: str) -> ConnectorResult:
         url = self.webhook
@@ -229,9 +301,91 @@ class FeishuConnector:
             # Feishu returns {code:0} or {StatusCode:0}
             code = data.get("code", data.get("StatusCode", 0))
             ok = code in (0, "0", None) or data.get("StatusMessage") == "success"
-            return ConnectorResult(bool(ok), "feishu", "webhook", {"response": data, "chars": len(text)}, None if ok else str(data))
+            return ConnectorResult(
+                bool(ok),
+                "feishu",
+                "webhook",
+                {"response": data, "chars": len(text)},
+                None if ok else str(data),
+            )
         except ConnectorError as exc:
             return ConnectorResult(False, "feishu", "webhook", {}, str(exc))
+
+    def get_tenant_access_token(self, *, force: bool = False) -> str:
+        if self._tenant_token and not force:
+            return self._tenant_token
+        if not self.app_id or not self.app_secret:
+            raise ConnectorError("WB_FEISHU_APP_ID / WB_FEISHU_APP_SECRET required")
+        url = f"{self.base_url}/open-apis/auth/v3/tenant_access_token/internal"
+        data = _http_json(
+            "POST",
+            url,
+            body={"app_id": self.app_id, "app_secret": self.app_secret},
+            timeout=self.timeout,
+        )
+        token = str(data.get("tenant_access_token") or "").strip()
+        if not token or data.get("code", 0) not in (0, "0", None):
+            raise ConnectorError(f"tenant_access_token failed: {data}")
+        self._tenant_token = token
+        return token
+
+    def _send_open_api(
+        self,
+        text: str,
+        *,
+        receive_id: str | None,
+        receive_id_type: str | None,
+    ) -> ConnectorResult:
+        rid = (receive_id or "").strip()
+        rid_type = (receive_id_type or "chat_id").strip() or "chat_id"
+        if not rid:
+            return ConnectorResult(
+                False,
+                "feishu",
+                "open_api",
+                {},
+                "receive_id missing — use feishu:chat/<id> or WB_FEISHU_RECEIVE_ID",
+            )
+        if not self.app_id or not self.app_secret:
+            return ConnectorResult(
+                False,
+                "feishu",
+                "open_api",
+                {},
+                "WB_FEISHU_APP_ID / WB_FEISHU_APP_SECRET required for open API",
+            )
+        try:
+            token = self.get_tenant_access_token()
+            url = f"{self.base_url}/open-apis/im/v1/messages?receive_id_type={rid_type}"
+            # content must be a JSON *string* per Feishu docs
+            body = {
+                "receive_id": rid,
+                "msg_type": "text",
+                "content": json.dumps({"text": text}, ensure_ascii=False),
+            }
+            data = _http_json(
+                "POST",
+                url,
+                headers={"Authorization": f"Bearer {token}"},
+                body=body,
+                timeout=self.timeout,
+            )
+            code = data.get("code", 0)
+            ok = code in (0, "0", None)
+            return ConnectorResult(
+                bool(ok),
+                "feishu",
+                "open_api",
+                {
+                    "response": data,
+                    "chars": len(text),
+                    "receive_id": rid,
+                    "receive_id_type": rid_type,
+                },
+                None if ok else str(data),
+            )
+        except ConnectorError as exc:
+            return ConnectorResult(False, "feishu", "open_api", {}, str(exc))
 
 
 def resolve_read(target: str, *, notion: NotionConnector | None = None) -> ConnectorResult | None:
@@ -256,7 +410,11 @@ def resolve_message(
     t = target.strip().lower()
     if t.startswith("feishu:") or t.startswith("lark:"):
         client = feishu or FeishuConnector()
-        return client.send_text(text, require_outbound_flag=require_outbound_flag)
+        return client.send_text(
+            text,
+            require_outbound_flag=require_outbound_flag,
+            target=target,
+        )
     return None
 
 
@@ -269,6 +427,8 @@ def probe_status() -> dict[str, Any]:
             "configured": feishu.configured(),
             "webhook_set": bool(feishu.webhook),
             "app_set": bool(feishu.app_id and feishu.app_secret),
+            "open_api_ready": feishu.open_api_ready(),
+            "receive_id_set": bool(feishu.receive_id),
         },
         "outbound_allowed": outbound_allowed(),
     }

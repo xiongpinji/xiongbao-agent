@@ -18,6 +18,7 @@ from octop.contrib.workbuddy.connectors import (  # noqa: E402
     ConnectorError,
     FeishuConnector,
     NotionConnector,
+    parse_feishu_target,
     parse_notion_page_id,
     probe_status,
 )
@@ -39,14 +40,32 @@ def test_parse_notion_page_id() -> None:
         pass
 
 
+def test_parse_feishu_target() -> None:
+    assert parse_feishu_target("feishu:webhook")["mode"] == "webhook"
+    assert parse_feishu_target("feishu:chat/oc_abc") == {
+        "mode": "open",
+        "receive_id": "oc_abc",
+        "receive_id_type": "chat_id",
+    }
+    assert parse_feishu_target("lark:open_id/ou_1")["receive_id_type"] == "open_id"
+    assert parse_feishu_target("feishu:open")["mode"] == "open"
+
+
 def test_probe_status_no_env() -> None:
     with patch.dict(os.environ, {}, clear=False):
-        os.environ.pop("WB_NOTION_TOKEN", None)
-        os.environ.pop("WB_FEISHU_WEBHOOK", None)
-        os.environ.pop("WB_ALLOW_OUTBOUND", None)
+        for key in (
+            "WB_NOTION_TOKEN",
+            "WB_FEISHU_WEBHOOK",
+            "WB_FEISHU_APP_ID",
+            "WB_FEISHU_APP_SECRET",
+            "WB_FEISHU_RECEIVE_ID",
+            "WB_ALLOW_OUTBOUND",
+        ):
+            os.environ.pop(key, None)
         st = probe_status()
         assert st["notion"]["configured"] is False
         assert st["feishu"]["configured"] is False
+        assert st["feishu"]["open_api_ready"] is False
         assert st["outbound_allowed"] is False
 
 
@@ -77,6 +96,44 @@ def test_feishu_webhook_post() -> None:
         assert res.ok
         assert calls and calls[0][0] == "POST"
         assert calls[0][2]["msg_type"] == "text"
+
+
+def test_feishu_open_api_post() -> None:
+    calls: list[dict[str, Any]] = []
+
+    def fake_http(method: str, url: str, *, headers=None, body=None, timeout=20.0):
+        calls.append({"method": method, "url": url, "headers": headers or {}, "body": body})
+        if "tenant_access_token" in url:
+            return {"code": 0, "tenant_access_token": "t-test-token", "expire": 7200}
+        if "/im/v1/messages" in url:
+            assert headers and headers.get("Authorization") == "Bearer t-test-token"
+            assert "receive_id_type=chat_id" in url
+            assert body["receive_id"] == "oc_demo"
+            assert body["msg_type"] == "text"
+            assert json.loads(body["content"])["text"] == "open api hi"
+            return {"code": 0, "data": {"message_id": "om_1"}}
+        raise AssertionError(url)
+
+    env = {
+        "WB_FEISHU_APP_ID": "cli_demo",
+        "WB_FEISHU_APP_SECRET": "sec_demo",
+        "WB_FEISHU_RECEIVE_ID": "oc_env_default",
+        "WB_ALLOW_OUTBOUND": "1",
+    }
+    # Prefer open target even if webhook also set
+    env["WB_FEISHU_WEBHOOK"] = "https://open.feishu.cn/open-apis/bot/v2/hook/ignored"
+    with patch.dict(os.environ, env, clear=False):
+        with patch("octop.contrib.workbuddy.connectors._http_json", side_effect=fake_http):
+            fc = FeishuConnector()
+            res = fc.send_text(
+                "open api hi",
+                require_outbound_flag=True,
+                target="feishu:chat/oc_demo",
+            )
+    assert res.ok, res.error
+    assert res.action == "open_api"
+    assert any("tenant_access_token" in c["url"] for c in calls)
+    assert any("/im/v1/messages" in c["url"] for c in calls)
 
 
 def test_notion_read_mocked() -> None:
@@ -177,9 +234,11 @@ def test_cdp_replay_session_with_fake_transport() -> None:
 def main() -> int:
     tests = [
         ("parse_notion_page_id", test_parse_notion_page_id),
+        ("parse_feishu_target", test_parse_feishu_target),
         ("probe_status", test_probe_status_no_env),
         ("feishu_blocks", test_feishu_blocks_without_outbound_flag),
         ("feishu_webhook", test_feishu_webhook_post),
+        ("feishu_open_api", test_feishu_open_api_post),
         ("notion_read", test_notion_read_mocked),
         ("live_cdp_feishu", test_live_runner_cdp_replay_and_feishu_skip),
         ("cdp_replay_session", test_cdp_replay_session_with_fake_transport),
