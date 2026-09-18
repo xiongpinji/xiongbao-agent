@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>知远 · WorkBuddy Console</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a222c;
+      --text: #e7ecf1;
+      --muted: #8b9aab;
+      --ok: #3dcf8e;
+      --bad: #e85d5d;
+      --accent: #5b9fd4;
+      --line: #2a3542;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1c2a3a 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1.5rem 1rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+    header p { margin: 0.4rem 0 0; color: var(--muted); }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: grid;
+      gap: 1rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .card {
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .val { font-size: 1.35rem; font-weight: 650; }
+    .ok { color: var(--ok); }
+    .bad { color: var(--bad); }
+    pre {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1rem;
+      overflow: auto;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      max-height: 50vh;
+    }
+    button {
+      background: var(--accent);
+      color: #061018;
+      border: 0;
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.08); }
+    .actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .hint { color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>知远 · WorkBuddy Console</h1>
+    <p>生产化状态面：Harbor / Compose / Enterprise（本地只读）</p>
+  </header>
+  <main>
+    <div class="actions">
+      <button type="button" id="refresh">刷新状态</button>
+      <span class="hint" id="updated">尚未加载</span>
+    </div>
+    <div class="row" id="cards"></div>
+    <div class="card">
+      <h2>Raw /api/status</h2>
+      <pre id="raw">loading…</pre>
+    </div>
+  </main>
+  <script>
+    const cards = document.getElementById("cards");
+    const raw = document.getElementById("raw");
+    const updated = document.getElementById("updated");
+
+    function pill(label, value, ok) {
+      const cls = ok === true ? "ok" : ok === false ? "bad" : "";
+      return `<div class="card"><h2>${label}</h2><div class="val ${cls}">${value}</div></div>`;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch("/api/status", { cache: "no-store" });
+        const data = await res.json();
+        const h = data.harbor || {};
+        const subsets = h.subsets || {};
+        const taskSum = Object.values(subsets).reduce((n, s) => n + (s.tasks || 0), 0);
+        cards.innerHTML = [
+          pill("Docker", h.docker_available ? (h.docker_version || "ok") : "offline", !!h.docker_available),
+          pill("Harbor venv", h.bench_synced ? (h.python_version || "synced") : "missing", !!h.bench_synced),
+          pill("Python ≥3.12", h.python_ok_for_harbor ? "yes" : "no", !!h.python_ok_for_harbor),
+          pill("Bench tasks", String(taskSum), taskSum > 0),
+        ].join("");
+        raw.textContent = JSON.stringify(data, null, 2);
+        updated.textContent = "更新于 " + new Date().toLocaleString();
+      } catch (err) {
+        cards.innerHTML = pill("Error", String(err), false);
+        raw.textContent = String(err);
+      }
+    }
+
+    document.getElementById("refresh").addEventListener("click", load);
+    load();
+    setInterval(load, 15000);
+  </script>
+</body>
+</html>

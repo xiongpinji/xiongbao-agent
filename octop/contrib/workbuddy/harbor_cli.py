@@ -11,8 +11,10 @@ from pathlib import Path
 from .bench.harbor import (
     docker_build_smoke,
     harbor_bridge_report,
+    harbor_dry_run,
     harbor_status,
     list_tasks,
+    uv_sync_bench,
     validate_task,
 )
 
@@ -59,8 +61,28 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--timeout", type=float, default=600.0)
     b.set_defaults(func=_cmd_build_smoke)
 
+    sync = sub.add_parser("sync", help="uv sync vendor/workbuddy-bench (.venv)")
+    sync.add_argument("--python", default="3.12")
+    sync.set_defaults(func=_cmd_sync)
+
+    dr = sub.add_parser("dry-run", help="Official Harbor dry-run (manifest resolve)")
+    dr.add_argument("--job", default="local-openai-cbc-office-smoke")
+    dr.set_defaults(func=_cmd_dry_run)
+
     args = p.parse_args(argv)
     return int(args.func(args))
+
+
+def _cmd_sync(args: argparse.Namespace) -> int:
+    result = uv_sync_bench(python=args.python)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result.get("ok") else 1
+
+
+def _cmd_dry_run(args: argparse.Namespace) -> int:
+    result = harbor_dry_run(job=args.job)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result.get("ok") else 1
 
 
 def _cmd_build_smoke(args: argparse.Namespace) -> int:

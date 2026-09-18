@@ -1,0 +1,14 @@
+# Dry-run / smoke job: office subset, first 1 task.
+# Usage (from vendor/workbuddy-bench):
+#   uv run ./scripts/run.sh --job local-openai-cbc-office-smoke --dry-run
+model: local-openai
+harness: codebuddy-code/2.103.4
+dataset: datasets/wb-bench-office-v1.0/tasks
+harness_backend: local
+model_connection: direct
+extra_allowed_hosts:
+  - host.docker.internal
+task_selection:
+  mode: first
+  count: 1
+n_attempts: 1

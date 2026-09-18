@@ -88,14 +88,42 @@ def docker_available() -> tuple[bool, str]:
     return code == 0 and bool(ver), ver
 
 
+def venv_python(root: Path | None = None) -> Path | None:
+    """Return workbuddy-bench venv interpreter if present (Windows or POSIX)."""
+    bench = bench_pkg_root(root)
+    for rel in (Path(".venv") / "Scripts" / "python.exe", Path(".venv") / "bin" / "python"):
+        candidate = bench / rel
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def venv_python_version(root: Path | None = None) -> str:
+    py = venv_python(root)
+    if py is None:
+        return ""
+    code, out, _ = _run([str(py), "-c", "import sys; print('.'.join(map(str, sys.version_info[:3])))"])
+    return (out or "").strip() if code == 0 else ""
+
+
 def harbor_status(root: Path | None = None) -> HarborStatus:
     root = root or project_root()
     docker_ok, docker_ver = docker_available()
-    py_ver = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-    py_ok = sys.version_info >= (3, 12)
+    host_ver = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    venv_ver = venv_python_version(root)
+    py_ver = venv_ver or host_ver
+    py_ok = False
+    if venv_ver:
+        parts = venv_ver.split(".")
+        try:
+            py_ok = (int(parts[0]), int(parts[1])) >= (3, 12)
+        except (ValueError, IndexError):
+            py_ok = False
+    else:
+        py_ok = sys.version_info >= (3, 12)
     uv_ok = bool(shutil.which("uv"))
     bench = bench_pkg_root(root)
-    synced = (bench / ".venv").is_dir() or (bench / "uv.lock").is_file() and uv_ok and py_ok
+    synced = venv_python(root) is not None
 
     status = HarborStatus(
         docker_available=docker_ok,
@@ -103,7 +131,7 @@ def harbor_status(root: Path | None = None) -> HarborStatus:
         python_ok_for_harbor=py_ok,
         python_version=py_ver,
         uv_available=uv_ok,
-        bench_synced=bool((bench / ".venv").is_dir()),
+        bench_synced=synced,
     )
     ds = datasets_root(root)
     for key, dirname in SUBSET_DIRS.items():
@@ -122,15 +150,110 @@ def harbor_status(root: Path | None = None) -> HarborStatus:
         status.notes.append("Docker daemon not available — Harbor scoring blocked")
     if not py_ok:
         status.notes.append(
-            f"Full Harbor CLI needs Python ≥3.12 (current {py_ver}); "
-            "use docker build-smoke + llm_lite until upgraded"
+            f"Full Harbor CLI needs Python ≥3.12 (current {py_ver or host_ver}); "
+            "run: cd vendor/workbuddy-bench && uv sync --python 3.12"
         )
     if not uv_ok:
         status.notes.append("uv not on PATH — cannot `uv sync` vendor/workbuddy-bench yet")
-    if synced and not status.bench_synced:
-        status.notes.append("uv.lock present; run `uv sync` inside vendor/workbuddy-bench")
+    if (bench / "uv.lock").is_file() and not synced:
+        status.notes.append("uv.lock present; run `uv sync --python 3.12` inside vendor/workbuddy-bench")
+    if synced and py_ok:
+        status.notes.append("Harbor venv ready - dry-run: scripts/dry_run_office_smoke.sh")
     return status
 
+
+def uv_sync_bench(*, root: Path | None = None, python: str = "3.12", timeout: float = 600.0) -> dict[str, Any]:
+    """Run `uv sync --python <ver>` inside vendor/workbuddy-bench."""
+    bench = bench_pkg_root(root)
+    if not shutil.which("uv"):
+        return {"ok": False, "error": "uv not on PATH", "path": str(bench)}
+    argv = ["uv", "sync", "--python", python]
+    try:
+        proc = subprocess.run(
+            argv,
+            cwd=str(bench),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired, OSError) as exc:
+        return {"ok": False, "error": str(exc), "path": str(bench), "cmd": argv}
+    return {
+        "ok": proc.returncode == 0,
+        "returncode": proc.returncode,
+        "path": str(bench),
+        "cmd": argv,
+        "stdout_tail": (proc.stdout or "")[-2000:],
+        "stderr_tail": (proc.stderr or "")[-2000:],
+        "venv_python": str(venv_python(root) or ""),
+        "venv_version": venv_python_version(root),
+    }
+
+
+def harbor_dry_run(
+    *,
+    root: Path | None = None,
+    job: str = "local-openai-cbc-office-smoke",
+    timeout: float = 120.0,
+) -> dict[str, Any]:
+    """Invoke official run.sh --dry-run via Git Bash / bash when available."""
+    root = root or project_root()
+    bench = bench_pkg_root(root)
+    script = bench / "scripts" / "dry_run_office_smoke.sh"
+    py = venv_python(root)
+    if py is None:
+        return {"ok": False, "error": "bench .venv missing — run uv sync first", "path": str(bench)}
+    bash = shutil.which("bash")
+    git_bash = Path(r"C:\Program Files\Git\bin\bash.exe")
+    if git_bash.is_file():
+        bash_bin = str(git_bash)
+    elif bash:
+        bash_bin = bash
+    else:
+        return {"ok": False, "error": "bash not found (install Git for Windows)", "path": str(bench)}
+
+    env = os.environ.copy()
+    env["PYTHON_BIN"] = str(py)
+    env.setdefault("WB_LLM_BASE_URL", "http://127.0.0.1:11434/v1")
+    env.setdefault("WB_LLM_API_KEY", "ollama")
+    # Prefer job-specific dry-run when smoke script is for default job
+    if job != "local-openai-cbc-office-smoke" or not script.is_file():
+        run_sh = bench / "scripts" / "run.sh"
+        argv = [bash_bin, str(run_sh), "--job", job, "--dry-run"]
+        # Ensure python3 resolves inside bash
+        wrapper = (
+            f'python3() {{ "{py.as_posix()}" "$@"; }}; export -f python3; '
+            f'cd "{bench.as_posix()}" && bash ./scripts/run.sh --job {job} --dry-run'
+        )
+        argv = [bash_bin, "-lc", wrapper]
+    else:
+        argv = [bash_bin, str(script)]
+
+    try:
+        proc = subprocess.run(
+            argv,
+            cwd=str(bench),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+            env=env,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired, OSError) as exc:
+        return {"ok": False, "error": str(exc), "cmd": argv, "path": str(bench)}
+
+    out = (proc.stdout or "") + "\n" + (proc.stderr or "")
+    ok = proc.returncode == 0 and "Resolved Manifest" in out
+    return {
+        "ok": ok,
+        "returncode": proc.returncode,
+        "job": job,
+        "cmd": argv,
+        "stdout_tail": (proc.stdout or "")[-4000:],
+        "stderr_tail": (proc.stderr or "")[-2000:],
+        "path": str(bench),
+    }
 
 def list_tasks(subset: str, *, root: Path | None = None, limit: int = 0) -> list[dict[str, Any]]:
     key = subset.strip().lower()

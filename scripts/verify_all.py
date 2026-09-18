@@ -115,6 +115,11 @@ def main(argv: list[str] | None = None) -> int:
                 "artifacts/goal_verify_all",
             ],
         ),
+        ("v8 production unit", [py, "-S", "tests/contrib/workbuddy/test_v8_production.py"]),
+        (
+            "hub status",
+            [py, "-S", "-m", "octop.contrib.workbuddy.hub_cli", "status"],
+        ),
     ]
 
     if args.live:
@@ -172,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
     if failed:
         print(f"VERIFY ALL FAILED ({len(failed)}): {', '.join(failed)}")
         return 1
-    print("VERIFY ALL OK — WorkBuddy V6 board green")
+    print("VERIFY ALL OK — WorkBuddy V8 production path green")
     return 0
 
 

@@ -36,8 +36,13 @@ def main(argv: list[str] | None = None) -> int:
     py = sys.executable
 
     steps: list[tuple[str, list[str]]] = [
-        ("verify_all (V1–V6)", [py, "-S", "scripts/verify_all.py"]),
+        ("verify_all (V1–V8)", [py, "-S", "scripts/verify_all.py"]),
         ("v7 unit tests", [py, "-S", "tests/contrib/workbuddy/test_v7_full_parity.py"]),
+        ("v8 production unit", [py, "-S", "tests/contrib/workbuddy/test_v8_production.py"]),
+        (
+            "hub status",
+            [py, "-S", "-m", "octop.contrib.workbuddy.hub_cli", "status"],
+        ),
         (
             "official tpl assemble",
             [
