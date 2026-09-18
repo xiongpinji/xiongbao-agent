@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>知远 · WorkBuddy</title>
+  <title>熊宝 Agent</title>
   <link rel="stylesheet" href="/console/tokens.css" />
   <link rel="stylesheet" href="/console/shell.css" />
   <script src="/console/shell_parity.js" defer></script>
+  <script src="/console/shell_pages.js" defer></script>
 </head>
 <body>
-  <header class="topbar" role="banner">
-    <div class="brand">知远<span>WorkBuddy</span></div>
+  <!-- keep legacy chrome IDs for JS; visually hidden -->
+  <header class="topbar hidden-chrome" role="banner" aria-hidden="true">
+    <div class="brand">熊宝<span>Agent</span></div>
     <span class="chip muted" id="sessionChip">未登录</span>
     <span class="chip" id="projectChip" title="当前项目空间">项目 · —</span>
     <span class="chip" id="modeChip" title="当前模式">创作</span>
@@ -35,30 +37,56 @@
   </header>
 
   <div class="mobile-tabs" id="mobileTabs" role="tablist" aria-label="窄屏分区">
-    <button type="button" data-pane="left" role="tab">任务</button>
+    <button type="button" data-pane="left" role="tab">导航</button>
     <button type="button" data-pane="center" class="active" role="tab">对话</button>
     <button type="button" data-pane="right" role="tab">结果</button>
   </div>
 
-  <div class="app layout-standard" id="app" role="presentation">
-    <nav class="col left" aria-label="任务列表">
-      <div class="col-hd">
-        <h2>任务</h2>
-        <button type="button" class="btn" id="btnNew">新建</button>
+  <div class="app layout-standard has-right" id="app" role="presentation" data-view="chat">
+    <nav class="col left" aria-label="侧栏">
+      <div class="sidebar-brand">
+        <img src="/console/assets/mascot.jpg" alt="熊宝" width="36" height="36" />
+        <div class="name">熊宝<em>Agent</em></div>
       </div>
-      <div class="col-hd" style="border-bottom:0;padding-top:0;gap:0.4rem">
-        <select id="projectSelect" aria-label="项目空间" style="flex:1;min-width:0">
+      <div class="sidebar-new">
+        <button type="button" class="btn" id="btnNew">＋ 新建任务</button>
+      </div>
+      <div class="side-nav" id="sideNav" role="navigation">
+        <button type="button" class="active" data-view="chat"><span class="ico">💬</span>对话</button>
+        <button type="button" data-view="agents"><span class="ico">🤖</span>智能体</button>
+        <button type="button" data-view="projects"><span class="ico">📁</span>项目</button>
+        <button type="button" data-view="knowledge"><span class="ico">📚</span>知识库</button>
+        <button type="button" data-view="tools"><span class="ico">🧰</span>工具箱</button>
+        <button type="button" data-view="team"><span class="ico">👥</span>团队协作</button>
+        <button type="button" data-view="settings"><span class="ico">⚙️</span>设置</button>
+      </div>
+      <div class="chip-stack" aria-live="polite">
+        <span class="chip muted" id="sessionChipSide">未登录</span>
+        <span class="chip" id="projectChipSide">项目 · —</span>
+      </div>
+      <div class="side-section-label">最近对话</div>
+      <div class="project-row">
+        <select id="projectSelect" aria-label="项目空间">
           <option value="">全部项目</option>
         </select>
         <button type="button" class="btn ghost" id="btnNewProject" title="新建项目空间">+</button>
       </div>
-      <div class="col-hd" style="border-bottom:0;padding-top:0">
+      <div class="search-row">
         <input class="search" id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" />
       </div>
+      <div class="col-hd"><h2>任务</h2></div>
       <div class="task-list" id="taskList"></div>
+      <div class="sidebar-foot">
+        <div class="avatar" id="userAvatar">宝</div>
+        <div class="meta">
+          <div class="u" id="userNameLabel">未登录</div>
+          <div class="s" id="userPlanLabel">本地私有化</div>
+        </div>
+        <button type="button" class="btn ghost" id="btnSidebarLogout" title="退出" style="height:32px;padding:0 8px">⎋</button>
+      </div>
     </nav>
 
-    <main class="col center" aria-label="对话">
+    <main class="col center" aria-label="对话" id="chatCenter">
       <div class="col-hd">
         <h2 id="taskTitle">选择或新建任务</h2>
         <select id="modeSelect" aria-label="任务模式">
@@ -74,30 +102,57 @@
       <div class="messages" id="messages" aria-live="polite">
         <div class="empty">
           <div class="empty-art" aria-hidden="true"></div>
-          选择左侧任务，或新建第一个任务开始
+          今天想让我帮你做什么？
           <div class="cta"><button type="button" class="btn" id="btnEmptyNew">新建第一个任务</button></div>
         </div>
       </div>
       <div class="composer">
-        <textarea id="composer" placeholder="描述你要完成的事…（Enter 发送，Shift+Enter 换行）" aria-label="消息输入"></textarea>
-        <div class="composer-row">
-          <label class="switch" title="开启后只规划不执行">
-            <input type="checkbox" id="dryRun" />
-            <span>仅演练</span>
-          </label>
-          <label class="btn ghost" style="cursor:pointer;margin:0">
-            附件
-            <input type="file" id="fileInput" hidden />
-          </label>
-          <span class="hint" id="uploadHint" style="font-size:0.75rem;color:var(--muted)"></span>
-          <div class="grow"></div>
-          <button type="button" class="btn" id="btnSend">发送</button>
+        <div class="composer-box">
+          <textarea id="composer" placeholder="今天想让我帮你做什么？（Enter 发送，Shift+Enter 换行）" aria-label="消息输入"></textarea>
+          <div class="composer-row">
+            <div class="composer-tools">
+              <label class="tool-chip" style="cursor:pointer;display:inline-flex;align-items:center">
+                ＋
+                <input type="file" id="fileInput" hidden />
+              </label>
+              <button type="button" class="tool-chip" id="toolWeb" title="网页检索（提示词）">网页搜索</button>
+              <button type="button" class="tool-chip" id="toolThink" title="深度思考">深度思考</button>
+              <button type="button" class="tool-chip" id="toolKb" title="引用知识库">知识库</button>
+              <label class="switch" title="开启后只规划不执行">
+                <input type="checkbox" id="dryRun" />
+                <span>仅演练</span>
+              </label>
+            </div>
+            <span class="hint" id="uploadHint"></span>
+            <div class="grow"></div>
+            <span class="chip muted" id="modelChipComposer">模型 · —</span>
+            <button type="button" class="btn send-fab" id="btnSend" title="发送">➤</button>
+          </div>
         </div>
       </div>
     </main>
 
-    <aside class="col right" aria-label="结果">
-      <div class="col-hd"><h2>结果</h2></div>
+    <aside class="col right" aria-label="结果与发现" id="chatRight">
+      <div class="right-search">
+        <input class="search" id="rightSearch" type="search" placeholder="搜索对话 / 文件 / 工具" />
+      </div>
+      <div id="rightDiscover">
+        <div class="right-banner">
+          <div class="copy">
+            <h3>让工作更简单</h3>
+            <p>熊宝陪你高效完成每一件事</p>
+          </div>
+          <img src="/console/assets/mascot.jpg" alt="" />
+        </div>
+        <div class="quick-actions">
+          <button type="button" data-qa="chat"><span class="qa-ico">💬</span>AI 对话</button>
+          <button type="button" data-qa="file"><span class="qa-ico">📄</span>文件分析</button>
+          <button type="button" data-qa="write"><span class="qa-ico">✍️</span>智能写作</button>
+        </div>
+        <div class="side-section-label" style="padding-left:16px">推荐智能体</div>
+        <div class="card-grid" id="rightAgentPreview" style="padding:0 16px 16px;grid-template-columns:1fr 1fr"></div>
+      </div>
+      <div class="col-hd" style="border-top:1px solid var(--line)"><h2>结果</h2></div>
       <div class="tabs" id="resultTabs" role="tablist">
         <button type="button" data-pane="artifacts" class="active" role="tab">产物</button>
         <button type="button" data-pane="files" role="tab">文件</button>
@@ -113,13 +168,23 @@
         <div id="previewHost"><div class="empty"><div class="empty-art"></div>选择文件查看预览</div></div>
       </div>
     </aside>
+
+    <section class="page-host" id="pageHost" aria-label="功能页">
+      <div class="page-hd">
+        <h1 id="pageTitle">智能体</h1>
+        <button type="button" class="btn" id="pagePrimaryBtn">新建</button>
+      </div>
+      <div class="page-filters" id="pageFilters"></div>
+      <div class="page-body" id="pageBody"></div>
+    </section>
   </div>
 
   <div class="login-mask show" id="loginMask" role="dialog" aria-modal="true" aria-labelledby="loginBrandTitle">
     <div class="login-shell">
       <div class="login-brand">
-        <h1 id="loginBrandTitle">知远 WorkBuddy</h1>
-        <p>企业本地工作台 · 登录后管理任务与产物</p>
+        <img class="mascot" src="/console/assets/mascot.jpg" alt="熊宝" />
+        <h1 id="loginBrandTitle">熊宝 Agent</h1>
+        <p>更高效的 AI 工作搭子 · 登录后开始创作</p>
       </div>
       <div class="login-card">
         <div class="login-tabs" role="tablist">
@@ -131,12 +196,12 @@
           <label>租户 ID<input name="tid" required placeholder="acme_corp" autocomplete="username" /></label>
           <label>用户 ID<input name="uid" value="admin" required /></label>
           <label>API Key<input name="key" type="password" required autocomplete="current-password" /></label>
-          <button type="submit" class="btn">进入工作台</button>
+          <button type="submit" class="btn" style="width:100%;justify-content:center;height:40px">进入工作台</button>
         </form>
         <form class="login-pane" id="loginFormSso">
-          <p class="hint">粘贴 Casdoor access_token，或由运维配置 password-grant 后换发。换发成功后签发本机 JWT。</p>
+          <p class="hint">粘贴 Casdoor access_token，换发成功后签发本机 JWT。</p>
           <label>Casdoor Token<textarea name="casdoor" rows="4" required placeholder="eyJhbGciOi…" style="resize:vertical"></textarea></label>
-          <button type="submit" class="btn">换发并登录</button>
+          <button type="submit" class="btn" style="width:100%;justify-content:center;height:40px">换发并登录</button>
         </form>
         <p id="loginErr" style="margin:0;color:var(--danger);font-size:0.8rem"></p>
       </div>
@@ -157,7 +222,7 @@
       <button type="button" class="btn ghost" id="btnCloseProject">关闭</button>
     </div>
     <div class="skills-list" id="projectPanel">
-      <p class="hint" style="color:var(--muted);font-size:0.85rem;padding:0 0.25rem">选择或新建项目后，可将市场技能存入本空间；执行任务时自动加载。</p>
+      <p class="hint" style="padding:0 0.25rem">选择或新建项目后，可将市场技能存入本空间；执行任务时自动加载。</p>
       <div id="projectSkillList"></div>
     </div>
   </aside>

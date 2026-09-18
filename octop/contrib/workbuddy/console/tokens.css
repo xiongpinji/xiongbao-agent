@@ -1,48 +1,78 @@
-/* WorkBuddy shell design tokens (V17) */
+/* 熊宝 Agent · Design Tokens v1.0 — 干净 / 专业 / 高效 / 有温度 */
 :root {
-  --bg: #f0f3f7;
-  --bg-elevated: #f7f9fc;
-  --panel: #ffffff;
-  --text: #152033;
-  --muted: #5b6b7c;
-  --line: #e3e9f0;
-  --line-strong: #cfd8e3;
-  --accent: #1f6feb;
-  --accent-hover: #1a5fd0;
-  --accent-soft: #e8f1ff;
-  --accent-border: #c5daf8;
-  --ok: #0f7a45;
-  --ok-soft: #e7f7ee;
-  --warn: #b45309;
-  --warn-soft: #fff7ed;
-  --danger: #b91c1c;
-  --danger-soft: #fef2f2;
-  --sidebar-w: 288px;
-  --right-w: 360px;
-  --topbar-h: 56px;
-  --radius: 12px;
+  /* Backgrounds */
+  --bg: #0f1115;
+  --bg-sidebar: #151922;
+  --bg-elevated: #1a1f28;
+  --panel: #1b212b;
+  --panel-hover: #222937;
+  --panel-active: #262d3a;
+
+  /* Borders */
+  --line: #2a323d;
+  --line-strong: #3a4452;
+  --line-soft: rgba(42, 50, 61, 0.65);
+
+  /* Brand / Accent */
+  --accent: #d4a257;
+  --accent-hover: #e0b46a;
+  --accent-pressed: #c49245;
+  --accent-soft: rgba(212, 162, 87, 0.14);
+  --accent-border: rgba(212, 162, 87, 0.35);
+  --accent-glow: rgba(212, 162, 87, 0.22);
+  --on-accent: #1a1208;
+
+  /* Functional */
+  --blue: #3b82f6;
+  --blue-soft: rgba(59, 130, 246, 0.14);
+  --ok: #22c55e;
+  --ok-soft: rgba(34, 197, 94, 0.14);
+  --warn: #f59e0b;
+  --warn-soft: rgba(245, 158, 11, 0.14);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.14);
+
+  /* Text */
+  --text: #f9fafb;
+  --muted: #a1a1b3;
+  --hint: #6b7280;
+
+  /* Layout */
+  --sidebar-w: 248px;
+  --right-w: 340px;
+  --topbar-h: 0px;
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --shadow: 0 10px 30px rgba(21, 32, 51, 0.08);
-  --shadow-lg: 0 22px 60px rgba(21, 32, 51, 0.16);
-  --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  --fs-xs: 0.72rem;
-  --fs-sm: 0.8rem;
-  --fs-md: 0.92rem;
-  --fs-lg: 1.05rem;
-  --fs-xl: 1.35rem;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 4px 18px rgba(212, 162, 87, 0.28);
+
+  /* Type */
+  --font: "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans SC",
+    system-ui, sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 12px;
+  --fs-md: 14px;
+  --fs-lg: 18px;
+  --fs-xl: 20px;
+  --lh: 1.55;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
 }
 
 .app.layout-narrow {
-  --sidebar-w: 240px;
+  --sidebar-w: 220px;
   --right-w: 300px;
 }
 .app.layout-wide {
-  --sidebar-w: 320px;
-  --right-w: 400px;
+  --sidebar-w: 280px;
+  --right-w: 380px;
 }

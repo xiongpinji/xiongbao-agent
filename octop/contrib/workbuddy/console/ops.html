@@ -3,29 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>知远 · WorkBuddy Console</title>
+  <title>熊宝 Agent · 运维台</title>
+  <link rel="stylesheet" href="/console/tokens.css" />
   <style>
-    :root {
-      --bg: #0f1419;
-      --panel: #1a222c;
-      --text: #e7ecf1;
-      --muted: #8b9aab;
-      --ok: #3dcf8e;
-      --bad: #e85d5d;
-      --accent: #5b9fd4;
-      --line: #2a3542;
-    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: radial-gradient(1200px 600px at 10% -10%, #1c2a3a 0%, var(--bg) 55%);
+      font-family: var(--font);
+      background:
+        radial-gradient(900px 480px at 10% -10%, rgba(212, 162, 87, 0.12), transparent 55%),
+        var(--bg);
       color: var(--text);
       min-height: 100vh;
+      font-size: var(--fs-md);
     }
-    header { padding: 2rem 1.5rem 0.75rem; max-width: 1100px; margin: 0 auto; }
-    header h1 { margin: 0; font-size: 1.75rem; font-weight: 650; letter-spacing: 0.02em; }
-    header p { margin: 0.4rem 0 0; color: var(--muted); }
+    header {
+      padding: 1.75rem 1.5rem 0.75rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    header img {
+      width: 40px; height: 40px; border-radius: 8px; object-fit: cover;
+      box-shadow: var(--shadow-gold);
+    }
+    header h1 { margin: 0; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.02em; }
+    header p { margin: 0.25rem 0 0; color: var(--muted); font-size: var(--fs-sm); }
+    header a { color: var(--accent); text-decoration: none; }
     .tabs {
       max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
       display: flex; gap: 0.4rem; flex-wrap: wrap;
@@ -33,31 +39,36 @@
     .tabs button {
       background: transparent; color: var(--muted); border: 1px solid var(--line);
       border-radius: 8px; padding: 0.45rem 0.9rem; font-weight: 600; cursor: pointer;
+      font-family: inherit;
     }
-    .tabs button.active { background: var(--accent); color: #061018; border-color: transparent; }
+    .tabs button.active { background: var(--accent); color: var(--on-accent); border-color: transparent; }
     main { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem; display: grid; gap: 1rem; }
     .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; }
     .card {
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
-      border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem;
+      background: var(--panel);
+      border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem;
     }
     .card h2 {
-      margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--muted);
+      margin: 0 0 0.5rem; font-size: 0.75rem; color: var(--hint);
       font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
     }
     .val { font-size: 1.25rem; font-weight: 650; }
-    .ok { color: var(--ok); } .bad { color: var(--bad); }
+    .ok { color: var(--ok); } .bad { color: var(--danger); }
     pre {
-      background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 10px;
       padding: 1rem; overflow: auto; font-size: 0.78rem; line-height: 1.45; max-height: 55vh;
+      color: var(--text);
     }
     .actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
     .hint { color: var(--muted); font-size: 0.85rem; }
-    button#refresh, button#loginBtn, button#logoutBtn {
-      background: var(--accent); color: #061018; border: 0; border-radius: 8px;
-      padding: 0.55rem 1rem; font-weight: 650; cursor: pointer;
+    button#refresh, button#loginBtn, button#btnDryRun, button#btnScore {
+      background: var(--accent); color: var(--on-accent); border: 0; border-radius: 8px;
+      padding: 0.55rem 1rem; font-weight: 650; cursor: pointer; font-family: inherit;
     }
-    button#logoutBtn { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+    button#logoutBtn {
+      background: transparent; color: var(--muted); border: 1px solid var(--line);
+      border-radius: 8px; padding: 0.55rem 1rem; cursor: pointer; font-family: inherit;
+    }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     th, td { text-align: left; padding: 0.45rem 0.35rem; border-bottom: 1px solid var(--line); }
     th { color: var(--muted); font-weight: 600; }
@@ -69,7 +80,7 @@
     .login-grid label { display: grid; gap: 0.25rem; font-size: 0.8rem; color: var(--muted); }
     .login-grid input {
       background: var(--bg); color: var(--text); border: 1px solid var(--line);
-      border-radius: 8px; padding: 0.5rem 0.65rem;
+      border-radius: 8px; padding: 0.5rem 0.65rem; font-family: inherit;
     }
     #authBanner { display: none; }
     #authBanner.show { display: block; }
@@ -77,8 +88,11 @@
 </head>
 <body>
   <header>
-    <h1>知远 · WorkBuddy 运维台</h1>
-    <p>V12 运维面：概览 / 任务 / 技能 / 连接器 / Harbor / Runtime · <a href="/" style="color:#5b9fd4">返回用户壳</a></p>
+    <img src="/console/assets/mascot.jpg" alt="熊宝" />
+    <div>
+      <h1>熊宝 Agent · 运维台</h1>
+      <p>概览 / 任务 / 技能 / 连接器 / Harbor / Runtime · <a href="/">返回工作台</a></p>
+    </div>
   </header>
   <div class="tabs" id="tabs">
     <button type="button" data-tab="overview" class="active">概览</button>

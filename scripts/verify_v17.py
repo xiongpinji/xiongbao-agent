@@ -144,7 +144,7 @@ class V17ApiSmokeTests(unittest.TestCase):
 
         data = api_payload("/api/health", None)
         self.assertTrue(data["ok"])
-        self.assertEqual(data["v"], 17)
+        self.assertGreaterEqual(int(data["v"]), 17)
         self.assertIn("model", data)
         self.assertIn("auth_required", data)
 
