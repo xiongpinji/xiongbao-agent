@@ -20,7 +20,8 @@ class ProjectMeta:
     project_id: str
     name: str
     created_at: str
-    members: list[str] = field(default_factory=list)
+    # user_id strings (legacy) or {user_id, role} dicts
+    members: list[Any] = field(default_factory=list)
     description: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,7 +46,7 @@ class ProjectSpace:
         project_id: str,
         *,
         name: str = "",
-        members: list[str] | None = None,
+        members: list[Any] | None = None,
         description: str = "",
     ) -> ProjectMeta:
         d = self._dir(project_id)

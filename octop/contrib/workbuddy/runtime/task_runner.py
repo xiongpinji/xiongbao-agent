@@ -10,6 +10,7 @@ from typing import Any
 from ..goal import GoalEngine, GoalStore
 from ..project import ProjectSpace
 from ..task import TaskStore
+from ..console_events import clear_events, make_emitter
 from .kb_context import kb_prompt_prefix
 from .policy_gate import check_run_allowed
 from .profile_env import apply_profile_env
@@ -203,6 +204,9 @@ def run_task(
     store.append_message(task_id, "assistant", start_msg)
     work = task_dir / "workspace"
     work.mkdir(parents=True, exist_ok=True)
+    clear_events(task_dir)
+    emit = make_emitter(task_dir)
+    emit({"kind": "running", "message": start_msg, "project_id": rec.project_id})
     gstore = GoalStore(goals_root)
     engine = GoalEngine(gstore)
     if proj_root is not None and rec.project_id:
@@ -218,8 +222,9 @@ def run_task(
                 "system",
                 "已加载项目技能：" + "、".join(bound_skills[:12]),
             )
+            emit({"kind": "skills", "bound_skills": bound_skills, "message": "已加载项目技能"})
     approvals = {"all"} if approve_all else set()
-    run = engine.run(goal, mode="live", approvals=approvals, work_dir=work)
+    run = engine.run(goal, mode="live", approvals=approvals, work_dir=work, on_event=emit)
     store.link_goal(task_id, run.id)
     final_status = "completed" if run.status == "accepted" else "failed"
     store.set_status(task_id, final_status)
@@ -259,6 +264,15 @@ def run_task(
         err = (run.error or run.status or "未知错误").strip()
         user_msg = f"执行未成功：{err}"
     store.append_message(task_id, "assistant", user_msg)
+    emit(
+        {
+            "kind": "completed" if run.status == "accepted" else "failed",
+            "terminal": True,
+            "message": user_msg,
+            "status": final_status,
+            "artifacts": produced[:20],
+        }
+    )
     return TaskRunResult(
         ok=run.status == "accepted",
         task_id=task_id,

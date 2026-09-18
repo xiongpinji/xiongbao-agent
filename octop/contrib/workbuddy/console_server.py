@@ -13,6 +13,8 @@ from typing import Any
 from urllib.parse import parse_qs, quote, unquote, urlparse
 
 from .connectors import probe_status as connectors_probe
+from .console_events import iter_sse_frames
+from .console_parity_api import api_get_extra, api_post_extra, normalize_members, require_role, save_project_meta
 from .console_workspace import read_preview, resolve_download, save_upload, workspace_payload
 from .enterprise.probe import enterprise_probe
 from .hub import hub_status
@@ -45,10 +47,17 @@ _API_GET_EXACT = {
     "/api/projects",
     "/api/skills",
     "/api/connectors",
+    "/api/channels",
     "/api/harbor",
     "/api/runtime",
     "/api/tenant",
     "/api/enterprise",
+    "/api/models",
+    "/api/knowledge",
+    "/api/cowrite",
+    "/api/library",
+    "/api/memory",
+    "/api/team",
 }
 
 
@@ -282,6 +291,7 @@ def api_get_project_path(path: str, ctx: TenantContext | None) -> tuple[int, dic
             "ok": True,
             "project": {
                 **meta.to_dict(),
+                "members": normalize_members(list(meta.members or [])),
                 "skill_count": len(space.list_skills(project_id)),
                 "skills": space.skill_details(project_id),
                 "memory_preview": space.memory_text(project_id, limit=400),
@@ -327,13 +337,25 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         description = str(body.get("description") or "").strip()
         if not project_id:
             return 400, {"ok": False, "error": "project_id required"}
+        owner = ctx.user_id if ctx else "admin"
         try:
-            meta = space.create(project_id, name=name, description=description)
+            meta = space.create(
+                project_id,
+                name=name,
+                description=description,
+                members=[{"user_id": owner, "role": "owner"}],
+            )
+            # persist normalized member objects
+            meta.members = normalize_members(list(meta.members or []))  # type: ignore[assignment]
+            save_project_meta(space, meta)
         except FileExistsError as exc:
             return 409, {"ok": False, "error": str(exc)}
         except Exception as exc:  # noqa: BLE001
             return 400, {"ok": False, "error": str(exc)}
-        return 200, {"ok": True, "project": {**meta.to_dict(), "skill_count": 0, "skills": []}}
+        return 200, {
+            "ok": True,
+            "project": {**meta.to_dict(), "skill_count": 0, "skills": [], "members": meta.members},
+        }
 
     if path == "/api/skills/install":
         skill_id = str(body.get("skill_id") or body.get("id") or "").strip()
@@ -414,6 +436,10 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             return 404, {"ok": False, "error": "project not found"}
 
         if parts[3] == "skills" and len(parts) >= 5 and parts[4] == "deposit":
+            uid = ctx.user_id if ctx else "admin"
+            allowed, reason = require_role(space, project_id, uid, "editor")
+            if not allowed:
+                return 403, {"ok": False, "error": reason}
             skill_id = str(body.get("skill_id") or body.get("id") or "").strip()
             skill_path = str(body.get("skill_path") or body.get("path") or "").strip()
             src: Path | None = None
@@ -492,12 +518,37 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             store.append_message(task_id, role, content)
             run = body.get("run", True)
             dry = _as_bool(body.get("dry"), default=False)
+            stream = _as_bool(body.get("stream"), default=not dry)
             if run and role == "user":
                 from .runtime import run_task
 
-                run_task(task_id, dry_run=dry, **_run_task_kwargs(ctx))
+                kwargs = {**_run_task_kwargs(ctx), "dry_run": dry}
+                if stream and not dry:
+                    import threading
+
+                    def _bg() -> None:
+                        try:
+                            run_task(task_id, **kwargs)
+                        except Exception as exc:  # noqa: BLE001
+                            from .console_events import append_event
+
+                            append_event(
+                                store._dir(task_id),  # noqa: SLF001
+                                {"kind": "error", "terminal": True, "message": str(exc)},
+                            )
+                            try:
+                                store.set_status(task_id, "failed")
+                                store.append_message(task_id, "assistant", f"执行未成功：{exc}")
+                            except Exception:
+                                pass
+
+                    store.set_status(task_id, "running")
+                    threading.Thread(target=_bg, daemon=True).start()
+                    rec = store.get(task_id)
+                    return 200, {"ok": True, "streaming": True, "task": _task_detail(rec)}
+                run_task(task_id, **kwargs)
             rec = store.get(task_id)
-            return 200, {"ok": True, "task": _task_detail(rec)}
+            return 200, {"ok": True, "streaming": False, "task": _task_detail(rec)}
 
         if action == "patch":
             meta_patch: dict[str, Any] = {}
@@ -517,6 +568,11 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             except Exception as exc:  # noqa: BLE001
                 return 400, {"ok": False, "error": str(exc)}
             return 200, {"ok": True, "task": _task_detail(rec)}
+
+    # parity extras (models / knowledge / cowrite / memory / members…)
+    code, payload = api_post_extra(path, body, ctx)
+    if code != 404 or payload.get("error") != "not found":
+        return code, payload
 
     return 404, {"ok": False, "error": "not found"}
 
@@ -561,6 +617,11 @@ class _Handler(BaseHTTPRequestHandler):
         if path in _PUBLIC_GET or path == "/api/auth/login":
             return None, None
         token = parse_bearer(self.headers.get("Authorization"))
+        if not token:
+            # EventSource cannot set Authorization — allow ?access_token=
+            parsed = urlparse(self.path)
+            qs = parse_qs(parsed.query)
+            token = (qs.get("access_token") or qs.get("token") or [""])[0].strip() or None
         if not token:
             return None, {"ok": False, "error": "unauthorized", "hint": "POST /api/auth/login"}
         try:
@@ -631,15 +692,65 @@ class _Handler(BaseHTTPRequestHandler):
                 self.wfile.write(data)
                 return
 
+            # SSE: /api/tasks/<id>/events
+            parts = [p for p in path.strip("/").split("/") if p]
+            if (
+                len(parts) >= 4
+                and parts[0] == "api"
+                and parts[1] == "tasks"
+                and parts[3] == "events"
+            ):
+                task_id = unquote(parts[2])
+                store = TaskStore(_tasks_root_for(ctx))
+                try:
+                    store.get(task_id)
+                except FileNotFoundError:
+                    self._send(404, b'{"ok":false,"error":"task not found"}', "application/json; charset=utf-8")
+                    return
+                after = 0
+                try:
+                    after = int((query.get("after") or ["0"])[0])
+                except ValueError:
+                    after = 0
+                self.send_response(200)
+                self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+                self.send_header("Cache-Control", "no-cache")
+                self.send_header("Connection", "keep-alive")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                try:
+                    for frame in iter_sse_frames(store._dir(task_id), after=after):  # noqa: SLF001
+                        self.wfile.write(frame)
+                        self.wfile.flush()
+                except (BrokenPipeError, ConnectionResetError, OSError):
+                    return
+                return
+
             if path.startswith("/api/tasks/") and path != "/api/tasks":
                 code, payload = api_get_task_path(path, ctx, query)
             elif path.startswith("/api/projects/") and path != "/api/projects":
                 code, payload = api_get_project_path(path, ctx)
+            elif path.startswith("/api/cowrite/"):
+                code, payload = api_get_extra(path, ctx, query)
             elif path in _API_GET_EXACT:
-                payload = api_payload(path, ctx, query)
-                code = 200
+                # prefer parity handlers for new exact routes
+                if path in {
+                    "/api/models",
+                    "/api/knowledge",
+                    "/api/cowrite",
+                    "/api/library",
+                    "/api/memory",
+                    "/api/team",
+                    "/api/channels",
+                }:
+                    code, payload = api_get_extra(path, ctx, query)
+                else:
+                    payload = api_payload(path, ctx, query)
+                    code = 200
             else:
-                code, payload = 404, {"ok": False, "error": "not found"}
+                code, payload = api_get_extra(path, ctx, query)
+                if code == 404:
+                    code, payload = 404, {"ok": False, "error": "not found"}
             body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
             self._send(code, body, "application/json; charset=utf-8")
             return

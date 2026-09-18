@@ -599,6 +599,33 @@ pre.preview {
 .task-ctx-menu button:hover { background: var(--bg); }
 .task-ctx-menu button.danger { color: var(--danger); }
 
+.run-progress {
+  border-top: 1px solid var(--line);
+  background: var(--accent-soft);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+}
+.run-progress-inner { max-width: 640px; }
+.run-progress ol {
+  margin: 0.35rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+.parity-bar { display: contents; }
+.members-row {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.member-chip {
+  font-size: var(--fs-xs);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
 @media (max-width: 960px) {
   .mobile-tabs { display: flex; }
   .app { grid-template-columns: 1fr; }

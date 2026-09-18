@@ -6,6 +6,7 @@
   <title>知远 · WorkBuddy</title>
   <link rel="stylesheet" href="/console/tokens.css" />
   <link rel="stylesheet" href="/console/shell.css" />
+  <script src="/console/shell_parity.js" defer></script>
 </head>
 <body>
   <header class="topbar" role="banner">
@@ -220,6 +221,15 @@
       }
       return data;
     }
+    window.wbApi = api;
+    window.wbToast = toast;
+    window.wbState = state;
+    window.wbRefreshTask = async (id) => {
+      if (!id) return;
+      await openTask(id);
+      await refreshWorkspace(id);
+      await refreshTasks();
+    };
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
     }
@@ -423,6 +433,8 @@
     async function openProjectDrawer() {
       document.getElementById("projectDrawer").classList.add("open");
       document.getElementById("skillsDrawer").classList.remove("open");
+      const pd = document.getElementById("parityDrawer");
+      if (pd) pd.classList.remove("open");
       const title = document.getElementById("projectDrawerTitle");
       const box = document.getElementById("projectSkillList");
       if (!state.projectId) {
@@ -434,6 +446,7 @@
       const p = data.project;
       title.textContent = (p.name || p.project_id) + " · 技能";
       const skills = p.skills || [];
+      const members = p.members || [];
       box.innerHTML = `
         <p style="color:var(--muted);font-size:0.8rem;margin:0 0 0.75rem">执行归属本项目的任务时，将自动加载下列技能。</p>
         ${skills.length ? skills.map(s => `
@@ -443,12 +456,42 @@
           </div>`).join("") : '<div class="empty">暂无项目技能<br/><button type="button" class="btn" id="btnOpenMarketFromProject" style="margin-top:0.75rem">从技能市场存入</button></div>'}
         <div style="margin-top:1rem">
           <button type="button" class="btn ghost" id="btnDepositMore">从技能市场存入…</button>
+        </div>
+        <h3 style="font-size:0.9rem;margin:1.25rem 0 0.4rem">成员与角色</h3>
+        <p style="color:var(--muted);font-size:0.75rem;margin:0 0 0.5rem">owner 可邀请；editor 可存技能/改记忆；viewer 只读。</p>
+        <div class="members-row" id="membersRow">
+          ${members.length ? members.map(m => `
+            <span class="member-chip" title="${escapeHtml(m.role)}">${escapeHtml(m.user_id)} · ${escapeHtml(m.role)}</span>
+          `).join("") : '<span class="member-chip">（开放 / 未设成员）</span>'}
+        </div>
+        <div class="composer-row" style="margin-top:0.6rem;gap:0.35rem;flex-wrap:wrap">
+          <input id="memberUid" placeholder="user_id" style="flex:1;min-width:6rem"/>
+          <select id="memberRole">
+            <option value="editor">editor</option>
+            <option value="viewer">viewer</option>
+            <option value="owner">owner</option>
+          </select>
+          <button type="button" class="btn" id="btnAddMember">添加</button>
         </div>`;
       const openM = () => { document.getElementById("projectDrawer").classList.remove("open"); document.getElementById("btnSkills").click(); };
       const a = document.getElementById("btnOpenMarketFromProject");
       const b = document.getElementById("btnDepositMore");
       if (a) a.addEventListener("click", openM);
       if (b) b.addEventListener("click", openM);
+      const addBtn = document.getElementById("btnAddMember");
+      if (addBtn) {
+        addBtn.addEventListener("click", async () => {
+          const user_id = document.getElementById("memberUid").value.trim();
+          const role = document.getElementById("memberRole").value;
+          if (!user_id) return;
+          await api("/api/projects/" + encodeURIComponent(state.projectId) + "/members", {
+            method: "POST",
+            body: JSON.stringify({ user_id, role, action: "upsert" }),
+          });
+          toast("成员已更新", "ok");
+          openProjectDrawer();
+        });
+      }
     }
     document.getElementById("btnProjects").addEventListener("click", openProjectDrawer);
     document.getElementById("btnCloseProject").addEventListener("click", () => {
@@ -848,15 +891,25 @@
       try {
         const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/messages", {
           method: "POST",
-          body: JSON.stringify({ content, run: true, dry }),
+          body: JSON.stringify({ content, run: true, dry, stream: !dry }),
         });
         document.getElementById("composer").value = "";
         state.currentStatus = data.task.status || "";
-        renderMessages(data.task.messages || []);
-        await refreshWorkspace(state.current);
-        await refreshTasks();
-        if (data.task.status === "running") startPoll();
-        else stopPoll();
+        renderMessages(data.task.messages || [], !!data.streaming);
+        if (data.streaming && window.wbParity && typeof window.wbParity.consumeEvents === "function") {
+          stopPoll();
+          try {
+            await window.wbParity.consumeEvents(state.current);
+          } catch (sseErr) {
+            toast("进度流中断，改为轮询：" + (sseErr.message || ""), "error");
+            startPoll();
+          }
+        } else {
+          await refreshWorkspace(state.current);
+          await refreshTasks();
+          if (data.task.status === "running") startPoll();
+          else stopPoll();
+        }
       } catch (err) {
         toast("发送失败：" + err.message, "error");
       } finally {
@@ -901,6 +954,8 @@
     document.getElementById("btnSkills").addEventListener("click", async () => {
       document.getElementById("skillsDrawer").classList.add("open");
       document.getElementById("projectDrawer").classList.remove("open");
+      const pd = document.getElementById("parityDrawer");
+      if (pd) pd.classList.remove("open");
       const data = await api("/api/skills");
       const installed = new Set(data.installed || []);
       const canDeposit = !!state.projectId;
