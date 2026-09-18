@@ -14,7 +14,8 @@
 | V10 | Task→Goal 执行 / Policy 门禁 / 模型档案注入 / Inbox 轮询 / Skill 注册目录 / KB 召回 / 多根打包 / Task+worktree / Cowrite→Library / Console Runtime | ✅ |
 | V11 | 多租户注册 / 路径隔离 / Console JWT / 配额 / 租户备份 / Milvus 命名空间 / Casdoor 换发 / Caddy 生产 Compose / Runbook | ✅ |
 | Go-Live | 无域名 P0 勾选签字 + 正式开户/异地备份手册 | ✅ |
-| V12 | Web 三栏用户壳 + Task/Workspace/Skills API + verify_v12；交互/前端主差距收口 | ✅ |
+| V12 | Web 三栏用户壳 + Task/Workspace/Skills API + verify_v12 | ✅ |
+| V13 | 附件上传 / 富预览 / Enterprise 状态 / Harbor dry-run + verify_v13 | ✅ |
 
 ## 产品边界（无法像素级复制）
 

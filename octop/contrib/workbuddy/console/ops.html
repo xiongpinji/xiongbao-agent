@@ -86,6 +86,7 @@
     <button type="button" data-tab="skills">技能</button>
     <button type="button" data-tab="connectors">连接器</button>
     <button type="button" data-tab="harbor">Harbor</button>
+    <button type="button" data-tab="enterprise">Enterprise</button>
     <button type="button" data-tab="runtime">Runtime</button>
   </div>
   <main>
@@ -135,7 +136,18 @@
     </section>
 
     <section class="panel" id="panel-harbor">
-      <div class="card"><h2>Harbor · /api/harbor</h2><pre id="raw-harbor">loading…</pre></div>
+      <div class="card">
+        <h2>Harbor · /api/harbor</h2>
+        <div class="actions" style="margin-bottom:0.75rem">
+          <button type="button" id="btnDryRun">触发 dry-run</button>
+          <span class="hint" id="dryHint"></span>
+        </div>
+        <pre id="raw-harbor">loading…</pre>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-enterprise">
+      <div class="card"><h2>Enterprise · /api/enterprise</h2><pre id="raw-enterprise">loading…</pre></div>
     </section>
 
     <section class="panel" id="panel-runtime">
@@ -223,22 +235,26 @@
           : "会话: 鉴权关闭";
 
         const opt = {};
-        const [status, tasks, skills, connectors, harbor, runtime] = await Promise.all([
+        const [status, tasks, skills, connectors, harbor, runtime, enterprise] = await Promise.all([
           api("/api/status").catch(e => ({ ok: false, error: String(e.message), status: e.status })),
           api("/api/tasks").catch(e => ({ ok: false, error: String(e.message), status: e.status, tasks: [] })),
           api("/api/skills").catch(e => ({ ok: false, error: String(e.message), skills: [] })),
           api("/api/connectors").catch(e => ({ ok: false, error: String(e.message) })),
           api("/api/harbor").catch(e => ({ ok: false, error: String(e.message) })),
           api("/api/runtime").catch(e => ({ ok: false, error: String(e.message) })),
+          api("/api/enterprise").catch(e => ({ ok: false, error: String(e.message) })),
         ]);
         const h = status.harbor || {};
         const subsets = h.subsets || {};
         const taskSum = Object.values(subsets).reduce((n, s) => n + (s.tasks || 0), 0);
         const rt = (status.runtime || runtime.runtime || {});
         const taskCount = (tasks.tasks || []).length;
+        const ent = enterprise || {};
         cards.innerHTML = [
           pill("Hub", "v" + (status.v || health.v || "?"), true),
           pill("Auth", needAuth ? (token() ? "JWT" : "required") : "off", needAuth ? !!token() : true),
+          pill("Casdoor", ent.casdoor && ent.casdoor.configured ? (ent.casdoor.reachable ? "up" : "cfg") : "off", !!(ent.casdoor && ent.casdoor.configured)),
+          pill("Milvus", ent.milvus && ent.milvus.configured ? (ent.milvus.reachable ? "up" : "cfg") : "off", !!(ent.milvus && ent.milvus.configured)),
           pill("Docker", h.docker_available ? (h.docker_version || "ok") : "offline", !!h.docker_available),
           pill("Harbor venv", h.bench_synced ? (h.python_version || "synced") : "missing", !!h.bench_synced),
           pill("Tasks", String(taskCount), tasks.ok !== false),
@@ -251,6 +267,7 @@
         document.getElementById("raw-skills").textContent = JSON.stringify(skills, null, 2);
         document.getElementById("raw-connectors").textContent = JSON.stringify(connectors, null, 2);
         document.getElementById("raw-harbor").textContent = JSON.stringify(harbor, null, 2);
+        document.getElementById("raw-enterprise").textContent = JSON.stringify(enterprise, null, 2);
         document.getElementById("raw-runtime").textContent = JSON.stringify(runtime, null, 2);
         document.getElementById("tasks-body").innerHTML = (tasks.tasks || []).map(t =>
           `<tr><td>${t.task_id}</td><td>${t.title}</td><td>${t.status}</td><td>${t.mode}</td></tr>`
@@ -265,6 +282,17 @@
     }
 
     document.getElementById("refresh").addEventListener("click", load);
+    document.getElementById("btnDryRun").addEventListener("click", async () => {
+      const hint = document.getElementById("dryHint");
+      hint.textContent = "running…";
+      try {
+        const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
+        hint.textContent = data.ok ? "OK" : ("fail: " + (data.error || ""));
+        document.getElementById("raw-harbor").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        hint.textContent = String(err.message);
+      }
+    });
     load();
     setInterval(load, 20000);
   </script>

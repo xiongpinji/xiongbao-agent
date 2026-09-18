@@ -159,7 +159,9 @@
     <span class="chip" id="modeChip">craft</span>
     <div class="grow"></div>
     <span class="chip" id="sessionChip">未登录</span>
+    <span class="chip" id="entChip" title="企业组件">SSO/向量</span>
     <button type="button" class="linkish" id="btnSkills">技能</button>
+    <button type="button" class="linkish" id="btnHarbor">Harbor</button>
     <a href="/ops.html">运维</a>
     <button type="button" class="linkish" id="btnLogout">退出</button>
   </header>
@@ -192,6 +194,10 @@
         <textarea id="composer" placeholder="用一句话描述任务，或继续追问…"></textarea>
         <div class="composer-row">
           <label style="font-size:0.8rem;color:var(--muted)"><input type="checkbox" id="dryRun" checked /> dry-run</label>
+          <label class="btn ghost" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.6rem;cursor:pointer">
+            附件<input type="file" id="fileInput" style="display:none" />
+          </label>
+          <span class="hint" id="uploadHint" style="font-size:0.75rem;color:var(--muted)"></span>
           <div class="grow"></div>
           <button type="button" class="btn" id="btnSend">发送</button>
         </div>
@@ -209,7 +215,9 @@
       <div class="pane active" id="pane-artifacts"></div>
       <div class="pane" id="pane-files"></div>
       <div class="pane" id="pane-changes"></div>
-      <div class="pane" id="pane-preview"><pre class="preview" id="previewBox">选择任务后显示预览</pre></div>
+      <div class="pane" id="pane-preview">
+        <div id="previewHost"><pre class="preview" id="previewBox">选择任务后显示预览</pre></div>
+      </div>
     </aside>
   </div>
 
@@ -368,17 +376,108 @@
       document.getElementById("pane-changes").innerHTML = (ws.changes || []).map(c =>
         `<div class="art-row"><span>${escapeHtml(c.kind || "change")}</span><span>${escapeHtml(c.path || c.status || "")}</span></div>`
       ).join("") || '<div class="empty">暂无变更</div>';
-      const prev = ws.preview || {};
-      document.getElementById("previewBox").textContent = prev.content || "无预览";
+      renderPreview(ws.preview || {});
+    }
+
+    function mdLite(src) {
+      let s = escapeHtml(src);
+      s = s.replace(/^### (.*)$/gm, "<h3>$1</h3>");
+      s = s.replace(/^## (.*)$/gm, "<h2>$1</h2>");
+      s = s.replace(/^# (.*)$/gm, "<h1>$1</h1>");
+      s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+      s = s.replace(/\n\n/g, "</p><p>");
+      return "<p>" + s + "</p>";
+    }
+
+    function renderPreview(prev) {
+      const host = document.getElementById("previewHost");
+      if (!prev || !prev.ok) {
+        host.innerHTML = '<pre class="preview" id="previewBox">' + escapeHtml((prev && (prev.error || prev.content)) || "无预览") + "</pre>";
+        return;
+      }
+      const fmt = prev.format || "text";
+      if (fmt === "html") {
+        host.innerHTML = '<iframe sandbox="allow-same-origin" style="width:100%;height:55vh;border:1px solid var(--line);border-radius:8px;background:#fff" srcdoc=""></iframe>';
+        host.querySelector("iframe").srcdoc = prev.content || "";
+      } else if (fmt === "markdown") {
+        host.innerHTML = '<div class="preview" style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:0.75rem">' + mdLite(prev.content || "") + "</div>";
+      } else if (fmt === "image") {
+        host.innerHTML = '<img alt="preview" style="max-width:100%;border-radius:8px;border:1px solid var(--line)" src="' + escapeHtml(prev.content || "") + '" />';
+      } else {
+        host.innerHTML = '<pre class="preview" id="previewBox"></pre>';
+        host.querySelector("pre").textContent = prev.content || "";
+      }
     }
 
     document.getElementById("pane-files").addEventListener("click", async (e) => {
       const row = e.target.closest(".file-row");
       if (!row || !state.current) return;
       const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/preview?path=" + encodeURIComponent(row.dataset.path));
-      document.getElementById("previewBox").textContent = data.content || data.error || "";
+      renderPreview(data);
       document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b.dataset.pane === "preview"));
       document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-preview"));
+    });
+
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      e.target.value = "";
+      if (!file) return;
+      if (!state.current) {
+        const created = await api("/api/tasks", {
+          method: "POST",
+          body: JSON.stringify({ title: file.name, mode: document.getElementById("modeSelect").value }),
+        });
+        state.current = created.task.task_id;
+      }
+      const hint = document.getElementById("uploadHint");
+      hint.textContent = "上传中…";
+      const buf = await file.arrayBuffer();
+      const bytes = new Uint8Array(buf);
+      let binary = "";
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      const b64 = btoa(binary);
+      try {
+        const data = await api("/api/tasks/" + encodeURIComponent(state.current) + "/upload", {
+          method: "POST",
+          body: JSON.stringify({ filename: file.name, content_base64: b64 }),
+        });
+        hint.textContent = "已上传 " + (data.upload && data.upload.path);
+        renderMessages(data.task.messages || []);
+        await refreshWorkspace(state.current);
+        await refreshTasks();
+      } catch (err) {
+        hint.textContent = "失败: " + err.message;
+      }
+    });
+
+    async function refreshEnterprise() {
+      try {
+        const ent = await api("/api/enterprise");
+        const c = ent.casdoor || {};
+        const m = ent.milvus || {};
+        const chip = document.getElementById("entChip");
+        const cOk = c.configured ? (c.reachable === false ? "SSO!" : "SSO✓") : "SSO·";
+        const mOk = m.configured ? (m.reachable === false ? "向量!" : "向量✓") : "向量·";
+        chip.textContent = cOk + " " + mOk;
+        chip.title = JSON.stringify({ casdoor: c, milvus: m }, null, 0);
+      } catch {
+        document.getElementById("entChip").textContent = "企业?";
+      }
+    }
+
+    document.getElementById("btnHarbor").addEventListener("click", async () => {
+      const btn = document.getElementById("btnHarbor");
+      btn.textContent = "Harbor…";
+      try {
+        const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
+        alert(data.ok ? ("Harbor dry-run OK\n" + String(data.stdout || data.detail || "").slice(0, 400))
+          : ("Harbor dry-run: " + (data.error || JSON.stringify(data)).slice(0, 400)));
+      } catch (err) {
+        alert("Harbor: " + err.message);
+      } finally {
+        btn.textContent = "Harbor";
+      }
     });
 
     document.getElementById("resultTabs").addEventListener("click", (e) => {
@@ -488,6 +587,7 @@
 
     async function boot() {
       if (!(await ensureAuth())) return;
+      await refreshEnterprise();
       await refreshTasks();
       if (state.tasks[0]) await openTask(state.tasks[0].task_id);
     }

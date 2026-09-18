@@ -1,39 +1,25 @@
-# TASKBOARD — V12 差距补齐（用户壳 + 残留能力）
+# TASKBOARD — V13 残留补齐（上传 / 富预览 / 企业状态 / Harbor）
 
-> 基线：V1–V11 + Go-Live P0 已交付。  
-> 本板目标：按审计 **补齐交互 / 前端 / UI 主差距**。  
-> **边界**：不复刻 Electron / 计费 / 小程序。
+> 基线：V12 三栏壳已交付。本板已完成。
 
 ## Done 标准 — 已满足
 
-1. Web 三栏壳：`/` → `shell.html`；运维 `/ops.html`
-2. 新建 → 发消息 → dry-run → 右栏结果
-3. Skills 壳内安装
-4. `verify_v12.py` 全绿；Hub `v=12`
+1. 附件上传 → `attachments/` + 右栏可见  
+2. HTML iframe / Markdown / 图片预览  
+3. `/api/enterprise` + 壳内 SSO/向量芯片  
+4. `POST /api/harbor/dry-run`（壳顶栏 + 运维台）  
+5. `verify_v13.py` → `VERIFY V13 OK`；Hub `v=13`
 
-## 任务拆解
+| ID | 状态 |
+|---|---|
+| V13.1 Upload API + 壳内上传 | ✅ |
+| V13.2 富预览 | ✅ |
+| V13.3 Enterprise 状态面 | ✅ |
+| V13.4 Harbor dry-run | ✅ |
+| V13.5 Hub/verify/docs | ✅ |
 
-| ID | 交付物 | 状态 |
-|---|---|---|
-| V12.0 | 看板 + ROADMAP | ✅ |
-| V12.1 | Task API create/get/message/patch + pin/archive/search | ✅ |
-| V12.2 | Workspace API artifacts/files/changes/preview | ✅ |
-| V12.3 | Skills install API | ✅ |
-| V12.4 | `shell.html` 三栏 UI | ✅ |
-| V12.5 | `/` shell + `/ops.html` 运维 | ✅ |
-| V12.6 | Hub v12 + `verify_v12.py` | ✅ |
-| V12.7 | PARITY_AUDIT 评分更新 + commit | ✅ |
+## 仍可选（环境依赖）
 
-## 验收
-
-```powershell
-$env:PYTHONPATH = (Get-Location).Path
-python -S scripts\verify_v12.py
-# → VERIFY V12 OK
-```
-
-## 残留（可选下一板）
-
-- 附件上传 / Office 富预览
-- Casdoor·Milvus 凭据实连
-- Harbor 全量 live
+- Casdoor/Milvus **填真实凭据**后可达探测变绿  
+- Harbor **全量 live** 评分（非门禁）  
+- Office 在线渲染（docx/xlsx）

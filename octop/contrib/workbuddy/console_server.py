@@ -12,7 +12,8 @@ from typing import Any
 from urllib.parse import parse_qs, unquote, urlparse
 
 from .connectors import probe_status as connectors_probe
-from .console_workspace import read_preview, workspace_payload
+from .console_workspace import read_preview, save_upload, workspace_payload
+from .enterprise.probe import enterprise_probe
 from .hub import hub_status
 from .skills import SkillCatalog, install_from_vendor, install_skill
 from .task import TaskStore
@@ -43,6 +44,7 @@ _API_GET_EXACT = {
     "/api/harbor",
     "/api/runtime",
     "/api/tenant",
+    "/api/enterprise",
 }
 
 
@@ -88,7 +90,7 @@ def _task_detail(t: Any) -> dict[str, Any]:
 def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
     query = query or {}
     if path == "/api/health":
-        return {"ok": True, "auth_required": auth_required(), "v": 12}
+        return {"ok": True, "auth_required": auth_required(), "v": 13}
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -151,7 +153,10 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
             "ok": True,
             "status": harbor_status().to_dict(),
             "harness": harness_mount_probe(),
+            "hint": "POST /api/harbor/dry-run",
         }
+    if path == "/api/enterprise":
+        return {"ok": True, "v": 13, **enterprise_probe()}
     if path == "/api/runtime":
         data = hub_status()
         return {
@@ -263,6 +268,17 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         )
         return 200, {"ok": result.ok, **result.to_dict()}
 
+    if path == "/api/harbor/dry-run":
+        from .bench.harbor import harbor_dry_run
+
+        job = str(body.get("job") or (query.get("job") or ["local-openai-cbc-office-smoke"])[0]).strip()
+        try:
+            timeout = float(body.get("timeout") or 90)
+        except (TypeError, ValueError):
+            timeout = 90.0
+        result = harbor_dry_run(job=job, timeout=min(timeout, 180.0))
+        return 200, result
+
     # /api/tasks/<id>/messages or /api/tasks/<id>/actions
     parts = [p for p in path.strip("/").split("/") if p]
     if len(parts) >= 4 and parts[0] == "api" and parts[1] == "tasks":
@@ -273,6 +289,24 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
             store.get(task_id)
         except FileNotFoundError:
             return 404, {"ok": False, "error": "task not found"}
+
+        if action == "upload":
+            filename = str(body.get("filename") or body.get("name") or "upload.bin")
+            result = save_upload(
+                store._dir(task_id),  # noqa: SLF001
+                filename=filename,
+                content_base64=body.get("content_base64"),
+                text=body.get("text"),
+            )
+            if not result.get("ok"):
+                return 400, result
+            store.add_result(
+                task_id,
+                {"kind": "upload", "path": result["path"], "bytes": result.get("bytes", 0)},
+            )
+            store.append_message(task_id, "system", f"[upload] {result['path']} ({result.get('bytes', 0)} B)")
+            rec = store.get(task_id)
+            return 200, {"ok": True, "upload": result, "task": _task_detail(rec)}
 
         if action == "messages":
             content = str(body.get("content") or body.get("text") or "").strip()
