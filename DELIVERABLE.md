@@ -162,6 +162,7 @@ python -S tests\contrib\workbuddy\test_goal_craft.py
 
 python -S -m octop.contrib.workbuddy.goal_cli demo
 python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 weekly.md 并通知飞书"
+python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 weekly.md 并通知飞书" --llm
 python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并通知飞书" --approve-all
 ```
 
@@ -171,8 +172,10 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并�
 | file_exists / file_contains / outbox_message / step_ok | OK |
 | GoalEngine 端到端 accepted | OK |
 | 缺审批时 error 拦截 | OK |
+| `--llm` 润色保持 kind/审批/（目标）（内容）标记 | OK |
 
 验收种类：`file_exists`、`file_contains`、`outbox_message`、`step_ok`。高风险步骤需 `--approve-all` 或 `--approve step:N`。
+LLM 润色仅改 instruction/description；结构与安全闸门仍由规则规划决定。
 
 ### SkillHub 运行时绑定（MVP）
 
@@ -201,5 +204,4 @@ python -S -m octop.contrib.workbuddy.skills_cli compose --ids diagnose,handoff
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
 - Feishu open-platform chat API（当前 MVP 仅自定义机器人 webhook）
-- Goal LLM 规划润色（当前 rules；可接 WB_LLM_*）
 - Skill 脚本全量沙箱执行（当前为 prompt pack 注入，非任意 script 执行）

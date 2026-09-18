@@ -17,10 +17,21 @@ from octop.contrib.workbuddy.goal import (  # noqa: E402
     GoalStore,
     accept_all,
     plan_goal,
+    polish_plan_with_llm,
 )
 from octop.contrib.workbuddy.goal.acceptor import check_criterion  # noqa: E402
 from octop.contrib.workbuddy.goal.models import AcceptanceCriterion  # noqa: E402
 from octop.contrib.workbuddy.routine import LiveStepRunner  # noqa: E402
+
+
+class _FakeLLM:
+    def __init__(self, payload: dict) -> None:
+        self.payload = payload
+        self.calls = 0
+
+    def complete(self, *, system: str, user: str) -> str:
+        self.calls += 1
+        return json.dumps(self.payload, ensure_ascii=False)
 
 
 def test_plan_write_and_message() -> None:
@@ -34,6 +45,51 @@ def test_plan_write_and_message() -> None:
     write = next(s for s in plan.steps if s.kind == "write")
     assert "report.md" in write.instruction
     assert "（内容：" in write.instruction
+
+
+def test_llm_polish_keeps_structure() -> None:
+    base = plan_goal("把摘要写入 report.md 并通知飞书")
+    write = next(s for s in base.steps if s.kind == "write")
+    msg = next(s for s in base.steps if s.kind == "message")
+    fake = _FakeLLM(
+        {
+            "steps": [
+                {
+                    "index": write.index,
+                    "instruction": "写入交付物（目标：report.md）（内容：# 润色后的周报）",
+                },
+                {
+                    "index": msg.index,
+                    "instruction": "发送通知（目标：feishu:webhook）（内容：润色通知）",
+                },
+            ],
+            "criteria": [
+                {"id": c.id, "description": f"润色：{c.description}"} for c in base.criteria
+            ],
+        }
+    )
+    polished = polish_plan_with_llm(base, caller=fake, fallback_on_error=False)
+    assert fake.calls == 1
+    assert polished.source == "rules+llm"
+    assert len(polished.steps) == len(base.steps)
+    assert all(s.requires_approval == b.requires_approval for s, b in zip(polished.steps, base.steps))
+    pw = next(s for s in polished.steps if s.kind == "write")
+    assert "（目标：report.md）" in pw.instruction
+    assert "（内容：" in pw.instruction
+    assert "润色" in polished.criteria[0].description
+
+    # Dropping runner markers must fall back to base instruction
+    bad = _FakeLLM(
+        {
+            "steps": [
+                {"index": write.index, "instruction": "随便写点东西到 report.md"},
+                {"index": msg.index, "instruction": msg.instruction},
+            ],
+            "criteria": [{"id": c.id, "description": c.description} for c in base.criteria],
+        }
+    )
+    safe = polish_plan_with_llm(base, caller=bad, fallback_on_error=False)
+    assert next(s for s in safe.steps if s.kind == "write").instruction == write.instruction
 
 
 def test_acceptor_file_and_outbox() -> None:
@@ -94,6 +150,7 @@ def test_engine_rejects_without_approval() -> None:
 def main() -> int:
     tests = [
         ("plan_write_message", test_plan_write_and_message),
+        ("llm_polish", test_llm_polish_keeps_structure),
         ("acceptor", test_acceptor_file_and_outbox),
         ("engine_accept", test_engine_accepts_demo_goal),
         ("engine_no_approve", test_engine_rejects_without_approval),

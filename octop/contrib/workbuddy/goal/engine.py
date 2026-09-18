@@ -11,6 +11,7 @@ from typing import Any, Callable
 from ..routine.live_runner import LiveStepRunner
 from ..teach.models import DraftStep
 from .acceptor import accept_all
+from .llm_planner import polish_plan_with_llm
 from .models import GoalPlan, GoalRun, PlanStep
 from .planner import plan_goal
 from .store import GoalStore
@@ -38,13 +39,20 @@ class GoalEngine:
         *,
         runner_factory: Callable[[Path], Any] | None = None,
         max_retries: int = 1,
+        llm_polish: bool = False,
+        llm_caller: Any | None = None,
     ) -> None:
         self.store = store
         self.runner_factory = runner_factory or (lambda d: LiveStepRunner(d, allow_net=False))
         self.max_retries = max_retries
+        self.llm_polish = llm_polish
+        self.llm_caller = llm_caller
 
-    def plan(self, goal: str) -> GoalPlan:
-        return plan_goal(goal)
+    def plan(self, goal: str, *, use_llm: bool | None = None) -> GoalPlan:
+        plan = plan_goal(goal)
+        if use_llm if use_llm is not None else self.llm_polish:
+            plan = polish_plan_with_llm(plan, caller=self.llm_caller)
+        return plan
 
     def run(
         self,
@@ -54,8 +62,9 @@ class GoalEngine:
         work_dir: Path | None = None,
         approvals: set[str] | None = None,
         mode: str = "live",
+        use_llm: bool | None = None,
     ) -> GoalRun:
-        plan = plan or self.plan(goal)
+        plan = plan or self.plan(goal, use_llm=use_llm)
         run_id = f"goal-{uuid.uuid4().hex[:10]}"
         work = Path(work_dir) if work_dir else self.store.root / "work" / run_id
         work.mkdir(parents=True, exist_ok=True)

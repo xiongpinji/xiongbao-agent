@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from .acceptor import accept_all, check_criterion
 from .engine import GoalEngine
+from .llm_planner import polish_plan_with_llm
 from .models import (
     AcceptanceCriterion,
     CriterionResult,
@@ -26,4 +27,5 @@ __all__ = [
     "accept_all",
     "check_criterion",
     "plan_goal",
+    "polish_plan_with_llm",
 ]

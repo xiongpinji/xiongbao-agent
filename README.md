@@ -34,10 +34,10 @@
 **V3（已完成 MVP）**
 
 1. **Goal / Craft** — 自然语言目标 → 规划 → 执行 → 逐条验收 → 失败重试
-2. **CLI** — `goal_cli demo|plan|run|list`
+2. **CLI** — `goal_cli demo|plan|run|list`（`--llm` 可选润色）
 3. **SkillHub 运行时绑定** — 扫描 `vendor/workbuddyskills/skills`，enable/compose/prompt pack；Team `live_cli --skill` 注入
 
-延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；Goal LLM 规划润色；Skill 脚本全量执行。
+延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；Skill 脚本全量执行。
 
 ## 目录要点
 
@@ -166,10 +166,11 @@ python -S -m octop.contrib.workbuddy.teach_cli --root artifacts\teach_routine ti
 ```powershell
 python -S tests\contrib\workbuddy\test_goal_craft.py
 python -S -m octop.contrib.workbuddy.goal_cli demo
+python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 weekly.md 并通知飞书" --llm
 python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并通知飞书" --approve-all
 ```
 
-流程：规划 steps+验收标准 → LiveStepRunner 执行 → 逐条验收 → 失败可重试。
+流程：规则规划 steps+验收标准 → 可选 `--llm` 润色文案 → LiveStepRunner 执行 → 逐条验收 → 失败可重试。
 
 ## SkillHub 运行时绑定
 

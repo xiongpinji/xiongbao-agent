@@ -15,12 +15,22 @@ import json
 import sys
 from pathlib import Path
 
-from .goal import GoalEngine, GoalStore, plan_goal
+from .goal import GoalEngine, GoalStore, plan_goal, polish_plan_with_llm
 from .routine import LiveStepRunner
+from .team.llm import OpenAICompatCaller
 
 
 def _default_root() -> Path:
     return Path("artifacts") / "goal_craft"
+
+
+def _maybe_polish(plan, *, use_llm: bool):
+    if not use_llm:
+        return plan
+    return polish_plan_with_llm(
+        plan,
+        caller=OpenAICompatCaller(max_tokens=1024, temperature=0.2),
+    )
 
 
 def cmd_demo(args: argparse.Namespace) -> int:
@@ -29,6 +39,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
     engine = GoalEngine(
         store,
         runner_factory=lambda d: LiveStepRunner(d, allow_net=False, allow_outbound=False),
+        llm_polish=bool(args.llm),
     )
     goal = args.goal or "把今日 PR 摘要写入 pr-summary.md 并通知飞书群"
     run = engine.run(goal, approvals={"all"}, mode="live")
@@ -38,7 +49,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
 
 
 def cmd_plan(args: argparse.Namespace) -> int:
-    plan = plan_goal(args.goal)
+    plan = _maybe_polish(plan_goal(args.goal), use_llm=bool(args.llm))
     print(json.dumps(plan.to_dict(), ensure_ascii=False, indent=2))
     return 0
 
@@ -57,6 +68,7 @@ def cmd_run(args: argparse.Namespace) -> int:
             allow_outbound=bool(args.outbound),
         ),
         max_retries=int(args.retries),
+        llm_polish=bool(args.llm),
     )
     run = engine.run(
         args.goal,
@@ -85,11 +97,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_demo = sub.add_parser("demo", help="End-to-end demo with default goal")
     _add_root(p_demo)
     p_demo.add_argument("--goal", default=None)
+    p_demo.add_argument("--llm", action="store_true", help="Polish plan with local LLM")
     p_demo.set_defaults(func=cmd_demo)
 
     p_plan = sub.add_parser("plan", help="Show planned steps + criteria only")
     _add_root(p_plan)
     p_plan.add_argument("--goal", required=True)
+    p_plan.add_argument("--llm", action="store_true", help="Polish plan with local LLM")
     p_plan.set_defaults(func=cmd_plan)
 
     p_run = sub.add_parser("run", help="Plan + execute + accept")
@@ -102,6 +116,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--retries", type=int, default=1)
     p_run.add_argument("--no-net", action="store_true")
     p_run.add_argument("--outbound", action="store_true")
+    p_run.add_argument("--llm", action="store_true", help="Polish plan with local LLM")
     p_run.set_defaults(func=cmd_run)
 
     p_list = sub.add_parser("list", help="List saved goal runs")

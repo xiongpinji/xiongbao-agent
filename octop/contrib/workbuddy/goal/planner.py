@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-"""Rule-based Goal planner (optional LLM polish later)."""
+"""Rule-based Goal planner (optional LLM polish via ``llm_planner``)."""
 
 from __future__ import annotations
 
