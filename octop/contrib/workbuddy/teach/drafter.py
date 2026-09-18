@@ -50,7 +50,8 @@ def draft_skill_from_recording(
         instruction = step.summary
         if step.target:
             instruction = f"{instruction}（目标：{step.target}）"
-        if step.value and step.kind == "type":
+        # write/type/message need payload for LiveStepRunner parse_content
+        if step.value and step.kind in {"type", "write", "message"}:
             instruction = f"{instruction}（内容：{step.value}）"
         draft_steps.append(
             DraftStep(

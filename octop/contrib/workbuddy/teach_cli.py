@@ -7,7 +7,8 @@ Examples::
     python -S -m octop.contrib.workbuddy.teach_cli demo --llm
     python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu --llm
     python -S -m octop.contrib.workbuddy.teach_cli cdp-record --url https://example.com --seconds 20
-    python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live --live-runner
+    python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live --live-runner --cdp-replay
+    python -S -m octop.contrib.workbuddy.teach_cli connectors
     python -S -m octop.contrib.workbuddy.teach_cli due
     python -S -m octop.contrib.workbuddy.teach_cli tick --mode dry
 """
@@ -16,11 +17,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 from .routine import LiveStepRunner, RoutineEngine, RoutineScheduler, RoutineStore
 from .teach import (
+    CdpReplaySession,
     CdpTeachSession,
     TeachRecorder,
     TeachStore,
@@ -30,6 +33,7 @@ from .teach import (
 )
 from .teach.cdp_client import CdpError
 from .team.llm import OpenAICompatCaller
+from .connectors import FeishuConnector, NotionConnector, probe_status
 
 
 def _default_root() -> Path:
@@ -227,24 +231,66 @@ def cmd_run(args: argparse.Namespace) -> int:
     routine = routine_store.load(args.routine_id)
     draft = teach_store.load_draft(routine.skill_name)
     runner = None
-    if args.live_runner:
+    cdp = None
+    if args.live_runner or args.cdp_replay or args.outbound:
         work = (
             Path(args.live_work_dir)
             if args.live_work_dir
             else Path(args.root) / "live_work" / args.routine_id
         )
-        runner = LiveStepRunner(work, allow_net=not bool(args.no_net))
+        if args.cdp_replay:
+            try:
+                cdp = CdpReplaySession.attach(
+                    host=args.cdp_host,
+                    port=int(args.cdp_port),
+                    page_url_substr=args.page_match,
+                )
+            except CdpError as exc:
+                print(f"CDP replay attach failed: {exc}", file=sys.stderr)
+                return 2
+        runner = LiveStepRunner(
+            work,
+            allow_net=not bool(args.no_net),
+            cdp_replay=cdp,
+            notion=NotionConnector(),
+            feishu=FeishuConnector(),
+            allow_outbound=bool(args.outbound),
+        )
     engine = RoutineEngine(routine_store, runner=runner)
     approvals = set(args.approve or [])
-    run = engine.run(
-        routine,
-        draft,
-        mode=args.mode,  # type: ignore[arg-type]
-        approvals=approvals,
-        confirm_test=bool(args.confirm_test),
-    )
+    try:
+        run = engine.run(
+            routine,
+            draft,
+            mode=args.mode,  # type: ignore[arg-type]
+            approvals=approvals,
+            confirm_test=bool(args.confirm_test),
+        )
+    finally:
+        if cdp is not None:
+            cdp.close()
     print(json.dumps(run.to_dict(), ensure_ascii=False, indent=2))
     return 0 if run.ok else 1
+
+
+def cmd_connectors(args: argparse.Namespace) -> int:
+    status = probe_status()
+    print(json.dumps(status, ensure_ascii=False, indent=2))
+    if args.probe_notion:
+        nc = NotionConnector()
+        if not nc.configured():
+            print("FAIL: WB_NOTION_TOKEN not set", file=sys.stderr)
+            return 2
+        res = nc.read_target(args.probe_notion)
+        print(json.dumps(res.to_dict(), ensure_ascii=False, indent=2))
+        return 0 if res.ok else 1
+    if args.probe_feishu:
+        fc = FeishuConnector()
+        os.environ["WB_ALLOW_OUTBOUND"] = "1"
+        res = fc.send_text(args.probe_feishu, require_outbound_flag=True)
+        print(json.dumps(res.to_dict(), ensure_ascii=False, indent=2))
+        return 0 if res.ok else 1
+    return 0
 
 
 def cmd_due(args: argparse.Namespace) -> int:
@@ -352,7 +398,33 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="With --live-runner, skip HTTP GET for navigate/read",
     )
+    p_run.add_argument(
+        "--cdp-replay",
+        action="store_true",
+        help="Attach Chrome CDP and replay click/type/navigate steps",
+    )
+    p_run.add_argument("--cdp-host", default="127.0.0.1")
+    p_run.add_argument("--cdp-port", type=int, default=9222)
+    p_run.add_argument("--page-match", default=None, help="Prefer CDP page URL substring")
+    p_run.add_argument(
+        "--outbound",
+        action="store_true",
+        help="Allow Feishu webhook send (needs WB_FEISHU_WEBHOOK)",
+    )
     p_run.set_defaults(func=cmd_run)
+
+    p_conn = sub.add_parser("connectors", help="Probe Notion/Feishu connector config")
+    p_conn.add_argument(
+        "--probe-notion",
+        default=None,
+        help="Read a Notion page id or URL (needs WB_NOTION_TOKEN)",
+    )
+    p_conn.add_argument(
+        "--probe-feishu",
+        default=None,
+        help="Send a test text via WB_FEISHU_WEBHOOK",
+    )
+    p_conn.set_defaults(func=cmd_connectors)
 
     p_due = sub.add_parser("due", help="Preview schedule / due status for all routines")
     p_due.set_defaults(func=cmd_due)

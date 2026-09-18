@@ -3,14 +3,16 @@
 
 Safety:
 - All file writes stay under ``work_dir``
-- Outbound ``message`` steps append to outbox JSONL (no silent network send unless allow_net)
-- ``navigate`` / ``read`` may HTTP GET when allow_net=True
+- ``message`` always appends outbox JSONL; network send only if connectors allow
+- ``navigate`` / ``read`` may HTTP GET or Notion API when allow_net=True
+- click/type use CdpReplaySession when attached; otherwise deferred
 - High-risk steps still require RoutineEngine approval gates before invocation
 """
 
 from __future__ import annotations
 
 import json
+import os
 import re
 import urllib.error
 import urllib.request
@@ -19,6 +21,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+from ..connectors import FeishuConnector, NotionConnector, resolve_message, resolve_read
 from ..teach.models import DraftStep
 
 _TARGET_RE = re.compile(r"（目标：([^）]+)）")
@@ -48,6 +51,10 @@ class LiveStepRunner:
         *,
         allow_net: bool = True,
         timeout_s: float = 15.0,
+        cdp_replay: Any | None = None,
+        notion: NotionConnector | None = None,
+        feishu: FeishuConnector | None = None,
+        allow_outbound: bool = False,
     ) -> None:
         self.work_dir = Path(work_dir)
         self.work_dir.mkdir(parents=True, exist_ok=True)
@@ -57,6 +64,10 @@ class LiveStepRunner:
         self.files_dir.mkdir(parents=True, exist_ok=True)
         self.allow_net = allow_net
         self.timeout_s = timeout_s
+        self.cdp_replay = cdp_replay
+        self.notion = notion
+        self.feishu = feishu
+        self.allow_outbound = allow_outbound
         self.log_path = self.work_dir / "live_steps.jsonl"
 
     def _log(self, row: dict[str, Any]) -> None:
@@ -108,7 +119,9 @@ class LiveStepRunner:
         try:
             if step.kind == "navigate":
                 url = target or step.instruction
-                if url.startswith("http"):
+                if self.cdp_replay and url.startswith("http"):
+                    result["output"] = self.cdp_replay.navigate(url)
+                elif url.startswith("http"):
                     got = self._http_get(url)
                     result["ok"] = bool(got.get("ok"))
                     result["output"] = got
@@ -116,6 +129,15 @@ class LiveStepRunner:
                     result["output"] = {"ok": True, "note": "non-http navigate recorded", "target": url}
             elif step.kind == "read":
                 src = target or "stdin"
+                if self.allow_net:
+                    conn = resolve_read(src, notion=self.notion)
+                    if conn is not None:
+                        result["ok"] = conn.ok
+                        result["output"] = conn.to_dict()
+                        if not conn.ok:
+                            result["error"] = conn.error
+                        self._log({**result, "ts": _utc_iso()})
+                        return result
                 if src.startswith("http"):
                     got = self._http_get(src)
                     result["ok"] = bool(got.get("ok"))
@@ -126,7 +148,6 @@ class LiveStepRunner:
                         text = path.read_text(encoding="utf-8")[:8000]
                         result["output"] = {"path": str(path), "chars": len(text), "preview": text[:200]}
                     else:
-                        # Missing file: policy abort_and_notify → fail unless context supplies data
                         data = context.get("reads", {}).get(src)
                         if data is not None:
                             result["output"] = {"source": src, "data": data}
@@ -144,15 +165,32 @@ class LiveStepRunner:
                     "ts": _utc_iso(),
                     "target": target or "default",
                     "instruction": step.instruction,
+                    "content": content,
                     "mode": mode,
                     "routine_id": context.get("routine_id"),
                 }
                 out = self.outbox / "messages.jsonl"
                 with out.open("a", encoding="utf-8") as fh:
                     fh.write(json.dumps(row, ensure_ascii=False) + "\n")
-                result["output"] = {"outbox": str(out), "target": row["target"]}
+                outbound: dict[str, Any] = {"outbox": str(out), "target": row["target"]}
+                text = content or step.instruction
+                tgt = row["target"]
+                is_feishu = tgt.lower().startswith(("feishu:", "lark:"))
+                if is_feishu and self.allow_outbound:
+                    os.environ["WB_ALLOW_OUTBOUND"] = "1"
+                    conn = resolve_message(tgt, text, feishu=self.feishu, require_outbound_flag=True)
+                    if conn is not None:
+                        outbound["connector"] = conn.to_dict()
+                        if not conn.ok:
+                            result["ok"] = False
+                            result["error"] = conn.error
+                elif is_feishu:
+                    outbound["connector"] = {
+                        "skipped": True,
+                        "reason": "allow_outbound=false; set --outbound and WB_FEISHU_WEBHOOK",
+                    }
+                result["output"] = outbound
             elif step.kind == "decision":
-                # Caller may set context["decisions"][index] = True/False
                 decisions = context.get("decisions") or {}
                 ok = bool(decisions.get(step.index, decisions.get(str(step.index), True)))
                 result["ok"] = ok
@@ -160,14 +198,26 @@ class LiveStepRunner:
                 if not ok:
                     result["error"] = "decision failed — abort"
             elif step.kind in {"click", "type", "scroll"}:
-                # Browser replay is optional; record intent for audit
-                result["output"] = {
-                    "deferred": "cdp_replay",
-                    "kind": step.kind,
-                    "target": target,
-                    "value": content,
-                    "note": "UI replay requires CDP session; marked ok for non-UI pipelines",
-                }
+                if self.cdp_replay and step.kind == "click":
+                    got = self.cdp_replay.click(target or "body")
+                    result["ok"] = bool(got.get("ok"))
+                    result["output"] = got
+                    if not result["ok"]:
+                        result["error"] = got.get("error") or "click failed"
+                elif self.cdp_replay and step.kind == "type":
+                    got = self.cdp_replay.type_text(target or "input", content)
+                    result["ok"] = bool(got.get("ok"))
+                    result["output"] = got
+                    if not result["ok"]:
+                        result["error"] = got.get("error") or "type failed"
+                else:
+                    result["output"] = {
+                        "deferred": "cdp_replay",
+                        "kind": step.kind,
+                        "target": target,
+                        "value": content,
+                        "note": "attach CdpReplaySession for UI replay",
+                    }
             else:
                 result["output"] = {"noop": step.kind, "instruction": step.instruction}
         except Exception as exc:  # noqa: BLE001

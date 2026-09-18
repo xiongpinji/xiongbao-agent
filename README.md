@@ -28,8 +28,10 @@
 4. **CLI + 单测** — `teach_cli` + `test_teach_routine.py`
 5. **Scheduler** — stdlib 5 字段 cron + `due`/`tick`（系统计划任务驱动）
 6. **LLM drafter** — 规则草稿 + 本地模型润色（`--llm`），人工 approve 仍强制
+7. **CDP 录制 + UI 回放** — `cdp-record` / `--cdp-replay`（Chrome 9222）
+8. **Connectors** — Notion 读页、飞书 webhook 外发（`--outbound` + 环境变量门禁）
 
-延后：CDP 真录制；企业版 Casdoor / Milvus / systemd。
+延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API。
 
 ## 目录要点
 
@@ -127,6 +129,21 @@ python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry
 ```
 
 模式：`dry`（不落地副作用）→ `test`（需确认）→ `live`。高风险步骤需审批；默认每 bot ≤50 条 Routine。
+
+CDP / Connectors：
+
+```powershell
+python -S tests\contrib\workbuddy\test_cdp_live.py
+python -S tests\contrib\workbuddy\test_connectors_replay.py
+
+# Chrome 需 --remote-debugging-port=9222
+python -S -m octop.contrib.workbuddy.teach_cli cdp-record --url https://example.com --seconds 20
+python -S -m octop.contrib.workbuddy.teach_cli connectors
+python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live `
+  --live-runner --cdp-replay --outbound
+```
+
+Env：`WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK`、`WB_ALLOW_OUTBOUND=1`。
 
 调度（每分钟由系统任务调用即可，无需常驻进程）：
 

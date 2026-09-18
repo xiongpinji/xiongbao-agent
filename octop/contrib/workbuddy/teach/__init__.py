@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from .cdp_recorder import CdpTeachSession, cdp_available
+from .cdp_replay import CdpReplaySession
 from .drafter import draft_skill_from_recording
 from .llm_drafter import polish_draft_with_llm
 from .models import (
@@ -20,6 +21,7 @@ from .store import TeachStore
 
 __all__ = [
     "Approval",
+    "CdpReplaySession",
     "CdpTeachSession",
     "DraftStep",
     "InputSpec",

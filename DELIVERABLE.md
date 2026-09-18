@@ -114,7 +114,32 @@ python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode test
 | LiveStepRunner 沙箱写文件 / outbox / 路径逃逸拒绝 | OK |
 | RoutineEngine + LiveStepRunner test 模式 | OK |
 
-`message` 步骤默认写入 `<live-work>/outbox/messages.jsonl`，不静默外发；`click`/`type` 回放标记为 deferred（需 CDP 会话）。
+`message` 步骤默认写入 `<live-work>/outbox/messages.jsonl`，不静默外发；无 CDP 会话时 `click`/`type` 回放标记为 deferred。
+
+### Connectors + CDP UI 回放 + 真外发
+
+```powershell
+python -S tests\contrib\workbuddy\test_connectors_replay.py
+# → ALL CONNECTOR/REPLAY TESTS OK
+
+# 探测 Notion / 飞书配置（不写密钥到仓库）
+python -S -m octop.contrib.workbuddy.teach_cli connectors
+
+# CDP 回放 click/type（需 Chrome 9222）+ 可选飞书外发
+$env:WB_NOTION_TOKEN = "<token>"
+$env:WB_FEISHU_WEBHOOK = "https://open.feishu.cn/open-apis/bot/v2/hook/..."
+python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode live `
+  --live-runner --cdp-replay --outbound --approve step:0
+```
+
+| Check | Result |
+|---|---|
+| Notion page id 解析 + Fake HTTP 读页 | OK |
+| Feishu webhook 无 `WB_ALLOW_OUTBOUND` 拦截 / Fake POST | OK |
+| CdpReplaySession FakeTransport click/type/navigate | OK |
+| LiveStepRunner + CDP + Feishu 联通 | OK |
+
+Env: `WB_NOTION_TOKEN`、`WB_FEISHU_WEBHOOK`、`WB_ALLOW_OUTBOUND=1`（`--outbound` 时 CLI 会置位）。目标前缀：`notion:page/<id>`、`feishu:webhook`。
 
 ## Local LLM（V1）
 
@@ -129,7 +154,8 @@ Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `W
 
 ## Out of scope (later)
 
-- CDP UI 回放（click/type 真执行）；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
+- 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
+- Feishu open-platform chat API（当前 MVP 仅自定义机器人 webhook）
