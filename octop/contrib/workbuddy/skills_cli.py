@@ -18,7 +18,14 @@ import json
 import sys
 from pathlib import Path
 
-from .skills import SkillCatalog, SkillRuntime, default_builtin_skills_root
+from .skills import (
+    SkillCatalog,
+    SkillRuntime,
+    default_builtin_skills_root,
+    install_from_vendor,
+    install_skill,
+    scan_skill_dir,
+)
 from .team.llm import OpenAICompatCaller
 
 
@@ -192,6 +199,40 @@ def cmd_index(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_scan(args: argparse.Namespace) -> int:
+    cat = _catalog(args)
+    report = None
+    try:
+        pkg = cat.load(args.id)
+        skill_path = Path(pkg.meta.path) if pkg.meta.path else None
+        if skill_path and skill_path.is_file():
+            report = scan_skill_dir(skill_path.parent)
+        elif skill_path and skill_path.is_dir():
+            report = scan_skill_dir(skill_path)
+    except KeyError:
+        report = None
+    if report is None:
+        for root in [cat.skills_root, *cat.extra_roots]:
+            candidate = Path(root) / args.id
+            if candidate.is_dir():
+                report = scan_skill_dir(candidate)
+                break
+    if report is None:
+        report = scan_skill_dir(args.id)
+    print(json.dumps(report.to_dict(), ensure_ascii=False, indent=2))
+    return 0 if report.ok else 1
+
+
+def cmd_install(args: argparse.Namespace) -> int:
+    dest = Path(args.dest) if args.dest else Path(args.work_root) / "installed"
+    if args.from_vendor:
+        result = install_from_vendor(args.id, dest, force=bool(args.force))
+    else:
+        result = install_skill(args.source or args.id, dest, force=bool(args.force))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result.get("installed") else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="skills_cli", description="SkillHub runtime")
     p.add_argument("--skills-root", default=None, help="Override vendor skills dir")
@@ -265,6 +306,20 @@ def build_parser() -> argparse.ArgumentParser:
     add_common(p_idx)
     p_idx.add_argument("--out", default=None)
     p_idx.set_defaults(func=cmd_index)
+
+    p_scan = sub.add_parser("scan", help="Heuristic security scan for a skill")
+    add_common(p_scan)
+    p_scan.add_argument("--id", required=True)
+    p_scan.set_defaults(func=cmd_scan)
+
+    p_inst = sub.add_parser("install", help="Install skill into work-root/installed")
+    add_common(p_inst)
+    p_inst.add_argument("--id", required=True, help="Skill id or local path")
+    p_inst.add_argument("--source", default=None, help="Local skill directory override")
+    p_inst.add_argument("--dest", default=None)
+    p_inst.add_argument("--from-vendor", action="store_true")
+    p_inst.add_argument("--force", action="store_true")
+    p_inst.set_defaults(func=cmd_install)
     return p
 
 

@@ -292,7 +292,7 @@ python -S -m octop.contrib.workbuddy.goal_cli run --goal "写 x.md" --work-mode 
 
 ```powershell
 python -S scripts\verify_full.py
-# → VERIFY FULL OK — WorkBuddy V7 full-parity board green
+# → VERIFY FULL OK
 ```
 
 | Check | Result |
@@ -306,17 +306,55 @@ python -S scripts\verify_full.py
 | `deploy/docker-compose.workbuddy.yml` | OK |
 | CDN docs 快照 | OK |
 
+## V8 — READY（Harbor 生产路径 · Compose · Console）
+
+| Check | Result |
+|---|---|
+| Harbor uv sync + dry-run | OK |
+| Compose tick + wb-console | OK |
+| Hub CLI + Console :8010 | OK |
+
+## V9 — READY（剩余产品面对齐）
+
 ```powershell
-python -S -m octop.contrib.workbuddy.modes_cli assemble --mode ask --official-tpl
-python -S -m octop.contrib.workbuddy.harbor_cli status
-python -S -m octop.contrib.workbuddy.project_cli --root artifacts/projects create demo
-python -S -m octop.contrib.workbuddy.office_cli --out artifacts/office_demo
-docker compose -f deploy/docker-compose.workbuddy.yml config
+$env:PYTHONPATH = (Get-Location).Path
+python -S scripts\verify_v9.py
+# → VERIFY V9 OK
+```
+
+| Check | Result |
+|---|---|
+| 任务生命周期 `task/` + CLI | OK |
+| 权限策略 `security/policy` | OK |
+| 工作区导出导入 `data/` | OK |
+| 模型档案 `models_profile/` | OK |
+| Git worktree 并行隔离 | OK |
+| 微信/QQ 连接器 + inbox | OK |
+| 资料库索引 + 静态发布 | OK |
+| 灵感 / Buddy 模板脚手架 | OK |
+| 本地知识库 ingest/search | OK |
+| 人机双写 `cowrite/` | OK |
+| 通道入站 → Task 桥（门禁） | OK |
+| Skill install + 启发式扫描 | OK |
+| Console v2 Tabs + `/api/tasks|skills|connectors|harbor` | OK |
+| Harbor harness 探测 + score dry | OK |
+| 审计挂钩 task.create | OK |
+| `verify_v9.py` 16 单测全绿 | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.task_cli --root artifacts/tasks create --title demo --prompt hi
+python -S -m octop.contrib.workbuddy.parity_cli inspiration list
+python -S -m octop.contrib.workbuddy.parity_cli bridge --allow --text "/task 写周报"
+python -S -m octop.contrib.workbuddy.skills_cli scan --id diagnose
+python -S -m octop.contrib.workbuddy.harbor_cli score --dry-run
+python -S -m octop.contrib.workbuddy.console_server --port 8010
 ```
 
 ## Out of scope（产品边界）
 
-- 腾讯闭源 Electron / QClaw 桌面壳（UI → Octop Dashboard + CLI）
-- 腾讯云托管 SaaS（→ 私有化 Compose / systemd）
-- 官方 Harbor 全量 `uv run` 评分流水线（需本机 Python ≥3.12；Docker 桥与四子集已就绪）
+- 腾讯闭源 Electron / QClaw 桌面壳（UI → Octop Dashboard + WorkBuddy Console + CLI）
+- 腾讯云托管 SaaS / 积分 / 小程序 / 移动端
+- 腾讯文档 / IMA / 乐享专有 API（→ 本地 `knowledge/` 等价）
+- CDN 全站镜像
+- Harbor **真机全量**评分流水线（需 Docker + LLM；dry-run / harness / score 入口已就绪）
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

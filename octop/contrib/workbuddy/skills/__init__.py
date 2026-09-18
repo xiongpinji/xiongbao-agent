@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from .catalog import SkillCatalog, default_builtin_skills_root, default_skills_root
+from .market import ScanReport, install_from_vendor, install_skill, scan_skill_dir
 from .models import SkillMeta, SkillPackage
 from .parser import parse_frontmatter, parse_skill_file
 from .runtime import SkillRuntime
@@ -15,10 +16,14 @@ __all__ = [
     "SkillPackage",
     "SkillRuntime",
     "ScriptRunResult",
+    "ScanReport",
     "default_builtin_skills_root",
     "default_skills_root",
+    "install_from_vendor",
+    "install_skill",
     "list_skill_scripts",
     "parse_frontmatter",
     "parse_skill_file",
     "run_skill_script",
+    "scan_skill_dir",
 ]

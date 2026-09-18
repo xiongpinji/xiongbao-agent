@@ -12,7 +12,9 @@ from .bench.harbor import (
     docker_build_smoke,
     harbor_bridge_report,
     harbor_dry_run,
+    harbor_score_entry,
     harbor_status,
+    harness_mount_probe,
     list_tasks,
     uv_sync_bench,
     validate_task,
@@ -69,8 +71,25 @@ def main(argv: list[str] | None = None) -> int:
     dr.add_argument("--job", default="local-openai-cbc-office-smoke")
     dr.set_defaults(func=_cmd_dry_run)
 
+    probe = sub.add_parser("harness", help="Probe Harbor harness mount readiness")
+    probe.set_defaults(
+        func=lambda a: print(json.dumps(harness_mount_probe(), ensure_ascii=False, indent=2)) or 0
+    )
+
+    sc = sub.add_parser("score", help="Score entry (default --dry-run)")
+    sc.add_argument("--job", default="local-openai-cbc-office-smoke")
+    sc.add_argument("--dry-run", action="store_true", default=True)
+    sc.add_argument("--live", action="store_true", help="Actually run Harbor job")
+    sc.set_defaults(func=_cmd_score)
+
     args = p.parse_args(argv)
     return int(args.func(args))
+
+
+def _cmd_score(args: argparse.Namespace) -> int:
+    result = harbor_score_entry(job=args.job, dry_run=not bool(args.live))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result.get("ok") else 1
 
 
 def _cmd_sync(args: argparse.Namespace) -> int:

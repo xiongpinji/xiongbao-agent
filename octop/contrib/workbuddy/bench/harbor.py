@@ -342,3 +342,84 @@ def harbor_bridge_report(*, root: Path | None = None, subset: str = "office", li
 
 def harbor_bridge_json(**kwargs: Any) -> str:
     return json.dumps(harbor_bridge_report(**kwargs), ensure_ascii=False, indent=2)
+
+
+def harness_mount_probe(*, root: Path | None = None) -> dict[str, Any]:
+    """Detect Harbor harness mount points without running a live score."""
+    root = root or project_root()
+    bench = bench_pkg_root(root)
+    candidates = [
+        bench / "harness",
+        bench / "src" / "harness",
+        bench / "harbor",
+        Path("/opt/harbor"),
+    ]
+    env_mount = (os.environ.get("WB_HARBOR_HARNESS") or "").strip()
+    if env_mount:
+        candidates.append(Path(env_mount))
+    found: list[str] = []
+    for c in candidates:
+        if c.exists() and str(c) not in {".", ""}:
+            found.append(str(c))
+    return {
+        "ok": True,
+        "bench": str(bench),
+        "mounts_found": found,
+        "venv_python": str(venv_python(root) or ""),
+        "score_ready": bool(venv_python(root)) and bool(found or (bench / "scripts" / "run.sh").is_file()),
+        "hint": "Live score: ./scripts/run.sh --job <job> (needs Docker + LLM). Use score --dry-run to skip.",
+    }
+
+
+def harbor_score_entry(
+    *,
+    root: Path | None = None,
+    job: str = "local-openai-cbc-office-smoke",
+    dry_run: bool = True,
+    timeout: float = 120.0,
+) -> dict[str, Any]:
+    """Optional single-job score entry; default dry_run to avoid long CI."""
+    probe = harness_mount_probe(root=root)
+    if dry_run:
+        return {
+            "ok": True,
+            "mode": "dry_run",
+            "job": job,
+            "probe": probe,
+            "note": "skipped live Harbor score; pass dry_run=False to invoke run.sh",
+        }
+    # Live path reuses dry-run harness but without --dry-run flag via bash wrapper
+    root = root or project_root()
+    bench = bench_pkg_root(root)
+    py = venv_python(root)
+    if py is None:
+        return {"ok": False, "error": "bench .venv missing", "probe": probe}
+    bash = shutil.which("bash")
+    git_bash = Path(r"C:\Program Files\Git\bin\bash.exe")
+    bash_bin = str(git_bash) if git_bash.is_file() else bash
+    if not bash_bin:
+        return {"ok": False, "error": "bash not found", "probe": probe}
+    wrapper = (
+        f'python3() {{ "{py.as_posix()}" "$@"; }}; export -f python3; '
+        f'cd "{bench.as_posix()}" && bash ./scripts/run.sh --job {job}'
+    )
+    try:
+        proc = subprocess.run(
+            [bash_bin, "-lc", wrapper],
+            cwd=str(bench),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired, OSError) as exc:
+        return {"ok": False, "error": str(exc), "probe": probe}
+    return {
+        "ok": proc.returncode == 0,
+        "mode": "live",
+        "job": job,
+        "returncode": proc.returncode,
+        "stdout_tail": (proc.stdout or "")[-3000:],
+        "stderr_tail": (proc.stderr or "")[-1500:],
+        "probe": probe,
+    }

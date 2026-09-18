@@ -123,6 +123,7 @@ def main(argv: list[str] | None = None) -> int:
             "connectors probe (+email/webhook)",
             [py, "-S", "-m", "octop.contrib.workbuddy.connectors_cli", "probe"],
         ),
+        ("verify_v9", [py, "-S", "scripts/verify_v9.py"]),
     ]
 
     if args.harbor_build:
@@ -176,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
     if failed:
         print(f"\nVERIFY FULL FAILED — {failed} step(s)")
         return 1
-    print("\nVERIFY FULL OK — WorkBuddy V7 full-parity board green")
+    print("\nVERIFY FULL OK — WorkBuddy V9 remaining-parity board green")
     return 0
 
 
