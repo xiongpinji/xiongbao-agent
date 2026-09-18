@@ -24,4 +24,13 @@ $env:AUTO_BUILD_HARNESS_MOUNT='1'
 python -S scripts\run_harbor_four_subsets.py --full --timeout 28800
 ```
 
-Results land in gitignored `artifacts/harbor/four_subsets_full.json` when complete.
+### 2026-09-18 full result
+
+| Job | harness ok | elapsed_sec | note |
+|---|---|---|---|
+| office-full | true | 487.8 | 50/50 trials finished (agent exit non-zero → mean 0 under local 3b) |
+| code-full | true | 474.0 | same |
+| web-full | true | 223.3 | same |
+| sec-full | blocked → retry | — | Windows `OSError` on `dotnet-3stage-rat-loader/.../sample.exe`；隔离该题后重跑 |
+
+Results: gitignored `artifacts/harbor/four_subsets_full.json`.
