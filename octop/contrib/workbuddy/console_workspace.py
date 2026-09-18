@@ -86,6 +86,12 @@ def _preview_format(ext: str) -> str:
 
 def build_preview(path: Path, *, rel: str) -> dict[str, Any]:
     ext = path.suffix.lower()
+    if ext in {".docx", ".xlsx"}:
+        from .office_preview import office_preview
+
+        prev = office_preview(path)
+        prev["path"] = rel
+        return prev
     fmt = _preview_format(ext)
     if fmt == "image":
         data = path.read_bytes()
@@ -146,8 +152,8 @@ def workspace_payload(task_dir: Path, record: dict[str, Any] | None = None) -> d
                 ".htm",
                 ".csv",
                 ".json",
-                ".xlsx",
                 ".docx",
+                ".xlsx",
                 ".pptx",
                 ".pdf",
                 ".png",

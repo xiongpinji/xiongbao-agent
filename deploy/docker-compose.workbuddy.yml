@@ -172,11 +172,31 @@ services:
       - "8000:8000"
     restart: unless-stopped
 
+  casdoor-db:
+    profiles: ["casdoor"]
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: casdoor
+      MYSQL_DATABASE: casdoor
+    volumes:
+      - casdoor_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pcasdoor"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
   casdoor:
     profiles: ["casdoor"]
-    image: casbin/casdoor:latest
+    image: casbin/casdoor:v1.770.0
+    depends_on:
+      casdoor-db:
+        condition: service_healthy
     ports:
       - "8001:8000"
+    volumes:
+      - ./casdoor/app.conf:/conf/app.conf:ro
     restart: unless-stopped
 
   milvus:
@@ -198,3 +218,4 @@ volumes:
   milvus_data:
   caddy_data:
   caddy_config:
+  casdoor_db:

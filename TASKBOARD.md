@@ -1,25 +1,23 @@
-# TASKBOARD — V13 残留补齐（上传 / 富预览 / 企业状态 / Harbor）
+# TASKBOARD — V14 环境联调与 Office / Harbor live
 
-> 基线：V12 三栏壳已交付。本板已完成。
+> 已完成。
 
-## Done 标准 — 已满足
+## Done
 
-1. 附件上传 → `attachments/` + 右栏可见  
-2. HTML iframe / Markdown / 图片预览  
-3. `/api/enterprise` + 壳内 SSO/向量芯片  
-4. `POST /api/harbor/dry-run`（壳顶栏 + 运维台）  
-5. `verify_v13.py` → `VERIFY V13 OK`；Hub `v=13`
+1. casdoor(+mysql) / milvus profile 拉起；`/api/enterprise` configured+reachable  
+2. docx/xlsx 文本预览  
+3. `POST /api/harbor/score`（默认 dry）  
+4. `verify_v14.py` OK；Hub v=14
 
 | ID | 状态 |
 |---|---|
-| V13.1 Upload API + 壳内上传 | ✅ |
-| V13.2 富预览 | ✅ |
-| V13.3 Enterprise 状态面 | ✅ |
-| V13.4 Harbor dry-run | ✅ |
-| V13.5 Hub/verify/docs | ✅ |
+| V14.1 企业 profile 联调 | ✅ |
+| V14.2 Office 预览 | ✅ |
+| V14.3 Harbor score | ✅ |
+| V14.4 verify + commit | ✅ |
 
-## 仍可选（环境依赖）
+## 可选后续
 
-- Casdoor/Milvus **填真实凭据**后可达探测变绿  
-- Harbor **全量 live** 评分（非门禁）  
-- Office 在线渲染（docx/xlsx）
+- Casdoor 完整 OIDC 换发联调（需在 Casdoor 控制台建应用/用户 claims）  
+- Harbor `live=1` 全量评分（耗时长）  
+- pptx 预览

@@ -42,7 +42,7 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
             tenant_count = -1
     return {
         "ok": True,
-        "v": 13,
+        "v": 14,
         "root": str(root),
         "harbor": harbor.to_dict(),
         "harness": harness_mount_probe(root=root),
@@ -95,6 +95,7 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
                 "/api/enterprise",
                 "/api/harbor",
                 "/api/harbor/dry-run",
+                "/api/harbor/score",
                 "/api/connectors",
                 "/api/runtime",
                 "/api/tenant",

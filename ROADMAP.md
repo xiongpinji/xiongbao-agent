@@ -16,6 +16,7 @@
 | Go-Live | 无域名 P0 勾选签字 + 正式开户/异地备份手册 | ✅ |
 | V12 | Web 三栏用户壳 + Task/Workspace/Skills API + verify_v12 | ✅ |
 | V13 | 附件上传 / 富预览 / Enterprise 状态 / Harbor dry-run + verify_v13 | ✅ |
+| V14 | Casdoor+Milvus 本地联调 / docx·xlsx 预览 / Harbor score + verify_v14 | ✅ |
 
 ## 产品边界（无法像素级复制）
 

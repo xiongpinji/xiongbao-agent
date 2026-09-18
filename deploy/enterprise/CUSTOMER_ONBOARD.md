@@ -39,24 +39,26 @@ Copy-Item artifacts\backups\<tid>.zip D:\AI编程库\备份库\xiongbao-workbudd
 
 回滚：停 `wb-console-prod` → `tenant_cli restore <zip> --overwrite` → 验 `/api/tasks` → 再 start。
 
-## 3. SSO / Milvus（P1，有凭据再开）
-
-代码已接线（`wired: true`），未配置时 `configured: false`：
-
-```env
-# deploy/.env.workbuddy
-OCTOP_CASDOOR_ENDPOINT=https://casdoor.example
-OCTOP_CASDOOR_CLIENT_ID=...
-OCTOP_CASDOOR_CLIENT_SECRET=...
-OCTOP_MILVUS_URI=http://milvus:19530
-```
+## 3. SSO / Milvus（本地可一键试）
 
 ```powershell
-docker compose -f deploy/docker-compose.workbuddy.yml --env-file deploy/.env.workbuddy --profile prod --profile casdoor --profile milvus up -d
+docker compose -f deploy/docker-compose.workbuddy.yml --env-file deploy/.env.workbuddy --profile casdoor --profile milvus up -d
 ```
 
+`.env.workbuddy` 示例：
+
+```
+OCTOP_CASDOOR_ENDPOINT=http://host.docker.internal:8001
+OCTOP_CASDOOR_CLIENT_ID=wb-local
+OCTOP_CASDOOR_CLIENT_SECRET=wb-local-secret
+OCTOP_MILVUS_URI=http://host.docker.internal:9091
+```
+
+Casdoor 需 MySQL（compose 已含 `casdoor-db` + `deploy/casdoor/app.conf`）。  
+探测：`GET /api/enterprise` → `configured` / `reachable`。
+
 换发：`POST /api/auth/login` body `{"casdoor_token":"..."}`（claims 需含 `tid`/`uid`）。  
-向量集合前缀：`tenant_cli milvus-ns <tid>` → `wb_<tid>`。
+向量集合：`tenant_cli milvus-ns <tid>` → `wb_<tid>`。
 
 ## 4. LLM（本机 Ollama）
 

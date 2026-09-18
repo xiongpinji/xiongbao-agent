@@ -90,7 +90,7 @@ def _task_detail(t: Any) -> dict[str, Any]:
 def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
     query = query or {}
     if path == "/api/health":
-        return {"ok": True, "auth_required": auth_required(), "v": 13}
+        return {"ok": True, "auth_required": auth_required(), "v": 14}
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -156,7 +156,7 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
             "hint": "POST /api/harbor/dry-run",
         }
     if path == "/api/enterprise":
-        return {"ok": True, "v": 13, **enterprise_probe()}
+        return {"ok": True, "v": 14, **enterprise_probe()}
     if path == "/api/runtime":
         data = hub_status()
         return {
@@ -277,6 +277,21 @@ def api_post(path: str, query: dict[str, list[str]], body: dict[str, Any], ctx: 
         except (TypeError, ValueError):
             timeout = 90.0
         result = harbor_dry_run(job=job, timeout=min(timeout, 180.0))
+        return 200, result
+
+    if path == "/api/harbor/score":
+        from .bench.harbor import harbor_score_entry
+
+        job = str(body.get("job") or (query.get("job") or ["local-openai-cbc-office-smoke"])[0]).strip()
+        live = body.get("live", False)
+        if isinstance(live, str):
+            live = live.lower() in {"1", "true", "yes"}
+        dry = not bool(live)
+        try:
+            timeout = float(body.get("timeout") or 120)
+        except (TypeError, ValueError):
+            timeout = 120.0
+        result = harbor_score_entry(job=job, dry_run=dry, timeout=min(timeout, 300.0))
         return 200, result
 
     # /api/tasks/<id>/messages or /api/tasks/<id>/actions

@@ -140,6 +140,7 @@
         <h2>Harbor · /api/harbor</h2>
         <div class="actions" style="margin-bottom:0.75rem">
           <button type="button" id="btnDryRun">触发 dry-run</button>
+          <button type="button" id="btnScore">score(dry)</button>
           <span class="hint" id="dryHint"></span>
         </div>
         <pre id="raw-harbor">loading…</pre>
@@ -288,6 +289,17 @@
       try {
         const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
         hint.textContent = data.ok ? "OK" : ("fail: " + (data.error || ""));
+        document.getElementById("raw-harbor").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        hint.textContent = String(err.message);
+      }
+    });
+    document.getElementById("btnScore").addEventListener("click", async () => {
+      const hint = document.getElementById("dryHint");
+      hint.textContent = "score dry…";
+      try {
+        const data = await api("/api/harbor/score", { method: "POST", body: JSON.stringify({ live: false }) });
+        hint.textContent = data.ok ? ("score " + (data.mode || "dry")) : ("fail: " + (data.error || ""));
         document.getElementById("raw-harbor").textContent = JSON.stringify(data, null, 2);
       } catch (err) {
         hint.textContent = String(err.message);

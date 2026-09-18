@@ -162,6 +162,7 @@
     <span class="chip" id="entChip" title="企业组件">SSO/向量</span>
     <button type="button" class="linkish" id="btnSkills">技能</button>
     <button type="button" class="linkish" id="btnHarbor">Harbor</button>
+    <button type="button" class="linkish" id="btnScore">Score</button>
     <a href="/ops.html">运维</a>
     <button type="button" class="linkish" id="btnLogout">退出</button>
   </header>
@@ -471,12 +472,29 @@
       btn.textContent = "Harbor…";
       try {
         const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
-        alert(data.ok ? ("Harbor dry-run OK\n" + String(data.stdout || data.detail || "").slice(0, 400))
+        alert(data.ok ? ("Harbor dry-run OK\n" + String(data.stdout_tail || data.detail || "").slice(0, 400))
           : ("Harbor dry-run: " + (data.error || JSON.stringify(data)).slice(0, 400)));
       } catch (err) {
         alert("Harbor: " + err.message);
       } finally {
         btn.textContent = "Harbor";
+      }
+    });
+
+    document.getElementById("btnScore").addEventListener("click", async () => {
+      const live = confirm("确定跑 live score？\n取消 = dry（推荐）\n确定 = live（耗时长）");
+      const btn = document.getElementById("btnScore");
+      btn.textContent = "Score…";
+      try {
+        const data = await api("/api/harbor/score", {
+          method: "POST",
+          body: JSON.stringify({ live: !!live, timeout: live ? 180 : 30 }),
+        });
+        alert(JSON.stringify(data, null, 2).slice(0, 600));
+      } catch (err) {
+        alert("Score: " + err.message);
+      } finally {
+        btn.textContent = "Score";
       }
     });
 
