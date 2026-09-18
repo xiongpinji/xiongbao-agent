@@ -33,7 +33,9 @@ artifacts/
         skillhub/installed/
 ```
 
-## 环境变量（生产必填）
+## 环境变量
+
+### 生产必填（交付相关）
 
 | 变量 | 含义 |
 |---|---|
@@ -41,34 +43,37 @@ artifacts/
 | `WB_CONSOLE_AUTH=1` | Console API 强制 Bearer |
 | `WB_CONSOLE_SECRET` | JWT 签名密钥（强随机，勿用默认值） |
 | `WB_ARTIFACTS_ROOT` | artifacts 根（Compose 内 `/app/artifacts`） |
-| `WB_DOMAIN` | Caddy 域名（用于 TLS） |
-| `OCTOP_CASDOOR_*` | 可选：企业 SSO，登录可换发 Console JWT |
-| `OCTOP_MILVUS_URI` | 可选：向量库；collection 自动 `wb_<tid>` |
+
+### 可选（非交付门槛）
+
+| 变量 | 含义 |
+|---|---|
+| `WB_DOMAIN` | Caddy 主机名；默认 `localhost` 即可，**不要求**公网域名 |
+| `OCTOP_CASDOOR_*` | 企业 SSO |
+| `OCTOP_MILVUS_URI` | 向量库；collection 自动 `wb_<tid>` |
 
 复制：`deploy/.env.workbuddy.example` → `deploy/.env.workbuddy`
 
 ## 一键启动（生产）
 
 ```bash
-# 1. 填好密钥与域名
+# 1. 填好密钥（域名可选）
 export WB_CONSOLE_SECRET="$(openssl rand -hex 32)"
-export WB_DOMAIN=agent.example.com
+# export WB_DOMAIN=agent.example.com   # 可选
 
-# 2. 启动（Caddy + 鉴权 Console + Octop）
+# 2. 启动（Caddy + 鉴权 Console；octop 随 --profile prod）
 docker compose -f deploy/docker-compose.workbuddy.yml --env-file deploy/.env.workbuddy --profile prod up -d
-# 关闭开发用裸奔 :8010（默认 wb-console 仍会随 tick 拉起）
 docker compose -f deploy/docker-compose.workbuddy.yml stop wb-console
 
-# 3. 创建租户（在宿主机或 tick 容器内）
+# 3. 创建租户
 export PYTHONPATH=.
 python -S -m octop.contrib.workbuddy.tenant_cli create acme --name "Acme Corp"
-# → 保存返回的 admin_api_key
 
 # 4. 登录拿 JWT
 python -S -m octop.contrib.workbuddy.tenant_cli login acme admin '<admin_api_key>'
 
-# 5. 调 Console（经 Caddy）
-curl -H "Authorization: Bearer <token>" https://agent.example.com/api/tasks
+# 5. 调 Console（容器内或内网入口即可，不要求域名）
+curl -H "Authorization: Bearer <token>" http://127.0.0.1:8010/api/tasks
 ```
 
 ## 隔离验收清单

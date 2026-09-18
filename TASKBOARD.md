@@ -7,8 +7,8 @@
 ## 部署定义（Done 标准）
 
 1. 两租户数据互不可见（artifacts / Console API / Milvus 命名空间）
-2. Console 默认鉴权，禁止裸奔公网
-3. Compose 生产拓扑：仅 443 对外（Caddy/TLS），内部端口不映射
+2. Console 鉴权开启，管理面不对未授权网络裸奔
+3. Compose 可私有化拉起（IP / 内网 / localhost 均可；**域名非交付标准**）
 4. 租户可注册、配额可强制、可按租户备份/恢复
 5. `verify_v11.py` 全绿
 
