@@ -99,4 +99,5 @@ def draft_skill_from_recording(
         stale_data_policy="abort_do_not_reuse_yesterday",
         idempotency_notes="re-run skips completed targets when idempotent marker exists",
         status="draft",
+        source="rules",
     )

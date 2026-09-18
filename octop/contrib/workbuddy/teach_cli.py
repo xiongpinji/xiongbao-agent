@@ -4,9 +4,10 @@
 Examples::
 
     python -S -m octop.contrib.workbuddy.teach_cli demo
+    python -S -m octop.contrib.workbuddy.teach_cli demo --llm
+    python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu --llm
     python -S -m octop.contrib.workbuddy.teach_cli due
     python -S -m octop.contrib.workbuddy.teach_cli tick --mode dry
-    python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry
 """
 
 from __future__ import annotations
@@ -17,7 +18,8 @@ import sys
 from pathlib import Path
 
 from .routine import RoutineEngine, RoutineScheduler, RoutineStore
-from .teach import TeachRecorder, TeachStore, draft_skill_from_recording
+from .teach import TeachRecorder, TeachStore, draft_skill_from_recording, polish_draft_with_llm
+from .team.llm import OpenAICompatCaller
 
 
 def _default_root() -> Path:
@@ -49,6 +51,12 @@ def cmd_demo(args: argparse.Namespace) -> int:
     teach_store.save_recording(recording)
 
     draft = draft_skill_from_recording(recording, name="notion-pr-to-feishu")
+    if args.llm:
+        draft = polish_draft_with_llm(
+            draft,
+            caller=OpenAICompatCaller(max_tokens=1024, temperature=0.2),
+            fallback_on_error=True,
+        )
     teach_store.save_draft(draft)
 
     # Human review gate
@@ -73,6 +81,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
             "decisions": sum(1 for s in draft.steps if s.is_decision),
             "approvals": len(draft.approvals),
             "dry_ok": run.ok,
+            "source": draft.source,
         },
     }
     out = Path(args.out)
@@ -111,6 +120,34 @@ def cmd_approve(args: argparse.Namespace) -> int:
     draft = store.approve_draft(args.name)
     print(json.dumps(draft.to_dict(), ensure_ascii=False, indent=2))
     return 0
+
+
+def cmd_polish(args: argparse.Namespace) -> int:
+    store = TeachStore(Path(args.root) / "teach")
+    draft = store.load_draft(args.name)
+    if not args.llm:
+        print("polish requires --llm", file=sys.stderr)
+        return 2
+    polished = polish_draft_with_llm(
+        draft,
+        caller=OpenAICompatCaller(max_tokens=1024, temperature=0.2),
+        fallback_on_error=bool(args.fallback),
+    )
+    store.save_draft(polished)
+    print(
+        json.dumps(
+            {
+                "name": polished.name,
+                "source": polished.source,
+                "status": polished.status,
+                "trigger": polished.trigger,
+                "steps": [s.to_dict() for s in polished.steps],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+    return 0 if polished.source == "rules+llm" else (0 if args.fallback else 1)
 
 
 def cmd_create_routine(args: argparse.Namespace) -> int:
@@ -186,6 +223,11 @@ def main(argv: list[str] | None = None) -> int:
     p_demo.add_argument("--cron", default="0 9 * * *")
     p_demo.add_argument("--timezone", default="Asia/Shanghai")
     p_demo.add_argument("--out", default="artifacts/teach_routine/demo_report.json")
+    p_demo.add_argument(
+        "--llm",
+        action="store_true",
+        help="Polish SkillDraft with local OpenAI-compatible LLM before approve",
+    )
     p_demo.set_defaults(func=cmd_demo)
 
     p_list = sub.add_parser("list")
@@ -194,6 +236,17 @@ def main(argv: list[str] | None = None) -> int:
     p_ap = sub.add_parser("approve")
     p_ap.add_argument("--name", required=True)
     p_ap.set_defaults(func=cmd_approve)
+
+    p_pol = sub.add_parser("polish", help="LLM-polish an existing draft (resets to draft)")
+    p_pol.add_argument("--name", required=True)
+    p_pol.add_argument("--llm", action="store_true", required=True)
+    p_pol.add_argument(
+        "--fallback",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="On LLM failure keep rules draft (default: true)",
+    )
+    p_pol.set_defaults(func=cmd_polish)
 
     p_cr = sub.add_parser("create-routine")
     p_cr.add_argument("--skill", required=True)

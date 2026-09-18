@@ -134,6 +134,15 @@ class OpenAICompatCaller:
         ]
         return await asyncio.to_thread(self._post_chat, messages)
 
+    def complete(self, *, system: str, user: str) -> str:
+        """Synchronous chat completion (Teach drafter / scripts)."""
+        system = self._truncate(system, self.system_chars)
+        messages = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ]
+        return self._post_chat(messages)
+
 
 # Back-compat alias
 LocalLLMCaller = OpenAICompatCaller

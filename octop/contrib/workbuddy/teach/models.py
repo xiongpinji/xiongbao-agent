@@ -222,6 +222,7 @@ class SkillDraft:
     stale_data_policy: str = "abort_do_not_reuse_yesterday"
     idempotency_notes: str = "steps should be re-runnable; skip if target already done"
     status: Literal["draft", "approved", "rejected"] = "draft"
+    source: Literal["rules", "rules+llm", "llm"] = "rules"
     created_at: str = field(default_factory=lambda: _iso(_utc_now()))
 
     def to_dict(self) -> dict[str, Any]:
@@ -238,6 +239,7 @@ class SkillDraft:
             "stale_data_policy": self.stale_data_policy,
             "idempotency_notes": self.idempotency_notes,
             "status": self.status,
+            "source": self.source,
             "created_at": self.created_at,
         }
 
@@ -258,5 +260,6 @@ class SkillDraft:
             ),
             idempotency_notes=str(data.get("idempotency_notes") or ""),
             status=data.get("status") or "draft",  # type: ignore[arg-type]
+            source=data.get("source") or "rules",  # type: ignore[arg-type]
             created_at=str(data.get("created_at") or _iso(_utc_now())),
         )

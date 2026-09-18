@@ -27,8 +27,9 @@
 3. **Routine 引擎** — dry / test / live；安全闸门与 bot 上限；run 持久化
 4. **CLI + 单测** — `teach_cli` + `test_teach_routine.py`
 5. **Scheduler** — stdlib 5 字段 cron + `due`/`tick`（系统计划任务驱动）
+6. **LLM drafter** — 规则草稿 + 本地模型润色（`--llm`），人工 approve 仍强制
 
-延后：CDP 真录制 / LLM drafter；企业版 Casdoor / Milvus / systemd。
+延后：CDP 真录制；企业版 Casdoor / Milvus / systemd。
 
 ## 目录要点
 
@@ -113,11 +114,13 @@ python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --m
 # 单元测试
 python -S tests\contrib\workbuddy\test_teach_routine.py
 
-# 端到端 demo（Notion PR → 飞书，录制路径；dry run）
+# 端到端 demo（可选 --llm 润色）
 python -S -m octop.contrib.workbuddy.teach_cli demo
+python -S -m octop.contrib.workbuddy.teach_cli demo --llm
 
-# 列表 / 审批 / 创建 / 执行
+# 列表 / 审批 / 创建 / 执行 / 润色
 python -S -m octop.contrib.workbuddy.teach_cli list
+python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu --llm
 python -S -m octop.contrib.workbuddy.teach_cli approve --name notion-pr-to-feishu
 python -S -m octop.contrib.workbuddy.teach_cli create-routine --skill notion-pr-to-feishu --bot-id bot-1
 python -S -m octop.contrib.workbuddy.teach_cli run --routine-id <id> --mode dry

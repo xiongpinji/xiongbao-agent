@@ -73,6 +73,25 @@ python -S -m octop.contrib.workbuddy.teach_cli --root artifacts\teach_routine ti
 | `due` preview + `next` | OK |
 | Windows 无 tzdata 时 Asia/Shanghai 固定偏移回退 | OK |
 
+### LLM drafter（规则 + 本地模型润色）
+
+```powershell
+python -S tests\contrib\workbuddy\test_llm_drafter.py
+# → ALL LLM DRAFTER TESTS OK
+
+$env:WB_LLM_MODEL = "qwen2.5:3b"
+python -S -m octop.contrib.workbuddy.teach_cli demo --llm --out artifacts\teach_routine\demo_llm_report.json
+python -S -m octop.contrib.workbuddy.teach_cli polish --name notion-pr-to-feishu --llm
+```
+
+| Check | Result |
+|---|---|
+| Stub polish 保持审批标记 / 步骤数 | OK |
+| LLM 失败回退 rules | OK |
+| Live `demo --llm` → `source=rules+llm` | OK |
+
+润色只改 trigger / instruction 文案；kind、approvals、安全策略仍以规则草稿为准；润色后 status 回到 `draft`，须重新 approve。
+
 ## Local LLM（V1）
 
 ```powershell
@@ -86,7 +105,7 @@ Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `W
 
 ## Out of scope (later)
 
-- CDP / 浏览器真录制；LLM 自动 drafter；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
+- CDP / 浏览器真录制；常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
 - Casdoor / Milvus / systemd packaging
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)

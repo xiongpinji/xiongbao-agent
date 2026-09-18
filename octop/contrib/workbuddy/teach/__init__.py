@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from .drafter import draft_skill_from_recording
+from .llm_drafter import polish_draft_with_llm
 from .models import (
     Approval,
     DraftStep,
@@ -27,4 +28,5 @@ __all__ = [
     "TeachStore",
     "Validation",
     "draft_skill_from_recording",
+    "polish_draft_with_llm",
 ]
