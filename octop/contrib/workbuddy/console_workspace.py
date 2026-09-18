@@ -86,7 +86,7 @@ def _preview_format(ext: str) -> str:
 
 def build_preview(path: Path, *, rel: str) -> dict[str, Any]:
     ext = path.suffix.lower()
-    if ext in {".docx", ".xlsx"}:
+    if ext in {".docx", ".xlsx", ".pptx"}:
         from .office_preview import office_preview
 
         prev = office_preview(path)
@@ -164,6 +164,7 @@ def workspace_payload(task_dir: Path, record: dict[str, Any] | None = None) -> d
                 ".webp",
             }
             or f["path"].startswith("attachments/")
+            or f["ext"] in {".docx", ".xlsx", ".pptx"}
         )
     ]
     for r in results:

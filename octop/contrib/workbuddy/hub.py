@@ -42,7 +42,7 @@ def hub_status(*, root: Path | None = None) -> dict[str, Any]:
             tenant_count = -1
     return {
         "ok": True,
-        "v": 14,
+        "v": 15,
         "root": str(root),
         "harbor": harbor.to_dict(),
         "harness": harness_mount_probe(root=root),

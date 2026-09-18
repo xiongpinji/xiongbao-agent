@@ -87,20 +87,48 @@ def parse_bearer(authorization: str | None) -> str | None:
 def exchange_casdoor_token(casdoor_jwt: str) -> TenantContext:
     """Map Casdoor claims → TenantContext when Casdoor is configured.
 
-    Expects claims: ``tenant``/``tid`` and ``name``/``sub``/``uid``.
+    Expects claims: ``tenant``/``tid``/``tag``/``affiliation``/``org`` and
+    ``name``/``sub``/``uid``. Falls back to ``/api/userinfo`` when JWT verify fails.
     """
-    from ..enterprise.casdoor import decode_jwt_unverified, verify_access_token
+    from ..enterprise.casdoor import decode_jwt_unverified, fetch_userinfo, verify_access_token
 
-    result = verify_access_token(casdoor_jwt)
-    payload: dict[str, Any]
-    if result.get("verified") and isinstance(result.get("payload"), dict):
-        payload = dict(result["payload"])
-    else:
-        decoded = decode_jwt_unverified(casdoor_jwt)
-        payload = dict(decoded.get("payload") or {})
-    tid = str(payload.get("tid") or payload.get("tenant") or payload.get("org") or "").strip()
+    payload: dict[str, Any] = {}
+    try:
+        result = verify_access_token(casdoor_jwt)
+        if result.get("verified") and isinstance(result.get("payload"), dict):
+            payload = dict(result["payload"])
+        else:
+            decoded = decode_jwt_unverified(casdoor_jwt)
+            payload = dict(decoded.get("payload") or {})
+    except Exception:
+        payload = {}
+        try:
+            decoded = decode_jwt_unverified(casdoor_jwt)
+            payload = dict(decoded.get("payload") or {})
+        except Exception:
+            payload = {}
+
+    if not (payload.get("tid") or payload.get("tenant") or payload.get("tag") or payload.get("affiliation") or payload.get("org")):
+        info = fetch_userinfo(casdoor_jwt)
+        if info.get("ok") and isinstance(info.get("data"), dict):
+            payload = {**payload, **dict(info["data"])}
+
+    tid = str(
+        payload.get("tid")
+        or payload.get("tenant")
+        or payload.get("tag")
+        or payload.get("affiliation")
+        or payload.get("org")
+        or ""
+    ).strip()
     uid = str(payload.get("uid") or payload.get("name") or payload.get("sub") or "").strip()
+    if "/" in uid:
+        # Casdoor sometimes returns org/name
+        org_part, name_part = uid.split("/", 1)
+        if not tid:
+            tid = org_part
+        uid = name_part
     if not tid or not uid:
-        raise ValueError("Casdoor token missing tid/tenant and uid/name/sub")
-    role = str(payload.get("role") or "user")
+        raise ValueError("Casdoor token missing tid/tenant/tag and uid/name/sub")
+    role = str(payload.get("role") or (payload.get("properties") or {}).get("role") or "user")
     return TenantContext(tenant_id=tid, user_id=uid, role=role)

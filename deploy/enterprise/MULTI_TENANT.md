@@ -99,6 +99,28 @@ curl -H "Authorization: Bearer <token>" http://127.0.0.1:8010/api/tasks
 
 映射建议：Octop `username` ↔ WorkBuddy `user_id`；组织名 ↔ `tenant_id`。Casdoor org 可作为 `tid` claim。
 
+## Casdoor OIDC 换发（V15）
+
+本地联调脚本会创建应用 `wb-local` 与用户 `alice`，并把租户写到 `tag` / `affiliation` / `properties.tid`：
+
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
+$env:OCTOP_CASDOOR_ENDPOINT = 'http://127.0.0.1:8001'
+$env:OCTOP_CASDOOR_CLIENT_ID = 'wb-local'
+$env:OCTOP_CASDOOR_CLIENT_SECRET = 'wb-local-secret'
+python -S scripts\setup_casdoor_oidc.py
+```
+
+流程：Password grant → RS256（JWKS）校验 → `exchange_casdoor_token`（优先 `tid`/`tenant`/`tag`/`affiliation`）→ Console `POST /api/auth/login`（`casdoor_token`）换发 WB JWT。
+
+用户 claims 约定：
+
+| Casdoor 字段 | WorkBuddy |
+|---|---|
+| `tag` / `affiliation` / `properties.tid` | `tid` |
+| `name` / `sub` | `uid` |
+| `properties.role` | `role` |
+
 ## 备份
 
 ```bash

@@ -35,6 +35,28 @@ def _minimal_docx(text: str) -> bytes:
     return buf.getvalue()
 
 
+def _minimal_pptx(text: str) -> bytes:
+    a_ns = "http://schemas.openxmlformats.org/drawingml/2006/main"
+    p_ns = "http://schemas.openxmlformats.org/presentationml/2006/main"
+    sld = Element(f"{{{p_ns}}}sld")
+    c_sld = SubElement(sld, f"{{{p_ns}}}cSld")
+    sp_tree = SubElement(c_sld, f"{{{p_ns}}}spTree")
+    sp = SubElement(sp_tree, f"{{{p_ns}}}sp")
+    tx = SubElement(sp, f"{{{p_ns}}}txBody")
+    para = SubElement(tx, f"{{{a_ns}}}p")
+    r = SubElement(para, f"{{{a_ns}}}r")
+    t = SubElement(r, f"{{{a_ns}}}t")
+    t.text = text
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as zf:
+        zf.writestr("ppt/slides/slide1.xml", tostring(sld, encoding="utf-8"))
+        zf.writestr(
+            "[Content_Types].xml",
+            '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"></Types>',
+        )
+    return buf.getvalue()
+
+
 class V14Tests(unittest.TestCase):
     def test_docx_preview(self) -> None:
         from octop.contrib.workbuddy.office_preview import office_preview
@@ -45,6 +67,16 @@ class V14Tests(unittest.TestCase):
             prev = office_preview(path)
             self.assertTrue(prev["ok"])
             self.assertIn("HelloDocx", str(prev["content"]))
+
+    def test_pptx_preview(self) -> None:
+        from octop.contrib.workbuddy.office_preview import office_preview
+
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "a.pptx"
+            path.write_bytes(_minimal_pptx("HelloPptx"))
+            prev = office_preview(path)
+            self.assertTrue(prev["ok"])
+            self.assertIn("HelloPptx", str(prev["content"]))
 
     def test_harbor_score_dry(self) -> None:
         from octop.contrib.workbuddy import console_server as cs

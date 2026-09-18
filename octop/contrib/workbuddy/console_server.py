@@ -90,7 +90,7 @@ def _task_detail(t: Any) -> dict[str, Any]:
 def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]] | None = None) -> dict[str, Any]:
     query = query or {}
     if path == "/api/health":
-        return {"ok": True, "auth_required": auth_required(), "v": 14}
+        return {"ok": True, "auth_required": auth_required(), "v": 15}
     if path in {"/api/status", "/api/hub"}:
         data = hub_status()
         if ctx is not None:
@@ -156,7 +156,7 @@ def api_payload(path: str, ctx: TenantContext | None, query: dict[str, list[str]
             "hint": "POST /api/harbor/dry-run",
         }
     if path == "/api/enterprise":
-        return {"ok": True, "v": 14, **enterprise_probe()}
+        return {"ok": True, "v": 15, **enterprise_probe()}
     if path == "/api/runtime":
         data = hub_status()
         return {

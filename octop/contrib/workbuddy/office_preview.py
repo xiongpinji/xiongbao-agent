@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-"""Lightweight Office text extract for preview (docx / xlsx via zip+xml)."""
+"""Lightweight Office text extract for preview (docx / xlsx / pptx via zip+xml)."""
 
 from __future__ import annotations
 
@@ -71,6 +71,31 @@ def extract_xlsx_text(path: Path | str) -> str:
     return "\n".join(lines)[:_MAX]
 
 
+def extract_pptx_text(path: Path | str) -> str:
+    p = Path(path)
+    parts: list[str] = []
+    with zipfile.ZipFile(p) as zf:
+        slides = sorted(
+            n
+            for n in zf.namelist()
+            if n.startswith("ppt/slides/slide") and n.endswith(".xml") and "/_rels/" not in n
+        )
+        for slide in slides[:30]:
+            parts.append(f"## {Path(slide).stem}")
+            root = ET.fromstring(zf.read(slide))
+            texts = [
+                (node.text or "")
+                for node in root.iter("{http://schemas.openxmlformats.org/drawingml/2006/main}t")
+            ]
+            chunk = "\n".join(t for t in texts if t.strip())
+            if not chunk:
+                chunk = _strip_text(zf.read(slide).decode("utf-8", errors="replace"))
+            parts.append(chunk)
+            if sum(len(x) for x in parts) > _MAX:
+                break
+    return "\n".join(parts)[:_MAX]
+
+
 def office_preview(path: Path | str) -> dict[str, str | bool]:
     p = Path(path)
     ext = p.suffix.lower()
@@ -81,6 +106,9 @@ def office_preview(path: Path | str) -> dict[str, str | bool]:
         if ext == ".xlsx":
             content = extract_xlsx_text(p)
             return {"ok": True, "format": "text", "content_type": "text/plain", "content": content or "(empty xlsx)"}
+        if ext == ".pptx":
+            content = extract_pptx_text(p)
+            return {"ok": True, "format": "text", "content_type": "text/plain", "content": content or "(empty pptx)"}
     except (OSError, zipfile.BadZipFile, ET.ParseError) as exc:
         return {"ok": False, "format": "text", "content_type": "text/plain", "content": "", "error": str(exc)}
     return {"ok": False, "format": "text", "error": f"unsupported office type: {ext}"}

@@ -17,6 +17,7 @@
 | V12 | Web 三栏用户壳 + Task/Workspace/Skills API + verify_v12 | ✅ |
 | V13 | 附件上传 / 富预览 / Enterprise 状态 / Harbor dry-run + verify_v13 | ✅ |
 | V14 | Casdoor+Milvus 本地联调 / docx·xlsx 预览 / Harbor score + verify_v14 | ✅ |
+| V15 | Casdoor OIDC 换发联调 / pptx 预览 / Harbor live 评分 | ✅ |
 
 ## 产品边界（无法像素级复制）
 

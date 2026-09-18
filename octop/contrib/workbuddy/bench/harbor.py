@@ -399,10 +399,27 @@ def harbor_score_entry(
     bash_bin = str(git_bash) if git_bash.is_file() else bash
     if not bash_bin:
         return {"ok": False, "error": "bash not found", "probe": probe}
+    scripts_dir = str(py.parent)
+    scripts_posix = Path(scripts_dir).as_posix()
     wrapper = (
+        f'export PATH="{scripts_posix}:$PATH"; '
         f'python3() {{ "{py.as_posix()}" "$@"; }}; export -f python3; '
         f'cd "{bench.as_posix()}" && bash ./scripts/run.sh --job {job}'
     )
+    env = os.environ.copy()
+    env.setdefault("AUTO_BUILD_HARNESS_MOUNT", "1")
+    # Prefer WorkBuddy LLM settings when OpenAI-compat vars unset
+    if env.get("WB_LLM_BASE_URL") and not env.get("OPENAI_BASE_URL"):
+        env["OPENAI_BASE_URL"] = env["WB_LLM_BASE_URL"]
+    if env.get("WB_LLM_MODEL") and not env.get("OPENAI_MODEL"):
+        env["OPENAI_MODEL"] = env["WB_LLM_MODEL"]
+    # Ensure harbor.exe (venv Scripts) is on PATH for sharded_eval Popen
+    scripts_dir = str(py.parent)
+    path_key = "Path" if "Path" in env and "PATH" not in env else "PATH"
+    prev = env.get(path_key) or env.get("PATH") or ""
+    if scripts_dir not in prev.split(os.pathsep):
+        env[path_key] = scripts_dir + os.pathsep + prev
+        env["PATH"] = env[path_key]
     try:
         proc = subprocess.run(
             [bash_bin, "-lc", wrapper],
@@ -411,6 +428,7 @@ def harbor_score_entry(
             text=True,
             timeout=timeout,
             check=False,
+            env=env,
         )
     except (FileNotFoundError, subprocess.TimeoutExpired, OSError) as exc:
         return {"ok": False, "error": str(exc), "probe": probe}
