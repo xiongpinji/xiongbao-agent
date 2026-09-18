@@ -31,7 +31,12 @@
 7. **CDP 录制 + UI 回放** — `cdp-record` / `--cdp-replay`（Chrome 9222）
 8. **Connectors** — Notion 读页、飞书 webhook 外发（`--outbound` + 环境变量门禁）
 
-延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API。
+**V3（已完成 MVP）**
+
+1. **Goal / Craft** — 自然语言目标 → 规划 → 执行 → 逐条验收 → 失败重试
+2. **CLI** — `goal_cli demo|plan|run|list`
+
+延后：企业版 Casdoor / Milvus / systemd；飞书开放平台 chat API；SkillHub 运行时全量绑定。
 
 ## 目录要点
 
@@ -154,6 +159,16 @@ python -S -m octop.contrib.workbuddy.teach_cli --root artifacts\teach_routine ti
 ```
 
 详见 `DELIVERABLE.md`。
+
+## V3 Goal / Craft
+
+```powershell
+python -S tests\contrib\workbuddy\test_goal_craft.py
+python -S -m octop.contrib.workbuddy.goal_cli demo
+python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并通知飞书" --approve-all
+```
+
+流程：规划 steps+验收标准 → LiveStepRunner 执行 → 逐条验收 → 失败可重试。
 
 ## 转换专家（如需重跑）
 

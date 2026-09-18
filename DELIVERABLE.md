@@ -152,6 +152,28 @@ python -S -m octop.contrib.workbuddy.team.live_cli --expert StockPartnerTeam --m
 
 Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `WB_LLM_API_KEY`.
 
+### Goal / Craft + 逐条验收（V3 MVP）
+
+自然语言目标 → 规则规划 steps + criteria → LiveStepRunner 执行 → 验收器逐条检查 → 失败可重试。
+
+```powershell
+python -S tests\contrib\workbuddy\test_goal_craft.py
+# → ALL GOAL/CRAFT TESTS OK
+
+python -S -m octop.contrib.workbuddy.goal_cli demo
+python -S -m octop.contrib.workbuddy.goal_cli plan --goal "写入 weekly.md 并通知飞书"
+python -S -m octop.contrib.workbuddy.goal_cli run --goal "写入 report.md 并通知飞书" --approve-all
+```
+
+| Check | Result |
+|---|---|
+| 规则规划 write + message + criteria | OK |
+| file_exists / file_contains / outbox_message / step_ok | OK |
+| GoalEngine 端到端 accepted | OK |
+| 缺审批时 error 拦截 | OK |
+
+验收种类：`file_exists`、`file_contains`、`outbox_message`、`step_ok`。高风险步骤需 `--approve-all` 或 `--approve step:N`。
+
 ## Out of scope (later)
 
 - 常驻 APScheduler 进程（可用系统 cron + `tick` 替代）
@@ -159,3 +181,5 @@ Env: `WB_LLM_BASE_URL` (default `http://127.0.0.1:11434/v1`), `WB_LLM_MODEL`, `W
 - Live LLM scoring on Harbor office/code/web/sec subsets
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
 - Feishu open-platform chat API（当前 MVP 仅自定义机器人 webhook）
+- Goal LLM 规划润色（当前 rules；可接 WB_LLM_*）
+- SkillHub 全量运行时接入（vendor 资产已在，执行绑定未做）
