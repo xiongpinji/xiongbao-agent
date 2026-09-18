@@ -604,8 +604,8 @@
         const c = ent.casdoor || {};
         const m = ent.milvus || {};
         const chip = document.getElementById("entChip");
-        const cOk = c.configured ? (c.reachable === false ? "SSO 异常" : "SSO 正常") : "SSO 未配";
-        const mOk = m.configured ? (m.reachable === false ? "向量异常" : "向量正常") : "向量未配";
+        const cOk = c.configured ? (c.reachable === false ? "SSO 未连通" : "SSO 正常") : "SSO 未配";
+        const mOk = m.configured ? (m.reachable === false ? "向量未连通" : "向量正常") : "向量未配";
         chip.textContent = cOk + " · " + mOk;
         chip.className = "chip " + ((c.reachable === false || m.reachable === false) ? "warn" : (c.configured || m.configured ? "ok" : "muted"));
         chip.title = JSON.stringify({ casdoor: c, milvus: m });

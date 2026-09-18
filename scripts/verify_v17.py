@@ -85,6 +85,33 @@ class V17HumanizeTests(unittest.TestCase):
             self.assertNotIn("[dry-run]", texts)
             self.assertNotIn("planned", texts.lower())
 
+    def test_live_writes_into_task_workspace(self) -> None:
+        from octop.contrib.workbuddy.runtime.task_runner import run_task
+        from octop.contrib.workbuddy.security import PolicyStore, SecurityPolicy
+        from octop.contrib.workbuddy.task import TaskStore
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tasks = Path(tmp) / "tasks"
+            goals = Path(tmp) / "goals"
+            store = TaskStore(tasks)
+            rec = store.create("write hello", prompt="写一个 hello.md", mode="craft")
+            policy = Path(tmp) / "policy.json"
+            PolicyStore(policy).save(SecurityPolicy(default_mode="craft"))
+            result = run_task(
+                rec.task_id,
+                tasks_root=tasks,
+                goals_root=goals,
+                policy_path=policy,
+                kb_root=None,
+                dry_run=False,
+            )
+            self.assertTrue(result.ok)
+            out = tasks / rec.task_id / "workspace" / "files" / "hello.md"
+            self.assertTrue(out.is_file(), out)
+            texts = " ".join(m.content for m in store.get(rec.task_id).messages)
+            self.assertIn("hello.md", texts)
+            self.assertNotIn("goal run", texts.lower())
+
     def test_task_delete(self) -> None:
         from octop.contrib.workbuddy.task import TaskStore
 

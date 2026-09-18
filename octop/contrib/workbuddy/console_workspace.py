@@ -57,6 +57,8 @@ def list_files(task_dir: Path, *, limit: int = 200) -> list[dict[str, Any]]:
             continue
         if p.name.startswith("."):
             continue
+        if p.name in {"live_steps.jsonl"}:
+            continue
         st = p.stat()
         rows.append(
             {
@@ -144,6 +146,7 @@ def workspace_payload(task_dir: Path, record: dict[str, Any] | None = None) -> d
         for f in files
         if f["path"] != "task.json"
         and not f["path"].startswith("messages")
+        and not f["path"].endswith("live_steps.jsonl")
         and (
             f["ext"]
             in {
@@ -162,8 +165,10 @@ def workspace_payload(task_dir: Path, record: dict[str, Any] | None = None) -> d
                 ".svg",
                 ".gif",
                 ".webp",
+                ".txt",
             }
             or f["path"].startswith("attachments/")
+            or f["path"].startswith("workspace/")
             or f["ext"] in {".docx", ".xlsx", ".pptx"}
         )
     ]

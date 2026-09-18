@@ -7,6 +7,7 @@ import json
 import os
 import urllib.error
 import urllib.request
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
@@ -15,7 +16,22 @@ def _env(name: str) -> str:
     return (os.environ.get(name) or "").strip()
 
 
+def _in_docker() -> bool:
+    return Path("/.dockerenv").is_file()
+
+
+def _dockerize_loopback(url: str) -> str:
+    """Inside containers, 127.0.0.1 points at the container itself — rewrite to host gateway."""
+    if not url or not _in_docker():
+        return url
+    for host in ("127.0.0.1", "localhost"):
+        if f"://{host}" in url or url.startswith(f"{host}:"):
+            return url.replace(host, "host.docker.internal", 1)
+    return url
+
+
 def _http_probe(url: str, *, token: str = "", timeout: float = 3.0) -> tuple[bool | None, str]:
+    url = _dockerize_loopback(url)
     try:
         req = urllib.request.Request(url, method="GET")
         req.add_header("User-Agent", "xiongbao-enterprise-probe/1")
@@ -29,7 +45,7 @@ def _http_probe(url: str, *, token: str = "", timeout: float = 3.0) -> tuple[boo
 
 
 def casdoor_status() -> dict[str, Any]:
-    endpoint = _env("OCTOP_CASDOOR_ENDPOINT")
+    endpoint = _dockerize_loopback(_env("OCTOP_CASDOOR_ENDPOINT"))
     client_id = _env("OCTOP_CASDOOR_CLIENT_ID")
     configured = bool(endpoint and client_id)
     reachable: bool | None = None
@@ -77,7 +93,7 @@ def _milvus_candidates(uri: str) -> list[str]:
 
 
 def milvus_status() -> dict[str, Any]:
-    uri = _env("OCTOP_MILVUS_URI")
+    uri = _dockerize_loopback(_env("OCTOP_MILVUS_URI"))
     configured = bool(uri)
     reachable: bool | None = None
     detail = ""

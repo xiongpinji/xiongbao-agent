@@ -130,16 +130,29 @@ def run_task(
             },
         )
 
-    # live path
+    # live path — write into the task workspace so the Results panel can see files
     store.set_status(task_id, "running")
     store.append_message(task_id, "assistant", "已开始执行，请稍候…")
+    task_dir = store._dir(task_id)
+    work = task_dir / "workspace"
+    work.mkdir(parents=True, exist_ok=True)
     gstore = GoalStore(goals_root)
     engine = GoalEngine(gstore)
     approvals = {"all"} if approve_all else set()
-    run = engine.run(goal, mode="live", approvals=approvals)
+    run = engine.run(goal, mode="live", approvals=approvals, work_dir=work)
     store.link_goal(task_id, run.id)
     final_status = "completed" if run.status == "accepted" else "failed"
     store.set_status(task_id, final_status)
+
+    produced: list[str] = []
+    if work.is_dir():
+        for p in sorted(work.rglob("*")):
+            if not p.is_file():
+                continue
+            if p.name in {"live_steps.jsonl"}:
+                continue
+            produced.append(p.relative_to(task_dir).as_posix())
+
     store.add_result(
         task_id,
         {
@@ -147,10 +160,17 @@ def run_task(
             "run_id": run.id,
             "status": run.status,
             "error": run.error or "",
+            "work_dir": str(work),
+            "artifacts": produced[:40],
         },
     )
     if run.status == "accepted":
-        user_msg = "执行完成。可在右侧查看产物与预览。"
+        if produced:
+            preview = "、".join(produced[:5])
+            more = f" 等 {len(produced)} 个文件" if len(produced) > 5 else ""
+            user_msg = f"执行完成，已生成：{preview}{more}。可在右侧查看产物与预览。"
+        else:
+            user_msg = "执行完成，但任务目录下暂无新文件。可在右侧「变更」查看执行记录。"
     else:
         err = (run.error or run.status or "未知错误").strip()
         user_msg = f"执行未成功：{err}"
@@ -167,6 +187,7 @@ def run_task(
             "policy": gate.to_dict(),
             "goal_status": run.status,
             "user_message": user_msg,
+            "artifacts": produced[:40],
         },
         error=run.error or "",
     )
