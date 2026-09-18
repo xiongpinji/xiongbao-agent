@@ -120,8 +120,9 @@ def test_connector_catalog_and_extended_gate() -> None:
 def test_enterprise_probe_shape() -> None:
     data = enterprise_probe()
     assert "casdoor" in data and "milvus" in data
-    assert data["casdoor"]["wired"] is False
-    assert data["milvus"]["wired"] is False
+    assert data["casdoor"]["wired"] is True
+    assert data["milvus"]["wired"] is True
+    assert "client" in data["casdoor"] and "client" in data["milvus"]
 
 
 def test_builtin_skills_in_default_catalog() -> None:

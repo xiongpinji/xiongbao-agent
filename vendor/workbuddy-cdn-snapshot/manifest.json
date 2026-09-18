@@ -1,0 +1,20 @@
+﻿[
+    {
+        "status":  "ok",
+        "url":  "https://www.codebuddy.cn/docs/workbuddy/Overview",
+        "name":  "overview.html",
+        "bytes":  48251
+    },
+    {
+        "status":  "ok",
+        "url":  "https://www.codebuddy.cn/docs/workbuddy/Skills",
+        "name":  "skills.html",
+        "bytes":  4061
+    },
+    {
+        "status":  "ok",
+        "url":  "https://raw.githubusercontent.com/Tencent/workbuddy-bench/main/README.md",
+        "name":  "bench_readme.md",
+        "bytes":  5959
+    }
+]

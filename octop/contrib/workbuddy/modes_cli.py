@@ -45,6 +45,7 @@ def cmd_assemble(args: argparse.Namespace) -> int:
         durable_memory=durable,
         model_name=args.model or "local",
         extra=args.extra or "",
+        use_official_tpl=bool(args.official_tpl),
     )
     payload = {
         **assembled.to_dict(),
@@ -92,6 +93,11 @@ def build_parser() -> argparse.ArgumentParser:
     a.add_argument("--extra", default="")
     a.add_argument("--max-chars", type=int, default=8000)
     a.add_argument("--write", default=None, help="Write full system prompt to path")
+    a.add_argument(
+        "--official-tpl",
+        action="store_true",
+        help="Render vendor workbuddy-*.tpl via nunjucks_lite",
+    )
     a.set_defaults(func=cmd_assemble)
 
     c = sub.add_parser("check", help="Show mode write permissions")

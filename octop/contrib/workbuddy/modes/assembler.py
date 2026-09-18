@@ -1,16 +1,24 @@
 # SPDX-License-Identifier: MIT
 """Ask / Plan / Craft work modes — WorkBuddy parity (stdlib assembler).
 
-Does not render full vendor Nunjucks templates (copyright / size). Instead
-mirrors the architecture: identity + expert role override + memory + mode gate.
+Default path: layered identity + expert + memory + mode gate.
+Optional ``use_official_tpl=True`` renders vendor Nunjucks ``.tpl`` via
+``templates.nunjucks_lite``.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Literal
 
 WorkMode = Literal["ask", "plan", "craft"]
+
+_OFFICIAL_TPL = {
+    "ask": "workbuddy-ask-prompt.tpl",
+    "plan": "workbuddy-prompt.tpl",
+    "craft": "workbuddy-prompt.tpl",
+}
 
 _MODE_REMINDERS: dict[WorkMode, str] = {
     "ask": (
@@ -65,9 +73,42 @@ def assemble_system_prompt(
     durable_memory: str = "",
     model_name: str = "local",
     extra: str = "",
+    use_official_tpl: bool = False,
+    templates_root: Path | str | None = None,
 ) -> AssembledPrompt:
     """Build a system prompt with WorkBuddy-like layering."""
     mode_n = normalize_mode(mode if isinstance(mode, str) else mode)
+
+    if use_official_tpl:
+        from ..templates.nunjucks_lite import default_templates_root, render_file
+
+        root = Path(templates_root) if templates_root else default_templates_root()
+        tpl_name = _OFFICIAL_TPL.get(mode_n, "workbuddy-prompt.tpl")
+        tpl_path = root / tpl_name
+        if tpl_path.is_file():
+            ctx = {
+                "modelName": model_name or "local",
+                "SoulContent": soul,
+                "UserContent": user_profile,
+                "WorkingMemoryContent": working_memory,
+                "UserMemoryContent": durable_memory,
+                "SoulPath": "SOUL.md",
+                "UserPath": "USER.md",
+                "IdentityPath": "IDENTITY.md",
+                "BootstrapPath": "BOOTSTRAP.md",
+                "BootstrapContent": "",
+                "IdentityContent": "",
+                "WorkspaceIdentityMode": "active" if (soul.strip() or user_profile.strip()) else "",
+                "dataFolderName": ".workbuddy",
+                "ClawMemory_1": expert_prompt,
+            }
+            rendered = render_file(tpl_path, ctx)
+            if extra.strip():
+                rendered = rendered.rstrip() + "\n\n" + extra.strip()
+            if mode_n == "plan" and "<plan_mode>" not in rendered:
+                rendered = rendered.rstrip() + "\n\n" + _MODE_REMINDERS["plan"]
+            return AssembledPrompt(mode=mode_n, system=rendered, sections=["official_tpl", tpl_name])
+
     sections: list[str] = []
 
     sections.append(f"this conversation is powered by {model_name or 'local'}")

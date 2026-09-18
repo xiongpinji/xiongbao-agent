@@ -62,35 +62,45 @@
 7. **企业软探测** — `enterprise_cli probe`
 8. **一键验收** — `scripts/verify_all.py`
 
-延后：Casdoor/Milvus JWT/RAG 接线；Harbor 全量 Docker verifier。
+**V7（全量对齐）**
+
+1. **官方 tpl** — `nunjucks_lite` + `--official-tpl`
+2. **Harbor Docker 桥** — `harbor_cli`（status / validate / build-smoke）
+3. **四子集齐全** — office/code/web/sec
+4. **Casdoor JWT + Milvus REST** — 企业客户端
+5. **项目空间 / Office 产物 / 审计**
+6. **SMTP + webhook**
+7. **Compose 7×24** — `deploy/docker-compose.workbuddy.yml`
+8. **验收** — `scripts/verify_full.py`
+
+边界：闭源 Electron / 腾讯云 SaaS 不复制；UI → Octop Dashboard；托管 → Compose/systemd。
 
 ## 目录要点
 
 ```
 octop/
-  contrib/workbuddy/          # wb2octop + team + bench + teach + routine
+  contrib/workbuddy/          # wb2octop + team + bench + teach + routine + V7
   src/octop/.../library/      # 转换后的专家包
 vendor/
   workbuddy-experts/
   workbuddyskills/
-  workbuddy-bench/            # 官方评测框架（浅克隆）
+  workbuddy-bench/            # 官方评测框架 + 四子集数据集
+  workbuddy-cdn-snapshot/
   RongXinAI/
 tests/contrib/workbuddy/
-scripts/verify_v1.py
-scripts/verify_v4.py
-scripts/verify_v5.py
-scripts/verify_all.py          # V6 一键总验收
+scripts/verify_all.py
+scripts/verify_full.py         # V7 全量验收
 scripts/fetch_bench_subsets.ps1
-artifacts/bench/              # 评测输出（gitignore）
-artifacts/teach_routine/      # Teach/Routine demo 输出
-TASKBOARD.md                  # WorkBuddy 差距看板
+scripts/fetch_cdn_snapshot.ps1
+deploy/docker-compose.workbuddy.yml
+TASKBOARD.md
 ```
 
 ## 快速验证（Windows / 无 pytest）
 
 ```powershell
 cd "D:\AI编程库\项目库\进行中的项目\xiongbao agent"
-python -S scripts\verify_all.py
+python -S scripts\verify_full.py
 ```
 
 等价分步：

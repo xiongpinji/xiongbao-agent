@@ -421,6 +421,12 @@ def probe_status() -> dict[str, Any]:
         base["extended"] = probe_extended_status()
     except Exception as exc:  # noqa: BLE001
         base["extended"] = {"error": str(exc)}
+    try:
+        from .messaging import probe_messaging_status
+
+        base["messaging"] = probe_messaging_status()
+    except Exception as exc:  # noqa: BLE001
+        base["messaging"] = {"error": str(exc)}
     return base
 
 
@@ -431,23 +437,45 @@ def resolve_message(
     feishu: FeishuConnector | None = None,
     require_outbound_flag: bool = True,
 ) -> ConnectorResult | None:
-    """If target is Feishu / DingTalk / WeCom, send; else None."""
+    """If target is Feishu / DingTalk / WeCom / email / webhook, send; else None."""
+    result: ConnectorResult | None = None
     t = target.strip().lower()
     if t.startswith("feishu:") or t.startswith("lark:"):
         client = feishu or FeishuConnector()
-        return client.send_text(
+        result = client.send_text(
             text,
             require_outbound_flag=require_outbound_flag,
             target=target,
         )
-    try:
-        from .extended import resolve_message_extended
+    else:
+        try:
+            from .extended import resolve_message_extended
 
-        ext = resolve_message_extended(
-            target, text, require_outbound_flag=require_outbound_flag
-        )
-        if ext is not None:
-            return ext
-    except Exception:
-        pass
-    return None
+            result = resolve_message_extended(
+                target, text, require_outbound_flag=require_outbound_flag
+            )
+        except Exception:
+            result = None
+        if result is None:
+            try:
+                from .messaging import resolve_message_messaging
+
+                result = resolve_message_messaging(
+                    target, text, require_outbound_flag=require_outbound_flag
+                )
+            except Exception:
+                result = None
+    if result is not None:
+        try:
+            from ..audit import get_audit_log
+
+            get_audit_log().emit(
+                "connector.send",
+                target=target,
+                provider=result.provider,
+                ok=result.ok,
+                error=result.error,
+            )
+        except Exception:
+            pass
+    return result

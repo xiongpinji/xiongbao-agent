@@ -39,7 +39,8 @@ def casdoor_status() -> dict[str, Any]:
         "secret_set": bool(_env("OCTOP_CASDOOR_CLIENT_SECRET")),
         "reachable": reachable,
         "detail": detail,
-        "wired": False,  # soft probe only — JWT middleware not replaced
+        "wired": True,  # JWT verify client available via enterprise.casdoor
+        "client": "octop.contrib.workbuddy.enterprise.casdoor",
     }
 
 
@@ -70,7 +71,8 @@ def milvus_status() -> dict[str, Any]:
         "collection": _env("OCTOP_MILVUS_COLLECTION") or "",
         "reachable": reachable,
         "detail": detail,
-        "wired": False,  # soft probe only — RAG path not required
+        "wired": True,  # REST client available via enterprise.milvus
+        "client": "octop.contrib.workbuddy.enterprise.milvus",
     }
 
 

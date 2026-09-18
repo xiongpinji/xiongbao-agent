@@ -6,33 +6,35 @@
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
-| V1 | wb2octop / Team / smoke-50 / 本地 LLM | ✅ |
-| V2 | Teach→Routine / cron tick / CDP / Notion+飞书 webhook | ✅ |
-| V3 | Goal/Craft / SkillHub prompt 绑定 / Goal `--llm` / 飞书 open API | ✅ |
-| V4 | 脚本沙箱 / Goal `--skill` / outbox retry / verify_v4 | ✅ |
-| V5.1 | Windows 计划任务 `tick` 示例 | ✅ |
-| V5.2 | Office 题库拉取 + **llm_lite** 本地评分（无 Docker Harbor） | ✅ |
-| V5.3 | systemd 单元 + Casdoor/Milvus **文档门禁** | ✅ |
-| V6.1 | Ask / Plan / Craft 模式装配器 + CLI | ✅ |
-| V6.2 | 工作区 SOUL/USER/MEMORY 注入 Team/Goal | ✅ |
-| V6.3 | 钉钉/企微 webhook + 103 连接器目录 CLI | ✅ |
-| V6.4 | 专家自动路由（tags/关键词） | ✅ |
-| V6.5 | Bench 全子集 list + `fetch_bench_subsets.ps1` | ✅ |
-| V6.6 | builtin-skills 进 SkillHub | ✅ |
-| V6.7 | Casdoor/Milvus 软探测 stub | ✅ |
-| V6.8 | `scripts/verify_all.py` 一键验收 | ✅ |
+| V1–V5 | 专家 / Team / Teach·Routine / Goal·Craft / SkillHub / Office llm_lite / systemd | ✅ |
+| V6 | Ask·Plan·Craft / 记忆 / 钉钉企微 / 路由 / bench 子集 / builtin / 软探测 / verify_all | ✅ |
+| **V7.1** | 官方 Nunjucks `.tpl` → `nunjucks_lite` + `--official-tpl` | ✅ |
+| **V7.2** | Harbor Docker 桥（status / validate / build-smoke） | ✅ |
+| **V7.3** | sec 子集拉取（60 题） | ✅ |
+| **V7.4** | Casdoor JWT 校验 + Milvus REST RAG 客户端 | ✅ |
+| **V7.5** | 项目空间（共享目录 + Skill 沉淀） | ✅ |
+| **V7.6** | Office 产物管线（md/html/csv + 可选 docx/xlsx/pptx） | ✅ |
+| **V7.7** | SMTP 邮件 + 通用 webhook | ✅ |
+| **V7.8** | 审计 JSONL | ✅ |
+| **V7.9** | `deploy/docker-compose.workbuddy.yml` 7×24 | ✅ |
+| **V7.10** | CDN/docs 快照脚本 + 已拉取 | ✅ |
+| **V7.11** | `scripts/verify_full.py` | ✅ |
 
-## 后续（非阻塞）
+## 产品边界（无法像素级复制）
 
-1. 全量 Harbor Docker 评分（code/web/sec + office 官方 verifier）— 需 Docker 环境
-2. Casdoor / Milvus **JWT/RAG 运行时接线**（当前为 env 探测 + 文档约定）
+| 项 | 等价交付 |
+|---|---|
+| 腾讯 Electron / QClaw 桌面壳 | Octop Dashboard + CLI 全家桶 |
+| 腾讯云托管 SaaS | Docker Compose / systemd 私有化 7×24 |
+| 官方 Harbor 全量打分 CLI | Docker 桥 + 数据集齐全；完整 CLI 需本机 Python ≥3.12 + `uv sync` |
 
-## 工作方式
+## 验收
 
-- 每完成一项：测试绿 → commit → push → 立刻下一项
-- 不中途空等「下一步」确认
-- 不可逆/外发仍受 `WB_ALLOW_OUTBOUND` 门禁；不写真实密钥进仓库
+```powershell
+python -S scripts\verify_full.py
+# 可选：python -S scripts\verify_full.py --harbor-build
+```
 
 ## 看板
 
-见根目录 `TASKBOARD.md`。
+见 `TASKBOARD.md`。

@@ -1,0 +1,81 @@
+# WorkBuddy-aligned Octop stack (self-hosted 7×24)
+#
+# Usage:
+#   docker compose -f deploy/docker-compose.workbuddy.yml up -d
+#
+# Optional profiles:
+#   --profile casdoor   enable Casdoor SSO
+#   --profile milvus    enable Milvus vector DB
+#
+# Env file: copy to deploy/.env.workbuddy (DO NOT commit secrets)
+
+services:
+  octop:
+    image: python:3.12-slim
+    working_dir: /app/octop
+    volumes:
+      - ../:/app
+      - octop_data:/var/lib/octop
+    environment:
+      OCTOP_HOME: /var/lib/octop
+      PYTHONPATH: /app
+      WB_ALLOW_OUTBOUND: ${WB_ALLOW_OUTBOUND:-0}
+      WB_LLM_BASE_URL: ${WB_LLM_BASE_URL:-}
+      WB_LLM_MODEL: ${WB_LLM_MODEL:-}
+      OCTOP_CASDOOR_ENDPOINT: ${OCTOP_CASDOOR_ENDPOINT:-}
+      OCTOP_MILVUS_URI: ${OCTOP_MILVUS_URI:-}
+    command:
+      - bash
+      - -lc
+      - |
+        pip install -q -e . &&
+        python -m octop.cli run --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  tick:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ../:/app
+      - octop_data:/var/lib/octop
+    environment:
+      OCTOP_HOME: /var/lib/octop
+      PYTHONPATH: /app
+    entrypoint:
+      - bash
+      - -lc
+      - |
+        while true; do
+          python -S -m octop.contrib.workbuddy.routine.cron tick || true
+          sleep 60
+        done
+    restart: unless-stopped
+    depends_on:
+      - octop
+
+  casdoor:
+    profiles: ["casdoor"]
+    image: casbin/casdoor:latest
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+
+  milvus:
+    profiles: ["milvus"]
+    image: milvusdb/milvus:v2.4.15
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_USE_EMBED: "true"
+      COMMON_STORAGETYPE: local
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    volumes:
+      - milvus_data:/var/lib/milvus
+    restart: unless-stopped
+
+volumes:
+  octop_data:
+  milvus_data:

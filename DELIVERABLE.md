@@ -258,7 +258,7 @@ python -S -m octop.contrib.workbuddy.bench.cli --office --list-office --dry-samp
 python -S -m octop.contrib.workbuddy.bench.cli --office --live-llm --limit 3 --no-judge --pass-rate 0.3
 ```
 
-说明：`llm_lite` ≠ 官方 Harbor verifier；全量 Docker Harbor 仍属后续。
+说明：`llm_lite` 仍可用；Harbor Docker 桥见 V7。
 
 ## V6 — READY（Ask/Plan/Craft · 记忆 · 路由 · 连接器扩展 · verify_all）
 
@@ -288,9 +288,35 @@ python -S -m octop.contrib.workbuddy.connectors_cli list --limit 10
 python -S -m octop.contrib.workbuddy.goal_cli run --goal "写 x.md" --work-mode ask   # 应拒绝执行
 ```
 
-## Out of scope (later)
+## V7 — READY（全量对齐）
 
-- 常驻 APScheduler 进程（可用系统 cron / systemd timer + `tick` 替代）
-- Casdoor / Milvus **JWT/RAG 运行时接线**（软探测 + 文档门禁已就绪）
-- 全量 Harbor Docker 评分（code/web/sec + 官方 office verifier）
+```powershell
+python -S scripts\verify_full.py
+# → VERIFY FULL OK — WorkBuddy V7 full-parity board green
+```
+
+| Check | Result |
+|---|---|
+| 官方 `.tpl` `--official-tpl` | OK |
+| Harbor Docker 桥 status/report | OK |
+| office/code/web/sec 四子集 | OK（50/80/70/60） |
+| Casdoor JWT + Milvus REST 客户端 | OK |
+| 项目空间 / Office 产物 / 审计 | OK |
+| SMTP + webhook | OK |
+| `deploy/docker-compose.workbuddy.yml` | OK |
+| CDN docs 快照 | OK |
+
+```powershell
+python -S -m octop.contrib.workbuddy.modes_cli assemble --mode ask --official-tpl
+python -S -m octop.contrib.workbuddy.harbor_cli status
+python -S -m octop.contrib.workbuddy.project_cli --root artifacts/projects create demo
+python -S -m octop.contrib.workbuddy.office_cli --out artifacts/office_demo
+docker compose -f deploy/docker-compose.workbuddy.yml config
+```
+
+## Out of scope（产品边界）
+
+- 腾讯闭源 Electron / QClaw 桌面壳（UI → Octop Dashboard + CLI）
+- 腾讯云托管 SaaS（→ 私有化 Compose / systemd）
+- 官方 Harbor 全量 `uv run` 评分流水线（需本机 Python ≥3.12；Docker 桥与四子集已就绪）
 - Full 6-member live team on tiny local models (use `--max-members 0` with a stronger model)
