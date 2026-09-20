@@ -11,6 +11,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
+from fastapi.staticfiles import StaticFiles
 from scalar_fastapi import get_scalar_api_reference
 
 from octop.api.middleware.jwt_auth import install as install_jwt_auth
@@ -31,6 +32,29 @@ class _RouterMount:
 
 
 _NO_CACHE_DASHBOARD_NAMES = frozenset({"sw.js", "manifest.json", "index.html"})
+
+
+def _resolve_xiongbao_console_dir(cfg: Any) -> Path | None:
+    """Resolve the 熊宝 Agent UI directory; ``None`` if it cannot be located.
+
+    The default ``console_path`` (``contrib/workbuddy/console``) is relative to the
+    octop workspace root, which is the parent of the installed ``src/octop`` package.
+    """
+    if cfg is None:
+        return None
+    raw = Path(str(cfg.xiongbao.console_path))
+    candidates: list[Path] = []
+    if raw.is_absolute():
+        candidates.append(raw)
+    else:
+        # src/octop/api/app.py → src/octop/api → src/octop → src → octop (workspace root)
+        workspace_root = Path(__file__).resolve().parents[3]
+        candidates.append(workspace_root / raw)
+        candidates.append(Path.cwd() / raw)
+    for c in candidates:
+        if c.is_dir() and (c / "shell.html").is_file():
+            return c
+    return None
 
 
 def dashboard_cache_control(full_path: str) -> str | None:
@@ -154,6 +178,7 @@ def build_app(server: OctopServer) -> FastAPI:
         channels,
         chat,
         connectors,
+        credits,
         cron,
         desktop,
         envs,
@@ -186,9 +211,10 @@ def build_app(server: OctopServer) -> FastAPI:
         uploads,
         usage,
         users,
-        voice,
-        workspace,
-    )
+    voice,
+    workspace,
+    xb,
+)
     from octop.api.routers.filesystem import router as filesystem_router
     from octop.api.routers.observability import router as observability_router
     from octop.api.routers.providers import admin_router as admin_providers_router
@@ -251,6 +277,8 @@ def build_app(server: OctopServer) -> FastAPI:
             _RouterMount(proactive_care.router, "/api", ["proactive-care"]),
             _RouterMount(usage.router, "/api", ["usage"]),
             _RouterMount(usage.admin_router, "/api/admin", ["admin"]),
+            _RouterMount(credits.router, "/api", ["credits"]),
+            _RouterMount(credits.admin_router, "/api/admin", ["admin", "credits"]),
             _RouterMount(skill_packages.router, "/api", ["skill-packages"]),
             _RouterMount(skills.router, "/api", ["skills"]),
             _RouterMount(subagents.router, "/api", ["subagents"]),
@@ -262,6 +290,7 @@ def build_app(server: OctopServer) -> FastAPI:
             _RouterMount(ollama_models.router, "/api", ["ollama"]),
             _RouterMount(onnx_models.router, "/api", ["onnx"]),
             _RouterMount(plugins.router, "/api", ["plugins"]),
+            _RouterMount(xb.router, "/api", ["xiongbao"]),
         ],
     )
 
@@ -283,28 +312,75 @@ def build_app(server: OctopServer) -> FastAPI:
             )
 
     if enable_dashboard:
-        dashboard_dir = Path(__file__).parent.parent / "dashboard"
-        index_file = dashboard_dir / "index.html"
-        if index_file.exists():
+        cfg_local = cfg
+        mode = (getattr(cfg_local, "dashboard_mode", "legacy") if cfg_local else "legacy")
+        legacy_dashboard_dir = Path(__file__).parent.parent / "dashboard"
+        xb_console_dir = _resolve_xiongbao_console_dir(cfg_local) if mode == "xiongbao" else None
+
+        if mode == "xiongbao" and xb_console_dir is not None:
+            # 熊宝 Agent UI：挂静态资源 + 默认首页跳到 shell.html
+            app.mount(
+                "/console",
+                StaticFiles(directory=xb_console_dir, html=True),
+                name="xb-console",
+            )
+            shell_file = xb_console_dir / "shell.html"
+            ops_file = xb_console_dir / "ops.html"
+
+            @app.get("/", include_in_schema=False)
+            async def root_index() -> FileResponse:
+                return FileResponse(shell_file)
+
+            @app.get("/ops", include_in_schema=False)
+            async def root_ops() -> FileResponse:
+                if ops_file.is_file():
+                    return FileResponse(ops_file)
+                raise HTTPException(status_code=404, detail="ops.html not found")
 
             @app.get("/{full_path:path}", include_in_schema=False)
             async def spa_fallback(full_path: str) -> FileResponse:
-                if full_path.startswith(("api/", "ws/")):
+                # API 路径不能被 SPA fallback 截胡
+                if full_path.startswith(("api/", "ws/", "console/")):
                     raise HTTPException(status_code=404, detail="Not Found")
-
+                if full_path in {"shell.html", "ops.html"}:
+                    target = xb_console_dir / full_path
+                    if target.is_file():
+                        return FileResponse(target)
                 if full_path:
                     raw_path = Path(full_path)
-                    # Reject absolute paths and parent-dir references before
-                    # joining, so user input never drives a path expression.
                     if raw_path.is_absolute() or ".." in raw_path.parts:
-                        return _dashboard_fallback(index_file, full_path)
-                    candidate = (dashboard_dir / Path(*raw_path.parts)).resolve()
+                        return FileResponse(shell_file)
+                    candidate = (xb_console_dir / Path(*raw_path.parts)).resolve()
                     try:
-                        candidate.relative_to(dashboard_dir.resolve())
+                        candidate.relative_to(xb_console_dir.resolve())
                     except ValueError:
-                        return _dashboard_fallback(index_file, full_path)
+                        return FileResponse(shell_file)
                     if candidate.is_file():
-                        return _dashboard_response(candidate, full_path)
-                return _dashboard_fallback(index_file, full_path)
+                        return FileResponse(candidate)
+                return FileResponse(shell_file)
+        elif mode == "legacy":
+            index_file = legacy_dashboard_dir / "index.html"
+            if index_file.exists():
+
+                @app.get("/{full_path:path}", include_in_schema=False)
+                async def spa_fallback(full_path: str) -> FileResponse:
+                    if full_path.startswith(("api/", "ws/")):
+                        raise HTTPException(status_code=404, detail="Not Found")
+
+                    if full_path:
+                        raw_path = Path(full_path)
+                        # Reject absolute paths and parent-dir references before
+                        # joining, so user input never drives a path expression.
+                        if raw_path.is_absolute() or ".." in raw_path.parts:
+                            return _dashboard_fallback(index_file, full_path)
+                        candidate = (legacy_dashboard_dir / Path(*raw_path.parts)).resolve()
+                        try:
+                            candidate.relative_to(legacy_dashboard_dir.resolve())
+                        except ValueError:
+                            return _dashboard_fallback(index_file, full_path)
+                        if candidate.is_file():
+                            return _dashboard_response(candidate, full_path)
+                    return _dashboard_fallback(index_file, full_path)
+        # mode == "none" 或 dashboard 资源缺失 → 不挂任何静态 fallback，API-only
 
     return app
