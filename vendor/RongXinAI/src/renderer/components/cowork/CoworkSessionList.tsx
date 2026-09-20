@@ -1,4 +1,3 @@
-import { MessageCircle } from 'lucide-react';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -8,6 +7,7 @@ import {
   selectUnreadSessionIds,
 } from '../../store/selectors/coworkSelectors';
 import type { CoworkSessionSummary } from '../../types/cowork';
+import { ThemeBrandMascot } from '../brand/ThemeBrandMascot';
 import CoworkSessionItem from './CoworkSessionItem';
 
 interface CoworkSessionListProps {
@@ -103,7 +103,7 @@ const CoworkSessionList: React.FC<CoworkSessionListProps> = ({
     }
     return (
       <div className="flex flex-col items-center justify-center py-10 px-4">
-        <MessageCircle className="size-10 text-muted-foreground mb-3" />
+        <ThemeBrandMascot size={96} className="mb-4 opacity-70" />
         <p className="text-sm font-medium text-muted-foreground mb-1">
           {emptyLabel ?? i18nService.t('coworkNoSessions')}
         </p>

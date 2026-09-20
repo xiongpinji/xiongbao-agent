@@ -50,6 +50,8 @@ import { toAgentSidebarTaskNode } from './agentSidebar/useAgentSidebarState';
 import LoginButton from './LoginButton';
 import type { PrefetchableFeatureView } from './featureViewPrefetch';
 import { SidebarNavigationControls, type SidebarActiveView } from './SidebarNavigationControls';
+import { ThemeBrandLogo } from './brand/ThemeBrandLogo';
+import { CreditSummaryCard } from './credits';
 
 interface SidebarProps {
   onShowSettings: () => void;
@@ -400,16 +402,10 @@ const Sidebar: React.FC<SidebarProps> = ({
           <div className={cn('pt-3', workMode === WorkMode.Chat ? 'pb-0' : 'pb-3')}>
             <div className="draggable sidebar-header-drag h-8 flex items-center justify-between px-3">
               <div className={cn('flex items-center gap-2', isMac && 'pl-[68px]')}>
-                <img
-                  src="zhiyuan-logo-light.svg"
-                  alt="知远"
-                  className="logo-light h-5 w-auto select-none"
-                />
-                <img
-                  src="zhiyuan-logo-dark.svg"
-                  alt="知远"
-                  className="logo-dark h-5 w-auto select-none"
-                />
+                <ThemeBrandLogo size={20} className="shrink-0" />
+                <span className="text-sm font-semibold tracking-tight">
+                  {i18nService.t('app.name') || '熊宝'}
+                </span>
               </div>
               <ShellIconButton
                 onClick={onToggleCollapse}
@@ -603,12 +599,28 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="space-y-1 px-3 pb-3 pt-1">
               {updateEntry}
               {!hideLogin ? (
-                <LoginButton
-                  onShowSettings={() => {
-                    onPrefetchView?.('settings');
-                    onShowSettings();
-                  }}
-                />
+                <>
+                  {/* 熊宝 Agent · 积分余额（紧凑模式） */}
+                  <div className="mb-1.5">
+                    <CreditSummaryCard
+                      account={{
+                        balance: 1280,
+                        totalEarned: 5500,
+                        totalSpent: 4220,
+                        tier: 'pro',
+                        tierName: i18nService.t('credit.tierPro') || 'Pro',
+                      }}
+                      compact
+                      onViewHistory={() => onShowSettings()}
+                    />
+                  </div>
+                  <LoginButton
+                    onShowSettings={() => {
+                      onPrefetchView?.('settings');
+                      onShowSettings();
+                    }}
+                  />
+                </>
               ) : null}
             </div>
           )}

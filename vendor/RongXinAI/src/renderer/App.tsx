@@ -21,6 +21,7 @@ import type { SettingsOpenOptions } from './components/Settings';
 import { prefetchFeatureView } from './components/featureViewPrefetch';
 import { ParticleBootScreen } from './components/boot/ParticleBootScreen';
 import { LazyChunkErrorBoundary } from './components/LazyChunkErrorBoundary';
+import { EnhancementsDemo } from './components/EnhancementsDemo';
 import Sidebar from './components/Sidebar';
 import Toast from './components/Toast';
 import AppUpdateBadge from './components/update/AppUpdateBadge';
@@ -127,6 +128,7 @@ const App: React.FC = () => {
     | 'expert'
     | 'coding'
     | 'todo'
+    | 'enhancementsDemo'
   >('cowork');
   const [expertInitialTab, setExpertInitialTab] = useState<ExpertTab | undefined>(undefined);
   const [mcpOpenRegistryId, setMcpOpenRegistryId] = useState<McpRegistryId | undefined>();
@@ -779,6 +781,15 @@ const App: React.FC = () => {
       if (matchesShortcut(event, activeShortcuts.settings)) {
         event.preventDefault();
         handleShowSettings();
+        return;
+      }
+
+      // 开发演示快捷键：Ctrl+Shift+D 切换到 EnhancementsDemo
+      if (event.ctrlKey && event.shiftKey && (event.key === 'D' || event.key === 'd')) {
+        event.preventDefault();
+        setMainView(current =>
+          current === 'enhancementsDemo' ? 'cowork' : 'enhancementsDemo',
+        );
       }
     };
 
@@ -947,7 +958,7 @@ const App: React.FC = () => {
         <div className="flex flex-1 min-h-0 overflow-hidden">
           <Sidebar
             onShowSettings={handleShowSettings}
-            activeView={mainView}
+            activeView={mainView === 'enhancementsDemo' ? 'cowork' : mainView}
             onShowSkills={handleShowSkills}
             onShowCowork={handleShowCowork}
             onShowScheduledTasks={handleShowScheduledTasks}
@@ -1070,6 +1081,8 @@ const App: React.FC = () => {
                       onNewChat={handleNewChat}
                       updateBadge={null}
                     />
+                  ) : mainView === 'enhancementsDemo' ? (
+                    <EnhancementsDemo />
                   ) : mainView === 'localInference' ? null : (
                     <CoworkView
                       onRequestAppSettings={handleShowSettings}

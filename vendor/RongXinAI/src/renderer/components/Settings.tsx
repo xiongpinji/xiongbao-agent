@@ -126,6 +126,7 @@ import {
 import IMSettings from './im/IMSettings';
 import { EmailSettingsPage } from './settings/email/EmailSettingsPage';
 import { ManagedMemorySettings } from './settings/memory/ManagedMemorySettings';
+import { OctopBridgeSettings } from './settings/OctopBridgeSettings';
 import { GeneralLanguageField } from './settings/general/GeneralLanguageField';
 import {
   ProviderModelEditorDialog,
@@ -153,6 +154,7 @@ type TabType =
   | 'coworkAgent'
   | 'shortcuts'
   | 'im'
+  | 'octopBridge'
   | 'email'
   | 'about';
 type EnterpriseTabType = `extension:${string}`;
@@ -722,6 +724,7 @@ const Settings: React.FC<SettingsProps> = ({
   const imIconRef = useRef<SettingsAnimatedMessageCircleMoreIconHandle>(null);
   const appearanceIconRef = useRef<SettingsAnimatedSunMediumIconHandle>(null);
   const modelIconRef = useRef<SettingsAnimatedBoxIconHandle>(null);
+  const octopBridgeIconRef = useRef<SettingsAnimatedBoxIconHandle>(null);
   const prefersReducedMotion = useReducedMotion();
   const settingsIconRefs: Partial<Record<SettingsTabType, { current: AnimatedIconHandle | null }>> =
     {
@@ -729,6 +732,7 @@ const Settings: React.FC<SettingsProps> = ({
       appearance: appearanceIconRef,
       model: modelIconRef,
       im: imIconRef,
+      octopBridge: octopBridgeIconRef,
       email: emailIconRef,
       coworkMemory: memoryIconRef,
       shortcuts: shortcutsIconRef,
@@ -3084,6 +3088,11 @@ const Settings: React.FC<SettingsProps> = ({
         icon: <SettingsAnimatedMessageCircleMoreIcon ref={imIconRef} />,
       },
       {
+        key: 'octopBridge' as TabType,
+        label: i18nService.t('octopBridgeTab') ?? 'Octop 连接',
+        icon: <SettingsAnimatedBoxIcon ref={octopBridgeIconRef} />,
+      },
+      {
         key: 'email' as TabType,
         label: i18nService.t('emailTab'),
         icon: <SettingsAnimatedMailCheckIcon ref={emailIconRef} />,
@@ -5147,6 +5156,9 @@ const Settings: React.FC<SettingsProps> = ({
 
       case 'im':
         return <IMSettings />;
+
+      case 'octopBridge':
+        return <OctopBridgeSettings />;
 
       case 'about': {
         const update = appUpdateState;

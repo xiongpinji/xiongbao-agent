@@ -8,6 +8,7 @@ import { i18nService } from '../../services/i18n';
 import type { RootState } from '../../store';
 import { selectActivityRuns } from '../../store/selectors/activitySelectors';
 import type { ActivityRun } from '../../../shared/activity/types';
+import { ThemeBrandMascot } from '../brand/ThemeBrandMascot';
 import PageHeader from '../PageHeader';
 import ActivityRunRow from './ActivityRunRow';
 import { ActivityStatusFilter, ActivityTriggerFilter } from './constants';
@@ -142,9 +143,7 @@ const ActivityView: React.FC<ActivityViewProps> = ({
             {/* Feed */}
             {!hasAnyRun || dayGroups.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-                <div className="flex size-12 items-center justify-center rounded-full bg-muted">
-                  <Activity className="size-6 text-muted-foreground" aria-hidden="true" />
-                </div>
+                <ThemeBrandMascot size={120} className="mb-2 opacity-60" />
                 <p className="text-sm text-muted-foreground">
                   {i18nService.t(hasAnyRun ? 'activityFilterEmpty' : 'activityEmpty')}
                 </p>

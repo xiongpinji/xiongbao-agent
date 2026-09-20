@@ -65,6 +65,7 @@ import PermissionModeMenu from './PermissionModeMenu';
 import PromptPlusMenu from './PromptPlusMenu';
 import { ResumeTaskContextBadge } from './ResumeTaskContextBadge';
 import { usePersistAgentModelSelection } from './usePersistAgentModelSelection';
+import { VoiceInputButton } from '../voice/VoiceInputButton';
 
 // CoworkAttachment is aliased from the Redux-persisted DraftAttachment type
 // so that attachment state survives view switches (cowork ↔ skills, etc.)
@@ -1341,11 +1342,33 @@ const CoworkPromptInputInner = React.forwardRef<CoworkPromptInputRef, CoworkProm
                   )}
                 </div>
               )}
-            <PromptInputSubmit
-              disabled={sessionContextPending}
-              status={isStreaming ? 'streaming' : 'ready'}
-              onStop={isStreaming ? onStop : undefined}
-            />
+            <div className="ml-auto flex shrink-0 items-center gap-1">
+              <VoiceInputButton
+                size="sm"
+                lang="zh-CN"
+                continuous
+                onFinalTranscript={(text) => {
+                  if (!text.trim()) return;
+                  const current = controller.textInput.value;
+                  controller.textInput.setInput(
+                    current ? `${current} ${text}`.trim() : text,
+                  );
+                  textareaRef.current?.focus();
+                }}
+                onTranscript={(text) => {
+                  // 实时显示中间结果（仅预览，不提交）
+                  if (text && controller.textInput.value === '') {
+                    // 首次开始时 focus
+                    textareaRef.current?.focus();
+                  }
+                }}
+              />
+              <PromptInputSubmit
+                disabled={sessionContextPending}
+                status={isStreaming ? 'streaming' : 'ready'}
+                onStop={isStreaming ? onStop : undefined}
+              />
+            </div>
           </PromptInputFooter>
         </PromptInput>
         <SessionStatsLine messages={currentSession?.messages ?? []} />
