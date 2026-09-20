@@ -64,7 +64,7 @@ Tailwind 的语义颜色、字体、圆角和阴影映射到插件变量。页�
 | 次文本   | `text-secondary` / `text-muted-foreground`    | 辅助说明、时间戳、占位符、搜索无匹配结果及紧凑空态     |
 | 弱文本   | `text-muted`                                  | 禁用态、最次要信息                                     |
 | 边框     | `border` / `border-subtle`                    | 分隔线、控件描边                                       |
-| 强调     | `primary` / `primary-hover` / `primary-muted` / `primary-strong` | 唯一的品牌强调色（品牌蓝），用于主按钮、激活态、链接、focus ring；`primary-strong` 为按钮实色档，深色主题下保证白字 AA 对比度 |
+| 强调     | `primary` / `primary-hover` / `primary-muted` / `primary-strong` / `primary-foreground` | 唯一的品牌强调色；当前 Codex 主题为品牌蓝，熊宝（Xiongbao / Workbuddy）主题为玄金；用于主按钮、激活态、链接、focus ring；`primary-strong` 为按钮实色档，深色主题下保证文字 AA 对比度；`primary-foreground` 是按钮/激活态上的前景色 |
 | 状态     | `destructive` / `success` / `warning`         | 仅用于语义状态，不作装饰                               |
 | 技能着色 | `skill-blue`（`--zy-skill-blue-foreground/background`） | 已挂载技能胶囊（ActiveSkillBadge）的文字与 hover 底色；唯一的功能性蓝色例外，不推广到其他元素 |
 
@@ -82,7 +82,7 @@ Tailwind 的语义颜色、字体、圆角和阴影映射到插件变量。页�
 | `--zy-border` | `oklch(0.923 0.003 48.717)` | ≈ `#e7e5e4` |
 | `--zy-destructive` | `oklch(0.577 0.245 27.325)` | ≈ `#ef4444` |
 
-> 品牌蓝取自 logo 圆点采样值 `#1376FE`，为满足白字 WCAG AA（4.5:1）微调明度至 `#0F6BF2`。深色主题中 `primary` 提亮为 `oklch(0.68 0.18 259)` 保证文字/图标可读性，实色按钮仍用 `primary-strong`（明暗同值）。
+> 品牌强调色由主题包决定（Codex 为品牌蓝，Xiongbao / Workbuddy 为玄金）。Codex 蓝取自 logo 圆点采样值 `#1376FE`，为满足白字 WCAG AA（4.5:1）微调明度至 `#0F6BF2`；深色主题中 `primary` 提亮为 `oklch(0.68 0.18 259)` 保证文字/图标可读性，实色按钮仍用 `primary-strong`（明暗同值）。Xiongbao 色板见下文"主题包：熊宝"章节。
 >
 > `foreground`、`text-primary` 同值（`rgb(60,63,67)`，冷灰偏蓝），是 2026-07-28 验收后确定的统一文本主色。
 
@@ -99,6 +99,108 @@ Tailwind 的语义颜色、字体、圆角和阴影映射到插件变量。页�
 3. **层级公式：** 背景每浮起一层（background → surface → surface-raised → overlay），明暗差异缩小一档；不要跳档制造高反差色块。
 4. 明暗主题共用同一套 token 名，组件代码不得出现 `dark:` 前缀的单独配色——差异必须由主题 token 或组件 recipe 提供。遮罩、导航悬停叠色和透明度也属于主题外观，不作为局部配色例外。
 5. **搜索空结果使用次文本。** 关键词无匹配、无可选项等紧凑空态使用 `text-sm text-muted-foreground`，不使用主文本、状态色或额外边框；完整空状态页面再按空状态组件规范处理。
+
+## 主题包：熊宝（Xiongbao / Workbuddy）
+
+熊宝主题把品牌符号"川剧变脸熊猫"翻译为一套玄金 + 朱砂红的中式暖色板，覆盖浅色与深色两种外观。Codex 主题（默认）继续走中性灰 + 品牌蓝，两个主题共用同一套 token 名字与组件 recipe，仅在主题包内替换具体值。本节只描述熊宝特有的视觉决策；通用规则仍由上节"色彩"约束。
+
+### 品牌色角色
+
+| 角色 | 取值 | 用途 | 备注 |
+|------|------|------|------|
+| 玄金（primary） | `#FFC107` / `#8A6508` | 唯一强调色：主按钮、激活态、链接、focus ring、左侧金色指示条 | 暗色主题使用饱和亮金（`#FFC107`），浅色主题改用深古金（`#8A6508`）保证白字 AA 4.5:1 |
+| 古金（antique-gold） | `#D4A85A` / `#6E5224` | 次强调：技能胶囊、次级 hover、tag 标签 | 与玄金形成"主-次"层级，避免单一金色铺满 |
+| 朱砂红（brand red） | `#FF4444` / `#C53030` | 危险 / 品牌强调 destructive | 暗色提亮、浅色加深，AA 4.5:1 通过 |
+| 成功（success） | `#34C759` / `#1F7A38` | 成功状态、增量标记 | 浅色加深避免与背景混淆 |
+| 警告（warning） | `#FF9500` / `#8A4A00` | 警告状态 | 浅色加深 |
+| 品牌蓝（brand blue） | `#4B7BF5` / `#2E5BD9` | 图表第 5 色 / 链接补充 | 仅作辅色，不参与按钮 |
+| 主前景（primary-foreground） | `#1A1208` / `#FFFFFF` | 玄金实色按钮上的文字 | 暗色：深棕字配亮金；浅色：白字配深古金 |
+
+### 画布与层级
+
+| 角色 | 暗（玄金） | 浅（绢白） | 用途 |
+|------|-----------|-----------|------|
+| `background` | `#0F1115`（玄漆黑） | `#FAFAF7`（绢白） | 应用底层画布 |
+| `surface` | `#242529`（朱漆面） | `#FFFFFF`（宣纸） | 卡片 / 弹层底色 |
+| `surface-raised` | `#2D2E33` | `#F5F5F0` | hover 态、侧边栏、开关轨道 |
+| `surface-tertiary` | `#2D2E33` | `#EBEBE5` | 第三层容器 |
+| `surface-overlay` | `#242529` | `#FFFFFF` | 下拉 / 弹窗 |
+| 主界面背景层 | `#1A1B1F`（漆面） | `#F2F1EC`（米黄） | 主题包 `background.color`，整体铺底 |
+| 侧边栏色 | `#1A1B1F` | `#F2F1EC` | 与背景同色，沿用漆面感 |
+| 文本主色 | `#F8FAFC` | `#1A1A1A` | `foreground` / `text-primary` |
+| 文本次色 | `#9DA0A5` | `#666666` | `text-muted` / `text-muted-foreground` |
+| 边框 | `rgba(255,255,255,0.10)` | `#E0DFD9` | `border` |
+| 边框弱 | `rgba(255,255,255,0.06)` | `#EBEAE4` | `border-subtle` |
+| 滚动条 thumb | `#3A3B40` | `#C7C5BD` | 暗色与 surface-raised 拉开一档 |
+| 滚动条 thumb hover | `#9DA0A5` | `#666666` | 与次文本同色 |
+
+层级公式与"色彩"章节保持一致：每浮起一档，明度差缩小一档。暗色主题的 surface 跨度为 `#0F1115 → #242529 → #2D2E33`（每档约 +12 ~ +14），浅色主题为 `#FAFAF7 → #FFFFFF → #F5F5F0 → #EBEBE5`。
+
+### 状态色对账
+
+| 状态 | 暗（玄金） | 浅（绢白） | 与 surface 对比度（最低） |
+|------|-----------|-----------|--------------------------|
+| success | `#34C759` | `#1F7A38` | 4.95 / 4.51 |
+| warning | `#FF9500` | `#8A4A00` | 5.20 / 6.40 |
+| destructive | `#FF7A6B` | `#C53030` | 4.55 / 5.10 |
+| primary 文字落在 surface 上 | — | — | 4.95 |
+
+以上对比度按 WCAG AA（4.5:1）测量，覆盖 `background`、`surface`、`surface-raised` 三种底色；`workbuddy.test.ts` 中 `Xiongbao text and primary actions retain AA contrast on their surfaces` 用例强制该表格在亮/暗下都不退步。
+
+### 圆角与字体
+
+| 维度 | 暗（玄金） | 浅（绢白） | 与 Codex 区别 |
+|------|-----------|-----------|----------------|
+| `radius` 基线 | `6px` | `6px` | Codex 默认 `8px`，熊宝收紧到 6px，营造"漆器"质感 |
+| `style-radius-sm/md/lg/xl/2xl/3xl` | 4 / 6 / 8 / 10 / 12 / 16 | 4 / 6 / 8 / 10 / 12 / 16 | 同上，缩放比例一致 |
+| heading 字体 | `"Songti SC", "STSong", "Noto Serif CJK SC", serif` | 同 | 正文仍走系统字体栈，仅 heading 切宋体，保持品牌字感 |
+| 卡片 hover 位移 | `translateY(-1px)` | `translateY(-1px)` | Codex 不位移；熊宝让卡片在 hover 时像贴在漆面下微微抬起 |
+
+### 组件特征
+
+- **侧边栏激活态 3px 玄金左竖条**：侧边栏菜单按钮选中时，左侧出现 3px 玄金实色指示条（`border-left: 3px solid var(--zy-primary)`），同时填充 `var(--zy-primary-muted)` 作为弱色底，`workbuddy.test.ts` 锁定该行为。
+- **流体指示条圆角收紧**：FluidTabs 指示条 `border-radius` 从 Codex 默认的 `9999px` 改为 `var(--zy-style-radius-md)`（6px），与品牌漆器圆角语言一致。
+- **Switch thumb 与按钮前景区分**：暗色模式下 `style-switch-thumb = #FFFFFF`、`switch-thumb-foreground = #F8FAFC`（亮文本）；浅色模式下反之；`primary-foreground` 取 `#1A1208 / #FFFFFF`，在亮金按钮上落深棕字、暗古金按钮上落白字——`workbuddy.test.ts` 的 switch-thumb 用例强制 4.5:1。
+- **技能胶囊金色化**：原 Codex 的 `skill-blue-background / skill-blue-foreground` 在熊宝主题下映射到玄金软底 + 古金文字，避免出现第二种蓝色品牌色。
+- **图表配色**：chart-1 ~ chart-5 依次为玄金、古金、朱砂红、成功绿、品牌蓝，依次降饱和度，保证多色柱图同框时仍有可识别主色。
+
+### 编辑器配色
+
+Codex 的 Monaco 编辑器配色覆盖 `component-editor-*` 全套 token，熊宝主题同样覆盖并按漆面风格微调：
+
+| Token | 暗（玄金） | 浅（绢白） |
+|-------|-----------|-----------|
+| `component-editor-background` | `#1A1B1F` | `#FFFCF6`（暖宣纸） |
+| `component-editor-selection` | `rgba(255,193,7,0.22)` | `rgba(255,193,7,0.30)` |
+| `component-editor-active-line` | `rgba(255,255,255,0.04)` | `rgba(0,0,0,0.04)` |
+| `component-editor-deleted` | `rgba(255,68,68,0.18)` | `rgba(212,43,43,0.12)` |
+| `component-editor-inserted` | `rgba(52,199,89,0.15)` | `rgba(30,160,60,0.12)` |
+| `component-editor-search` | `rgba(255,193,7,0.30)` | `rgba(255,193,7,0.30)` |
+| `component-editor-search-selected` | `rgba(255,193,7,0.50)` | `rgba(230,184,0,0.50)` |
+
+所有 `component-editor-*` token 在 `themes.css` 由生成器产出，禁止手工维护。
+
+### 浅色 / 深色对称约束
+
+- 两套外观都提供完整的 `background / surface / surface-raised / surface-tertiary / surface-overlay / foreground / text-primary / text-muted` 五层文本 + 四层表面 + 边框 + 滚动条；
+- `primary` 与 `primary-strong` 同值；`primary-foreground` 在亮金（暗色）上是深棕字，在深古金（浅色）上是白字，两种组合都满足 AA；
+- 阴影与 glow 都按"暗色用更深的黑、浅色用更淡的黑"对称给出，浅色没有省略 `box-shadow`；
+- 主题包注册为 `workbuddy-light` / `workbuddy-dark`，对应元数据 `name` 为 `熊宝 · 绢白` 与 `熊宝 · 玄金`，由 `workbuddy.ts` 单一来源生成。
+
+### 与 Codex 的差异清单
+
+| 项 | Codex | 熊宝 |
+|----|-------|------|
+| 主强调色 | 品牌蓝 `#0F6BF2` | 玄金 `#FFC107` / 古金 `#8A6508` |
+| 画布色 | `#FAFAF9` / `#0A0A0A`（冷灰） | `#FAFAF7` / `#0F1115`（暖灰/玄漆） |
+| 卡片 hover | 无位移 | `translateY(-1px)` |
+| 侧边栏激活态 | 背景色 + 文字色 | 3px 玄金左竖条 + 玄金弱底 |
+| heading 字体 | 系统 sans | 宋体 |
+| 流体指示条 | 圆角 9999px | 6px |
+| 技能胶囊 | 蓝底蓝字 | 金底古金字 |
+| 模型 tag 紫色 | 蓝灰 | 朱砂暖色 |
+
+差异只由主题包给出，组件代码不出现 `theme==='workbuddy'` 之类的判断。
 
 ## 字体
 

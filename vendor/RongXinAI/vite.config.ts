@@ -198,6 +198,7 @@ export default defineConfig(async ({ command }) => {
       alias: {
         '@shared': path.resolve(projectRoot, './src/shared'),
         '@': path.resolve(projectRoot, './src/renderer'),
+        mermaid: path.resolve(projectRoot, './node_modules/mermaid/dist/mermaid.core.mjs'),
       },
     },
     build: {
@@ -236,6 +237,7 @@ export default defineConfig(async ({ command }) => {
         'ansi-to-react',
         'cronstrue/i18n',
         'jszip',
+        'mermaid',
         'react',
         'react-dom',
         'react-dom/client',

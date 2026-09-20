@@ -1,7 +1,7 @@
 {
-  "appId": "com.zhiyuanagent.app",
-  "productName": "知远",
-  "executableName": "知远",
+  "appId": "com.xiongbaoagent.app",
+  "productName": "熊宝Agent",
+  "executableName": "熊宝Agent",
   "directories": {
     "output": "release"
   },
