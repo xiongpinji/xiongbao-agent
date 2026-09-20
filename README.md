@@ -9,6 +9,15 @@
 | 评测框架 | `vendor/workbuddy-bench`（官方 Harbor 框架；题库需另下） |
 | 本仓库远程 | https://github.com/xiongpinji/xiongbao-agent.git |
 
+## 运维 / 升级 / 回滚
+
+- 集成手册：[docs/INTEGRATION.md](docs/INTEGRATION.md)
+- **端到端交付指南：[docs/DELIVERY_GUIDE.md](docs/DELIVERY_GUIDE.md)**
+- 性能基线：[docs/performance-baselines.md](docs/performance-baselines.md)
+- a11y 报告：[docs/a11y-report.md](docs/a11y-report.md)
+- 安全审计：[docs/security-audit.md](docs/security-audit.md)
+- 数据迁移回滚：[docs/rollback.md](docs/rollback.md)
+
 ## 交付范围
 
 **V1（已完成）**
@@ -73,6 +82,15 @@
 7. **Compose 7×24** — `deploy/docker-compose.workbuddy.yml`
 8. **验收** — `scripts/verify_full.py`
 
+**V8（端到端交付）**
+
+1. **Octop 后端真出答** — `octop run` 在 Windows 起来，`POST /api/auth/login` 出 JWT，`WS /api/agents/{id}/chat/ws` 收到 DeepSeek 流式 token；DeepSeek provider 通过 `scripts/seed_deepseek_provider.py` 注入
+2. **mobile PWA 静态落盘** — `mobile/` Vite build → `dist/mobile-dist.zip`，默认 baseUrl `http://127.0.0.1:8088`，`mobile/icons/icon-{192,512}.png` 用熊宝品牌图替换
+3. **Desktop Octop 接管 IM** — 设置页新增「Octop 连接」(`OctopBridgeSettings.tsx`)，IPC 通道 `OctopBridgeIpc.{ConfigGet,ConfigSet,Login,ListAgents}`，sqliteStore 持久化 `octop_base_url` / `octop_jwt` / `octop_agent_id` / `use_octop_for_im`；`OctopChatClient` 已能解析 server 的 `token` 帧（harness 当前 stream 形态），`chunk` 保留兼容
+4. **三件交付物** — `dist/octop-1.0.0-py3-none-any.whl` + `dist/install-octop.bat` + `dist/mobile-dist.zip`；NSIS `熊宝Agent-Setup-*.exe` 需要 `bun` 与 channel/engram runtime（首次 ~30-60 min 拉取），electron-builder.json / nsis-installer.nsh 已从「知远」改为「熊宝 Agent」
+5. **验收脚本** — `scripts/deliver_smoke.py`（纯 stdlib）7/7 PASS：health / login / agents / WS 出答 / mobile npm test / mobile zip / wheel+bat
+6. **IM 真渠道** — Phase D 挂起，需用户提供钉钉/企微/飞书凭证
+
 边界：闭源 Electron / 腾讯云 SaaS 不复制；UI → Octop Dashboard；托管 → Compose/systemd。
 
 ## 目录要点
@@ -95,6 +113,10 @@ scripts/fetch_cdn_snapshot.ps1
 deploy/docker-compose.workbuddy.yml
 TASKBOARD.md
 ```
+
+> 跨层联调（RongXinAI Desktop ↔ Octop ↔ Console）请阅读
+> [`docs/INTEGRATION.md`](docs/INTEGRATION.md)。性能门禁见
+> [`docs/performance-baselines.md`](docs/performance-baselines.md)。
 
 ## 快速验证（Windows / 无 pytest）
 
