@@ -47,7 +47,9 @@ import {
   APP_UPDATE_POLL_INTERVAL_MS,
   APP_UPDATE_STARTUP_DELAY_JITTER_MS,
   APP_UPDATE_STARTUP_DELAY_MIN_MS,
+  AppUpdateChannel,
   AppUpdateIpc,
+  type AppUpdateChannel as AppUpdateChannelType,
 } from '../shared/appUpdate/constants';
 import {
   COWORK_MESSAGE_PAGE_SIZE,
@@ -74,6 +76,7 @@ import {
   ImIpc,
   McpIpc,
   ManagedProviderIpc,
+  OctopBridgeIpc,
   ProjectIpc,
   SkillsIpc,
   WeixinLoginErrorCode,
@@ -301,6 +304,16 @@ import { ChannelInboxStore } from './im/channelInboxStore';
 import { ChannelTurnCoordinator } from './im/channelTurnCoordinator';
 import { createIMScheduledTaskRequestDetector } from './im/imScheduledTaskHandler';
 import { IMStore } from './im/imStore';
+import {
+  listOctopAgents as listOctopAgentsApi,
+  loginToOctop,
+  type OctopAgentSummary,
+} from './libs/octopBridge/octopBridgeApi';
+import {
+  readOctopBridgeConfig,
+  writeOctopBridgeConfig,
+  type OctopBridgeConfig,
+} from './libs/octopBridge/octopBridgeConfig';
 import { shouldReloadRendererProcess } from './rendererProcessRecovery';
 import { configureRendererStartup } from './rendererStartup';
 import { SkillManager } from './skillManager';
@@ -1489,6 +1502,22 @@ const startCcConnectBridge = async (): Promise<void> => {
     getSkillsPrompt: async () => getSkillManager().buildAutoRoutingPrompt(),
     detectScheduledTaskRequest: createIMScheduledTaskRequestDetector({
       getLLMConfig: getScheduledTaskDetectorConfig,
+      getOctopOptions: () => {
+        const cfg = readOctopBridgeConfig(getStore());
+        if (!cfg.enabled) return null;
+        if (!cfg.baseUrl || !cfg.jwt || !cfg.agentId) return null;
+        return {
+          baseUrl: cfg.baseUrl,
+          bearer: cfg.jwt,
+          imSettings: {
+            identityInstruction: '',
+            mediaInstruction: '',
+            skillsEnabled: false,
+            systemPrompt: '',
+          },
+          getAgentId: async () => cfg.agentId,
+        };
+      },
     }),
     createScheduledTask: async ({ sessionId, message, request }) => {
       const [accountId, destination] = parseCcConnectScopedConversationId(message.conversationId);
@@ -5660,6 +5689,70 @@ if (!gotTheLock) {
     }
   });
 
+  // ─── Octop Bridge ─────────────────────────────────────────────────────────
+  // Connects the desktop IM gateway to a local Octop backend. Reads/writes the
+  // three persistent keys (base_url / jwt / agent_id) plus an `enabled` toggle
+  // that lets the user fall back to the legacy direct-LLM path.
+  ipcMain.handle(OctopBridgeIpc.ConfigGet, () => readOctopBridgeConfig(getStore()));
+
+  ipcMain.handle(
+    OctopBridgeIpc.ConfigSet,
+    (_event, patch: Partial<OctopBridgeConfig> | undefined) =>
+      writeOctopBridgeConfig(getStore(), patch ?? {}),
+  );
+
+  ipcMain.handle(
+    OctopBridgeIpc.Login,
+    async (
+      _event,
+      args: { baseUrl?: string; username?: string; password?: string },
+    ): Promise<{ success: true; config: OctopBridgeConfig } | { success: false; error: string }> => {
+      const baseUrl = (args?.baseUrl ?? '').trim() || readOctopBridgeConfig(getStore()).baseUrl;
+      const username = (args?.username ?? '').trim();
+      const password = args?.password ?? '';
+      try {
+        const result = await loginToOctop(baseUrl, username, password);
+        const cfg = writeOctopBridgeConfig(getStore(), {
+          baseUrl,
+          jwt: result.accessToken,
+        });
+        return { success: true, config: cfg };
+      } catch (err) {
+        return {
+          success: false,
+          error: err instanceof Error ? err.message : String(err),
+        };
+      }
+    },
+  );
+
+  ipcMain.handle(
+    OctopBridgeIpc.ListAgents,
+    async (
+      _event,
+      args: { baseUrl?: string; token?: string } | undefined,
+    ): Promise<
+      | { success: true; agents: OctopAgentSummary[] }
+      | { success: false; error: string }
+    > => {
+      const cfg = readOctopBridgeConfig(getStore());
+      const baseUrl = (args?.baseUrl ?? '').trim() || cfg.baseUrl;
+      const token = (args?.token ?? '').trim() || cfg.jwt;
+      if (!baseUrl || !token) {
+        return { success: false, error: '请先填写 Octop 服务地址并完成登录' };
+      }
+      try {
+        const agents = await listOctopAgentsApi(baseUrl, token);
+        return { success: true, agents };
+      } catch (err) {
+        return {
+          success: false,
+          error: err instanceof Error ? err.message : String(err),
+        };
+      }
+    },
+  );
+
   ipcMain.handle('im:getLocalIp', () => {
     const nets = os.networkInterfaces();
     for (const name of Object.keys(nets)) {
@@ -6511,8 +6604,18 @@ if (!gotTheLock) {
     return getAppUpdateCoordinator().getState();
   });
 
-  ipcMain.handle(AppUpdateIpc.CheckNow, async (_event, options?: { manual?: boolean }) => {
+  ipcMain.handle(AppUpdateIpc.CheckNow, async (_event, options?: { manual?: boolean; channel?: AppUpdateChannelType }) => {
     return getAppUpdateCoordinator().checkNow(options);
+  });
+
+  ipcMain.handle(AppUpdateIpc.GetChannel, async () => getAppUpdateCoordinator().getChannel());
+
+  ipcMain.handle(AppUpdateIpc.SetChannel, async (_event, channel: unknown) => {
+    const next = channel === AppUpdateChannel.Beta || channel === AppUpdateChannel.Insider
+      ? channel
+      : AppUpdateChannel.Stable;
+    getAppUpdateCoordinator().setChannel(next);
+    return next;
   });
 
   ipcMain.handle(AppUpdateIpc.RetryDownload, async () => {

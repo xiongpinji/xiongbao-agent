@@ -5,6 +5,7 @@ import {
 } from '../../scheduledTask/reminderText';
 import { buildAgentLocalTimeContextPrompt } from '../libs/agentLocalTimeContextPrompt';
 import { IMChatHandler } from './imChatHandler';
+import { OctopChatHandler, type OctopChatHandlerOptions } from './OctopChatHandler';
 import type { IMMediaAttachment, IMMessage } from './types';
 
 function pad(value: number): string {
@@ -239,25 +240,48 @@ function buildScheduledTaskDetectionPrompt(now: Date): string {
 
 export function createIMScheduledTaskRequestDetector(options: {
   getLLMConfig: () => Promise<LLMConfig | null>;
+  /**
+   * Optional Octop bridge. When supplied, scheduled-task detection runs through
+   * Octop's chat WebSocket instead of calling the LLM provider directly. The
+   * LLM-fallback path is preserved for backward compatibility.
+   */
+  octop?: OctopChatHandlerOptions;
+  /**
+   * Lazy Octop bridge resolver. Read each turn so config edits from the
+   * settings page take effect without restarting the gateway. Takes precedence
+   * over the static `octop` option when both are supplied.
+   */
+  getOctopOptions?: () => OctopChatHandlerOptions | null;
 }): IMScheduledTaskRequestDetector {
   return async (message: IMMessage): Promise<ParsedIMScheduledTaskRequest | null> => {
     if (!looksLikeIMScheduledTaskCandidate(message.content, message.attachments)) {
       return null;
     }
 
+    const octopOptions = options.getOctopOptions?.() ?? options.octop ?? null;
+
     const llmConfig = await options.getLLMConfig();
-    if (!llmConfig) {
+    if (!llmConfig && !octopOptions) {
       return null;
     }
 
     const now = new Date(message.timestamp || Date.now());
-    const detector = new IMChatHandler({
-      getLLMConfig: async () => llmConfig,
-      imSettings: {
-        skillsEnabled: false,
-        systemPrompt: buildScheduledTaskDetectionPrompt(now),
-      },
-    });
+    const detector = octopOptions
+      ? new OctopChatHandler({
+          ...octopOptions,
+          imSettings: {
+            ...octopOptions.imSettings,
+            systemPrompt: buildScheduledTaskDetectionPrompt(now),
+            skillsEnabled: false,
+          },
+        })
+      : new IMChatHandler({
+          getLLMConfig: async () => llmConfig,
+          imSettings: {
+            skillsEnabled: false,
+            systemPrompt: buildScheduledTaskDetectionPrompt(now),
+          },
+        });
 
     try {
       const raw = await detector.processMessage({

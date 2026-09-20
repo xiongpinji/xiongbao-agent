@@ -34,6 +34,7 @@ import {
   McpIpc,
   ModelPoolIpc,
   NetworkIpc,
+  OctopBridgeIpc,
   OpenAICodexOAuthIpc,
   PermissionsIpc,
   ProjectIpc,
@@ -863,6 +864,9 @@ contextBridge.exposeInMainWorld('electron', {
     getState: () => ipcRenderer.invoke(AppUpdateIpc.GetState),
     checkNow: (options?: { manual?: boolean; userId?: string | null }) =>
       ipcRenderer.invoke(AppUpdateIpc.CheckNow, options),
+    getChannel: () => ipcRenderer.invoke(AppUpdateIpc.GetChannel),
+    setChannel: (channel: 'stable' | 'beta' | 'insider') =>
+      ipcRenderer.invoke(AppUpdateIpc.SetChannel, channel),
     retryDownload: () => ipcRenderer.invoke(AppUpdateIpc.RetryDownload),
     pauseDownload: () => ipcRenderer.invoke(AppUpdateIpc.PauseDownload),
     resumeDownload: () => ipcRenderer.invoke(AppUpdateIpc.ResumeDownload),
@@ -1015,6 +1019,15 @@ contextBridge.exposeInMainWorld('electron', {
 
   networkStatus: {
     send: (status: 'online' | 'offline') => ipcRenderer.send(NetworkIpc.StatusChange, status),
+  },
+
+  octopBridge: {
+    getConfig: () => ipcRenderer.invoke(OctopBridgeIpc.ConfigGet),
+    setConfig: (patch: unknown) => ipcRenderer.invoke(OctopBridgeIpc.ConfigSet, patch),
+    login: (args: { baseUrl?: string; username?: string; password?: string }) =>
+      ipcRenderer.invoke(OctopBridgeIpc.Login, args),
+    listAgents: (args: { baseUrl?: string; token?: string }) =>
+      ipcRenderer.invoke(OctopBridgeIpc.ListAgents, args),
   },
 
   auth: {

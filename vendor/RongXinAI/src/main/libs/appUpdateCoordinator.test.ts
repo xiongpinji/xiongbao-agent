@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { AppUpdateStatus } from '../../shared/appUpdate/constants';
+import { AppUpdateChannel, AppUpdateStatus } from '../../shared/appUpdate/constants';
 import { APP_UPDATE_TRUSTED_KEYS } from '../../shared/appUpdate/trustedKeys';
 import type { SqliteStore } from '../sqliteStore';
 
@@ -108,6 +108,7 @@ function signedManifest(
     arch?: string;
     variant?: string;
     updaterFilename?: string;
+    channel?: 'stable' | 'beta' | 'insider';
   } = {},
 ) {
   const version = options.version ?? '2026.7.2';
@@ -115,8 +116,9 @@ function signedManifest(
   const arch = options.arch ?? 'arm64';
   const variant = options.variant ?? 'default';
   const updaterFilename = options.updaterFilename ?? 'ZhiYuan.zip';
+  const channel = options.channel ?? 'stable';
   const payload = {
-    channel: 'stable',
+    channel,
     version,
     publishedAt: '2026-08-06T00:00:00.000Z',
     minimumSupportedVersion: '2026.7.1',
@@ -699,5 +701,100 @@ describe('AppUpdateCoordinator electron-updater bridge', () => {
     expect(result.error).toBe('Updates are disabled by enterprise policy');
     expect(result.state.status).toBe(AppUpdateStatus.Idle);
     expect(updaterMocks.autoUpdater.quitAndInstall).not.toHaveBeenCalled();
+  });
+});
+
+describe('AppUpdateCoordinator channels', () => {
+  const originalPlatform = process.platform;
+  const originalArch = process.arch;
+  let privateKey: crypto.KeyObject;
+
+  beforeEach(() => {
+    Object.defineProperty(process, 'platform', { configurable: true, value: 'darwin' });
+    Object.defineProperty(process, 'arch', { configurable: true, value: 'arm64' });
+    const keyPair = crypto.generateKeyPairSync('ed25519');
+    privateKey = keyPair.privateKey;
+    (APP_UPDATE_TRUSTED_KEYS as Record<string, string>)['test-release-key'] = keyPair.publicKey
+      .export({ format: 'der', type: 'spki' })
+      .toString('base64');
+    updaterMocks.reset();
+    vi.mocked(updaterMocks.autoUpdater.on).mockClear();
+    vi.mocked(updaterMocks.autoUpdater.setFeedURL).mockReset();
+    vi.mocked(updaterMocks.autoUpdater.checkForUpdates).mockReset();
+    vi.mocked(updaterMocks.autoUpdater.downloadUpdate).mockReset();
+    vi.mocked(updaterMocks.autoUpdater.quitAndInstall).mockReset();
+    electronMocks.getAppPath.mockReturnValue(process.cwd());
+    electronMocks.isPackaged = false;
+  });
+
+  afterEach(() => {
+    delete (APP_UPDATE_TRUSTED_KEYS as Record<string, string>)['test-release-key'];
+    Object.defineProperty(process, 'platform', { configurable: true, value: originalPlatform });
+    Object.defineProperty(process, 'arch', { configurable: true, value: originalArch });
+    vi.unstubAllGlobals();
+    vi.clearAllMocks();
+  });
+
+  test('defaults to the stable channel', () => {
+    const store = new MemoryStore();
+    const coordinator = new AppUpdateCoordinator(store as unknown as SqliteStore);
+    expect(coordinator.getChannel()).toBe(AppUpdateChannel.Stable);
+    coordinator.dispose();
+  });
+
+  test('rejects a payload that belongs to a different channel', async () => {
+    const envelope = signedManifest(privateKey, { channel: 'beta', version: '2026.8.1-beta' });
+    vi.stubGlobal('fetch', manifestFetch(envelope));
+    vi.mocked(updaterMocks.autoUpdater.checkForUpdates).mockResolvedValue({
+      isUpdateAvailable: true,
+      updateInfo: updaterInfo('2026.8.1-beta', 'A'.repeat(86) + '=='),
+    });
+    const coordinator = new AppUpdateCoordinator(new MemoryStore() as unknown as SqliteStore);
+    const result = await coordinator.checkNow({ manual: true });
+    expect(result.state.status).toBe(AppUpdateStatus.Error);
+    expect(updaterMocks.autoUpdater.setFeedURL).not.toHaveBeenCalled();
+    coordinator.dispose();
+  });
+
+  test('routes the v2 feed URL through the active channel', async () => {
+    const envelope = signedManifest(privateKey, { channel: 'beta', version: '2026.8.1-beta', updaterSha512: 'A'.repeat(86) + '==' });
+    vi.stubGlobal('fetch', manifestFetch(envelope));
+    vi.mocked(updaterMocks.autoUpdater.checkForUpdates).mockResolvedValue({
+      isUpdateAvailable: true,
+      updateInfo: updaterInfo('2026.8.1-beta', 'A'.repeat(86) + '=='),
+    });
+    const coordinator = new AppUpdateCoordinator(new MemoryStore() as unknown as SqliteStore);
+    await coordinator.checkNow({ manual: true, channel: AppUpdateChannel.Beta });
+    const feedArg = vi.mocked(updaterMocks.autoUpdater.setFeedURL).mock.calls.at(-1)?.[0]?.url;
+    expect(feedArg).toContain('/beta/');
+    coordinator.dispose();
+  });
+
+  test('forgets pending state and envelope after switching channels', async () => {
+    // Use a store backed by real vi.fn() to capture delete calls.
+    class SpiedMemoryStore {
+      private readonly _values = new Map<string, unknown>();
+      get = vi.fn((key: string) => this._values.get(key) ?? null);
+      set = vi.fn((key: string, value: unknown) => { this._values.set(key, value); });
+      delete = vi.fn((key: string) => { this._values.delete(key); });
+    }
+    const store = new SpiedMemoryStore();
+    store._values.set('app_update_manifest_cache:dummy:dummy:dummy', {
+      etag: 'v1',
+      envelope: signedManifest(privateKey, { version: '2026.8.0', updaterSha512: 'A'.repeat(86) + '==' }),
+    });
+    store._values.set('app_update_ready_v2', {
+      filePath: '/tmp/ignored',
+      sha512: 'A'.repeat(86) + '==',
+      envelope: signedManifest(privateKey, { version: '2026.8.0', updaterSha512: 'A'.repeat(86) + '==' }),
+    });
+    const coordinator = new AppUpdateCoordinator(store as unknown as SqliteStore);
+    coordinator.setChannel(AppUpdateChannel.Insider);
+    // Switching channels must reset all state and clear cached manifests.
+    const state = coordinator.getState();
+    expect(state.status).toBe(AppUpdateStatus.Idle);
+    expect(state.info).toBeNull();
+    expect(store.delete).toHaveBeenCalledWith('app_update_ready_v2');
+    coordinator.dispose();
   });
 });

@@ -5,6 +5,7 @@
 
 export { parseMediaMarkers, stripMediaMarkers } from './dingtalkMediaParser';
 export { IMChatHandler } from './imChatHandler';
+export { OctopChatHandler, type OctopChatHandlerOptions } from './OctopChatHandler';
 export { IMCoworkHandler, type IMCoworkHandlerOptions } from './imCoworkHandler';
 export { ChannelAccountManager } from './channelAccountManager';
 export { buildIMMediaInstruction } from './imMediaInstruction';

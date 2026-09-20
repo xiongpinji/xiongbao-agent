@@ -1,28 +1,30 @@
 import { expect, test } from 'vitest';
-import type { IPty } from 'node-pty';
 
 import { AuthTerminalService } from './authTerminalService';
 
 test('keeps terminal authentication output outside the ACP stdio transport', async () => {
-  const service = new AuthTerminalService((() => {
-    let onData: ((data: string) => void) | undefined;
-    return {
-      write: () => undefined,
-      resize: () => undefined,
-      kill: () => undefined,
-      onData: callback => {
-        onData = callback;
-        return { dispose: () => undefined };
-      },
-      onExit: callback => {
-        queueMicrotask(() => {
-          onData?.('signed in');
-          callback({ exitCode: 0, signal: 0 });
-        });
-        return { dispose: () => undefined };
-      },
-    } as unknown as IPty;
-  }) as typeof import('node-pty').spawn);
+  // Stub PtySpawner-compatible fake: mimics a tiny subset of node-pty's IPty
+  // surface (data/exit events + write/resize/kill). Kept here so the test
+  // runs without depending on node-pty or child_process IPC.
+  const service = new AuthTerminalService(
+    (_file, _args, _options) => {
+      const listeners: { data?: (data: string) => void; exit?: (code: number, signal?: number) => void } = {};
+      return {
+        on(event: 'data' | 'exit', listener: unknown) {
+          if (event === 'data') listeners.data = listener as (data: string) => void;
+          else listeners.exit = listener as (code: number, signal?: number) => void;
+          queueMicrotask(() => {
+            listeners.data?.('signed in');
+            listeners.exit?.(0, 0);
+          });
+          return undefined;
+        },
+        write: () => undefined,
+        resize: () => undefined,
+        kill: () => undefined,
+      };
+    },
+  );
   const output: string[] = [];
   const completion = new Promise<{ exitCode: number }>(resolve => {
     service.on('exit', event => resolve(event));

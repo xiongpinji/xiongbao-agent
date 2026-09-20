@@ -11,12 +11,14 @@ import path from 'path';
 import { gt, lt, valid } from 'semver';
 
 import {
+  AppUpdateChannel,
   type AppUpdateCheckResult,
   type AppUpdateInfo,
   AppUpdateIpc,
   type AppUpdateRuntimeState,
   AppUpdateSource,
   AppUpdateStatus,
+  parseAppUpdateChannel,
 } from '../../shared/appUpdate/constants';
 import { APP_UPDATE_TRUSTED_KEYS } from '../../shared/appUpdate/trustedKeys';
 import { AppQuitOrigin, recordAppQuitOrigin } from '../appQuitOrigin';
@@ -138,6 +140,7 @@ export class AppUpdateCoordinator {
   private downloadedFilePath: string | null = null;
   private pendingReadyUpdate: PendingReadyUpdate | null = null;
   private readyFreshnessPromise: Promise<VerifiedUpdate | null> | null = null;
+  private channel: AppUpdateChannel = AppUpdateChannel.Stable;
   private readonly onDownloadProgress = (progress: ProgressInfo): void =>
     this.handleDownloadProgress(progress);
   private readonly onUpdateDownloaded = (event: { downloadedFile: string }): void => {
@@ -176,7 +179,24 @@ export class AppUpdateCoordinator {
     return { ...this.state };
   }
 
-  async checkNow(options: { manual?: boolean } = {}): Promise<AppUpdateCheckResult> {
+  getChannel(): AppUpdateChannel {
+    return this.channel;
+  }
+
+  setChannel(channel: AppUpdateChannel): void {
+    if (this.channel === channel) return;
+    this.channel = channel;
+    // The signed envelope / cache for the previous channel are no longer
+    // trustworthy. Resetting forces the next checkNow call to re-authorise the
+    // manifest against the requested channel's signing policy.
+    this.currentSignedEnvelope = null;
+    this.downloadedFilePath = null;
+    this.pendingReadyUpdate = null;
+    this.store.delete(READY_UPDATE_CACHE_KEY);
+    this.setState(initialState());
+  }
+
+  async checkNow(options: { manual?: boolean; channel?: AppUpdateChannel } = {}): Promise<AppUpdateCheckResult> {
     if (this.clearStateIfUpdatesDisabled()) {
       return { success: true, state: { ...this.state }, updateFound: false };
     }
@@ -205,6 +225,12 @@ export class AppUpdateCoordinator {
     }
 
     const source = options.manual ? AppUpdateSource.Manual : AppUpdateSource.Auto;
+    if (options.channel) {
+      const next = parseAppUpdateChannel(options.channel);
+      if (next !== this.channel) {
+        this.setChannel(next);
+      }
+    }
     this.checkPromise = this.checkForUpdate(source).finally(() => {
       this.checkPromise = null;
     });
@@ -658,7 +684,7 @@ export class AppUpdateCoordinator {
   private configureUpdater(target: UpdateTarget): void {
     const feedUrl = new URL(
       `${target.platform}/${target.arch}/${target.variant}/`,
-      `${ELECTRON_UPDATE_FEED_BASE}/stable/`,
+      `${ELECTRON_UPDATE_FEED_BASE}/${this.channel}/`,
     );
     this.updater.setFeedURL({ provider: 'generic', url: feedUrl.toString() });
   }
@@ -747,10 +773,10 @@ export class AppUpdateCoordinator {
     const target = this.resolveUpdateTarget();
     if (!target) return null;
     const { platform, arch, variant } = target;
-    const cacheKey = `${MANIFEST_CACHE_KEY_PREFIX}:${platform}:${arch}:${variant}`;
+    const cacheKey = `${MANIFEST_CACHE_KEY_PREFIX}:${this.channel}:${platform}:${arch}:${variant}`;
     const cachedManifest = this.readCachedManifest(cacheKey);
     const url = new URL(UPDATE_ENDPOINT);
-    url.searchParams.set('channel', 'stable');
+    url.searchParams.set('channel', this.channel);
     url.searchParams.set('platform', platform);
     url.searchParams.set('arch', arch);
     url.searchParams.set('variant', variant);
@@ -843,7 +869,7 @@ export class AppUpdateCoordinator {
   private toUpdateInfo(payload: UpdatePayload, target: UpdateTarget): AppUpdateInfo | null {
     const artifact = payload.artifact;
     if (
-      payload.channel !== 'stable' ||
+      payload.channel !== this.channel ||
       typeof payload.version !== 'string' ||
       !valid(payload.version) ||
       !artifact ||
