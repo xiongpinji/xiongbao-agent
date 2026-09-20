@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>熊宝 Agent</title>
+  <title>熊宝 Agent · 更高效的 AI 工作搭子</title>
+  <link rel="icon" type="image/svg+xml" href="/console/assets/brand/yxx-favicon.svg" />
   <link rel="stylesheet" href="/console/tokens.css" />
   <link rel="stylesheet" href="/console/shell.css" />
   <link rel="stylesheet" href="/console/polish.css" />
+  <link rel="stylesheet" href="/console/wb-layout.css" />
   <script src="/console/shell_parity.js" defer></script>
   <script src="/console/shell_pages.js" defer></script>
 </head>
@@ -40,11 +42,18 @@
     <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M11 20A10 10 0 0 1 4 8C8 8 12 4 13 2c4 6 1 12-2 18z"/><path d="M8 14c2-1 4-3 5-5"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.3L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 6.5L7 17l2.5-6.5z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></symbol>
+    <symbol id="i-nodes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 10.5 16M16 7.5 13.5 16M8.5 6h7"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></symbol>
   </svg>
 
-  <!-- keep legacy chrome IDs for JS; visually hidden -->
+  <!-- legacy topbar hidden; status lives in sidebar/header -->
   <header class="topbar hidden-chrome" role="banner" aria-hidden="true">
-    <div class="brand">熊宝<span>Agent</span></div>
+    <div class="brand">熊宝 Agent</div>
     <span class="chip muted" id="sessionChip">未登录</span>
     <span class="chip" id="projectChip" title="当前项目空间">项目 · —</span>
     <span class="chip" id="modeChip" title="当前模式">创作</span>
@@ -68,60 +77,162 @@
     </nav>
   </header>
 
+  <!-- 熊宝 Agent 发现面板（替代原挑战计划浮层，积分系统后端未实现） -->
+  <aside class="discover-popup" id="discoverPopup" aria-hidden="true">
+    <div class="discover-popup-inner">
+      <div class="discover-popup-hd">
+        <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>
+        <strong>熊宝 Agent · 发现应用</strong>
+        <button type="button" class="discover-close" id="btnCloseDiscover" aria-label="关闭">×</button>
+      </div>
+      <p>探索更多 AI 场景与外部应用，敬请期待</p>
+      <div class="discover-tags">
+        <span class="discover-tag">场景模板</span>
+        <span class="discover-tag">外部应用</span>
+        <span class="discover-tag">即将上线</span>
+      </div>
+    </div>
+  </aside>
+
   <div class="mobile-tabs" id="mobileTabs" role="tablist" aria-label="窄屏分区">
     <button type="button" data-pane="left" role="tab">导航</button>
     <button type="button" data-pane="center" class="active" role="tab">对话</button>
     <button type="button" data-pane="right" role="tab">结果</button>
   </div>
 
-  <div class="app layout-standard has-right" id="app" role="presentation" data-view="chat">
+  <div class="app layout-standard home-mode" id="app" role="presentation" data-view="chat">
     <nav class="col left" aria-label="侧栏">
-      <div class="sidebar-brand">
-        <img src="/console/assets/mascot.jpg" alt="熊宝" width="36" height="36" />
-        <div class="name">熊宝<em>Agent</em></div>
+      <div class="sb-top">
+        <div class="brand-mark">
+            <img src="/console/assets/brand/logo-icon-28.png" alt="熊宝" width="28" height="28" />
+          <div class="nm">熊宝<em>Agent</em></div>
+        </div>
+        <!-- 熊宝发现入口（替代挑战计划，积分系统后端未实现） -->
+        <button type="button" class="sb-discover" id="btnDiscover" title="发现应用">
+          <svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>发现
+        </button>
       </div>
       <div class="sidebar-new">
         <button type="button" class="btn" id="btnNew"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>新建任务</button>
       </div>
       <div class="side-nav" id="sideNav" role="navigation">
-        <button type="button" class="active" data-view="chat"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>对话</button>
-        <button type="button" data-view="agents"><svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg>智能体</button>
+        <button type="button" class="active" data-view="chat"><svg class="ico" aria-hidden="true"><use href="#i-bot"/></svg>助理</button>
         <button type="button" data-view="projects"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg>项目</button>
-        <button type="button" data-view="knowledge"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>知识库</button>
-        <button type="button" data-view="tools"><svg class="ico" aria-hidden="true"><use href="#i-tool"/></svg>工具箱</button>
-        <button type="button" data-view="team"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>团队协作</button>
-        <button type="button" data-view="settings"><svg class="ico" aria-hidden="true"><use href="#i-settings"/></svg>设置</button>
+        <div class="nav-flyout-wrap" id="marketFlyoutWrap">
+          <button type="button" data-view="market" id="btnMarketNav"><svg class="ico" aria-hidden="true"><use href="#i-nodes"/></svg>专家·技能·连接器</button>
+          <div class="nav-flyout" id="marketFlyout" role="menu">
+            <button type="button" data-market="experts" class="active">专家</button>
+            <button type="button" data-market="skills">技能</button>
+            <button type="button" data-market="connectors">连接器</button>
+          </div>
+        </div>
+        <button type="button" data-view="cron"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>定时任务</button>
+        <button type="button" data-view="knowledge"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>资料库</button>
+        <div class="nav-flyout-wrap">
+          <button type="button" data-view="more" id="btnMoreNav"><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>更多</button>
+          <div class="nav-flyout" role="menu">
+            <button type="button" id="btnMoreOps">运维控制台</button>
+            <button type="button" id="btnMoreHarbor">Harbor 演练</button>
+            <button type="button" id="btnMoreSettings">设置</button>
+            <button type="button" id="btnMoreLogout">退出登录</button>
+          </div>
+        </div>
       </div>
       <div class="chip-stack" aria-live="polite">
         <span class="chip muted" id="sessionChipSide">未登录</span>
         <span class="chip" id="projectChipSide">项目 · —</span>
       </div>
-      <div class="side-section-label">最近对话</div>
-      <div class="project-row">
-        <select id="projectSelect" aria-label="项目空间">
-          <option value="">全部项目</option>
-        </select>
-        <button type="button" class="icon-btn" id="btnNewProject" title="新建项目空间" aria-label="新建项目"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button>
-      </div>
-      <div class="search-row">
-        <div class="search-wrap">
-          <svg class="ico search-ico" aria-hidden="true"><use href="#i-search"/></svg>
-          <input class="search" id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" />
+      <div class="sb-block">
+        <div class="sb-block-hd">任务 <span class="cnt" id="taskCountLabel">(0)</span></div>
+        <div class="project-row">
+          <select id="projectSelect" aria-label="项目空间"><option value="">全部项目</option></select>
+          <button type="button" class="icon-btn" id="btnNewProject" title="新建项目" aria-label="新建项目"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button>
         </div>
+        <div class="search-row">
+          <div class="search-wrap">
+            <svg class="ico search-ico" aria-hidden="true"><use href="#i-search"/></svg>
+            <input class="search" id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" />
+          </div>
+        </div>
+        <div class="col-hd"><h2>任务</h2></div>
+        <div class="task-list" id="taskList"></div>
       </div>
-      <div class="col-hd"><h2>任务</h2></div>
-      <div class="task-list" id="taskList"></div>
+      <div class="sb-block">
+        <div class="sb-block-hd">空间 <span class="cnt" id="spaceCountLabel">(0)</span></div>
+        <div class="space-list" id="spaceList"></div>
+      </div>
       <div class="sidebar-foot">
-        <div class="avatar" id="userAvatar">宝</div>
+        <div class="avatar" id="userAvatar">勇</div>
         <div class="meta">
           <div class="u" id="userNameLabel">未登录</div>
           <div class="s" id="userPlanLabel">本地私有化</div>
         </div>
-        <button type="button" class="icon-btn" id="btnSidebarLogout" title="退出" aria-label="退出登录"><svg class="ico" aria-hidden="true"><use href="#i-logout"/></svg></button>
+        <div class="foot-acts">
+          <button type="button" class="icon-btn" id="btnSidebarBell" title="通知" aria-label="通知"><svg class="ico" aria-hidden="true"><use href="#i-bell"/></svg></button>
+          <button type="button" class="icon-btn" id="btnSidebarSettings" title="设置" aria-label="设置"><svg class="ico" aria-hidden="true"><use href="#i-settings"/></svg></button>
+          <button type="button" class="icon-btn" id="btnSidebarLogout" title="退出" aria-label="退出登录"><svg class="ico" aria-hidden="true"><use href="#i-logout"/></svg></button>
+        </div>
       </div>
     </nav>
 
     <main class="col center" aria-label="对话" id="chatCenter">
+      <div id="assistantHome">
+        <!-- 熊宝 Hero 区 -->
+        <div class="home-hero">
+          <h1>熊宝 Agent，<span>我帮你</span></h1>
+          <!-- 场景Tabs带图标 -->
+          <div class="scene-tabs" id="sceneTabs">
+            <button type="button" class="active" data-scene="office">
+              <svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>日常办公
+            </button>
+            <button type="button" data-scene="code">
+              <svg class="ico" aria-hidden="true"><use href="#i-code"/></svg>代码开发
+            </button>
+            <button type="button" data-scene="design">
+              <svg class="ico" aria-hidden="true"><use href="#i-pencil"/></svg>设计创意
+            </button>
+          </div>
+        </div>
+        <div class="home-tags" id="homeTags">
+          <button type="button" data-prompt="帮我处理一份文档：">文档处理</button>
+          <button type="button" data-prompt="帮我做金融相关分析：">金融服务</button>
+          <button type="button" data-prompt="帮我做数据分析与可视化：">数据分析及可视化</button>
+          <button type="button" data-prompt="帮我搭建个人工作台：">个人工作台</button>
+          <button type="button" data-prompt="帮我做一份幻灯片：">幻灯片</button>
+          <button type="button" data-prompt="请深度搜索并整理：">深度搜索</button>
+        </div>
+        <!-- 3D风格输入框 -->
+        <div class="home-composer">
+          <img class="mascot-peek" src="/console/assets/brand/yxx-mascot.svg" alt="" />
+          <div class="box">
+            <textarea id="homeComposer" placeholder="今天帮你做些什么？@ 引用文件，/ 调用技能与指令" aria-label="首页输入"></textarea>
+            <div class="home-composer-bar">
+              <label class="tool-chip icon-only" title="上传文件" id="homeFileLabel">
+                <svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>
+              </label>
+              <div class="grow"></div>
+              <!-- 模型选择器 -->
+              <span class="chip muted model-chip" id="modelChipHome">
+                <svg class="ico" style="width:11px;height:11px;margin-right:3px" aria-hidden="true"><use href="#i-bot"/></svg>模型 · —
+              </span>
+              <button type="button" class="btn send-fab" id="btnHomeSend" title="发送" aria-label="发送"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="home-meta">
+          <span>选择工作空间</span>
+          <span class="warn">允许完全访问</span>
+        </div>
+        <div class="best-practices">
+          <div class="bp-hd">
+            <h3>不知道做什么，试试最佳实践案例</h3>
+            <button type="button" id="bpRefresh">换一批</button>
+            <button type="button" id="bpClose" aria-label="关闭">×</button>
+          </div>
+          <div class="bp-grid" id="bpGrid"></div>
+        </div>
+      </div>
+
       <div class="col-hd chat-hd">
         <h2 id="taskTitle">选择或新建任务</h2>
         <select id="modeSelect" aria-label="任务模式" class="mode-select">
@@ -138,21 +249,26 @@
       </div>
       <div class="messages" id="messages" aria-live="polite">
         <div class="empty">
-          <img class="empty-mascot" src="/console/assets/mascot.jpg" alt="" width="72" height="72" />
+            <img class="empty-mascot" src="/console/assets/brand/mascot-small.png" alt="" width="72" height="72" />
           <div class="empty-title">今天想让我帮你做什么？</div>
-          <div class="empty-sub">新建任务，或从右侧快捷入口开始</div>
+          <div class="empty-sub">新建任务，或从首页快捷入口开始</div>
           <div class="cta"><button type="button" class="btn" id="btnEmptyNew"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>新建第一个任务</button></div>
         </div>
       </div>
+      <!-- 3D风格输入框 + 模型选择器 + 语音 -->
       <div class="composer">
         <div class="composer-box">
-          <textarea id="composer" placeholder="今天想让我帮你做什么？（Enter 发送，Shift+Enter 换行）" aria-label="消息输入"></textarea>
+          <textarea id="composer" placeholder="今天帮你做些什么？@ 引用文件，/ 调用技能与指令（Enter 发送）" aria-label="消息输入"></textarea>
           <div class="composer-row">
             <div class="composer-tools">
               <label class="tool-chip icon-only" title="上传文件">
                 <svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>
                 <input type="file" id="fileInput" hidden />
               </label>
+              <!-- 语音按钮 -->
+              <button type="button" class="tool-chip icon-only" id="toolVoice" title="语音输入">
+                <svg class="ico" aria-hidden="true"><use href="#i-mic"/></svg>
+              </button>
               <button type="button" class="tool-chip" id="toolWeb" title="网页检索"><svg class="ico" aria-hidden="true"><use href="#i-globe"/></svg>联网搜索</button>
               <button type="button" class="tool-chip" id="toolThink" title="深度思考"><svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>深度思考</button>
               <button type="button" class="tool-chip" id="toolKb" title="引用知识库"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>知识库</button>
@@ -163,7 +279,10 @@
             </div>
             <span class="hint" id="uploadHint"></span>
             <div class="grow"></div>
-            <span class="chip muted model-chip" id="modelChipComposer">模型 · —</span>
+            <!-- 模型选择器 -->
+            <span class="chip muted model-chip" id="modelChipComposer">
+              <svg class="ico" style="width:11px;height:11px;margin-right:3px" aria-hidden="true"><use href="#i-bot"/></svg>模型 · —
+            </span>
             <button type="button" class="btn send-fab" id="btnSend" title="发送" aria-label="发送"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg></button>
           </div>
         </div>
@@ -180,10 +299,10 @@
       <div id="rightDiscover">
         <div class="right-banner">
           <div class="copy">
-            <h3>让工作更简单</h3>
-            <p>熊宝陪你高效完成每一件事</p>
+            <h3>更高效的 AI 工作搭子</h3>
+            <p>熊宝 Agent 陪你完成每一件事</p>
           </div>
-          <img src="/console/assets/mascot.jpg" alt="" />
+          <img src="/console/assets/brand/mascot.png" alt="" />
         </div>
         <div class="quick-actions">
           <button type="button" data-qa="chat"><span class="qa-ico"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></span>AI 对话</button>
@@ -220,10 +339,11 @@
     </section>
   </div>
 
+  <!-- 登录页 -->
   <div class="login-mask show" id="loginMask" role="dialog" aria-modal="true" aria-labelledby="loginBrandTitle">
     <div class="login-shell">
       <div class="login-brand">
-        <img class="mascot" src="/console/assets/mascot.jpg" alt="熊宝" />
+        <img class="mascot" src="/console/assets/brand/mascot.png" alt="熊宝" />
         <div class="login-brand-copy">
           <div class="login-kicker">更高效的 AI 工作搭子</div>
           <h1 id="loginBrandTitle">熊宝 Agent</h1>
@@ -256,6 +376,7 @@
     </div>
   </div>
 
+  <!-- 技能市场抽屉 -->
   <aside class="skills-drawer" id="skillsDrawer" aria-label="技能市场">
     <div class="col-hd">
       <h2>技能市场</h2>
@@ -264,6 +385,7 @@
     <div class="skills-list" id="skillsList"></div>
   </aside>
 
+  <!-- 项目空间抽屉 -->
   <aside class="skills-drawer" id="projectDrawer" aria-label="项目空间">
     <div class="col-hd">
       <h2 id="projectDrawerTitle">项目空间</h2>
@@ -275,6 +397,7 @@
     </div>
   </aside>
 
+  <!-- 任务右键菜单 -->
   <div class="task-ctx-menu" id="taskCtxMenu" role="menu">
     <button type="button" data-act="rename">改名</button>
     <button type="button" data-act="pin">置顶/取消</button>
@@ -282,7 +405,74 @@
     <button type="button" class="danger" data-act="delete">删除</button>
   </div>
 
+  <!-- 模态框 -->
+  <div class="wb-modal-mask" id="wbModalMask" role="dialog" aria-modal="true">
+    <div class="wb-modal" id="wbModal"></div>
+  </div>
+
   <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <style>
+    /* 熊宝 Agent · 发现面板浮层样式 */
+    .discover-popup {
+      display: none;
+      position: fixed;
+      top: 64px;
+      right: 24px;
+      z-index: 200;
+      min-width: 280px;
+      background: var(--bg-sidebar);
+      border: 1px solid var(--accent-border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg), var(--shadow-gold);
+      overflow: hidden;
+    }
+    .discover-popup.show { display: block; }
+    .discover-popup-inner {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(255,193,7,0.08), transparent);
+    }
+    .discover-popup-hd {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .discover-popup-hd .ico { width: 18px; height: 18px; }
+    .discover-popup-hd strong { flex: 1; font-weight: 700; }
+    .discover-close {
+      width: 22px;
+      height: 22px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+    }
+    .discover-close:hover { background: var(--panel-hover); color: var(--text); }
+    .discover-popup p { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+    .discover-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .discover-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      font-weight: 600;
+    }
+    /* 场景标签图标 */
+    .scene-tabs button .ico { width: 14px; height: 14px; margin-right: 4px; }
+    /* 模型选择器图标 */
+    .model-chip .ico { vertical-align: middle; }
+    /* 语音按钮hover */
+    #toolVoice:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-soft); }
+  </style>
 
   <script>
     const TOKEN_KEY = "wb_shell_jwt";
@@ -316,7 +506,7 @@
       el.className = "toast" + (kind ? " " + kind : "");
       el.textContent = msg;
       host.appendChild(el);
-      setTimeout(() => el.remove(), 4200);
+      setTimeout(() => el.remove(), 4000);
     }
     async function api(path, opts = {}) {
       let r;
@@ -387,20 +577,31 @@
     }
     applyLayout(localStorage.getItem(LAYOUT_KEY) || "layout-standard");
 
-    /* —— more menu —— */
+    /* 挑战计划浮层 */
+    document.getElementById("btnChallenge")?.addEventListener("click", () => {
+      const popup = document.getElementById("challengePopup");
+      popup.classList.toggle("show");
+    });
+    document.getElementById("btnCloseChallenge")?.addEventListener("click", () => {
+      document.getElementById("challengePopup").classList.remove("show");
+    });
+
+    /* more menu */
     const moreBtn = document.getElementById("btnMore");
     const moreMenu = document.getElementById("moreMenu");
-    moreBtn.addEventListener("click", (e) => {
+    moreBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       const open = !moreMenu.classList.contains("open");
       moreMenu.classList.toggle("open", open);
       moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
     document.addEventListener("click", () => {
-      moreMenu.classList.remove("open");
+      moreMenu?.classList.remove("open");
       document.getElementById("taskCtxMenu").classList.remove("open");
+      document.getElementById("challengePopup").classList.remove("show");
     });
-    document.getElementById("btnLayout").addEventListener("click", () => {
+
+    document.getElementById("btnLayout")?.addEventListener("click", () => {
       const app = document.getElementById("app");
       const cur = layouts.find(c => app.classList.contains(c)) || "layout-standard";
       const next = layouts[(layouts.indexOf(cur) + 1) % layouts.length];
@@ -408,8 +609,8 @@
       toast("布局：" + ({ "layout-narrow": "窄", "layout-standard": "标准", "layout-wide": "宽" }[next] || next));
     });
 
-    /* —— mobile panes —— */
-    document.getElementById("mobileTabs").addEventListener("click", (e) => {
+    /* mobile panes */
+    document.getElementById("mobileTabs")?.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-pane]");
       if (!btn) return;
       const app = document.getElementById("app");
@@ -419,7 +620,7 @@
       if (btn.dataset.pane === "right") app.classList.add("show-right");
     });
 
-    /* —— login tabs —— */
+    /* login tabs */
     document.querySelectorAll(".login-tabs button").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".login-tabs button").forEach(b => b.classList.toggle("active", b === btn));
@@ -448,7 +649,7 @@
       }
     }
 
-    document.getElementById("loginFormKey").addEventListener("submit", async (e) => {
+    document.getElementById("loginFormKey")?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
       try {
@@ -467,7 +668,7 @@
         document.getElementById("loginErr").textContent = err.message;
       }
     });
-    document.getElementById("loginFormSso").addEventListener("submit", async (e) => {
+    document.getElementById("loginFormSso")?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
       try {
@@ -482,7 +683,7 @@
         document.getElementById("loginErr").textContent = err.message;
       }
     });
-    document.getElementById("btnLogout").addEventListener("click", () => {
+    document.getElementById("btnLogout")?.addEventListener("click", () => {
       setToken(""); location.reload();
     });
 
@@ -526,11 +727,11 @@
       document.getElementById("projectSelect").value = state.projectId;
       updateProjectChip();
     }
-    document.getElementById("projectSelect").addEventListener("change", async (e) => {
+    document.getElementById("projectSelect")?.addEventListener("change", async (e) => {
       setProjectId(e.target.value);
       await refreshTasks();
     });
-    document.getElementById("btnNewProject").addEventListener("click", async () => {
+    document.getElementById("btnNewProject")?.addEventListener("click", async () => {
       const id = prompt("项目 ID（英文/数字/-_）", "my_project");
       if (!id) return;
       const name = prompt("项目显示名", id) || id;
@@ -589,31 +790,26 @@
           </select>
           <button type="button" class="btn" id="btnAddMember">添加</button>
         </div>`;
-      const openM = () => { document.getElementById("projectDrawer").classList.remove("open"); document.getElementById("btnSkills").click(); };
-      const a = document.getElementById("btnOpenMarketFromProject");
-      const b = document.getElementById("btnDepositMore");
-      if (a) a.addEventListener("click", openM);
-      if (b) b.addEventListener("click", openM);
-      const addBtn = document.getElementById("btnAddMember");
-      if (addBtn) {
-        addBtn.addEventListener("click", async () => {
-          const user_id = document.getElementById("memberUid").value.trim();
-          const role = document.getElementById("memberRole").value;
-          if (!user_id) return;
-          await api("/api/projects/" + encodeURIComponent(state.projectId) + "/members", {
-            method: "POST",
-            body: JSON.stringify({ user_id, role, action: "upsert" }),
-          });
-          toast("成员已更新", "ok");
-          openProjectDrawer();
+      const openM = () => { document.getElementById("projectDrawer").classList.remove("open"); document.getElementById("btnSkills")?.click(); };
+      document.getElementById("btnOpenMarketFromProject")?.addEventListener("click", openM);
+      document.getElementById("btnDepositMore")?.addEventListener("click", openM);
+      document.getElementById("btnAddMember")?.addEventListener("click", async () => {
+        const user_id = document.getElementById("memberUid").value.trim();
+        const role = document.getElementById("memberRole").value;
+        if (!user_id) return;
+        await api("/api/projects/" + encodeURIComponent(state.projectId) + "/members", {
+          method: "POST",
+          body: JSON.stringify({ user_id, role, action: "upsert" }),
         });
-      }
+        toast("成员已更新", "ok");
+        openProjectDrawer();
+      });
     }
-    document.getElementById("btnProjects").addEventListener("click", openProjectDrawer);
-    document.getElementById("btnCloseProject").addEventListener("click", () => {
+    document.getElementById("btnProjects")?.addEventListener("click", openProjectDrawer);
+    document.getElementById("btnCloseProject")?.addEventListener("click", () => {
       document.getElementById("projectDrawer").classList.remove("open");
     });
-    document.getElementById("projectChip").addEventListener("click", openProjectDrawer);
+    document.getElementById("projectChip")?.addEventListener("click", openProjectDrawer);
 
     async function refreshTasks() {
       const q = document.getElementById("search").value.trim();
@@ -627,8 +823,7 @@
       if (!state.tasks.length) {
         box.innerHTML = `<div class="empty"><div class="empty-art"></div>暂无任务
           <div class="cta"><button type="button" class="btn" id="btnEmptyNewSide">新建第一个任务</button></div></div>`;
-        const b = document.getElementById("btnEmptyNewSide");
-        if (b) b.addEventListener("click", createTaskPrompt);
+        document.getElementById("btnEmptyNewSide")?.addEventListener("click", createTaskPrompt);
         return;
       }
       box.innerHTML = state.tasks.map(t => `
@@ -645,7 +840,7 @@
         </div>`).join("");
     }
 
-    document.getElementById("taskList").addEventListener("click", (e) => {
+    document.getElementById("taskList")?.addEventListener("click", (e) => {
       const menuBtn = e.target.closest("[data-menu]");
       if (menuBtn) {
         e.stopPropagation();
@@ -656,7 +851,7 @@
       if (!item) return;
       openTask(item.dataset.id);
     });
-    document.getElementById("search").addEventListener("input", () => {
+    document.getElementById("search")?.addEventListener("input", () => {
       clearTimeout(window.__sq);
       window.__sq = setTimeout(refreshTasks, 200);
     });
@@ -668,7 +863,7 @@
       menu.style.left = Math.min(x, window.innerWidth - 160) + "px";
       menu.style.top = Math.min(y, window.innerHeight - 160) + "px";
     }
-    document.getElementById("taskCtxMenu").addEventListener("click", async (e) => {
+    document.getElementById("taskCtxMenu")?.addEventListener("click", async (e) => {
       const btn = e.target.closest("button[data-act]");
       if (!btn || !state.ctxTaskId) return;
       e.stopPropagation();
@@ -720,6 +915,8 @@
         const el = document.getElementById(id);
         if (el) el.innerHTML = '<div class="empty"><div class="empty-art"></div>暂无内容</div>';
       });
+      if (window.xbSetView) window.xbSetView("chat");
+      else if (window.xbSyncHome) window.xbSyncHome();
     }
 
     async function openTask(id) {
@@ -731,7 +928,6 @@
       document.getElementById("modeSelect").value = t.mode || "craft";
       document.getElementById("modeChip").textContent = MODE_LABEL[t.mode] || t.mode || "创作";
       if (t.project_id && t.project_id !== state.projectId) {
-        // Keep filter unless user is browsing all; soft-sync chip only when empty
         if (!state.projectId) setProjectId(t.project_id);
       }
       renderMessages(t.messages || []);
@@ -739,6 +935,8 @@
       await refreshTasks();
       if (t.status === "running") startPoll();
       else stopPoll();
+      if (window.xbSetView) window.xbSetView("chat");
+      else if (window.xbSyncHome) window.xbSyncHome();
     }
 
     function renderMessages(msgs, pending) {
@@ -746,8 +944,7 @@
       if (!msgs.length && !pending) {
         box.innerHTML = `<div class="empty"><div class="empty-art"></div>发送第一条消息开始
           <div class="cta"><button type="button" class="btn" id="btnEmptyFocus">开始输入</button></div></div>`;
-        const b = document.getElementById("btnEmptyFocus");
-        if (b) b.addEventListener("click", () => document.getElementById("composer").focus());
+        document.getElementById("btnEmptyFocus")?.addEventListener("click", () => document.getElementById("composer")?.focus());
         return;
       }
       let html = msgs.map(m => `
@@ -815,7 +1012,7 @@
       }
     }
 
-    document.getElementById("pane-files").addEventListener("click", async (e) => {
+    document.getElementById("pane-files")?.addEventListener("click", async (e) => {
       const dl = e.target.closest("[data-dl]");
       if (dl && state.current) {
         e.stopPropagation();
@@ -845,7 +1042,7 @@
       document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-preview"));
     });
 
-    document.getElementById("fileInput").addEventListener("change", async (e) => {
+    document.getElementById("fileInput")?.addEventListener("change", async (e) => {
       const file = e.target.files && e.target.files[0];
       e.target.value = "";
       if (!file) return;
@@ -897,7 +1094,7 @@
       }
     }
 
-    document.getElementById("btnHarbor").addEventListener("click", async () => {
+    document.getElementById("btnHarbor")?.addEventListener("click", async () => {
       toast("Harbor 演练中…");
       try {
         const data = await api("/api/harbor/dry-run", { method: "POST", body: JSON.stringify({ timeout: 60 }) });
@@ -906,7 +1103,7 @@
         toast("Harbor：" + err.message, "error");
       }
     });
-    document.getElementById("btnScore").addEventListener("click", async () => {
+    document.getElementById("btnScore")?.addEventListener("click", async () => {
       const live = confirm("确定跑 live 评分？\n取消 = 仅演练（推荐）\n确定 = live（耗时长）");
       toast(live ? "Live 评分中…" : "演练评分中…");
       try {
@@ -920,7 +1117,7 @@
       }
     });
 
-    document.getElementById("resultTabs").addEventListener("click", (e) => {
+    document.getElementById("resultTabs")?.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-pane]");
       if (!btn) return;
       document.querySelectorAll("#resultTabs button").forEach(b => b.classList.toggle("active", b === btn));
@@ -985,11 +1182,31 @@
       await refreshTasks();
       await openTask(data.task.task_id);
     }
-    document.getElementById("btnNew").addEventListener("click", createTaskPrompt);
-    document.getElementById("btnEmptyNew").addEventListener("click", createTaskPrompt);
+    window.createTaskFromPrompt = async (text) => {
+      const content = String(text || "").trim();
+      if (!content) return;
+      document.getElementById("composer").value = content;
+      if (!state.current) {
+        const title = content.slice(0, 40) || "新任务";
+        const body = { title, mode: document.getElementById("modeSelect").value };
+        if (state.projectId) body.project_id = state.projectId;
+        const created = await api("/api/tasks", { method: "POST", body: JSON.stringify(body) });
+        await openTask(created.task.task_id);
+      }
+      await sendMessage();
+    };
+    document.getElementById("btnNew")?.addEventListener("click", () => {
+      if (window.xbGoHome) window.xbGoHome();
+      else createTaskPrompt();
+      document.getElementById("homeComposer")?.focus();
+    });
+    document.getElementById("btnEmptyNew")?.addEventListener("click", () => {
+      if (window.xbGoHome) window.xbGoHome();
+      document.getElementById("homeComposer")?.focus();
+    });
 
-    document.getElementById("btnSend").addEventListener("click", sendMessage);
-    document.getElementById("composer").addEventListener("keydown", (e) => {
+    document.getElementById("btnSend")?.addEventListener("click", sendMessage);
+    document.getElementById("composer")?.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         sendMessage();
@@ -1042,10 +1259,6 @@
       const btn = document.getElementById("btnSend");
       btn.disabled = true;
       btn.textContent = "处理中…";
-      const optimistic = [
-        ...(state.tasks.find(t => t.task_id === state.current) ? [] : []),
-      ];
-      // show pending bubble with current messages + user text
       try {
         const cur = await api("/api/tasks/" + encodeURIComponent(state.current));
         const msgs = (cur.task.messages || []).concat([{ role: "user", content, ts: new Date().toISOString() }]);
@@ -1084,7 +1297,7 @@
       }
     }
 
-    document.getElementById("modeSelect").addEventListener("change", async () => {
+    document.getElementById("modeSelect")?.addEventListener("change", async () => {
       if (!state.current) return;
       const mode = document.getElementById("modeSelect").value;
       await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
@@ -1093,7 +1306,7 @@
       document.getElementById("modeChip").textContent = MODE_LABEL[mode] || mode;
       refreshTasks();
     });
-    document.getElementById("btnPin").addEventListener("click", async () => {
+    document.getElementById("btnPin")?.addEventListener("click", async () => {
       if (!state.current) return;
       const cur = state.tasks.find(t => t.task_id === state.current);
       await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
@@ -1101,10 +1314,10 @@
       });
       refreshTasks();
     });
-    document.getElementById("btnRename").addEventListener("click", () => {
+    document.getElementById("btnRename")?.addEventListener("click", () => {
       if (state.current) renameTask(state.current);
     });
-    document.getElementById("btnArchive").addEventListener("click", async () => {
+    document.getElementById("btnArchive")?.addEventListener("click", async () => {
       if (!state.current) return;
       await api("/api/tasks/" + encodeURIComponent(state.current) + "/patch", {
         method: "POST", body: JSON.stringify({ archived: true }),
@@ -1112,11 +1325,11 @@
       clearCurrent("任务已归档");
       refreshTasks();
     });
-    document.getElementById("btnDelete").addEventListener("click", () => {
+    document.getElementById("btnDelete")?.addEventListener("click", () => {
       if (state.current) deleteTask(state.current);
     });
 
-    document.getElementById("btnSkills").addEventListener("click", async () => {
+    document.getElementById("btnSkills")?.addEventListener("click", async () => {
       document.getElementById("skillsDrawer").classList.add("open");
       document.getElementById("projectDrawer").classList.remove("open");
       const pd = document.getElementById("parityDrawer");
@@ -1141,10 +1354,10 @@
           </div>
         </div>`).join("") || '<div class="empty">无技能</div>';
     });
-    document.getElementById("btnCloseSkills").addEventListener("click", () => {
+    document.getElementById("btnCloseSkills")?.addEventListener("click", () => {
       document.getElementById("skillsDrawer").classList.remove("open");
     });
-    document.getElementById("skillsList").addEventListener("click", async (e) => {
+    document.getElementById("skillsList")?.addEventListener("click", async (e) => {
       const dep = e.target.closest("[data-deposit]");
       if (dep && !dep.disabled) {
         if (!state.projectId) { toast("请先选择项目空间", "error"); return; }

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bearBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD60A"/>
+      <stop offset="100%" style="stop-color:#D4A85A"/>
+    </linearGradient>
+    <linearGradient id="bearFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E0"/>
+      <stop offset="100%" style="stop-color:#E8D8B8"/>
+    </linearGradient>
+    <linearGradient id="bearNose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D2E33"/>
+      <stop offset="100%" style="stop-color:#1A1B1F"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#bearBg)"/>
+  <!-- Ears -->
+  <circle cx="148" cy="148" r="60" fill="#D4A85A"/>
+  <circle cx="148" cy="148" r="36" fill="#C4956A"/>
+  <circle cx="364" cy="148" r="60" fill="#D4A85A"/>
+  <circle cx="364" cy="148" r="36" fill="#C4956A"/>
+  <!-- Face -->
+  <ellipse cx="256" cy="290" rx="145" ry="130" fill="url(#bearFace)"/>
+  <!-- Eyes -->
+  <ellipse cx="200" cy="268" rx="22" ry="24" fill="#1A1B1F"/>
+  <ellipse cx="312" cy="268" rx="22" ry="24" fill="#1A1B1F"/>
+  <!-- Eye shine -->
+  <circle cx="207" cy="260" r="7" fill="#F5F5F7"/>
+  <circle cx="319" cy="260" r="7" fill="#F5F5F7"/>
+  <!-- Nose -->
+  <ellipse cx="256" cy="318" rx="32" ry="22" fill="url(#bearNose)"/>
+  <ellipse cx="256" cy="314" rx="20" ry="12" fill="#3A3B40" opacity="0.4"/>
+  <!-- Mouth -->
+  <path d="M230 336 Q256 358 282 336" stroke="#1A1B1F" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Cheek blush -->
+  <ellipse cx="165" cy="310" rx="28" ry="18" fill="#FFB6C1" opacity="0.35"/>
+  <ellipse cx="347" cy="310" rx="28" ry="18" fill="#FFB6C1" opacity="0.35"/>
+  <!-- Star badge on chest -->
+  <circle cx="256" cy="420" r="38" fill="#FFD60A" opacity="0.9"/>
+  <path d="M256 388 L261 404 L278 404 L264 413 L269 429 L256 420 L243 429 L248 413 L234 404 L251 404 Z" fill="#1A1B1F"/>
+</svg>

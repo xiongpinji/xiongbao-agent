@@ -1,78 +1,296 @@
-/* 熊宝 Agent · Design Tokens v1.0 — 干净 / 专业 / 高效 / 有温度 */
-:root {
-  /* Backgrounds */
-  --bg: #0f1115;
-  --bg-sidebar: #151922;
-  --bg-elevated: #1a1f28;
-  --panel: #1b212b;
-  --panel-hover: #222937;
-  --panel-active: #262d3a;
+/* ════════════════════════════════════════════════════════════════════════════
+ * 熊宝 Agent · Design Tokens v3.0 — 完整WorkBuddy视觉体系
+ * XiongBao Agent Design Tokens — WorkBuddy dark + gold accent
+ * ────────────────────────────────────────────────────────────────────────────
+ * 与 octop/contrib/workbuddy/console/BRAND.md 严格同步
+ * 任何 UI 颜色/圆角/字体/间距偏离本文件视为缺陷。
+ *
+ * 视觉特征：
+ *   1) 深色背景（#0F1115 ~ #3A3B40 五级）
+ *   2) 金色强调（#FFC107 主 CTA / 激活态 / 积分徽章）
+ *   3) 紧凑间距（13px 基准 / 4px 间距刻度）
+ *   4) 大圆角（输入框 12px / Modal 12px / 卡片 8~10px）
+ * ────────────────────────────────────────────────────────────────────────────
+ */
 
-  /* Borders */
-  --line: #2a323d;
-  --line-strong: #3a4452;
+:root {
+  /* ═══════════════════════════════════════
+     1. 背景层级（深色 — WorkBuddy标准五级）
+     ═══════════════════════════════════════ */
+  --bg-primary: #0F1115;          /* 页面底色（最深） */
+  --bg-secondary: #1A1B1F;        /* 侧边栏 / 分组容器 */
+  --bg-tertiary: #242529;         /* 卡片 / 输入框 / 浮起元素 */
+  --bg-elevated: #2D2E33;         /* hover 态 / 浮起 */
+  --bg-overlay: #3A3B40;          /* 弹窗 / Modal / Drawer */
+
+  /* 兼容别名（WorkBuddy 旧版 + 旧 tokens 引用） */
+  --bg: var(--bg-primary);                       /* 主背景 */
+  --bg-sidebar: var(--bg-secondary);             /* 侧边栏 */
+  --panel: var(--bg-tertiary);                   /* 卡片 */
+  --panel-hover: var(--bg-elevated);             /* hover */
+  --panel-active: var(--bg-overlay);             /* active */
+
+  /* ═══════════════════════════════════════
+     2. 边框（半透明叠加 — 不依赖纯色）
+     ═══════════════════════════════════════ */
+  --border-subtle: rgba(255, 255, 255, 0.06);    /* 默认分隔线 */
+  --border-default: rgba(255, 255, 255, 0.1);    /* 卡片边缘 */
+  --border-strong: rgba(255, 255, 255, 0.15);    /* hover / 强调边 */
+
+  /* 兼容别名 */
+  --line: var(--border-subtle);
+  --line-strong: var(--border-default);
   --line-soft: rgba(42, 50, 61, 0.65);
 
-  /* Brand / Accent */
-  --accent: #d4a257;
-  --accent-hover: #e0b46a;
-  --accent-pressed: #c49245;
-  --accent-soft: rgba(212, 162, 87, 0.14);
-  --accent-border: rgba(212, 162, 87, 0.35);
-  --accent-glow: rgba(212, 162, 87, 0.22);
-  --on-accent: #1a1208;
+  /* ═══════════════════════════════════════
+     3. 品牌强调色（金 / 红 / 蓝 三主色）
+     ═══════════════════════════════════════ */
+  --brand-yellow: #FFC107;        /* 主强调（积分徽章 / 激活态 / 主 CTA） */
+  --brand-yellow-bright: #FFD60A; /* 高亮态（hover / 浮起） */
+  --brand-yellow-pressed: #E6B800;/* pressed 态 */
+  --brand-red: #FF4444;           /* 危险 / 重要提醒 */
+  --brand-blue: #4B7BF5;          /* 链接 / 信息 */
 
-  /* Functional */
-  --blue: #3b82f6;
-  --blue-soft: rgba(59, 130, 246, 0.14);
-  --ok: #22c55e;
-  --ok-soft: rgba(34, 197, 94, 0.14);
-  --warn: #f59e0b;
-  --warn-soft: rgba(245, 158, 11, 0.14);
-  --danger: #ef4444;
-  --danger-soft: rgba(239, 68, 68, 0.14);
+  /* 金色派生（半透明叠加 / 边框 / 投影 / soft） */
+  --accent: var(--brand-yellow);
+  --accent-hover: var(--brand-yellow-bright);
+  --accent-pressed: var(--brand-yellow-pressed);
+  --accent-soft: rgba(255, 193, 7, 0.12);
+  --accent-border: rgba(255, 193, 7, 0.30);
+  --accent-glow: rgba(255, 193, 7, 0.18);
+  --accent-muted: rgba(255, 193, 7, 0.06);
+  --on-accent: #1A1208;           /* 金色按钮上的文字色 */
+  --on-accent-dark: #1a1208;      /* 同上，兼容旧名 */
 
-  /* Text */
-  --text: #f9fafb;
-  --muted: #a1a1b8;
-  --hint: #6b7280;
+  /* 主红派生 */
+  --danger-soft: rgba(255, 68, 68, 0.12);
+  --danger-border: rgba(255, 68, 68, 0.3);
 
-  /* Layout */
-  --sidebar-w: 252px;
-  --right-w: 336px;
-  --topbar-h: 0px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.4);
-  --shadow-gold: 0 4px 18px rgba(212, 162, 87, 0.28);
+  /* ═══════════════════════════════════════
+     4. 状态色（成功 / 警告 / 危险 / 信息）
+     ═══════════════════════════════════════ */
+  --success: #34C759;
+  --success-soft: rgba(52, 199, 89, 0.12);
+  --warning: #FF9500;
+  --warning-soft: rgba(255, 149, 0, 0.12);
+  --danger: #FF4444;
+  --danger-soft: rgba(255, 68, 68, 0.12);
+  --info: #4B7BF5;
+  --info-soft: rgba(75, 123, 245, 0.12);
 
-  /* Type */
-  --font: "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans SC",
-    system-ui, sans-serif;
-  --fs-xs: 12px;
-  --fs-sm: 12px;
-  --fs-md: 14px;
-  --fs-lg: 18px;
-  --fs-xl: 20px;
-  --lh: 1.55;
+  /* 兼容别名 */
+  --ok: var(--success);
+  --ok-soft: var(--success-soft);
+  --warn: var(--warning);
+  --warn-soft: var(--warning-soft);
+  --blue: var(--info);
+  --blue-soft: var(--info-soft);
 
-  /* Spacing scale */
+  /* ═══════════════════════════════════════
+     5. 文本层级（4 级）
+     ═══════════════════════════════════════ */
+  --text-primary: #F8FAFC;        /* 主要正文（标题 / 重点） */
+  --text-secondary: #C7C9CC;      /* 次要文本 / 描述 */
+  --text-muted: #8A8D92;          /* 辅助 / 占位 / 元数据 */
+  --text-disabled: #4D4E52;       /* 禁用态 */
+  --text-on-gold: #1A1208;        /* 金色背景上的文字 */
+
+  /* 兼容别名 */
+  --text: var(--text-primary);
+  --muted: var(--text-secondary);
+  --hint: var(--text-muted);
+
+  /* ═══════════════════════════════════════
+     6. 字体（13px 基准 — WorkBuddy 标准）
+     ═══════════════════════════════════════ */
+  --font:
+    -apple-system, BlinkMacSystemFont, "SF Pro",
+    "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB",
+    "Source Han Sans CN", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Fira Code", "SF Mono",
+    Menlo, Consolas, "Courier New", monospace;
+
+  /* 字号刻度（WorkBuddy 标准：13px 基准） */
+  --fs-xs: 11px;                  /* 徽章 / 元数据 / 时间戳 */
+  --fs-sm: 12px;                  /* 次要文本 / 标签 */
+  --fs-base: 13px;                /* 正文 / 列表项 / 基准 */
+  --fs-md: 14px;                  /* 主文本 / 重要内容 */
+  --fs-lg: 16px;                  /* 标题 / 强强调 */
+  --fs-xl: 20px;                  /* 卡片标题 / 区块标题 */
+  --fs-2xl: 28px;                /* Hero / 大标题 */
+  --fs-3xl: 36px;                /* 启动屏 / 巨型展示 */
+
+  /* 字重 */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* 行高 */
+  --lh-tight: 1.3;                /* 紧凑列表 */
+  --lh-normal: 1.5;               /* 默认正文 */
+  --lh-relaxed: 1.7;              /* 大段文字 */
+  --lh: var(--lh-normal);
+
+  /* 间距 */
+  --letter-tight: -0.01em;
+  --letter-normal: 0;
+  --letter-wide: 0.02em;
+  --letter-wider: 0.04em;
+
+  /* ═══════════════════════════════════════
+     7. 圆角刻度（4 / 6 / 8 / 10 / 12 / 16 / 999）
+     ═══════════════════════════════════════ */
+  --radius-xs: 4px;               /* 微元素（小标签 / 状态点） */
+  --radius-sm: 6px;               /* 输入框 / 小按钮 / 列表项 */
+  --radius: 8px;                  /* 卡片 / 普通按钮 */
+  --radius-md: 10px;              /* 较大卡片 / 浮起元素 */
+  --radius-lg: 12px;              /* 大卡片 / Modal / 大输入框 */
+  --radius-xl: 16px;              /* Hero 容器 / 巨型卡片 */
+  --radius-2xl: 18px;             /* 启动屏 / 巨型卡片 */
+  --radius-full: 9999px;          /* 胶囊（Tag / Chip / 激活态横线） */
+
+  /* ═══════════════════════════════════════
+     8. 阴影（四级 + 金色光晕）
+     ═══════════════════════════════════════ */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);              /* 浮起提示 */
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.18);                /* 卡片默认 */
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.26);              /* Modal / Drawer */
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.32);            /* 启动屏 / 巨型浮层 */
+  --shadow-gold: 0 4px 18px rgba(255, 193, 7, 0.22);        /* 主 CTA / 激活 Logo */
+  --shadow-gold-strong: 0 8px 28px rgba(255, 193, 7, 0.32); /* 主 CTA hover */
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.04);  /* 内嵌高光 */
+
+  /* ═══════════════════════════════════════
+     9. 间距刻度（4px 基准 — 7 级）
+     ═══════════════════════════════════════ */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* 容器 */
+  --sidebar-w: 240px;             /* 侧边栏宽度（紧凑） */
+  --sidebar-w-wide: 256px;        /* 宽屏侧边栏 */
+  --right-w: 280px;               /* 右侧面板宽度 */
+  --mid-w: 280px;                 /* 中间面板宽度（library 等） */
+  --topbar-h: 44px;               /* 顶栏高度（hidden） */
+
+  /* 元素尺寸 */
+  --control-h-sm: 28px;           /* 小按钮 / Tool Chip */
+  --control-h: 32px;              /* 输入框 / 标准按钮 */
+  --control-h-md: 36px;           /* 中型按钮 / 输入框 */
+  --control-h-lg: 40px;           /* 大型按钮 */
+  --icon-btn-size: 32px;
+  --avatar-sm: 28px;
+  --avatar-md: 32px;
+  --avatar-lg: 40px;
+
+  /* ═══════════════════════════════════════
+     10. 动效（缓入曲线 + 时长）
+     ═══════════════════════════════════════ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 450ms;
+
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-slow: var(--duration-slow) var(--ease-in-out);
+
+  /* ═══════════════════════════════════════
+     11. 模糊 + 遮罩
+     ═══════════════════════════════════════ */
+  --blur-sm: blur(4px);
+  --blur: blur(8px);
+  --blur-lg: blur(16px);
+  --mask-light: rgba(0, 0, 0, 0.4);
+  --mask-medium: rgba(0, 0, 0, 0.6);
+  --mask-heavy: rgba(0, 0, 0, 0.8);
+
+  /* ═══════════════════════════════════════
+     12. Z-index 层级
+     ═══════════════════════════════════════ */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-dropdown: 40;
+  --z-sticky: 50;
+  --z-drawer: 60;
+  --z-modal-mask: 100;
+  --z-modal: 110;
+  --z-toast: 90;
+  --z-tooltip: 120;
+  --z-notification: 200;
 }
 
+/* ═══════════════════════════════════════
+   布局档位变体
+   ═══════════════════════════════════════ */
 .app.layout-narrow {
   --sidebar-w: 220px;
-  --right-w: 300px;
+  --right-w: 260px;
+}
+.app.layout-standard {
+  --sidebar-w: 240px;
+  --right-w: 280px;
 }
 .app.layout-wide {
   --sidebar-w: 280px;
-  --right-w: 380px;
+  --right-w: 320px;
+}
+
+/* ═══════════════════════════════════════
+   深色主题滚动条（细窄 + 金色 thumb）
+   ═══════════════════════════════════════ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--border-default);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ═══════════════════════════════════════
+   自动适配系统深色模式（保持品牌暗色，不切换）
+   ═══════════════════════════════════════ */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* 当前主题固定为深色，浅色模式不切换品牌色 */
+    /* 保留 token 变量已生效的状态 */
+  }
+}
+
+/* ═══════════════════════════════════════
+   减弱动效支持
+   ═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
