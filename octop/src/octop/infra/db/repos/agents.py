@@ -173,11 +173,31 @@ class AgentRepo:
             )
 
     def set_shared(self, agent_id: str, shared: bool) -> None:
+        """Toggle the public-readable ACL sentinel for ``agent_id``.
+
+        P1-3 deliverable: the legacy boolean ``agents.is_shared`` column
+        is now a mirror of ``agent_acl.user_id IS NULL``. We keep the
+        column updated so any older code path that still reads it sees
+        a consistent value.
+        """
+        ts = now_ts()
         with self._db.transaction() as conn:
             conn.execute(
                 "UPDATE agents SET is_shared = ?, updated_at = ? WHERE agent_id = ?",
-                (bool_int(shared), now_ts(), agent_id),
+                (bool_int(shared), ts, agent_id),
             )
+            if shared:
+                # Insert the public sentinel if missing.
+                conn.execute(
+                    "INSERT OR IGNORE INTO agent_acl(agent_id, user_id, role, created_at, updated_at) "
+                    "VALUES (?, NULL, 'viewer', ?, ?)",
+                    (agent_id, ts, ts),
+                )
+            else:
+                conn.execute(
+                    "DELETE FROM agent_acl WHERE agent_id = ? AND user_id IS NULL",
+                    (agent_id,),
+                )
 
     def list_shared(self, *, exclude_user_id: int | None = None) -> list[AgentRow]:
         sql = "SELECT * FROM agents WHERE is_shared = 1 AND enabled = 1"

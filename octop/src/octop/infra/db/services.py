@@ -6,12 +6,14 @@ from dataclasses import dataclass
 
 from octop.config import OctopConfig
 from octop.infra.db.pool import DatabasePool
+from octop.infra.db.repos.agent_acl import AgentAclRepo
 from octop.infra.db.repos.agents import AgentRepo
 from octop.infra.db.repos.audit import AuditRepo
 from octop.infra.db.repos.backends import BackendRepo
 from octop.infra.db.repos.care_push import CarePushRepo
 from octop.infra.db.repos.channels import ChannelRepo
 from octop.infra.db.repos.connectors import ConnectorRepo
+from octop.infra.db.repos.credits import CreditRepo
 from octop.infra.db.repos.cron import CronJobRepo
 from octop.infra.db.repos.invites import InviteRepo
 from octop.infra.db.repos.knowledge import KnowledgeRepo
@@ -41,6 +43,7 @@ class RepoBundle:
     user_policy_repo: UserPolicyRepo
     invite_repo: InviteRepo
     agent_repo: AgentRepo
+    agent_acl_repo: AgentAclRepo
     provider_repo: ProviderRepo
     channel_repo: ChannelRepo
     cron_repo: CronJobRepo
@@ -51,6 +54,7 @@ class RepoBundle:
     secret_repo: SecretRepo
     audit_repo: AuditRepo
     usage_repo: UsageRepo
+    credit_repo: CreditRepo
     settings_repo: SettingsRepo
     storage_backend_repo: BackendRepo
     connector_repo: ConnectorRepo
@@ -70,6 +74,7 @@ class RepoBundle:
             user_policy_repo=UserPolicyRepo(db),
             invite_repo=InviteRepo(db),
             agent_repo=AgentRepo(db),
+            agent_acl_repo=AgentAclRepo(db),
             provider_repo=ProviderRepo(db),
             channel_repo=ChannelRepo(db),
             cron_repo=CronJobRepo(db),
@@ -80,6 +85,7 @@ class RepoBundle:
             secret_repo=SecretRepo(db),
             audit_repo=AuditRepo(db),
             usage_repo=UsageRepo(db),
+            credit_repo=CreditRepo(db),
             settings_repo=SettingsRepo(db),
             storage_backend_repo=BackendRepo(db),
             connector_repo=ConnectorRepo(db),
@@ -120,6 +126,10 @@ class SharedServices:
         return self.repos.agent_repo
 
     @property
+    def agent_acl_repo(self) -> AgentAclRepo:
+        return self.repos.agent_acl_repo
+
+    @property
     def provider_repo(self) -> ProviderRepo:
         return self.repos.provider_repo
 
@@ -158,6 +168,10 @@ class SharedServices:
     @property
     def usage_repo(self) -> UsageRepo:
         return self.repos.usage_repo
+
+    @property
+    def credit_repo(self) -> CreditRepo:
+        return self.repos.credit_repo
 
     @property
     def settings_repo(self) -> SettingsRepo:

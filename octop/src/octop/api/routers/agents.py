@@ -8,8 +8,13 @@ from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, File, Query, UploadFile
 from fastapi.responses import Response
+from pydantic import BaseModel
 
 from octop.api.common.agent import assert_agent_access_row, assert_agent_owner
+from octop.api.common.agent_acl import (
+    effective_role,
+    public_acl_present,
+)
 from octop.api.common.agent_runtime import AgentRuntimeFields, runtime_field_updates
 from octop.api.common.validators import assert_user_backend_root_dirs
 from octop.api.common.workspace import require_agent_workspace
@@ -32,6 +37,7 @@ from octop.infra.agents.runtime_limits import (
     AGENT_RUNTIME_CONFIG_KEYS,
     agent_runtime_values,
 )
+from octop.infra.db.repos.agent_acl import AclRole
 from octop.infra.errors import ErrorCode, OctopError
 from octop.infra.users.permissions import user_has_permission
 
@@ -550,3 +556,183 @@ async def agent_status(
         ],
         "memory_maintenance": _memory_maintenance_status(server, agent_id),
     }
+
+
+# ---------------------------------------------------------------------------
+# ACL endpoints (P1-3 project-member collaboration).
+# ---------------------------------------------------------------------------
+
+_VALID_ACL_ROLES = {role.value for role in AclRole}
+
+
+class AgentAclGrantBody(BaseModel):
+    """Add or update one ACL row. ``user_id=None`` toggles the public sentinel."""
+
+    user_id: int | None = None
+    role: Literal["viewer", "editor"] = "viewer"
+
+
+class AgentAclReplaceBody(BaseModel):
+    """Replace the full ACL list. Owners may pass any list of grants."""
+
+    grants: list[AgentAclGrantBody]
+
+
+def _acl_response(row: Any, *, username: str | None = None) -> dict[str, Any]:
+    return {
+        "user_id": row.user_id,
+        "username": username,
+        "role": row.role,
+        "is_public": row.user_id is None,
+        "created_at": row.created_at,
+        "updated_at": row.updated_at,
+    }
+
+
+@router.get("/{agent_id}/acl", summary="List ACL grants for an agent")
+async def list_agent_acl(
+    agent_id: str,
+    user: Any = Depends(current_user),
+    server: Any = Depends(get_server),
+) -> dict[str, Any]:
+    """Return every ACL row plus the agent owner.
+
+    Owners / admins / editors may call this; viewers receive only the
+    public-readable sentinel (so they can confirm shared status).
+    """
+    assert server.app_runtime is not None
+    row = server.app_runtime.agent_registry.get_row(agent_id)
+    if row is None:
+        raise OctopError(ErrorCode.AGENT_NOT_FOUND, f"agent {agent_id!r} not found")
+    role = effective_role(server, row, user)
+    if role is None:
+        raise OctopError(ErrorCode.FORBIDDEN, "agent not accessible to user")
+    repo = server.services.agent_acl_repo
+    grants = repo.list_for_agent(agent_id)
+    usernames = {
+        u.id: u.username
+        for u in (
+            server.services.user_repo.get_by_id(g.user_id) for g in grants if g.user_id is not None
+        )
+        if u is not None
+    }
+    return {
+        "agent_id": agent_id,
+        "owner_id": row.user_id,
+        "owner_username": _owner_username(server, row),
+        "my_role": role,
+        "is_public": public_acl_present(server, row),
+        "grants": [_acl_response(g, username=usernames.get(g.user_id) if g.user_id else None) for g in grants],
+    }
+
+
+@router.post(
+    "/{agent_id}/acl",
+    status_code=200,
+    summary="Add or update one ACL grant",
+)
+async def upsert_agent_acl(
+    agent_id: str,
+    body: AgentAclGrantBody,
+    user: Any = Depends(current_user),
+    server: Any = Depends(get_server),
+) -> dict[str, Any]:
+    """Owner or admin only. Editors cannot grant access."""
+    assert server.app_runtime is not None
+    row = server.app_runtime.agent_registry.get_row(agent_id)
+    if row is None:
+        raise OctopError(ErrorCode.AGENT_NOT_FOUND, f"agent {agent_id!r} not found")
+    if not user.is_admin and not (row.user_id is not None and row.user_id == user.id):
+        raise OctopError(ErrorCode.FORBIDDEN, "only the owner may modify ACL")
+    if body.role not in _VALID_ACL_ROLES:
+        raise OctopError(ErrorCode.VALIDATION, f"invalid acl role: {body.role!r}")
+    if body.user_id is not None:
+        target = server.services.user_repo.get_by_id(body.user_id)
+        if target is None:
+            raise OctopError(ErrorCode.NOT_FOUND, f"user {body.user_id} not found")
+        if row.user_id is not None and body.user_id == row.user_id:
+            raise OctopError(
+                ErrorCode.VALIDATION,
+                "owner already has implicit editor access; do not add a duplicate ACL row",
+            )
+    repo = server.services.agent_acl_repo
+    repo.grant(agent_id, body.user_id, body.role)
+    if body.user_id is None and row.is_shared == 0:
+        server.app_runtime.agent_registry.set_shared(agent_id, True)
+    out = repo.get(agent_id, body.user_id)
+    assert out is not None
+    return _acl_response(out)
+
+
+@router.delete(
+    "/{agent_id}/acl",
+    status_code=200,
+    summary="Remove one ACL grant (public sentinel when user_id is null)",
+)
+async def delete_agent_acl(
+    agent_id: str,
+    user_id: int | None = Query(default=None),
+    user: Any = Depends(current_user),
+    server: Any = Depends(get_server),
+) -> dict[str, bool]:
+    """Owner or admin only. Returns ``{"removed": true}`` when a row was deleted."""
+    assert server.app_runtime is not None
+    row = server.app_runtime.agent_registry.get_row(agent_id)
+    if row is None:
+        raise OctopError(ErrorCode.AGENT_NOT_FOUND, f"agent {agent_id!r} not found")
+    if not user.is_admin and not (row.user_id is not None and row.user_id == user.id):
+        raise OctopError(ErrorCode.FORBIDDEN, "only the owner may modify ACL")
+    repo = server.services.agent_acl_repo
+    removed = repo.revoke(agent_id, user_id)
+    if removed and user_id is None:
+        server.app_runtime.agent_registry.set_shared(agent_id, False)
+    return {"removed": removed}
+
+
+@router.put(
+    "/{agent_id}/acl",
+    status_code=200,
+    summary="Replace the full ACL list",
+)
+async def replace_agent_acl(
+    agent_id: str,
+    body: AgentAclReplaceBody,
+    user: Any = Depends(current_user),
+    server: Any = Depends(get_server),
+) -> dict[str, Any]:
+    """Owner or admin only. ``grants=[]`` removes every explicit grant."""
+    assert server.app_runtime is not None
+    row = server.app_runtime.agent_registry.get_row(agent_id)
+    if row is None:
+        raise OctopError(ErrorCode.AGENT_NOT_FOUND, f"agent {agent_id!r} not found")
+    if not user.is_admin and not (row.user_id is not None and row.user_id == user.id):
+        raise OctopError(ErrorCode.FORBIDDEN, "only the owner may modify ACL")
+    repo = server.services.agent_acl_repo
+    seen_user_ids: set[int] = set()
+    normalised: list[tuple[int | None, str]] = []
+    for g in body.grants:
+        if g.role not in _VALID_ACL_ROLES:
+            raise OctopError(ErrorCode.VALIDATION, f"invalid acl role: {g.role!r}")
+        if g.user_id is None:
+            normalised.append((None, g.role))
+            continue
+        if g.user_id == row.user_id:
+            raise OctopError(
+                ErrorCode.VALIDATION,
+                "owner already has implicit editor access; do not add a duplicate ACL row",
+            )
+        if g.user_id in seen_user_ids:
+            continue
+        seen_user_ids.add(g.user_id)
+        target = server.services.user_repo.get_by_id(g.user_id)
+        if target is None:
+            raise OctopError(ErrorCode.NOT_FOUND, f"user {g.user_id} not found")
+        normalised.append((g.user_id, g.role))
+    repo.replace_all(agent_id, normalised)
+    want_public = any(uid is None for uid, _ in normalised)
+    if want_public and row.is_shared == 0:
+        server.app_runtime.agent_registry.set_shared(agent_id, True)
+    elif not want_public and row.is_shared == 1:
+        server.app_runtime.agent_registry.set_shared(agent_id, False)
+    out = repo.list_for_agent(agent_id)
+    return {"agent_id": agent_id, "grants": [_acl_response(g) for g in out]}

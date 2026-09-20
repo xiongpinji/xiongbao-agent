@@ -104,6 +104,7 @@ class BackupConfig:
 
 
 _VALID_MOBILE_BACKENDS = frozenset({"physical", "redroid", "emulator", "none"})
+_VALID_DASHBOARD_MODES = frozenset({"xiongbao", "legacy", "none"})
 
 
 @dataclass(frozen=True)
@@ -122,6 +123,16 @@ class CapabilitiesConfig:
 
 
 @dataclass(frozen=True)
+class XiongbaoConfig:
+    """熊宝 Agent (Xiongbao Agent) 接入配置（基于 octop 的产品形态）。"""
+
+    console_path: str = "contrib/workbuddy/console"
+    users_root: str = "users"
+    enable_bench: bool = False
+    enable_office_preview: bool = True
+
+
+@dataclass(frozen=True)
 class OctopConfig:
     bind_host: str = "127.0.0.1"
     port: int = 8088
@@ -132,6 +143,11 @@ class OctopConfig:
     cors_origins: list[str] = field(default_factory=list)
     default_timezone: str = "Asia/Shanghai"
     enable_dashboard: bool = True
+    # Front-end presentation mode:
+    # - "xiongbao": serve 熊宝 Agent shell.html (default; the product)
+    # - "legacy":   serve the legacy React SPA at dashboard/ (internal devs)
+    # - "none":     no static UI; API-only
+    dashboard_mode: str = "xiongbao"
     enable_api_docs: bool = False
     history_v2_enabled: bool = False
     require_setup_password: bool = True
@@ -141,6 +157,7 @@ class OctopConfig:
     tls: TlsConfig = field(default_factory=TlsConfig)
     backup: BackupConfig = field(default_factory=BackupConfig)
     capabilities: CapabilitiesConfig = field(default_factory=CapabilitiesConfig)
+    xiongbao: XiongbaoConfig = field(default_factory=XiongbaoConfig)
     max_upload_mb: int = DEFAULT_MAX_UPLOAD_MB
     browser_idle_timeout_minutes: int = DEFAULT_BROWSER_IDLE_TIMEOUT_MINUTES
 
@@ -207,6 +224,30 @@ def _parse_capabilities_section(raw: object) -> CapabilitiesConfig:
         raise ValueError("config.capabilities must be an object")
     mobile_raw = raw.get("mobile")
     return CapabilitiesConfig(mobile=_parse_mobile_capabilities(mobile_raw))
+
+
+def _parse_xiongbao_section(raw: object) -> XiongbaoConfig:
+    if raw is None:
+        return XiongbaoConfig()
+    if not isinstance(raw, dict):
+        raise ValueError("config.xiongbao must be an object")
+    defaults = XiongbaoConfig()
+    console_path = str(raw.get("console_path", defaults.console_path)).strip() or defaults.console_path
+    users_root = str(raw.get("users_root", defaults.users_root)).strip() or defaults.users_root
+    return XiongbaoConfig(
+        console_path=console_path,
+        users_root=users_root,
+        enable_bench=_coerce_bool(
+            "config.xiongbao.enable_bench",
+            str(raw.get("enable_bench", defaults.enable_bench)).lower(),
+            defaults.enable_bench,
+        ),
+        enable_office_preview=_coerce_bool(
+            "config.xiongbao.enable_office_preview",
+            str(raw.get("enable_office_preview", defaults.enable_office_preview)).lower(),
+            defaults.enable_office_preview,
+        ),
+    )
 
 
 def _parse_backup_section(raw: object) -> BackupConfig:
@@ -462,6 +503,12 @@ def load_config(path: Path) -> OctopConfig:
         merged["enable_dashboard"] = _coerce_bool(
             "OCTOP_ENABLE_DASHBOARD", v, bool(merged["enable_dashboard"])
         )
+    if v := os.environ.get("OCTOP_DASHBOARD_MODE"):
+        merged["dashboard_mode"] = v.strip().lower()
+    if merged.get("dashboard_mode") not in _VALID_DASHBOARD_MODES:
+        allowed = ", ".join(sorted(_VALID_DASHBOARD_MODES))
+        msg = f"config.dashboard_mode must be one of {allowed}, got {merged.get('dashboard_mode')!r}"
+        raise ValueError(msg)
     if v := os.environ.get("OCTOP_ENABLE_API_DOCS"):
         merged["enable_api_docs"] = _coerce_bool(
             "OCTOP_ENABLE_API_DOCS", v, bool(merged["enable_api_docs"])
@@ -581,6 +628,7 @@ def load_config(path: Path) -> OctopConfig:
         cors_origins=list(merged.get("cors_origins") or []),
         default_timezone=str(merged.get("default_timezone") or "Asia/Shanghai"),
         enable_dashboard=bool(merged["enable_dashboard"]),
+        dashboard_mode=str(merged.get("dashboard_mode") or "xiongbao"),
         enable_api_docs=bool(merged["enable_api_docs"]),
         history_v2_enabled=_coerce_bool(
             "OCTOP_HISTORY_V2_ENABLED",
@@ -595,6 +643,7 @@ def load_config(path: Path) -> OctopConfig:
         tls=_parse_tls_section(raw.get("tls")),
         backup=backup,
         capabilities=capabilities,
+        xiongbao=_parse_xiongbao_section(raw.get("xiongbao")),
         max_upload_mb=int(merged.get("max_upload_mb", DEFAULT_MAX_UPLOAD_MB)),
         browser_idle_timeout_minutes=max(
             0,

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "expert_id": "AccessibilityAuditor",
+  "lead_id": "accessibility-auditor",
+  "lead_name": "accessibility-auditor",
+  "orchestration": "roundtable",
+  "source": "D:\\AI编程库\\项目库\\进行中的项目\\xiongbao agent\\octop\\src\\octop\\infra\\agents\\experts\\library\\AccessibilityAuditor\\SOUL.md",
+  "members": [],
+  "phases": []
+}
