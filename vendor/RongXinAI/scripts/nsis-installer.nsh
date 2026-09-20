@@ -16,7 +16,7 @@ Var /GLOBAL localInferenceLabel
 
 !macro OpenTimingLogForAppend HANDLE
   ; NSIS append mode preserves existing data but starts at offset zero.
-  FileOpen ${HANDLE} "$APPDATA\ZhiYuanAgent\install-timing.log" a
+  FileOpen ${HANDLE} "$APPDATA\XiongbaoAgent\install-timing.log" a
   FileSeek ${HANDLE} 0 END
 !macroend
 
@@ -52,7 +52,7 @@ Var /GLOBAL localInferenceLabel
 !macroend
 
 !macro customWelcomePage
-  !define MUI_WELCOMEPAGE_TITLE "欢迎使用知远智能体"
+  !define MUI_WELCOMEPAGE_TITLE "欢迎使用熊宝 Agent"
   !define MUI_WELCOMEPAGE_TEXT "安装程序将在本地准备离线运行环境，完成后即可使用。本地推理组件可在首次启动后按需下载。$\r$\n$\r$\n点击“下一步”继续。"
   !insertmacro MUI_PAGE_WELCOME
 !macroend
@@ -96,12 +96,12 @@ FunctionEnd
 
 !macro customInit
   SetDetailsPrint textonly
-  CreateDirectory "$APPDATA\ZhiYuanAgent"
+  CreateDirectory "$APPDATA\XiongbaoAgent"
   System::Call 'kernel32::GetTickCount()i .r9'
-  FileOpen $8 "$APPDATA\ZhiYuanAgent\install-start-tick.txt" w
+  FileOpen $8 "$APPDATA\XiongbaoAgent\install-start-tick.txt" w
   FileWrite $8 "$9"
   FileClose $8
-  FileOpen $8 "$APPDATA\ZhiYuanAgent\install-timing.log" w
+  FileOpen $8 "$APPDATA\XiongbaoAgent\install-timing.log" w
   FileWrite $8 "phase=custom-init-start tick_ms=$9 instdir=$INSTDIR$\r$\n"
   FileClose $8
 
@@ -109,10 +109,10 @@ FunctionEnd
   System::Call 'kernel32::GetTickCount()i .r7'
   nsExec::ExecToLog 'powershell -NoProfile -NonInteractive -Command "\
     Stop-Process -Name 知远 -Force -ErrorAction SilentlyContinue;\
-    Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*ZhiYuanAgent*\" -or $$_.Path -like \"*知远*\" } | Stop-Process -Force -ErrorAction SilentlyContinue;\
+    Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*XiongbaoAgent*\" -or $$_.Path -like \"*知远*\" } | Stop-Process -Force -ErrorAction SilentlyContinue;\
     for ($$i = 0; $$i -lt 15; $$i++) {\
       $$appProcesses = @(Get-Process -Name 知远 -ErrorAction SilentlyContinue);\
-      $$nodeProcesses = @(Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*ZhiYuanAgent*\" -or $$_.Path -like \"*知远*\" });\
+      $$nodeProcesses = @(Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*XiongbaoAgent*\" -or $$_.Path -like \"*知远*\" });\
       if (($$appProcesses.Count + $$nodeProcesses.Count) -eq 0) { break };\
       Start-Sleep -Milliseconds 500;\
     }"'
@@ -127,7 +127,7 @@ FunctionEnd
   System::Call 'kernel32::GetTickCount()i .r7'
   nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -Command "\
     $$source = \"$INSTDIR\resources\SKILLs\";\
-    $$destination = \"$APPDATA\ZhiYuanAgent\SKILLs\";\
+    $$destination = \"$APPDATA\XiongbaoAgent\SKILLs\";\
     $$config = Join-Path $$source \"skills.config.json\";\
     if (Test-Path $$source) {\
       New-Item -ItemType Directory -Path $$destination -Force | Out-Null;\
@@ -158,7 +158,7 @@ FunctionEnd
     StrCpy $3 "$INSTDIR.old.$4"
     Rename "$INSTDIR" "$3"
     IfErrors OldInstallDetachDone
-    FileOpen $8 "$APPDATA\ZhiYuanAgent\old-install-path.txt" w
+    FileOpen $8 "$APPDATA\XiongbaoAgent\old-install-path.txt" w
     FileWrite $8 "$3"
     FileClose $8
   OldInstallDetachDone:
@@ -211,8 +211,8 @@ FunctionEnd
 !macroend
 
 !macro customInstall
-  CreateDirectory "$APPDATA\ZhiYuanAgent"
-  CreateDirectory "$LOCALAPPDATA\ZhiYuanAgent\runtimes"
+  CreateDirectory "$APPDATA\XiongbaoAgent"
+  CreateDirectory "$LOCALAPPDATA\XiongbaoAgent\runtimes"
   SetOutPath "$PLUGINSDIR"
   !insertmacro ExtractElevatedActionScript
   File /oname=7za.exe "${PROJECT_DIR}\node_modules\7zip-bin\win\x64\7za.exe"
@@ -236,7 +236,7 @@ FunctionEnd
   StrCmp $1 $R7 0 OfflineComponentInstallFailed
   ; Keep the journal in the persistent cache: $PLUGINSDIR is deleted after a forced quit.
   ; A separate script avoids NSIS macro expansion corrupting PowerShell quotes.
-  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\recover-component-switch.ps1" -RuntimeRoot "$LOCALAPPDATA\ZhiYuanAgent\runtimes"'
+  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\recover-component-switch.ps1" -RuntimeRoot "$LOCALAPPDATA\XiongbaoAgent\runtimes"'
   Pop $0
   Pop $1
   StrCmp $0 "0" 0 OfflineComponentInstallFailed
@@ -251,7 +251,7 @@ FunctionEnd
 
   ; Verify all reusable cache entries in one PowerShell process before deciding
   ; which archives NSIS needs to unpack from the installer.
-  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\validate-offline-components.ps1" -Mode cache -PluginDir "$PLUGINSDIR" -RuntimeRoot "$LOCALAPPDATA\ZhiYuanAgent\runtimes" -ComponentTargetsPath "$PLUGINSDIR\component-targets.json" -SevenZipPath "$PLUGINSDIR\7za.exe"'
+  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\validate-offline-components.ps1" -Mode cache -PluginDir "$PLUGINSDIR" -RuntimeRoot "$LOCALAPPDATA\XiongbaoAgent\runtimes" -ComponentTargetsPath "$PLUGINSDIR\component-targets.json" -SevenZipPath "$PLUGINSDIR\7za.exe"'
   Pop $0
   Pop $1
   StrCmp $0 "0" ComponentCacheValidated
@@ -271,7 +271,7 @@ FunctionEnd
   ; entries and sentinels, then extract them in one PowerShell batch. This keeps
   ; cache hits fast while eliminating a PowerShell startup per component.
   DetailPrint "[Installer] Validating and expanding offline components"
-  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\validate-offline-components.ps1" -Mode expand -PluginDir "$PLUGINSDIR" -RuntimeRoot "$LOCALAPPDATA\ZhiYuanAgent\runtimes" -ComponentTargetsPath "$PLUGINSDIR\component-targets.json" -SevenZipPath "$PLUGINSDIR\7za.exe"'
+  nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\validate-offline-components.ps1" -Mode expand -PluginDir "$PLUGINSDIR" -RuntimeRoot "$LOCALAPPDATA\XiongbaoAgent\runtimes" -ComponentTargetsPath "$PLUGINSDIR\component-targets.json" -SevenZipPath "$PLUGINSDIR\7za.exe"'
   Pop $0
   Pop $1
   StrCmp $0 "0" ComponentBatchExpanded
@@ -308,7 +308,7 @@ FunctionEnd
   nsExec::ExecToStack 'powershell -NoProfile -NonInteractive -Command "\
     $$ErrorActionPreference = \"Stop\";\
     Set-StrictMode -Version Latest;\
-    $$runtimeRoot = \"$LOCALAPPDATA\ZhiYuanAgent\runtimes\";\
+    $$runtimeRoot = \"$LOCALAPPDATA\XiongbaoAgent\runtimes\";\
     $$statePath = Join-Path $$runtimeRoot \"component-switch-state.txt\";\
     $$manifest = Get-Content -LiteralPath \"$PLUGINSDIR\component-manifest.json\" -Raw | ConvertFrom-Json;\
     $$targets = @((Get-Content -LiteralPath \"$PLUGINSDIR\component-targets.json\" -Raw -ErrorAction Stop | ConvertFrom-Json));\
@@ -386,7 +386,7 @@ FunctionEnd
     $$ErrorActionPreference = \"Stop\";\
     Set-StrictMode -Version Latest;\
     $$resourceRoot = \"$INSTDIR\resources\";\
-    $$runtimeRoot = \"$LOCALAPPDATA\ZhiYuanAgent\runtimes\";\
+    $$runtimeRoot = \"$LOCALAPPDATA\XiongbaoAgent\runtimes\";\
     $$manifest = Get-Content -LiteralPath \"$PLUGINSDIR\component-manifest.json\" -Raw | ConvertFrom-Json;\
     $$rows = @($$manifest.components | ForEach-Object { [pscustomobject]@{ Key = [string]$$_.key; Prefix = [string]$$_.prefix } });\
     foreach ($$row in $$rows) {\
@@ -424,7 +424,7 @@ FunctionEnd
 
   OfflineComponentInstallFailed:
     nsExec::ExecToLog 'powershell -NoProfile -NonInteractive -Command "\
-      $$runtimeRoot = \"$LOCALAPPDATA\ZhiYuanAgent\runtimes\";\
+      $$runtimeRoot = \"$LOCALAPPDATA\XiongbaoAgent\runtimes\";\
       $$statePath = Join-Path $$runtimeRoot \"component-switch-state.txt\";\
       if (Test-Path -LiteralPath $$statePath) {\
         $$states = @(Get-Content -LiteralPath $$statePath | Where-Object { $$_ -match \"^[^=|]+\\|(?:True|False)\\z\" });\
@@ -480,9 +480,9 @@ FunctionEnd
   ; Local inference remains optional. The user chose on the custom options page
   ; whether to prepare it; download, verification, extraction, cancellation and
   ; retry happen in-app.
-  Delete "$APPDATA\ZhiYuanAgent\pending-local-inference-install"
+  Delete "$APPDATA\XiongbaoAgent\pending-local-inference-install"
   ${If} $installLocalInference == 1
-    FileOpen $2 "$APPDATA\ZhiYuanAgent\pending-local-inference-install" w
+    FileOpen $2 "$APPDATA\XiongbaoAgent\pending-local-inference-install" w
     FileWrite $2 "$R1"
     FileClose $2
   ${EndIf}
@@ -509,12 +509,12 @@ FunctionEnd
   Pop $0
   nsExec::ExecToLog 'cmd /c for /d %D in ("$INSTDIR.old*") do @start "" /b cmd /c rd /s /q "%~fD"'
   Pop $0
-  Delete "$APPDATA\ZhiYuanAgent\old-install-path.txt"
+  Delete "$APPDATA\XiongbaoAgent\old-install-path.txt"
 
   DetailPrint "[Installer] Cleaning unused offline component versions"
   System::Call 'kernel32::GetTickCount()i .r7'
   nsExec::ExecToLog 'powershell -NoProfile -NonInteractive -Command "\
-    $$runtimeRoot = \"$LOCALAPPDATA\ZhiYuanAgent\runtimes\";\
+    $$runtimeRoot = \"$LOCALAPPDATA\XiongbaoAgent\runtimes\";\
     $$manifest = Get-Content -LiteralPath \"$PLUGINSDIR\component-manifest.json\" -Raw | ConvertFrom-Json;\
     $$rows = @($$manifest.components | ForEach-Object { [pscustomobject]@{ Key = [string]$$_.key; Id = [string]$$_.contentId } });\
     foreach ($$row in $$rows) {\
@@ -530,7 +530,7 @@ FunctionEnd
         if (($$_.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { [IO.Directory]::Delete($$_.FullName) } else { Remove-Item -LiteralPath $$_.FullName -Recurse -Force }\
       }\
     };\
-    $$legacy = \"$LOCALAPPDATA\ZhiYuanAgent\runtime-packs\";\
+    $$legacy = \"$LOCALAPPDATA\XiongbaoAgent\runtime-packs\";\
     if (Test-Path -LiteralPath $$legacy) {\
       $$legacyItem = Get-Item -LiteralPath $$legacy -Force;\
       if (($$legacyItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { [IO.Directory]::Delete($$legacy) } else { Remove-Item -LiteralPath $$legacy -Recurse -Force }\
@@ -541,9 +541,9 @@ FunctionEnd
   !insertmacro OpenTimingLogForAppend $2
   FileWrite $2 "phase=component-cleanup-complete elapsed_ms=$5 exit=$0$\r$\n"
   FileClose $2
-  Delete "$LOCALAPPDATA\ZhiYuanAgent\runtimes\component-switch-state.txt"
+  Delete "$LOCALAPPDATA\XiongbaoAgent\runtimes\component-switch-state.txt"
 
-  FileOpen $2 "$APPDATA\ZhiYuanAgent\install-start-tick.txt" r
+  FileOpen $2 "$APPDATA\XiongbaoAgent\install-start-tick.txt" r
   IfErrors InstallTimingDone
   FileRead $2 $R5
   FileClose $2
@@ -552,7 +552,7 @@ FunctionEnd
   !insertmacro OpenTimingLogForAppend $2
   FileWrite $2 "phase=install-complete total_ms=$R6 component_set=ready$\r$\n"
   FileClose $2
-  Delete "$APPDATA\ZhiYuanAgent\install-start-tick.txt"
+  Delete "$APPDATA\XiongbaoAgent\install-start-tick.txt"
   InstallTimingDone:
   DetailPrint "Installation complete"
 !macroend
@@ -560,7 +560,7 @@ FunctionEnd
 !macro customUnInit
   nsExec::ExecToLog 'powershell -NoProfile -NonInteractive -Command "\
     Stop-Process -Name 知远 -Force -ErrorAction SilentlyContinue;\
-    Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*ZhiYuanAgent*\" -or $$_.Path -like \"*知远*\" } | Stop-Process -Force -ErrorAction SilentlyContinue"'
+    Get-Process node -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like \"*XiongbaoAgent*\" -or $$_.Path -like \"*知远*\" } | Stop-Process -Force -ErrorAction SilentlyContinue"'
   Pop $0
 !macroend
 
@@ -573,7 +573,7 @@ FunctionEnd
   ; electron-builder's final RMDir can remove the now-empty application root.
   SetOutPath "$TEMP"
   nsExec::ExecToLog 'powershell -NoProfile -NonInteractive -Command "\
-    $$runtimeRoot = \"$LOCALAPPDATA\ZhiYuanAgent\runtimes\";\
+    $$runtimeRoot = \"$LOCALAPPDATA\XiongbaoAgent\runtimes\";\
     if (Test-Path -LiteralPath $$runtimeRoot) {\
       Get-ChildItem -LiteralPath $$runtimeRoot -Directory -Force -ErrorAction SilentlyContinue | ForEach-Object {\
         foreach ($$pointerName in @(\"current\", \"current.next\", \"current.previous\")) {\
@@ -587,9 +587,9 @@ FunctionEnd
     }"'
   Pop $0
 
-  nsExec::ExecToLog 'cmd /c for /d %D in ("$LOCALAPPDATA\ZhiYuanAgent\runtimes.uninstall.*") do @start "" /b cmd /d /c rd /s /q "%~fD"'
+  nsExec::ExecToLog 'cmd /c for /d %D in ("$LOCALAPPDATA\XiongbaoAgent\runtimes.uninstall.*") do @start "" /b cmd /d /c rd /s /q "%~fD"'
   Pop $0
-  StrCpy $3 "$LOCALAPPDATA\ZhiYuanAgent\runtimes"
+  StrCpy $3 "$LOCALAPPDATA\XiongbaoAgent\runtimes"
   IfFileExists "$3\*.*" 0 RuntimeCleanupDone
     System::Call 'kernel32::GetTickCount()i .r4'
     StrCpy $4 "$3.uninstall.$4"
@@ -604,9 +604,9 @@ FunctionEnd
   RuntimeCleanupDone:
   RMDir "$3"
 
-  nsExec::ExecToLog 'cmd /c for /d %D in ("$LOCALAPPDATA\ZhiYuanAgent\runtime-packs.uninstall.*") do @start "" /b cmd /d /c rd /s /q "%~fD"'
+  nsExec::ExecToLog 'cmd /c for /d %D in ("$LOCALAPPDATA\XiongbaoAgent\runtime-packs.uninstall.*") do @start "" /b cmd /d /c rd /s /q "%~fD"'
   Pop $0
-  StrCpy $3 "$LOCALAPPDATA\ZhiYuanAgent\runtime-packs"
+  StrCpy $3 "$LOCALAPPDATA\XiongbaoAgent\runtime-packs"
   IfFileExists "$3\*.*" 0 LegacyRuntimeCleanupDone
     System::Call 'kernel32::GetTickCount()i .r4'
     StrCpy $4 "$3.uninstall.$4"

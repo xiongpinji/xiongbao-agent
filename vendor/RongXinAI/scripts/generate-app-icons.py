@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 """Generate the cross-platform ZhiYuan application icon set.
 
-Requires Pillow. The generated PNG, ICO, and ICNS files are committed so
+Requires Pillow. Generated PNG, ICO, and ICNS files are committed so
 packaging jobs do not need to regenerate them.
+
+Sources (P1-4): the ``src/renderer/assets/brand/xiongbao/`` directory holds
+the dedicated ``logo-icon.png`` (master 1024px+) and ``mascot.png``. The
+script composites them on the same cool-white gradient the previous brand
+mark used so the in-app and installer visuals stay aligned.
 """
 
+from __future__ import annotations
+
+import argparse
 from pathlib import Path
 
 from PIL import Image, ImageDraw
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-SOURCE_LOGO = PROJECT_ROOT / "public" / "zhiyuan-logo-light-1600.png"
+DEFAULT_SOURCE_DIR = PROJECT_ROOT / "src" / "renderer" / "assets" / "brand" / "xiongbao"
+LEGACY_SOURCE = PROJECT_ROOT / "public" / "zhiyuan-logo-light-1600.png"
 PNG_DIR = PROJECT_ROOT / "build" / "icons" / "png"
 WINDOWS_ICON = PROJECT_ROOT / "build" / "icons" / "win" / "icon.ico"
 MAC_ICON = PROJECT_ROOT / "build" / "icons" / "mac" / "icon.icns"
@@ -20,17 +29,26 @@ MASTER_ICON = PROJECT_ROOT / "build" / "icons" / "app-icon-master.png"
 CANVAS_SIZE = 1024
 ICON_BOUNDS = (64, 64, 960, 960)
 ICON_RADIUS = 220
-# Windows desktop and shortcut icons do not add reliable padding themselves.
-# Keep the same inset as the shared master icon so the visible mark is not
-# oversized next to other Windows applications.
 WINDOWS_ICON_BOUNDS = ICON_BOUNDS
 WINDOWS_ICON_RADIUS = ICON_RADIUS
 PNG_SIZES = (16, 24, 32, 48, 64, 128, 256, 512, 1024)
 ICO_SIZES = ((16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256))
 
 
+def _resolve_source(source_dir: Path) -> tuple[Path | None, Path | None]:
+    """Pick the icon and mascot source files for the master canvas."""
+    candidates = [
+        source_dir / "logo-icon-original.jpg",
+        source_dir / "logo-icon.png",
+        source_dir / "logo-icon@2x.png",
+        LEGACY_SOURCE,
+    ]
+    icon = next((p for p in candidates if p.exists()), None)
+    mascot = source_dir / "mascot.png" if (source_dir / "mascot.png").exists() else None
+    return icon, mascot
+
+
 def make_gradient() -> Image.Image:
-    # Match the official website: cool white paper fading into a soft blue glow.
     top = (255, 255, 255)
     bottom = (237, 245, 255)
     gradient = Image.new("RGBA", (CANVAS_SIZE, CANVAS_SIZE))
@@ -59,7 +77,29 @@ def make_gradient() -> Image.Image:
     return gradient
 
 
-def make_master_icon(bounds: tuple[int, int, int, int], radius: int) -> Image.Image:
+def _place_logo(canvas: Image.Image, logo: Image.Image) -> None:
+    alpha = logo.getchannel("A")
+    bbox = alpha.getbbox()
+    if bbox is None:
+        # JPG sources have no alpha; fall back to the full image.
+        wordmark = logo.convert("RGBA")
+    else:
+        wordmark = logo.crop(bbox)
+
+    logo_width = 748
+    if wordmark.width == 0:
+        return
+    logo_height = round(wordmark.height * logo_width / wordmark.width)
+    wordmark = wordmark.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
+    position = ((CANVAS_SIZE - logo_width) // 2, (CANVAS_SIZE - logo_height) // 2 + 8)
+    canvas.alpha_composite(wordmark, position)
+
+
+def make_master_icon(
+    bounds: tuple[int, int, int, int],
+    radius: int,
+    source_logo: Path,
+) -> Image.Image:
     canvas = Image.new("RGBA", (CANVAS_SIZE, CANVAS_SIZE), (0, 0, 0, 0))
     mask = Image.new("L", (CANVAS_SIZE, CANVAS_SIZE), 0)
     ImageDraw.Draw(mask).rounded_rectangle(bounds, radius=radius, fill=255)
@@ -75,29 +115,33 @@ def make_master_icon(bounds: tuple[int, int, int, int], radius: int) -> Image.Im
     )
     canvas.alpha_composite(border)
 
-    logo = Image.open(SOURCE_LOGO).convert("RGBA")
-    alpha = logo.getchannel("A")
-    bounding_box = alpha.getbbox()
-    if bounding_box is None:
-        raise RuntimeError(f"Logo has no visible pixels: {SOURCE_LOGO}")
-
-    wordmark = logo.crop(bounding_box)
-    logo_width = 748
-    logo_height = round(wordmark.height * logo_width / wordmark.width)
-    wordmark = wordmark.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
-
-    position = ((CANVAS_SIZE - logo_width) // 2, (CANVAS_SIZE - logo_height) // 2 + 8)
-    canvas.alpha_composite(wordmark, position)
+    _place_logo(canvas, Image.open(source_logo).convert("RGBA"))
     return canvas
 
 
-def main() -> None:
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Generate ZhiYuan app icons.")
+    ap.add_argument(
+        "--source-dir",
+        type=Path,
+        default=DEFAULT_SOURCE_DIR,
+        help="Directory holding logo-icon.png / mascot.png (P1-4 default).",
+    )
+    args = ap.parse_args()
+
+    icon_path, _mascot_path = _resolve_source(args.source_dir)
+    if icon_path is None:
+        raise SystemExit(
+            f"No icon source found under {args.source_dir} or {LEGACY_SOURCE.parent}; "
+            "provide --source-dir or place a logo-icon.png / zhiyuan-logo-light-1600.png."
+        )
+
     PNG_DIR.mkdir(parents=True, exist_ok=True)
     WINDOWS_ICON.parent.mkdir(parents=True, exist_ok=True)
     MAC_ICON.parent.mkdir(parents=True, exist_ok=True)
 
-    master = make_master_icon(ICON_BOUNDS, ICON_RADIUS)
-    windows_master = make_master_icon(WINDOWS_ICON_BOUNDS, WINDOWS_ICON_RADIUS)
+    master = make_master_icon(ICON_BOUNDS, ICON_RADIUS, icon_path)
+    windows_master = make_master_icon(WINDOWS_ICON_BOUNDS, WINDOWS_ICON_RADIUS, icon_path)
     master.save(MASTER_ICON, optimize=True)
 
     for size in PNG_SIZES:
@@ -110,7 +154,9 @@ def main() -> None:
     print(f"Generated application icon master: {MASTER_ICON}")
     print(f"Generated Windows icon: {WINDOWS_ICON}")
     print(f"Generated macOS icon: {MAC_ICON}")
+    print(f"Source: {icon_path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
