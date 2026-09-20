@@ -366,3 +366,17 @@ export const NetworkIpc = {
   StatusChange: 'network:status-change',
 } as const;
 export type NetworkIpc = (typeof NetworkIpc)[keyof typeof NetworkIpc];
+
+// ─── Octop Bridge ───────────────────────────────────────────────────────────
+//
+// Connects the desktop IM gateway to a local Octop backend so inbound IM
+// messages route through Octop's chat WebSocket (`OctopChatHandler`) instead
+// of calling the configured LLM provider directly. Configuration is stored
+// in the desktop sqlite `kv` table under `octop_*` keys.
+export const OctopBridgeIpc = {
+  ConfigGet: 'octop-bridge:config:get',
+  ConfigSet: 'octop-bridge:config:set',
+  Login: 'octop-bridge:login',
+  ListAgents: 'octop-bridge:list-agents',
+} as const;
+export type OctopBridgeIpc = (typeof OctopBridgeIpc)[keyof typeof OctopBridgeIpc];

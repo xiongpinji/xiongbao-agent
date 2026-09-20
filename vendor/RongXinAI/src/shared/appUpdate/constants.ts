@@ -22,6 +22,8 @@ export type AppUpdateSource = (typeof AppUpdateSource)[keyof typeof AppUpdateSou
 export const AppUpdateIpc = {
   GetState: 'appUpdate:getState',
   CheckNow: 'appUpdate:checkNow',
+  GetChannel: 'appUpdate:getChannel',
+  SetChannel: 'appUpdate:setChannel',
   RetryDownload: 'appUpdate:retryDownload',
   PauseDownload: 'appUpdate:pauseDownload',
   ResumeDownload: 'appUpdate:resumeDownload',
@@ -62,6 +64,34 @@ export interface AppUpdateRuntimeState {
   readyFileHash: string | null;
   errorMessage: string | null;
 }
+
+export const AppUpdateChannel = {
+  Stable: 'stable',
+  Beta: 'beta',
+  Insider: 'insider',
+} as const;
+export type AppUpdateChannel = (typeof AppUpdateChannel)[keyof typeof AppUpdateChannel];
+
+export const APP_UPDATE_CHANNELS: readonly AppUpdateChannel[] = [
+  AppUpdateChannel.Stable,
+  AppUpdateChannel.Beta,
+  AppUpdateChannel.Insider,
+] as const;
+
+export function parseAppUpdateChannel(value: unknown): AppUpdateChannel {
+  if (typeof value !== 'string') return AppUpdateChannel.Stable;
+  const normalised = value.trim().toLowerCase();
+  if (
+    normalised === AppUpdateChannel.Beta ||
+    normalised === AppUpdateChannel.Insider ||
+    normalised === AppUpdateChannel.Stable
+  ) {
+    return normalised;
+  }
+  return AppUpdateChannel.Stable;
+}
+
+export const APP_UPDATE_DEFAULT_CHANNEL: AppUpdateChannel = AppUpdateChannel.Stable;
 
 export interface AppUpdateCheckResult {
   success: boolean;

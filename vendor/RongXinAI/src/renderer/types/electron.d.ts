@@ -370,6 +370,18 @@ import type {
 
 import type { Agent } from './agent';
 
+interface OctopBridgeConfig {
+  baseUrl: string;
+  jwt: string;
+  agentId: string;
+  enabled: boolean;
+}
+
+interface OctopAgentSummary {
+  id: string;
+  name: string;
+}
+
 interface IElectronAPI {
   platform: string;
   arch: string;
@@ -1591,6 +1603,20 @@ interface IElectronAPI {
   };
   networkStatus: {
     send: (status: 'online' | 'offline') => void;
+  };
+  octopBridge: {
+    getConfig: () => Promise<OctopBridgeConfig>;
+    setConfig: (patch: Partial<OctopBridgeConfig>) => Promise<OctopBridgeConfig>;
+    login: (args: {
+      baseUrl?: string;
+      username?: string;
+      password?: string;
+    }) => Promise<
+      { success: true; config: OctopBridgeConfig } | { success: false; error: string }
+    >;
+    listAgents: (args: { baseUrl?: string; token?: string }) => Promise<
+      { success: true; agents: OctopAgentSummary[] } | { success: false; error: string }
+    >;
   };
   qwen: Record<string, never>;
   feishu: {
