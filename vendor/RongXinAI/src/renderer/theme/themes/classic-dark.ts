@@ -429,5 +429,35 @@ export const classicDark: ThemeDefinition = {
     'syntax-shiki-ansi-bright-white': '#e1e4e8',
     'style-shadow-xs': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
     'style-body-leading': '1.6',
+
+    // Credit tier badges — dark variants, brighter foreground against deeper surfaces.
+    'tier-free-background': 'oklch(0.268 0.007 34.298)',
+    'tier-free-foreground': 'oklch(0.709 0.01 56.259)',
+    'tier-basic-background': 'oklch(0.25 0.04 240)',
+    'tier-basic-foreground': 'oklch(0.78 0.15 250)',
+    'tier-pro-background': 'oklch(0.28 0.06 80)',
+    'tier-pro-foreground': 'oklch(0.82 0.15 60)',
+    'tier-enterprise-background': 'oklch(0.26 0.05 300)',
+    'tier-enterprise-foreground': 'oklch(0.78 0.16 300)',
+
+    // Credit transaction types — semantic mapping: earn/refund→success, spend→destructive,
+    // recharge→brand primary, gift→violet brand variant.
+    'transaction-earn-background': 'oklch(0.25 0.04 155)',
+    'transaction-earn-foreground': 'oklch(0.78 0.16 155)',
+    'transaction-spend-background': 'oklch(0.25 0.04 25)',
+    'transaction-spend-foreground': 'oklch(0.78 0.18 25)',
+    'transaction-recharge-background': 'oklch(0.25 0.04 258)',
+    'transaction-recharge-foreground': 'oklch(0.78 0.18 259)',
+    'transaction-gift-background': 'var(--zy-model-tag-violet-background)',
+    'transaction-gift-foreground': 'var(--zy-model-tag-violet-foreground)',
+    'transaction-refund-background': 'oklch(0.25 0.04 220)',
+    'transaction-refund-foreground': 'oklch(0.78 0.16 220)',
+
+    // Bottom-sheet / modal scrim (alpha black, slightly stronger on dark to read on top of dark surfaces).
+    'overlay-scrim': 'rgba(0, 0, 0, 0.65)',
+
+    // Voice: brighter red on dark so the recording dot still pops on lacquered canvas.
+    'voice-recording': 'oklch(0.72 0.22 25)',
+    'voice-recording-foreground': '#FFFFFF',
   },
 };

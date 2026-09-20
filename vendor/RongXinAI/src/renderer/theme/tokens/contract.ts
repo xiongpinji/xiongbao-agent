@@ -434,6 +434,38 @@ export const TOKEN_CONTRACT = {
   success: '--zy-success',
   warning: '--zy-warning',
 
+  // ── Credit tier badges (subscription tier label background/foreground) ──
+  // Used by CreditSummaryCard; mapped from neutral (free) to a brand-aware hue (pro/enterprise).
+  'tier-free-background': '--zy-tier-free-background',
+  'tier-free-foreground': '--zy-tier-free-foreground',
+  'tier-basic-background': '--zy-tier-basic-background',
+  'tier-basic-foreground': '--zy-tier-basic-foreground',
+  'tier-pro-background': '--zy-tier-pro-background',
+  'tier-pro-foreground': '--zy-tier-pro-foreground',
+  'tier-enterprise-background': '--zy-tier-enterprise-background',
+  'tier-enterprise-foreground': '--zy-tier-enterprise-foreground',
+
+  // ── Credit transaction type icons (earn/spend/recharge/gift/refund) ──
+  'transaction-earn-background': '--zy-transaction-earn-background',
+  'transaction-earn-foreground': '--zy-transaction-earn-foreground',
+  'transaction-spend-background': '--zy-transaction-spend-background',
+  'transaction-spend-foreground': '--zy-transaction-spend-foreground',
+  'transaction-recharge-background': '--zy-transaction-recharge-background',
+  'transaction-recharge-foreground': '--zy-transaction-recharge-foreground',
+  'transaction-gift-background': '--zy-transaction-gift-background',
+  'transaction-gift-foreground': '--zy-transaction-gift-foreground',
+  'transaction-refund-background': '--zy-transaction-refund-background',
+  'transaction-refund-foreground': '--zy-transaction-refund-foreground',
+
+  // ── Sheet / overlay scrim ──
+  'overlay-scrim': '--zy-overlay-scrim',
+
+  // ── Voice: recording / listening / error tints ──
+  // Codex uses a saturated red for the recording dot to read at-a-glance.
+  // The token is brand-aware: themes can override (e.g. gold on Workbuddy).
+  'voice-recording': '--zy-voice-recording',
+  'voice-recording-foreground': '--zy-voice-recording-foreground',
+
   // ── Gray scale 11 steps (gray-1=lightest → gray-11=darkest, all themes) ──
   'gray-1': '--zy-gray-1',
   'gray-2': '--zy-gray-2',

@@ -1,6 +1,7 @@
 import { weiyangLight, weiyangDark } from './weiyang';
 import { changanLight, changanDark } from './changan';
 import { damingLight, damingDark } from './daming';
+import { workbuddyLight, workbuddyDark } from './workbuddy';
 import { validateComponentAppearances } from '../components/contract';
 import { classicDark } from './classic-dark';
 import { classicLight } from './classic-light';
@@ -81,6 +82,12 @@ export const themePlugins = defineThemePlugins([
     id: 'weiyang',
     name: { zh: '未央金石', en: 'Weiyang Jinshi' },
     appearances: { light: weiyangLight, dark: weiyangDark },
+  },
+  {
+    version: THEME_PLUGIN_VERSION,
+    id: 'workbuddy',
+    name: { zh: '熊宝', en: 'Xiongbao' },
+    appearances: { light: workbuddyLight, dark: workbuddyDark },
   },
 ]);
 
